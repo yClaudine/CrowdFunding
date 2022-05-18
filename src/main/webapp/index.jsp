@@ -9,9 +9,6 @@
 <body>
 	hello<br>
 	<a href="/test.do">test</a>
-	akakakakakakakakakakakaak
-	zl;xkcl;xzkcl;zxk;lckxz;lc
 	
-	dsadsadsadsadsadwafwfw
 </body>
 </html>
