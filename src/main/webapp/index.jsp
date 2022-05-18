@@ -11,14 +11,19 @@
 	<a href="/test.do">test</a>
 
 	akakakakakakakakakakakaak
+soomin
+	브랜치 시험용
 	zl;xkcl;xzkcl;zxk;lckxz;lc
 	branch 채크
 
+ soomin
+	master
 	
 
 	dsadsadsadsadsadwafwfw
 	s
 
 
+ master
 </body>
 </html>
