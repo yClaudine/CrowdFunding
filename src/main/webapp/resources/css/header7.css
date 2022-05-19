@@ -1,0 +1,112 @@
+@font-face {
+    font-family: geagu-bold;
+    src: url(/Gaegu/Gaegu-Bold.ttf);
+}
+
+*{
+    
+    
+    padding: 0;
+}
+.header>div>a{
+    
+    text-decoration: none;
+    color: #212529;
+}
+.header{
+    
+    margin-top: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-width:1300px; 
+    height: 80px;
+    padding-left: 30px;
+    
+
+}
+.logo>a>img{
+    width: 80px;
+    height:80px;
+}
+.logo{
+    width:85px;
+    height:80px;
+    overflow: hidden;
+}
+
+.header> div{
+    margin-right: 50px;
+    
+}
+.searchFund>form>input{
+    border: 1.8px solid #868e96;
+    font-size: 5px;
+    width:200px;
+    height:35px;
+    padding-left: 40px;
+    border-radius: 20px;
+    position:relative;
+}
+.searchFund>form>input:focus{
+    outline: none;
+}
+
+.searchFund>form>button{
+    width:35px;
+    height:31px;
+    margin-left: 1.8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: 1.2px solid #efefef;
+    
+    top:34px;
+    position: absolute;
+    z-index: 1;
+    
+    padding:5px
+}
+.searchFund>form>button>span{
+    font-weight: lighter;
+}
+.log{
+    width:740px;
+    
+    
+}
+.log>div{
+    align-items: center;
+    justify-content: center;
+    height:50px;
+    display:flex;
+    padding-left: 220px;
+}
+.log>div>div{
+    padding-left: 10px;
+    
+}
+.log a{
+    text-decoration: none;
+    color:rgb(51, 51, 51);
+}
+
+.openReq{
+    width:150px;
+    height:40px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 20px;
+    border: 1px solid #00c4c4;
+    color: #00c4c4;
+    font-size: 14px;
+}
+.openReq:hover{
+    transition-duration: 0.5s;
+    background-color:#00c4c4;
+    color: #fff;
+
+}
+
+
+
