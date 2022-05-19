@@ -25,7 +25,7 @@
         <div class="logo"><a href=""><img src="resources/image/파이널로고2.png"></a></div>
         
         <div><a href=""><h6>펀딩</h6></a></div>
-        <div><a href=""><h6>스토어</h6></a></div>
+        <div><a href="/Store.do"><h6>스토어</h6></a></div>
         <div><a href=""><h6>공지사항</h6></a></div>
         
         <div class="log">
@@ -42,7 +42,7 @@
                 
                 <div><a href="" class="access">로그인</a></div>
                 <div><a href="" class="access">회원가입</a></div>
-                <a href="/CreateFunding.do"><div class="openReq">프로젝트 오픈신청</div></a>
+                <div class="openReq"><a href="/CreateFunding.do">프로젝트 오픈신청  </a></div>
             </div>
         </div>
         
