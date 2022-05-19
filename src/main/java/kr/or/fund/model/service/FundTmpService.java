@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.fund.model.dao.FundTmpDao;
 import kr.or.fund.model.vo.TmpFund;
+import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
 
 @Service
@@ -27,6 +28,11 @@ public class FundTmpService {
 	public ArrayList<TmpReward> selectReward(TmpFund tf) {
 		// TODO Auto-generated method stub
 		return dao.selectReward(tf);
+	}
+
+	public TmpFundCalculate selectOneFundCalculate(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.selectOneFundCalculate(tf);
 	}
 
 }

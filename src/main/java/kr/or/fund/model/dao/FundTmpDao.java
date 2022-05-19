@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.TmpFund;
+import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
 
 @Repository
@@ -31,6 +32,11 @@ public class FundTmpDao {
 	public ArrayList<TmpReward> selectReward(TmpFund tf) {
 		List list = sqlSession.selectList("tmpFund.selectReward",tf);
 		return (ArrayList<TmpReward>)list;
+	}
+
+	public TmpFundCalculate selectOneFundCalculate(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("tmpFund.selectOneFundCalculate",tf);
 	}
 
 }

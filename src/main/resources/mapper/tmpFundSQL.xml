@@ -59,4 +59,20 @@
   		tr_deliveryfee as trDeliveryfee
   	from tmp_reward where tf_no = ${tfNo} 
   </select>
+  <select id="selectOneFundCalculate" parameterType="tf" resultType="tfc">
+  	select
+  		tfc_no as tfcNo,
+  		tf_no as tfNo,
+  		tfc_rep_category as tfcCategory,
+  		tfc_rep_name as tfcRepName,
+  		tfc_rep_email as tfcRepEmail,
+  		tfc_rep_filepath as tfcRepFilepath,
+  		tfc_rep_birth as tfcRepBirth,
+  		tfc_mail as tfcMail,
+  		tfc_bank_name as tfcBankName,
+  		tfc_bank_no as tfcBankNo,
+  		tfc_bank_account as tfcBankAccount,
+  		tfc_bank_filepath as tfcBankFilepath
+  	from tmp_fund_calculate where tf_no = ${tfNo}
+  </select>
 </mapper>

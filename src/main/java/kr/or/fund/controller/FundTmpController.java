@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.fund.model.service.FundTmpService;
 import kr.or.fund.model.vo.TmpFund;
+import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
 
 @Controller
@@ -29,7 +30,18 @@ public class FundTmpController {
 		tf.setTfNo(tfNo);
 		TmpFund tmpF = service.selectOneTmpFund(tf);
 		ArrayList<TmpReward> tRList = service.selectReward(tf);
-		
+		TmpFundCalculate tfc = service.selectOneFundCalculate(tf);
+		model.addAttribute("tmpF",tmpF);
+		model.addAttribute("tRList",tRList);
+		model.addAttribute("tfc",tfc);
+		/*
+		if(tRList.size() != 0) {
+			model.addAttribute("tRList",tRList);
+		}
+		if(tfc != null) {
+			model.addAttribute("tfc",tfc);
+		}
+		*/
 		return "fund/fundReadyFrm";
 	}
 
