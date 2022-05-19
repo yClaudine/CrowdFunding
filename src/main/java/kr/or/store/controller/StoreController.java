@@ -22,4 +22,9 @@ public class StoreController {
 		model.addAttribute("list",list);
 		return "store/storeList";
 	}
+	
+	@RequestMapping(value="/Store.do")
+	public String Store() {
+		return "store/Store";
+	}
 }
