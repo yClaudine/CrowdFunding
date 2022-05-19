@@ -20,4 +20,10 @@ public class FundController {
 		System.out.println(list);
 		return "test";
 	}
+	
+	@RequestMapping(value="/CreateFunding.do")
+	public String CreateFunding() {
+		return "fund/createFunding";
+	}
+	
 }
