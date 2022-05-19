@@ -42,7 +42,7 @@
                 
                 <div><a href="" class="access">로그인</a></div>
                 <div><a href="" class="access">회원가입</a></div>
-                <a href=""><div class="openReq">프로젝트 오픈신청</div></a>
+                <a href="/CreateFunding.do"><div class="openReq">프로젝트 오픈신청</div></a>
             </div>
         </div>
         
