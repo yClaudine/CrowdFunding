@@ -7,5 +7,6 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
+		<typeAlias type="kr.or.store.model.vo.Store" alias="s"/>
 	</typeAliases>
 </configuration>
