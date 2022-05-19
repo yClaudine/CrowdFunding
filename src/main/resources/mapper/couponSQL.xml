@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="coupon">
+  <select id="selectAllCoupon" resultType="coupon" >
+  	select
+  		coupon_no as couponNo,
+  		coupon_name as couponName,
+  		coupon_type as couponType,
+  		discount,
+  		main_target as mainTarget,
+  		sub_target as subTarget,
+  		valid_start as validStart,
+  		valid_end as validEnd,
+  		min_price as minPrice,
+  		coupon_status as couponStatus
+  	from coupon
+  </select>
+</mapper>

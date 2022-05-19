@@ -64,5 +64,6 @@
 	<context:component-scan base-package="kr.or.fund" />
 	
 	
+	<context:component-scan base-package="kr.or.coupon" />
 	
 </beans:beans>
