@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="store">
+	<select id="selectAllStore" resultType="f">
+  	select
+  		store_no as storeNo,
+  		member_id as memberId,
+  		store_title as storeTitle,
+  		store_category as storeCategory,
+  		store_content as storeContent,
+  		store_product as storeProduct,
+  		store_productcontent as storeProductcontent,
+  		store_price as storePrice,
+  		store_count as storeCount,
+  		store_delivery as storeDelivery,
+  		store_return as storeReturn,
+  		store_change as storeChange,
+  		store_reportcount as storeReportcount,
+  		store_warning as storeWarning,
+  		store_img1 as storeImg1,
+  		store_img2 as storeImg2,
+  		store_img3 as storeImg3
+  	from store
+  </select>
+</mapper>
