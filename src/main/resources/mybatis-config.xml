@@ -10,5 +10,10 @@
 		<typeAlias type="kr.or.store.model.vo.Store" alias="s"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
 		<typeAlias type="kr.or.coupon.model.vo.Coupon" alias="coupon"/>
+		
 	</typeAliases>
+	<!-- 오라클에서 Long타입 가져오기 위한 핸들러 -->
+	<typeHandlers>
+        <typeHandler handler="kr.or.store.model.vo.Handler" javaType="String" jdbcType="LONGVARCHAR"/>
+    </typeHandlers>
 </configuration>

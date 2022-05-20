@@ -5,7 +5,7 @@ public class Store {
 	private String memberId;
 	private String storeTitle;
 	private String storeCategory;
-	private Long storeContent;
+	private String storeContent;
 	private String storeProduct;
 	private String storeProductcontent;
 	private int storePrice;
