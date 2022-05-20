@@ -24,4 +24,19 @@
   		store_img5 as storeImg5
   	from store
   </select>
+  <select id="selectOneStore" resultType="s">
+		select * from store where store_no=#{storeNo}
+	</select>
+	<select id="selectStoreAllList" parameterType="map" resultType="s">
+	select * from
+		(select rownum as rnum, s.* from
+		(select 
+		    store_img1 as storeImg1,
+		    store_title as storeTitle,
+		from store order by store_no desc)s)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from store
+	</select>
 </mapper>

@@ -39,8 +39,13 @@
 	}
 	.content-list{
     	display: inline-flex;
-    	align-content: center;
-}
+    	width: 100%;
+		text-align: center;
+	}
+	.allcontent-wrap{
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
 	}
 </style>
 </head>
@@ -96,14 +101,24 @@
 		<div class="content-list">
 			<span class="material-symbols-outlined">exit_to_app</span><b>스토어 전체 상품 구경하기</b>
 		</div>
+	</div>
+	<div class="allcontent-wrap">
 		<div class="content-list">
-			
+	    	<tbody>
+	        	<c:forEach items="${list }" var="s" varStatus="i">
+	        		<div class="allcontent-wrap">${(reqPage-1) *8 + i.count}</div>
+	            	<div class="allcontent-wrap">${s.storeImg1 }
+	                	<div class="allcontent-list">
+	                	<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
+	                	</div>
+	                </div>  
+	            </c:forEach>
+	            <tr>
+				<th class="pageNavi">${pageNavi }</th> 
+				</tr>
+		   </tbody>
 		</div>	
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
-
-
-	test.jsp
-
 </body>
 </html>
