@@ -40,4 +40,14 @@ public class CouponService {
 		// TODO Auto-generated method stub
 		return dao.deleteCoupon(couponNo);
 	}
+
+	public int expireCoupon(String todayString) {
+		// TODO Auto-generated method stub
+		return dao.expireCoupon(todayString);
+	}
+
+	public int expireMemberCoupon(String todayString) {
+		// TODO Auto-generated method stub
+		return dao.expireMemberCoupon(todayString);
+	}
 }

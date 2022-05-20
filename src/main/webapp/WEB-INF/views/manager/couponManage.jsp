@@ -156,7 +156,11 @@ html>body {
     	margin: 0 auto;
     }
     .couponName{
-    	
+    	text-decoration:none;
+    	color: #212529;
+    }
+    .couponName:hover{
+    	cursor:pointer;
     }
     </style>
 </head>
