@@ -135,14 +135,11 @@
 					</div>
 					<a  class="loginSc" data-bs-toggle="modal" href="#exampleModalToggle" role="button">로그인</a>
                 	<div><a href="signUpFrm.do" class="access">회원가입</a></div>
-                	<a href=""><div class="openReq">프로젝트 오픈신청</div></a>
+                	<div class="openReq"><a href="/CreateFunding.do">프로젝트 오픈신청  </a></div>
               	</c:when>
             </c:choose>
-
                 
-                <div><a href="" class="access">로그인</a></div>
-                <div><a href="" class="access">회원가입</a></div>
-                <div class="openReq"><a href="/CreateFunding.do">프로젝트 오픈신청  </a></div>
+               
 
             </div>
             
