@@ -24,5 +24,20 @@ public class CouponDao {
 		int result = sqlSession.insert("coupon.insertCoupon", coupon);
 		return result;
 	}
+
+	public Coupon selectOneCoupon(int couponNo) {
+		Coupon c = sqlSession.selectOne("coupon.selectOneCoupon", couponNo);
+		return c;
+	}
+
+	public int updateCoupon(Coupon c) {
+		int result = sqlSession.update("coupon.updateCoupon", c);
+		return result;
+	}
+
+	public int deleteCoupon(int couponNo) {
+		int result = sqlSession.delete("coupon.deleteCoupon", couponNo);
+		return result;
+	}
 	
 }

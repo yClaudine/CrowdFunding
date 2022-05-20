@@ -13,7 +13,7 @@
   		valid_end as validEnd,
   		min_price as minPrice,
   		coupon_status as couponStatus
-  	from coupon
+  	from coupon order by 1 desc
   </select>
   <insert id="insertCoupon" parameterType="coupon">
   	insert into coupon values(
@@ -30,4 +30,36 @@
   	)
   	
   </insert>
+  <select id="selectOneCoupon" parameterType="int" resultType="coupon">
+  	select
+  		coupon_no as couponNo,
+  		coupon_name as couponName,
+  		coupon_type as couponType,
+  		discount,
+  		main_target as mainTarget,
+  		sub_target as subTarget,
+  		valid_start as validStart,
+  		valid_end as validEnd,
+  		min_price as minPrice,
+  		coupon_status as couponStatus
+  	from coupon where coupon_no=#{couponNo}
+  </select>
+  <update id="updateCoupon" parameterType="coupon">
+  	update coupon set
+  		coupon_name = #{couponName},
+  		coupon_type = #{couponType},
+  		discount = #{discount},
+  		main_target = #{mainTarget},
+  		sub_target = #{subTarget},
+  		valid_start = #{validStart},
+  		valid_end = #{validEnd},
+  		min_price = #{minPrice},
+  		coupon_status = 0
+	where coupon_no= #{couponNo}
+  </update>
+  <delete id="deleteCoupon" parameterType="int">
+  	delete from coupon where coupon_no=#{couponNo}
+  </delete>
+  
+  
 </mapper>

@@ -41,4 +41,37 @@ public class CouponController {
 		int result = service.insertCoupon(coupon);
 		return "redirect:/couponManage.do";
 	}
+	
+	@RequestMapping(value="/updateCouponFrm.do")
+	public String updateCouponFrm(int couponNo, Model model) {
+		Coupon c = service.selectOneCoupon(couponNo);
+		model.addAttribute("coupon", c);
+		return "manager/couponUpdate";
+	}
+	
+	@RequestMapping(value="/updateCoupon.do")
+	public String updateCoupon(Coupon c) {
+		int result = service.updateCoupon(c);
+		return "redirect:/couponManage.do";
+	}
+	
+	@RequestMapping(value="/deleteCoupon.do")
+	public String deleteCoupon(int couponNo) {
+		int result = service.deleteCoupon(couponNo);
+		return "redirect:/couponManage.do";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
