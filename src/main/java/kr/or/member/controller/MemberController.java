@@ -55,4 +55,9 @@ public class MemberController {
 		}
 		
 	}
+	@RequestMapping(value="myPageFrm.do")
+	public String myPageFrm() {
+		
+		return "member/mypage";
+	}
 }
