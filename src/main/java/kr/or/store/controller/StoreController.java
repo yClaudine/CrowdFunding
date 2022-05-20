@@ -16,7 +16,7 @@ public class StoreController {
 	private StoreService service;
 	
 	@RequestMapping(value="/storeList.do")
-	public String allStore(Model model) {	//데이터 주려면 model 객체
+	public String selectAllStore(Model model) {	//데이터 주려면 model 객체
 		//바로 비즈니스로직 시작
 		ArrayList<Store> list = service.selectAllStore();
 		model.addAttribute("list",list);
