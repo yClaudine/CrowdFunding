@@ -17,8 +17,7 @@
 			</script>
 		</div>
 		<div class="crefund-content">
-			<h2>제목</h2>
-			<h6>간단 설명</h6>
+			
 		</div>
 	</div>
 	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->
