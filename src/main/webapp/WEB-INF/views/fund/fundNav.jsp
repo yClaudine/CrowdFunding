@@ -7,6 +7,10 @@
 		padding: 0;
 		padding-left: 0px;
 	}
+	.nav-top{
+		border-right: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+	}
 	li{
 		font-size: 14px;
 		font-weight: bold;
@@ -68,12 +72,11 @@
 		펀딩준비
 		</a>
 		<ul class="nav-sub">
-			<li><a href="#">요금제 선택</a></li>
+			<li><a href="/fundFeeSelectFrm.do?tfNo=${tmpF.tfNo}">요금제 선택</a></li>
 			<li><a href="#">기본 정보</a></li>
 			<li><a href="#">스토리 작성</a></li>
 			<li><a href="#">리워드 설계</a></li>
 			<li><a href="#">위험요인 및 정책</a></li>
 			<li><a href="#">대표자 및 정산정보</a></li>
-			<li><a href="#">펀딩 작성 완료</a></li>
 		</ul>
 </ul>

@@ -44,5 +44,19 @@ public class FundTmpController {
 		*/
 		return "fund/fundReadyFrm";
 	}
+	
+	//FUND 신청하기 메서드 추후 작성
+	@RequestMapping(value="/CreateFund.do")
+	public String CreateFund(int tfNo) {
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/fundFeeSelectFrm.do")
+	public String fundFeeSelectFrm(int tfNo, Model model){
+		TmpFund tmpF = new TmpFund();
+		tmpF.setTfNo(tfNo);
+		model.addAttribute("tmpF",tmpF);
+		return "fund/fundFeeSelect";
+	}
 
 }
