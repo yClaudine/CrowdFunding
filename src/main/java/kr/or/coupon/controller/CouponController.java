@@ -31,4 +31,14 @@ public class CouponController {
 		return "manager/couponManage";
 	}
 	
+	@RequestMapping(value="/insertCouponFrm.do")
+	public String insertCouponFrm() {
+		return "manager/couponRegister";
+	}
+	
+	@RequestMapping(value="/insertCoupon.do")
+	public String insertCoupon(Coupon coupon) {
+		int result = service.insertCoupon(coupon);
+		return "redirect:/couponManage.do";
+	}
 }

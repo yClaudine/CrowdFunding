@@ -19,5 +19,10 @@ public class CouponDao {
 		List list = sqlSession.selectList("coupon.selectAllCoupon");
 		return (ArrayList<Coupon>)list;
 	}
+
+	public int insertCoupon(Coupon coupon) {
+		int result = sqlSession.insert("coupon.insertCoupon", coupon);
+		return result;
+	}
 	
 }

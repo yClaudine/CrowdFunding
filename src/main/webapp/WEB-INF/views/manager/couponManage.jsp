@@ -71,25 +71,25 @@ html>body {
         color: #00b2b2;
         font-weight: bold;
     }
-    .btn{
+    .main-content>.btn{
         font-size: 15px;
         margin: 5px;
     }
-    .btn-outline-primary{
+    .main-content>.btn-outline-primary{
         color:#00b2b2;
         border: 1.5px solid #00b2b2;
     }
-    .btn-outline-primary:hover{
+   .main-content>.btn-outline-primary:hover{
         background-color: #00b2b2;
         border: 1px solid #d1e2e2;;
         color:white;
     }
-    .btn-primary{
+    .main-content>.btn-primary{
         color: whitesmoke ;
         background-color: #02c9c9;
         border: 1px solid #02c9c9;
     }
-    .btn-primary:hover{
+    .main-content>.btn-primary:hover{
         background-color: #00b2b2;
         border: 1px solid white;
         border: 1px solid #00b2b2;
@@ -109,6 +109,7 @@ html>body {
     </style>
 </head>
 <body>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="content-wrap">
 		<div class="left-content">
 	        <div class="title">쿠폰관리</div>
@@ -118,12 +119,12 @@ html>body {
 	                <li><a href="#">펀딩관리</a></li>
 	                <li><a href="#">스토어관리</a></li>
 	                <li><a href="#">회원관리</a></li>
-	                <li><a href="#" class="active-menu">쿠폰관리</a></li>
+	                <li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
 	            </ul>
 	        </div>
 	    	</div>
     	<div class="main-content">
-	        <button type="button" class="btn btn-outline-primary">쿠폰등록</button>
+	        <button type="button" class="btn btn-outline-primary insert">쿠폰등록</button>
 	        <button type="button" class="btn btn-primary modify">수정하기</button>
 	        <button type="button" class="btn btn-primary delete">삭제하기</button>
 	            <table class="table table-hover">

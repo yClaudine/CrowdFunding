@@ -15,4 +15,19 @@
   		coupon_status as couponStatus
   	from coupon
   </select>
+  <insert id="insertCoupon" parameterType="coupon">
+  	insert into coupon values(
+  		coupon_seq.nextval,
+  		#{couponName},
+  		#{couponType},
+  		#{discount},
+  		#{mainTarget},
+  		#{subTarget},
+  		#{validStart},
+  		#{validEnd},
+  		#{minPrice},
+  		0
+  	)
+  	
+  </insert>
 </mapper>
