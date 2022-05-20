@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+	<select id="selectOneMember" parameterType="m" resultType="m">
+		select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			
+			from member_tbl
+			<choose>
+				<when test="memberPw!=null">
+				 	where member_id=#{memberId} and member_pw=#{memberPw}
+				</when>
+				<otherwise>
+				 	where member_id=#{memberId}
+				</otherwise>
+			</choose>
+	</select>
+	
+	<insert id="signUpMember" parameterType="m">
+		insert into member_tbl values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memPhone},#{memEmail},#{gender},#{categoryNo},#{report},#{authRe},#{memComment})
+	</insert>
+</mapper>

@@ -62,6 +62,7 @@
 	<aop:aspectj-autoproxy/>
 	
 	<context:component-scan base-package="kr.or.fund" />
+	<context:component-scan base-package="kr.or.member" />
 	
 	
 	
