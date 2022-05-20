@@ -45,6 +45,7 @@
 </style>
 </head>
 <body>
+
 	<%@include file="/WEB-INF/views/common/header.jsp" %><br>
 	<div class="content-wrap">
 		<div class="category-title">
@@ -100,5 +101,9 @@
 		</div>	
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
+
+
+	test.jsp
+
 </body>
 </html>
