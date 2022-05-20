@@ -25,4 +25,19 @@ public class CouponService {
 		// TODO Auto-generated method stub
 		return dao.insertCoupon(coupon);
 	}
+
+	public Coupon selectOneCoupon(int couponNo) {
+		// TODO Auto-generated method stub
+		return dao.selectOneCoupon(couponNo);
+	}
+
+	public int updateCoupon(Coupon c) {
+		// TODO Auto-generated method stub
+		return dao.updateCoupon(c);
+	}
+
+	public int deleteCoupon(int couponNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteCoupon(couponNo);
+	}
 }

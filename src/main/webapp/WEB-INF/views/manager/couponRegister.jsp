@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>쿠폰등록</title>
 </head>
 <style>
 .content-wrap {
@@ -117,6 +117,7 @@
 	background-color: #e7f9f9;
 	border-bottom: 2px solid white;
 	padding: 20px;
+	font-size: 13px;
 }
 
 .coupon-table td {
@@ -162,13 +163,14 @@
 					</tr>
 					<tr>
 						<th>유효기간</th>
-						<td><input type="radio" name="validDate" value="none"
-							id="empty"> <label for="empty">미지정</label> <input
-							type="radio" name="validDate" value="fixed" id="full"> <label
-							for="full">지정</label></td>
-						<td colspan="2" class="couponDate"><input type="date"
-							name="validStart" id="start" readonly> ~ <input
-							type="date" name="validEnd" id="end" readonly></td>
+						<td>
+						<input type="radio" name="validDate" value="none" id="empty"> 
+						<label for="empty">미지정</label> 
+						<input type="radio" name="validDate" value="fixed" id="full"> 
+						<label for="full">지정</label></td>
+						<td colspan="2" class="couponDate">
+						<input type="date" name="validStart" id="start" readonly> ~ 
+						<input type="date" name="validEnd" id="end" readonly></td>
 					</tr>
 					<tr>
 						<th>할인액</th>
@@ -231,34 +233,38 @@ function formatDate(){
 
 
 
+
 //유효기간 지정시 -> 달력활성화 및 시작일, 끝나는날 제한
+
 $("input[name='validDate']").on("change",function(){
-  const check = $("input[name='validDate']:checked").val();
-  if(check == "fixed"){
-      $($(".couponDate").children()).attr("readonly",false);
-      const validStart = $("#start");
-      const validEnd = $("#end");
-      validStart.on("click",function(){
-          validStart.attr("min",formatDate());
-          if(validEnd.val() != ''){
-              validStart.attr("max",validEnd.val());
-          }else{
-              validStart.removeAttr("max");
-          }
-      });
-      validEnd.on("click",function(){
-          
-          if(validStart.val() != ''){
-              validEnd.attr("min",validStart.val());
-          }else{
-              validEnd.attr("min",formatDate());
-          }
-      });
-  }else{
-      $($(".couponDate").children()).attr("readonly",true);
-  }
+    const check = $("input[name='validDate']:checked").val();
+    const validStart = $("#start");
+    const validEnd = $("#end");
+    if(check == "fixed"){
+        $($(".couponDate").children()).attr("readonly",false);
+        validStart.on("click",function(){
+            validStart.attr("min",formatDate());
+            if(validEnd.val() != ''){
+                validStart.attr("max",validEnd.val());
+            }else{
+                validStart.removeAttr("max");
+            }
+        });
+        validEnd.on("click",function(){
+            if(validStart.val() != ''){
+                validEnd.attr("min",validStart.val());
+            }else{
+                validEnd.attr("min",formatDate());
+            }
+        });
+    }else{
+        validStart.val("");
+        validEnd.val("");
+        $($(".couponDate").children()).attr("readonly",true);
+    }
 
 });
+
 
 
 //배송비무료 지정시

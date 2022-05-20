@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Coupon {
 	private int couponNo;
 	private String couponName;
-	private String couponType;
+	private int couponType;
 	private int discount;
 	private String mainTarget;
 	private String subTarget;

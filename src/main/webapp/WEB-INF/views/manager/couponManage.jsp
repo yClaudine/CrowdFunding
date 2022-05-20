@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,14 +75,15 @@ html>body {
         font-size: 15px;
         margin: 5px;
     }
-    .main-content>.btn-outline-primary{
+    .main-content>.btn-outline-primary, .coupon-modal .close-btn{
         color:#00b2b2;
         border: 1.5px solid #00b2b2;
     }
-   .main-content>.btn-outline-primary:hover{
+   .main-content>.btn-outline-primary:hover, .coupon-modal .close-btn:hover{
         background-color: #00b2b2;
         border: 1px solid #d1e2e2;;
         color:white;
+        cursor: pointer;
     }
     .main-content>.btn-primary{
         color: whitesmoke ;
@@ -105,6 +106,57 @@ html>body {
     }
     input[name="radio"]:hover{
         cursor: pointer;
+    }
+    .coupon-modal{
+    	display:none;
+    	width: 100%;
+    	height: 100%;
+    	position: absolute;
+    	top:0px;
+    	left: 0px;
+    	background-color: rgba(0,0,0,0.3);
+    	align-items: center;
+    }
+    .modal-div{
+    	margin: 0 auto;
+    	margin-top : 150px;
+    	background-color: #ffffff;
+    	width: 500px;
+    	height: auto;
+    	padding: 30px;
+    	border-radius : 5px;
+    }
+    .modal-title{
+    	width: 300px;
+    	margin: 0 auto;
+    	color: #02c9c9 ;
+        font-size: 20px;
+        text-align: center;
+    }
+    .coupon-table{
+    	margin: 10px auto;
+    }
+    .coupon-table tr{
+    	border-bottom : 1px solid gray;
+    }
+    .coupon-table th{
+    	border: 1px solid gray;
+    	text-align: center;
+    	background-color: #e7f9f9;
+    	padding: 8px;
+    	font-size: 13px;
+    }
+    .coupon-table td{
+    	padding: 8px;
+    	text-align: center;
+    }
+    .close-btn{
+ 		text-align: center;
+    	width: 50px;
+    	margin: 0 auto;
+    }
+    .couponName{
+    	
     }
     </style>
 </head>
@@ -142,7 +194,16 @@ html>body {
 	                	<tr>
 	                        <th scope="col"><input type="radio" name="radio" value="${cp.couponNo }"></th>
 	                        <td>${cp.couponNo }</td>
-	                        <td>${cp.couponName }</td>
+	                        <td>
+	                        	<a class="couponName" target="#coupon-detail">${cp.couponName }</a>
+	                        	<!-- 모달 위한 값 숨겨놓기 -->
+	                        	<input type="hidden" value="${cp.validStart } ~ ${cp.validEnd }">
+	                        	<input type="hidden" value="${cp.discount}">
+	                        	<input type="hidden" value="${cp.couponType}">
+	                        	<input type="hidden" value="${cp.mainTarget}">
+	                        	<input type="hidden" value="${cp.subTarget}">
+	                        	<input type="hidden" value="${cp.minPrice }">
+	                        </td>
 	                        <td>${cp.validStart } ~ ${cp.validEnd }</td>
 	                        <c:choose>
 	                        	<c:when test="${cp.couponStatus eq 0}">
@@ -154,16 +215,85 @@ html>body {
 	                       		<c:otherwise>
 	                       			<td>만료</td>
 	                       		</c:otherwise>
-	                       	</c:choose>
+	                       	</c:choose>	
 	                    </tr>
 	                	</c:forEach>
 	                </tbody>
 	           </table>
     	</div>
 	</div>
-    
+	
+    <!-- 모달 -->
+         	<div id="coupon-detail" class="coupon-modal"  >
+         	<div class="modal-div">
+         		<div class="modal-title"> 쿠폰상세보기</div>
+	           	<table border="1" class="coupon-table">
+	           		<tr>
+						<th>쿠폰명</th>
+						<td id="couponName"></td>
+					</tr>
+					<tr>
+						<th>유효기간</th>
+						<td id="validDate"></td>
+					</tr>
+					<tr>
+						<th>할인액</th>
+						<td id="discount"></td>
+					</tr>
+					<tr>
+						<th>쿠폰적용카테고리(메인)</th>
+						<td id="mainTarget"></td>
+					</tr>
+					<tr>
+						<th>쿠폰적용카테고리(서브)</th>
+						<td id="subTarget"></td>
+					</tr>
+					<tr>
+						<th>최소구매금액</th>
+						<td id="minPrice"></td>
+					</tr>
+	           	</table>
+	           	<div class="close-btn btn-outline-primary">닫기</div>
+         	</div>
+         		
+          </div>
 
 <script>
+//모달클릭
+$(".couponName").on("click",function(){
+	const couponName = $(this).text();
+	const validDate = $(this).next().val();
+	let discount = Number($(this).next().next().val()).toLocaleString('ko-KR');
+	if(discount == 0){
+		discount = "";
+	}
+	let couponType = $(this).next().next().next().val();
+	if(couponType == 0){
+		couponType = "무료배송";
+	}else if(couponType ==1){
+		couponType="%";
+	}else{
+		couponType="원"
+	}
+	const mainTarget = $(this).next().next().next().next().val();
+	const subTarget = $(this).next().next().next().next().next().val();
+	const minPrice = Number($(this).next().next().next().next().next().next().val());
+	$("#couponName").text(couponName);
+	$("#validDate").text(validDate);
+	$("#discount").text(discount+couponType);
+	$("#mainTarget").text(mainTarget);
+	$("#subTarget").text(subTarget);
+	$("#minPrice").text(minPrice.toLocaleString('ko-KR'));
+	$(".coupon-modal").show();
+
+});
+
+//모달닫기
+$(".close-btn").on("click",function(){
+	$(".coupon-modal").hide();
+});
+
+
 //쿠폰등록
 $(".insert").on("click",function(){
 	location.href="/insertCouponFrm.do";
@@ -178,8 +308,7 @@ $(".delete").on("click",function(){
         alert("삭제할 쿠폰을 선택해주세요");
     }else{
     	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "준비중"){
-    		console.log(check+"삭제");
-            //삭제 로직 구현
+    		location.href="/deleteCoupon.do?couponNo="+check;
     	}else{
     		alert("게시 완료된 쿠폰은 삭제할 수 없습니다.");
     	}
