@@ -1,0 +1,95 @@
+*{
+    
+}
+.content{
+    width:1300px;
+    height:600px;
+    margin-top: 20px;
+}
+.btn-outline-success{
+    color: #00c4c4;
+    border-color: #00c4c4;
+}
+.btn-outline-success:hover{
+    color: #fff;
+    background-color: #00c4c4;
+    border-color: #00c4c4;
+}
+*{
+    list-style-type: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;700&display=swap');
+.font{
+    font-family: 'Noto Sans KR';
+    font-size : 10px;
+}
+.signup>form>li input{
+    font-family: 'Noto Sans KR';
+    font-size: 12px;
+    width:300px;
+    height:40px;
+    border-radius: 5px;
+    border: 1px solid #868e96;
+}   
+.signup>form>li>input{
+    margin-top:5px;
+    
+}
+.signup>form>li input:focus{
+    outline: none;
+}
+
+#checkBox{
+    width:15px;
+    height:15px;
+}
+input[name=memEmail]{
+    position : relative;
+    
+}
+.emch{
+    
+    position :absolute;
+    border-radius: 5px;
+    width:100px;
+    height:40px;
+    
+    margin-top: 5px;
+    left:700px;
+
+}
+
+.signup{
+    width:300px;
+    padding:0px;
+    margin:0 auto;
+}
+#pw{
+    margin-top:3px;
+}
+.ti{
+    margin-top:5px;
+
+    font-size: 15px;
+}
+.form-select{
+    width:300px;
+}
+.gen{
+    margin-bottom: 40ppx;
+}
+.signupb{
+    width:300px;
+    height:40px;
+    border-radius: 5px;
+}
+h6{
+    margin:5px;
+}
+.main{
+    margin-bottom: 30px;
+}
+.main>span{
+    font-size: 15px;
+}
