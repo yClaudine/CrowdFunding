@@ -7,6 +7,18 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
+
 		<typeAlias type="kr.or.member.vo.Member" alias="m"/>
+
+		<typeAlias type="kr.or.store.model.vo.Store" alias="s"/>
+		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
+		<typeAlias type="kr.or.coupon.model.vo.Coupon" alias="coupon"/>		
+		<typeAlias type="kr.or.fund.model.vo.TmpReward" alias="tr"/>
+		<typeAlias type="kr.or.fund.model.vo.TmpFundCalculate" alias="tfc"/>
+
 	</typeAliases>
+	
+	<typeHandlers>
+        <typeHandler handler="kr.or.store.model.vo.Handler" javaType="String" jdbcType="LONGVARCHAR"/>
+    </typeHandlers>
 </configuration>

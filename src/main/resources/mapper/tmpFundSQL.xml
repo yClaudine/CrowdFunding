@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tmpFund">
+  <select id="selectAllFund" resultType="tf">
+  	select
+  		fund_no as fundNo,
+  		member_id as memberId,
+  		fund_name as fundName,
+  		fund_amount as fundAmount,
+  		fund_fees as fundFees,
+  		fund_category as fundCategory,
+  		fund_start as fundStart,
+  		fund_end as fundEnd,
+  		fund_intro as fundIntro,
+  		fund_as as fundAs,
+  		fund_filepath1 as fundFilepath1,
+  		fund_filepath2 as fundFilepath2,
+  		fund_filepath3 as fundFilepath3,
+  		fund_filepath4 as fundFilepath4,
+  		fund_filepath5 as fundFilepath5
+  	from tmp_fund
+  </select>
+  <insert id="createTmpFund" parameterType="tf">
+  	insert into tmp_fund
+  	values (tf_seq.nextval,#{memberId},#{tfName},null,null,null,null,null,null,null,null,null,null,null,null)
+  	<selectKey resultType="int" order="AFTER" keyProperty="tfNo">
+ 			select max(tf_no) from tmp_fund
+ 	</selectKey>
+  </insert>
+  <select id="selectOneTmpFund" parameterType="tf" resultType="tf">
+  	select
+  		tf_no as tfNo,
+  		member_id as memberId,
+  		tf_name as tfName,
+  		tf_amount as tfAmount,
+  		tf_fees as tfFees,
+  		tf_category as tfCategory,
+  		tf_start as tfStart,
+  		tf_end as tfEnd,
+  		tf_intro as tfIntro,
+  		tf_as as tfAs,
+  		tf_filepath1 as tfFilepath1,
+  		tf_filepath2 as tfFilepath2,
+  		tf_filepath3 as tfFilepath3,
+  		tf_filepath4 as tfFilepath4,
+  		tf_filepath5 as tfFilepath5
+  	from tmp_fund where tf_no = ${tfNo}
+  </select>
+  <select id="selectReward" parameterType="tf" resultType="tr">
+  	select
+  		tr_no as trNo,
+  		tf_no as tfNo,
+  		tr_name as trName,
+  		tr_intro as trIntro,
+  		tr_price as trPrice,
+  		tr_count as trCount,
+  		tr_option as trOption,
+  		tr_send as trSend,
+  		tr_deliveryfee as trDeliveryfee
+  	from tmp_reward where tf_no = ${tfNo} 
+  </select>
+  <select id="selectOneFundCalculate" parameterType="tf" resultType="tfc">
+  	select
+  		tfc_no as tfcNo,
+  		tf_no as tfNo,
+  		tfc_rep_category as tfcCategory,
+  		tfc_rep_name as tfcRepName,
+  		tfc_rep_email as tfcRepEmail,
+  		tfc_rep_filepath as tfcRepFilepath,
+  		tfc_rep_birth as tfcRepBirth,
+  		tfc_mail as tfcMail,
+  		tfc_bank_name as tfcBankName,
+  		tfc_bank_no as tfcBankNo,
+  		tfc_bank_account as tfcBankAccount,
+  		tfc_bank_filepath as tfcBankFilepath
+  	from tmp_fund_calculate where tf_no = ${tfNo}
+  </select>
+</mapper>

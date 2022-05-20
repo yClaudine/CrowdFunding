@@ -71,7 +71,7 @@
         <div class="logo"><a href=""><img src="resources/image/파이널로고2.png"></a></div>
         
         <div><a href=""><h6>펀딩</h6></a></div>
-        <div><a href=""><h6>스토어</h6></a></div>
+        <div><a href="/Store.do"><h6>스토어</h6></a></div>
         <div><a href=""><h6>공지사항</h6></a></div>
         
         <div class="log">
@@ -85,6 +85,7 @@
                         <input type="text" name="fundName"  placeholder="어떤 펀딩을 찾고 계신가요? ">
                     </form>
                 </div>
+
         	<c:choose> 
         			
                 <c:when test="${sessionScope.m.categoryNo==0 }">
@@ -137,6 +138,12 @@
                 	<a href=""><div class="openReq">프로젝트 오픈신청</div></a>
               	</c:when>
             </c:choose>
+
+                
+                <div><a href="" class="access">로그인</a></div>
+                <div><a href="" class="access">회원가입</a></div>
+                <div class="openReq"><a href="/CreateFunding.do">프로젝트 오픈신청  </a></div>
+
             </div>
             
         </div>
