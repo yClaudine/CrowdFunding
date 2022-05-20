@@ -56,7 +56,7 @@
 				메이커님의 성공적인 비즈니스의 여정을<br>
 				펀펀펀이 함께합니다.<br>
 			</p>
-			<form action="/fundReadyFrm.do" method="post">
+			<form action="/fundCreate.do" method="post">
 				<input type="text" class="form-control" name="tfName" placeholder="펀딩 제목 입력">
 				<input type="hidden" name="memberId" value="user1">
 				<input type="submit" value="펀딩 생성하기" class="btn btn-outline-info">
