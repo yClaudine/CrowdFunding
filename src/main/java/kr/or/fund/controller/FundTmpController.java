@@ -17,6 +17,15 @@ public class FundTmpController {
 	@Autowired
 	private FundTmpService service;
 	
+	//페이지 이동 반복패턴 메서드
+	public void pageMove(int tfNo, Model model) {
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		TmpFund tmpF = service.selectOneTmpFund(tf);
+		model.addAttribute("tmpF",tmpF);
+	}
+	
+	//펀드 생성
 	@RequestMapping(value="/fundCreate.do")
 	public String fundCreate(TmpFund f, Model model) {
 		int tfNo = service.createTmpFund(f);
@@ -24,6 +33,7 @@ public class FundTmpController {
 		return "redirect:/fundReadyFrm.do";
 	}
 	
+	//펀드 준비 통합 페이지
 	@RequestMapping(value="/fundReadyFrm.do")
 	public String fundReadyFrm(int tfNo, Model model) {
 		TmpFund tf = new TmpFund();
@@ -51,12 +61,28 @@ public class FundTmpController {
 		return "redirect:/";
 	}
 	
+	//요금제 선택 페이지로
 	@RequestMapping(value="/fundFeeSelectFrm.do")
 	public String fundFeeSelectFrm(int tfNo, Model model){
-		TmpFund tmpF = new TmpFund();
-		tmpF.setTfNo(tfNo);
-		model.addAttribute("tmpF",tmpF);
+		pageMove(tfNo, model);
 		return "fund/fundFeeSelect";
+	}
+	
+	//요금제 선택 페이지 -> 저장하기 버튼
+	@RequestMapping(value="/SaveTmpFees.do")
+	public String SaveTmpFees(int tfNo, int tfFees, Model model) {
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		tf.setTfFees(tfFees);
+		int result = service.updateTmpFees(tf);
+		return "redirect:/fundReadyFrm.do?tfNo="+tfNo;
+	}
+	
+	//기본 정보 수정 페이지로
+	@RequestMapping(value="/fundInfoUpdateFrm.do")
+	public String fundInfoUpdateFrm(int tfNo, Model model){
+		pageMove(tfNo, model);
+		return "fund/fundInfoUpdateFrm";
 	}
 
 }

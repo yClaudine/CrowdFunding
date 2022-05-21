@@ -35,4 +35,9 @@ public class FundTmpService {
 		return dao.selectOneFundCalculate(tf);
 	}
 
+	public int updateTmpFees(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpFees(tf);
+	}
+
 }
