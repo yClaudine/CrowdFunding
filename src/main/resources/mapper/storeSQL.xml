@@ -32,7 +32,7 @@
 		(select rownum as rnum, s.* from
 		(select 
 		    store_img1 as storeImg1,
-		    store_title as storeTitle,
+		    store_title as storeTitle
 		from store order by store_no desc)s)
 		where rnum between #{start} and #{end}
 	</select>

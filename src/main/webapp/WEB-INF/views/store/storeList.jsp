@@ -111,13 +111,13 @@
 	                	<div class="allcontent-list">
 	                	<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
 	                	</div>
-	                </div>  
+	                </div>
 	            </c:forEach>
-	            <tr>
-				<th class="pageNavi">${pageNavi }</th> 
-				</tr>
 		   </tbody>
-		</div>	
+		</div>
+		<div class="content-list">
+			<div class="pageNavi">${pageNavi }</div> 
+		</div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
