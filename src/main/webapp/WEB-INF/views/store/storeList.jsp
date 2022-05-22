@@ -5,9 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!--구글폰트-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <title>스토어 전체보기</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+html>body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="resources/css/bootstrap.css" rel="stylesheet"/>
 <style>
 	.content-wrap{
 		width: 90%;
@@ -107,16 +114,18 @@
 	    	<tbody>
 	        	<c:forEach items="${list }" var="s" varStatus="i">
 	        		<div class="allcontent-wrap">${(reqPage-1) *8 + i.count}</div>
-	            	<div class="allcontent-wrap">${s.storeImg1 }
-	                	<div class="allcontent-list">
-	                	<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
-	                	</div>
+	        		<div class="content-wrap">
+		            	<div class="allcontent-wrap">${s.storeImg1 }
+		                	<div class="allcontent-list">
+		                	<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
+		                	</div>
+		                </div>
 	                </div>
 	            </c:forEach>
 		   </tbody>
 		</div>
-		<div class="content-list">
-			<div class="pageNavi">${pageNavi }</div> 
+		<div class="pageNavi-wrap">
+			<div class="pageNavi-content">${pageNavi }</div> 
 		</div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
