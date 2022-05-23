@@ -9,6 +9,9 @@
 <script src="resources/js/jquery-3.6.0.js"></script>
 </head>
 <style>
+	#email{
+		display:inline-block;
+	}
 	#btn{
 		border-radius : 5px;
 	}
@@ -38,7 +41,7 @@
                 </li>
                 <li>
                     <div class="ti">이메일</div>
-                    <input type="text" name="memEmail" placeholder="이메일 계정">
+                    <input type="text" name="memEmail" id="email" placeholder="이메일 계정">
                     <button id="btn" type="button" class="btn btn-outline-success emch" >인증하기</button>
                      <div></div>
                 </li>
@@ -234,7 +237,7 @@
             				fail.empty();
             				
             				
-            				ul.append("<div class='fail' style='color:red;font-size:8px; margin-top:10px;'>조건을 전부 작성하지 않아 로그인에 실패했습니다.</div>");
+            				ul.append("<div class='fail' style='color:red;font-size:8px; margin-top:10px;'>조건을 전부 작성하지 않아 회원가입에 실패했습니다.</div>");
             				
             				
             			}

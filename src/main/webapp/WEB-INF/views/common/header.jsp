@@ -91,7 +91,7 @@ html>body {
 
 	<div class="header">
 		<div class="logo">
-			<a href=""><img src="resources/image/파이널로고2.png"></a>
+			<a href="/"><img src="resources/image/파이널로고2.png"></a>
 		</div>
 
 		<div>
@@ -108,7 +108,7 @@ html>body {
 
 			<div>
 				<div class="searchFund">
-					<form action="/searchFund" method="post">
+					<form action="/searchFund" id="miss" method="post">
 						<button type="submit">
 							<span class="material-symbols-outlined searchI"> search </span>
 						</button>
@@ -127,7 +127,10 @@ html>body {
 						</div>
 						<a href=""><div class="openReq">프로젝트 오픈신청</div></a>
 					</c:when>
-					<c:when test="${sessionScope.m.categoryNo==1 }">
+					<c:when test="${sessionScope.m.categoryNo>=1 }">
+						<div>
+							<a href="logout.do" class="access">로그아웃</a>
+						</div>
 						<div>
 							<c:if test="${sessionScope.m.gender==0}">
 								<a href="myPageFrm.do" class="access"> 
@@ -139,6 +142,7 @@ html>body {
 									<span class="material-symbols-outlined" style="color:#FFC4DD; width:40px; height:40px; font-size:40px;"> account_circle_full </span>
 								</a>
 							</c:if>
+							
 						</div>
 						<a href=""><div class="openReq">상품등록</div></a>
 					</c:when>
@@ -169,7 +173,7 @@ html>body {
 											</ul>
 										</form>
 									</div>
-
+								
 									<div class="modal-footer">
 										아직 계정이 없나요? <a href="/signUpFrm.do" class="signUp">회원가입</a>
 

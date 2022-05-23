@@ -31,10 +31,11 @@ html>body {
  		<c:choose>
  			<c:when test="${not empty sessionScope.m.memberId }">
 					<a href="logout.do">로그아웃</a>
+					<a href="sellerReqFrm.do">판매자 신청</a>	
  			</c:when>
  			<c:otherwise>
  				
- 							
+ 						
  			</c:otherwise>
 
  		</c:choose>

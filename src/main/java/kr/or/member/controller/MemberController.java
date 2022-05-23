@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.google.gson.Gson;
+
 
 import kr.or.member.service.MemberService;
 import kr.or.member.vo.Member;
@@ -60,4 +63,71 @@ public class MemberController {
 		
 		return "member/mypage";
 	}
+	@RequestMapping(value="pwChangeFrm.do")
+	public String pwChangeFrm() {
+		return "member/pwChange";
+	}
+	@RequestMapping(value="setting.do")
+	public String setting() {
+		return "member/setting";
+	}
+	@RequestMapping(value="updateMemberFrm.do")
+	public String updateMemberFrm() {
+		
+		return "member/updateMember";
+	}
+	@RequestMapping(value="signoutFrm.do")
+	public String signoutFrm() {
+		
+		return "member/signout";
+	}
+	@RequestMapping(value="findPw.do")
+	@ResponseBody
+	public String findPw(Member m){
+		System.out.println(m);
+		Member pwCh = service.selectOneMember(m);
+		return new Gson().toJson(pwCh);
+	}
+	
+	@RequestMapping(value="signout.do")
+	public String deleteMember(@SessionAttribute(required=false) Member m) {
+		
+		int result = service.deleteMember(m);
+		if(result>0) {
+			
+			return "redirect:logout.do";
+		}else {
+			return "redirect:signoutFrm.do";
+		}
+	}
+	@RequestMapping(value="changePw.do")
+	public String changePw(Member m) {
+		int result = service.updatePwMember(m);
+		if(result>0) {
+			return "redirect:logout.do";
+		}else {
+			return "redirect:pwChangeFrm.do";
+		}
+		
+	}
+	@RequestMapping(value="memberUpdate.do")
+	public String memberUpdate(Member member,@SessionAttribute(required=false)Member m,HttpSession session) {
+		
+		
+		int result = service.updateMember(member);
+		System.out.println(m);
+		m.setMemberName(member.getMemberName());
+		m.setMemEmail(member.getMemEmail());
+		m.setMemPhone(member.getMemPhone());
+		
+		if(result>0) {
+			session.setAttribute("m", m);
+			return "member/mypage";	
+		}else {
+			return "member/updateMember";
+		}
+		
+	}
+	
+	
 }
