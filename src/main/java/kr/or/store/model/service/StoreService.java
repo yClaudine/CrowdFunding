@@ -23,7 +23,8 @@ public class StoreService {
 
 	public Store selectOneStore(int storeNo) {
 		// TODO Auto-generated method stub
-		return dao.selectOneStore(storeNo);
+		Store s = dao.selectOneStore(storeNo);
+		return s;
 	}
 
 	public StoreAllPageData selectStoreAllList(int reqPage) {

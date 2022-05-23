@@ -39,4 +39,9 @@ public class FundTmpDao {
 		return sqlSession.selectOne("tmpFund.selectOneFundCalculate",tf);
 	}
 
+	public int updateTmpFees(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpFees",tf);
+	}
+
 }

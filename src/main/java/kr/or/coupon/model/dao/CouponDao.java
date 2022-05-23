@@ -39,5 +39,15 @@ public class CouponDao {
 		int result = sqlSession.delete("coupon.deleteCoupon", couponNo);
 		return result;
 	}
+
+	public int expireCoupon(String todayString) {
+		int result = sqlSession.update("coupon.expireCoupon", todayString);
+		return result;
+	}
+
+	public int expireMemberCoupon(String todayString) {
+		int result = sqlSession.update("coupon.expireMemberCoupon", todayString);
+		return result;
+	}
 	
 }

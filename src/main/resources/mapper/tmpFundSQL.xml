@@ -75,4 +75,7 @@
   		tfc_bank_filepath as tfcBankFilepath
   	from tmp_fund_calculate where tf_no = ${tfNo}
   </select>
+  <update id="updateTmpFees" parameterType="tf">
+  	update tmp_fund set tf_fees = ${tfFees} where tf_no = ${tfNo}
+  </update>
 </mapper>

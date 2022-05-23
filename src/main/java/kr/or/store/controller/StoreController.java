@@ -15,12 +15,20 @@ import kr.or.store.model.vo.StoreAllPageData;
 public class StoreController {
 	@Autowired
 	private StoreService service;
-	
+	/*
 	@RequestMapping(value="/storeList.do")
 	public String selectAllStore(Model model) {	//데이터 주려면 model 객체
 		//바로 비즈니스로직 시작
 		ArrayList<Store> list = service.selectAllStore();
 		model.addAttribute("list",list);
+		return "store/storeList";
+	}*/
+	@RequestMapping(value="/storeList.do")
+	public String selectAllStore(int reqPage, Model model) {	//데이터 주려면 model 객체
+		StoreAllPageData spd = service.selectStoreAllList(reqPage);
+		model.addAttribute("list",spd.getList());
+		model.addAttribute("pageNavi",spd.getPageNavi());
+		model.addAttribute("reqPage",reqPage);
 		return "store/storeList";
 	}
 	@RequestMapping(value="/storeView.do")
@@ -29,6 +37,7 @@ public class StoreController {
 		model.addAttribute("s",s);
 		return "store/storeView";
 	}
+	/*
 	@RequestMapping(value = "/storeAllList.do")
 	public String storeAllList(int reqPage, Model model) {
 		StoreAllPageData spd = service.selectStoreAllList(reqPage);
@@ -36,7 +45,7 @@ public class StoreController {
 		model.addAttribute("pageNavi",spd.getPageNavi());
 		model.addAttribute("reqPage",reqPage);
 		return "store/storeList";
-	}
+	}*/
 	//나중에 store와 합하면 지울 것
 	@RequestMapping(value = "/storeAll.do")
 	public String storeAll() {

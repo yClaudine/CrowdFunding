@@ -13,13 +13,13 @@
 			<%@include file="/WEB-INF/views/fund/fundNav.jsp" %>
 			<script>
 				$(".nav-top>li").addClass("select");
-				//$(".nav-sub>li:nth-child(1)").addClass("select");
+				$(".nav-sub>li:nth-child(2)").addClass("select");
 			</script>
 		</div>
 		<div class="crefund-content">
-			<span class="category">펀딩준비 > <b>항목</b></span>
-			<h2>제목</h2>
-			<h6>간단 설명</h6>
+			<span class="category">펀딩준비 > <b>기본 정보</b></span>
+			<h2>기본 정보</h2>
+			<h6>프로젝트를 대표할 주요 기본 정보를 입력하세요.</h6>
 		</div>
 	</div>
 	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->

@@ -60,6 +60,10 @@
   <delete id="deleteCoupon" parameterType="int">
   	delete from coupon where coupon_no=#{couponNo}
   </delete>
-  
-  
+  <update id="expireCoupon" parameterType="string">
+  	update coupon set coupon_status = 2 where valid_end=#{todayString}
+  </update>
+  <update id="expireMemberCoupon" parameterType="string">
+  	update member_coupon set coupon_status=1 where valid_end=#{todayString}
+  </update>
 </mapper>

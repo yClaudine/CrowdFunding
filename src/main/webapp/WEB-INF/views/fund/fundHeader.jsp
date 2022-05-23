@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
@@ -18,11 +19,15 @@
     		height: 60px;
     		display: flex;
     		justify-content: space-between;
+    		border-bottom: 1px solid #ddd;
     	}
     	.header-left{
     		display: flex;
     		align-items: center;
     		padding-left: 30px;
+    	}
+    	.header-left:hover{
+    		cursor: pointer;
     	}
     	.header-left>img{
     		height: 50px;
@@ -60,6 +65,35 @@
     	crefund-content{
     		width:980px;
     	}
+    	.crefund-content{
+    		padding-top: 60px;
+    		padding-left: 75px;
+    		position: relative;
+    	}
+    	.crefund-content>h6{
+    		font-weight: 400;
+    		color: #777;
+    		padding-top: 10px;
+    		padding-bottom: 30px;
+    	}
+    	.crefund-content>.category{
+    		position: absolute;
+    		top: 15px;
+    		font-size: 12px;
+    	}
+    	.crefund-content>.category>b{
+    		padding-left: 5px;
+    		font-size: 13px;
+    	}
+    	body p{
+    		font-family: 'Noto Sans KR', sans-serif;
+    	}
+    	.save-btn{
+    		width: 350px;
+    		height: 50px;
+    		background-color: rgb(0, 178, 178);
+    		border: none;
+    	}
     </style>
 	<div class=header-wrap>
 		<div class="header-left">
@@ -74,3 +108,8 @@
 			<a href="/">나가기</a>
 		</div>
 	</div>
+	<script>
+		$(".header-left").on("click",function(){
+			location.href="/fundReadyFrm.do?tfNo=${tmpF.tfNo }"
+		});
+	</script>
