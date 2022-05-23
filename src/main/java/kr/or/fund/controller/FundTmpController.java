@@ -84,5 +84,12 @@ public class FundTmpController {
 		pageMove(tfNo, model);
 		return "fund/fundInfoUpdateFrm";
 	}
+	
+	@RequestMapping(value="/TmpDetail.do")
+	public String TmpDetail(int tfNo, int value, Model model) {
+		pageMove(tfNo, model);
+		model.addAttribute("value",value);
+		return "fund/fundFeeDetail";
+	}
 
 }
