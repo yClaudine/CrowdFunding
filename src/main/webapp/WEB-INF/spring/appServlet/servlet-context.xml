@@ -61,6 +61,10 @@
 	<!-- AOP 어노테이션방식 사용 선언 -->
 	<aop:aspectj-autoproxy/>
 	
+	
+	
+	
+	
 	<context:component-scan base-package="kr.or.fund" />
 
 	<context:component-scan base-package="kr.or.member" />

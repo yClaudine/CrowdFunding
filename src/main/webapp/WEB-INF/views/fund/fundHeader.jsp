@@ -26,6 +26,9 @@
     		align-items: center;
     		padding-left: 30px;
     	}
+    	.header-left:hover{
+    		cursor: pointer;
+    	}
     	.header-left>img{
     		height: 50px;
     	}
@@ -65,12 +68,31 @@
     	.crefund-content{
     		padding-top: 60px;
     		padding-left: 75px;
+    		position: relative;
     	}
     	.crefund-content>h6{
     		font-weight: 400;
     		color: #777;
     		padding-top: 10px;
     		padding-bottom: 30px;
+    	}
+    	.crefund-content>.category{
+    		position: absolute;
+    		top: 15px;
+    		font-size: 12px;
+    	}
+    	.crefund-content>.category>b{
+    		padding-left: 5px;
+    		font-size: 13px;
+    	}
+    	body p{
+    		font-family: 'Noto Sans KR', sans-serif;
+    	}
+    	.save-btn{
+    		width: 350px;
+    		height: 50px;
+    		background-color: rgb(0, 178, 178);
+    		border: none;
     	}
     </style>
 	<div class=header-wrap>
@@ -86,3 +108,8 @@
 			<a href="/">나가기</a>
 		</div>
 	</div>
+	<script>
+		$(".header-left").on("click",function(){
+			location.href="/fundReadyFrm.do?tfNo=${tmpF.tfNo }"
+		});
+	</script>

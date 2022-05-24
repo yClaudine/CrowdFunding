@@ -16,54 +16,52 @@
 
 /* 보여 줄 구간의 높이와 넓이 설정 */
 .mainimg{
-    width: 1600px;
+    /* width: 1600px; */
     height: 350px;
     position: relative;
     margin: 20px auto;
     overflow: hidden;
+    display: flex;
 }
 
-/* 첫 번째 슬라이드 가운데에 정렬하기위해 첫번째 
-슬라이드만 margin-left조정 */ 
-.slides>li:first-child{ 
+.img1{
+    background-image: url(/resources/image/store/test1.jpg);
+    width: 100vw;
+    height: 350px;
 
-} 
+}
+.img2{
+    background-image: url(/resources/image/store/test2.jpg);
+    width: 100vw;
+    height: 350px;
+}
+.img3{
+    background-image: url(/resources/image/store/test3.jpg);
+    width: 100vw;
+    height: 350px;
+}
+.img4{
+    background-image: url(/resources/image/store/test4.jpg);
+    width: 100vw;
+    height: 350px;
+}
+.img5{
+    background-image: url(/resources/image/store/test5.jpg);
+    width: 100vw;
+    height: 350px;
+}
 
 /* 슬라이드들 옆으로 정렬 */ 
 .slides>li:not(:last-child){ 
     float: left; 
 }
 
-.img1{
-    background-image: url(/resources/image/store/test1.jpg);
-    width: 1600px;
-    height: 350px;
-}
-.img2{
-    background-image: url(/resources/image/store/test2.jpg);
-    width: 1600px;
-    height: 350px;
-}
-.img3{
-    background-image: url(/resources/image/store/test3.jpg);
-    width: 1600px;
-    height: 350px;
-}
-.img4{
-    background-image: url(/resources/image/store/test4.jpg);
-    width: 1600px;
-    height: 350px;
-}
-.img5{
-    background-image: url(/resources/image/store/test5.jpg);
-    width: 1600px;
-    height: 350px;
-}
 
 .slides{
     position: absolute;
     left: 0;
     top: 0;
+    padding:0;
 }
 
 .slides.animated{
@@ -90,7 +88,7 @@
     margin-top: 100px;
 }
 .prev{
-    right: 146px;
+    right: 146.8px;
 }
 .next{
     right: 100px;

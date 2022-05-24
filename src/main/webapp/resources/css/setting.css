@@ -1,0 +1,95 @@
+.content{
+    min-width:1300px;
+    min-height:500px;
+    margin-top: 20px;
+    
+    padding:0;
+    
+}
+.settings{
+    width:350px; 
+    margin:20px auto;   
+    padding: 0px;
+    list-style-type:none ;
+}
+.content>h5{
+    padding-bottom: 50px;
+    padding-left:200px;
+    margin:0;
+    width:1300px;
+    height: 60px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+    font-size: 30px;
+}
+#setting{
+    
+    font-size: 25px;
+    
+    color:#60656a;
+    ;
+}
+.my{
+    height:50px;
+    padding:5px;
+    text-align: left;
+    line-height : 30px;
+    color:#60656a; 
+    font-weight : 500x;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+}
+.wrap{
+    
+    height: 100px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+}
+.wrap>a{
+    
+    display: block;
+    width:350px;
+    height:80px;
+    
+    
+}
+.wrap>a:hover span {
+    
+    color: #212529;
+    transition-duration: 0.3s;
+}
+.wrap>a>div{
+    margin-left: 20px;
+    margin-top:20px;
+    float: left;
+    width:150px;
+    height:70px;
+    overflow: hidden;
+}
+.ti{
+    display:inline-block;
+    width:150px;
+    margin:0px;
+    
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.ti:first-child{
+    font-size: 15px;
+    color: #60656a;
+}
+.ti:nth-child(2){
+    
+    
+    font-size: 11px;
+    color: #60656a;
+}
+.wrap>a>span:last-child{
+    display:block;
+    color: #000000;
+    float:right;
+    margin-right: 40px;
+    margin-top: 40px;;
+}
+.wrap>a>span:last-child:hover{
+    
+    color:#212529;
+    transition-duration: 0.2s;
+}

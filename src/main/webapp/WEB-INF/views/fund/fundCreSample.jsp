@@ -17,6 +17,7 @@
 			</script>
 		</div>
 		<div class="crefund-content">
+			<span class="category">펀딩준비 > <b>항목</b></span>
 			<h2>제목</h2>
 			<h6>간단 설명</h6>
 		</div>
