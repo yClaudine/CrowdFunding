@@ -408,7 +408,7 @@ li {
         <div class="project-container">
             
             <div class="item"><!--grid 1개 item-->
-                <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
+                <a href="#" class="project-wrap">
                     <img src="resources/image/fund/living.jpg">
                     <div class="project-card">
                         <div class="project-title">
@@ -435,10 +435,10 @@ li {
                     <img src="resources/image/fund/living.jpg">
                     <div class="project-card">
                         <div class="project-title">
-                            [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요! (앵콜)
+                            ${f.fundName }
                         </div>
                         <div class="project-info">
-                            <span class="project-category">리빙</span>
+                            <span class="project-category">${f.fundCategory }</span>
                             <span class="divide">|</span>
                             <span class="project-seller">주식회사 노멀리스트</span>
                         </div>
@@ -447,8 +447,8 @@ li {
                 <div class="line"></div>
                 <div class="project-progress">
                     <span class="project-percent">1687%</span>
-                    <span class="project-amount">∙85,097,500원</span>
-                    <span class="project-dayleft">6일 남음</span>
+                    <span class="project-amount">∙${f.fundAmount }원</span>
+                    <span class="project-dayleft">${f.fundStart }일 남음</span>
                 </div>
             </div><!--grid 1개--> 
            </c:forEach>
