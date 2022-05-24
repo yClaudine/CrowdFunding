@@ -406,9 +406,9 @@ li {
 
 <!--펀딩 리스트-->
         <div class="project-container">
-            <!--grid 1개 item-->
-            <div class="item">
-                <a href="#" class="project-wrap">
+            
+            <div class="item"><!--grid 1개 item-->
+                <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
                     <img src="resources/image/fund/living.jpg">
                     <div class="project-card">
                         <div class="project-title">
@@ -427,8 +427,31 @@ li {
                     <span class="project-amount">∙85,097,500원</span>
                     <span class="project-dayleft">6일 남음</span>
                 </div>
-            </div><!--grid 1개-->  
+            </div><!--grid 1개--> 
             
+           <c:forEach items="${list }" var="f" varStatus="i">
+            <div class="item"><!--grid 1개 item-->
+                <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
+                    <img src="resources/image/fund/living.jpg">
+                    <div class="project-card">
+                        <div class="project-title">
+                            [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요! (앵콜)
+                        </div>
+                        <div class="project-info">
+                            <span class="project-category">리빙</span>
+                            <span class="divide">|</span>
+                            <span class="project-seller">주식회사 노멀리스트</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="line"></div>
+                <div class="project-progress">
+                    <span class="project-percent">1687%</span>
+                    <span class="project-amount">∙85,097,500원</span>
+                    <span class="project-dayleft">6일 남음</span>
+                </div>
+            </div><!--grid 1개--> 
+           </c:forEach>
 
             
         </div><!--grid container-->
