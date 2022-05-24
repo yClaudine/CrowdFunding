@@ -66,4 +66,21 @@
   <update id="expireMemberCoupon" parameterType="string">
   	update member_coupon set coupon_status=1 where valid_end=#{todayString}
   </update>
+  <select id="selectValidCoupon" resultType="coupon">
+  select
+  		coupon_no as couponNo,
+  		coupon_name as couponName,
+  		coupon_type as couponType,
+  		discount,
+  		main_target as mainTarget,
+  		sub_target as subTarget,
+  		valid_start as validStart,
+  		valid_end as validEnd,
+  		min_price as minPrice,
+  		coupon_status as couponStatus
+  	from coupon 
+  	where valid_end <![CDATA[>]]> to_char(sysdate,'yyyy-mm-dd')
+  	order by 1 desc
+  	
+  </select>
 </mapper>
