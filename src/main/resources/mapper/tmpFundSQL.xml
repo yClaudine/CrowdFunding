@@ -76,6 +76,16 @@
   	from tmp_fund_calculate where tf_no = ${tfNo}
   </select>
   <update id="updateTmpFees" parameterType="tf">
-  	update tmp_fund set tf_fees = ${tfFees} where tf_no = ${tfNo}
+  	update tmp_fund set tf_fees = #{tfFees} where tf_no = #{tfNo}
+  </update>
+  <update id="updateTmpBasic" parameterType="tf">
+  	update tmp_fund 
+  	set 
+  		tf_name = #{tfName}, 
+  		tf_amount = #{tfAmount},
+  		tf_category = #{tfCategory},
+  		tf_start = #{tfStart},
+  		tf_end = #{tfEnd}
+  	where tf_no = #{tfNo}
   </update>
 </mapper>

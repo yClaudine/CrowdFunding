@@ -91,5 +91,11 @@ public class FundTmpController {
 		model.addAttribute("value",value);
 		return "fund/fundFeeDetail";
 	}
+	
+	@RequestMapping(value="/SaveTmpBasic.do")
+	public String SaveTmpBasic(TmpFund tf, Model model) {
+		int result = service.updateTmpBasic(tf);
+		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
+	}
 
 }
