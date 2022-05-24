@@ -49,5 +49,10 @@ public class CouponDao {
 		int result = sqlSession.update("coupon.expireMemberCoupon", todayString);
 		return result;
 	}
+
+	public ArrayList<Coupon> selectValidCoupon() {
+		List list = sqlSession.selectList("coupon.selectValidCoupon");
+		return (ArrayList<Coupon>)list;
+	}
 	
 }

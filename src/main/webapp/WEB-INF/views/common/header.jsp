@@ -101,7 +101,7 @@ html>body {
 			<a href="/Store.do"><h6>스토어</h6></a>
 		</div>
 		<div>
-			<a href=""><h6>공지사항</h6></a>
+			<a href="/notice.do?reqPage=1&type=all"><h6>공지사항</h6></a>
 		</div>
 
 		<div class="log">

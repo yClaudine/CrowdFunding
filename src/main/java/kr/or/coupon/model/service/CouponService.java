@@ -50,4 +50,9 @@ public class CouponService {
 		// TODO Auto-generated method stub
 		return dao.expireMemberCoupon(todayString);
 	}
+
+	public ArrayList<Coupon> selectValidCoupon() {
+		// TODO Auto-generated method stub
+		return dao.selectValidCoupon();
+	}
 }
