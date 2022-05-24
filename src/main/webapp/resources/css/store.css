@@ -17,38 +17,35 @@
 /* 보여 줄 구간의 높이와 넓이 설정 */
 .mainimg{
     /* width: 1600px; */
-    height: 350px;
+    height: 400px;
     position: relative;
     margin: 20px auto;
     overflow: hidden;
     display: flex;
 }
 
+.slide{
+	width: 100vw;
+	height: 400px;
+	background: no-repeat 50%/cover;
+	position: relative;
+}
+
 .img1{
-    background-image: url(/resources/image/store/test1.jpg);
-    width: 100vw;
-    height: 350px;
+    background-image: url(/resources/image/store/storeimg1.png);
 
 }
 .img2{
-    background-image: url(/resources/image/store/test2.jpg);
-    width: 100vw;
-    height: 350px;
+    background-image: url(/resources/image/store/storeimg2.jfif);
 }
 .img3{
-    background-image: url(/resources/image/store/test3.jpg);
-    width: 100vw;
-    height: 350px;
+    background-image: url(/resources/image/store/storeimg3.jfif);
 }
 .img4{
-    background-image: url(/resources/image/store/test4.jpg);
-    width: 100vw;
-    height: 350px;
+    background-image: url(/resources/image/store/storeimg1.png);
 }
 .img5{
-    background-image: url(/resources/image/store/test5.jpg);
-    width: 100vw;
-    height: 350px;
+    background-image: url(/resources/image/store/storeimg5.png);
 }
 
 /* 슬라이드들 옆으로 정렬 */ 
@@ -64,6 +61,21 @@
     padding:0;
 }
 
+.img2text{
+	color: white;
+	font-size: 20px;
+}
+
+.img2text2{
+	color: white;
+	font-size: 10px;
+}
+
+.maintext{
+	padding-top: 200px;
+	padding-left: 30px;
+}
+
 .slides.animated{
     transition: 0.5s ease-out;
     /*ease-out 처음에는 느렸다가 점점 빨라짐*/
@@ -76,19 +88,18 @@
 
 .controller>span{ 
     position:absolute; 
-    background-color: rgba(66, 66, 66, 0.226); 
     color: rgba(255, 255, 255, 0.516); 
     text-align: center; 
     padding: 10px 20px; 
-    top: 50%;
-    font-size: 1em; 
+    top: 45%;
+    font-size: 2em; 
     cursor: pointer; 
 }
 .controller>span{
     margin-top: 100px;
 }
 .prev{
-    right: 146.8px;
+    right: 140px;
 }
 .next{
     right: 100px;
