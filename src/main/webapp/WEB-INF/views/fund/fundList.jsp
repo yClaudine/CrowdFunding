@@ -291,7 +291,7 @@ li {
         <div class="slideContainer">
             <ul class="slideWrap">
                 <li class="slide slide4">
-                    <span>서포터님의 사랑을 받은 인기펀딩이 곧 끝나요</span>
+                    <span>서포터님의 사랑을 받은 인기펀딩은 곧 끝나요</span>
                     <img src="resources/image/fund/living.jpg">
                 </li>
                 <li class="slide slide1">
