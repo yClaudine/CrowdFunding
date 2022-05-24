@@ -49,6 +49,9 @@
     width: 80px;
     height: 110px;
 }
+.circle-list:hover>span{
+    color: #00c4c4;
+}
 
 .circle-img {
     display: inline-block;
@@ -76,6 +79,7 @@
     text-align: center;
 }
 
+
 .search-filter {
     align-items: center;
     justify-content: right;
@@ -101,10 +105,13 @@
 select {
     border: none;
     margin-left: 5px;
-    width: 80px;
+    width: 90px;
+    padding-left:3px;
     color: #868e96;
 }
-
+select:focus{
+	outline: none;
+}
 .list-search:focus {
     outline: none;
 }
@@ -282,7 +289,6 @@ li {
     background-color: #00c4c4;
 }
 </style>
-	
 
 </head>
 <body>
@@ -326,6 +332,8 @@ li {
             
         </div>
     </div><!--banner-->
+    
+    
     <div class="content">
     <!--카테고리 5개-->
         <div class="category">
@@ -420,6 +428,7 @@ li {
                     <span class="project-dayleft">6일 남음</span>
                 </div>
             </div><!--grid 1개-->  
+            
 
             
         </div><!--grid container-->
@@ -437,11 +446,10 @@ li {
                 width: winW
             });
         };
-
+        
         $(window).resize(function () {
             resizeFn();
         });
-
         autoplayFn();
 
         function autoplayFn() {
