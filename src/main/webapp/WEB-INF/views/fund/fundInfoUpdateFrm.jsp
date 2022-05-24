@@ -153,39 +153,6 @@
 		$("[type=date]").attr("value",sysdate);
 		$("[type=date]").attr("min",sysdate);
 		
-		//결제일, 정산일 변경
-		$("[type=date]").on("change",function(){
-			const tfStart = $("#tfStart").val();
-			let tfEnd = $("#tfEnd").val();
-			if(tfStart > tfEnd){
-				alert("프로젝트 종료일은 프로젝트 시작일보다 앞 선 날짜일 수 없습니다.")
-				chkIntro[2] = 0;
-			}else{
-				
-				let yy = tfEnd.slice(0,4);
-				let mm = tfEnd.slice(5,7);
-				let dd = tfEnd.slice(8,10);
-							
-				const date = new Date(yy,mm,dd);
-				date.setDate(date.getDate()+4);
-				yy = date.getFullYear();
-				mm = date.getMonth();
-				if(mm < 10){
-					mm = "0" + mm;
-				}
-				dd = date.getDate();
-				if(dd < 10){
-					dd = "0" + dd;
-				}
-				tfEnd = yy+"-"+mm+"-"+dd;
-				
-				$(".pay-start").text(tfStart);
-				$(".pay-end").text(tfEnd);
-				$(".cal-start").text(mm);
-				chkIntro[2] = 1;
-			}			
-		})
-		
 		//저장하기 버튼
 		$(".save-btn").on("click",function(){
 			if(confirm("입력하신 정보를 저장하시겠습니까?")){
@@ -237,6 +204,38 @@
 				$("#tfEnd").val("${tmpF.tfEnd}");
 				$("#tfEnd").change();
 			</c:if>
+			//결제일, 정산일 변경
+			$("[type=date]").on("change",function(){
+				const tfStart = $("#tfStart").val();
+				let tfEnd = $("#tfEnd").val();
+				if(tfStart > tfEnd){
+					alert("프로젝트 종료일은 프로젝트 시작일보다 앞 선 날짜일 수 없습니다.")
+					chkIntro[2] = 0;
+				}else{
+					
+					let yy = tfEnd.slice(0,4);
+					let mm = tfEnd.slice(5,7);
+					let dd = tfEnd.slice(8,10);
+								
+					const date = new Date(yy,mm,dd);
+					date.setDate(date.getDate()+4);
+					yy = date.getFullYear();
+					mm = date.getMonth();
+					if(mm < 10){
+						mm = "0" + mm;
+					}
+					dd = date.getDate();
+					if(dd < 10){
+						dd = "0" + dd;
+					}
+					tfEnd = yy+"-"+mm+"-"+dd;
+					
+					$(".pay-start").text(tfStart);
+					$(".pay-end").text(tfEnd);
+					$(".cal-start").text(mm);
+					chkIntro[2] = 1;
+				}			
+			})
 		});
 	</script>
 </body>
