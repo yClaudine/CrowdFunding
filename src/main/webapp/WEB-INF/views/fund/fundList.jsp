@@ -340,6 +340,13 @@ li {
             <a class="category-list" href="#"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
+                        <img src="img/leaves.jpg">
+                    </span>
+                    <span class="circle-name">BEST 펀딩</span>
+                </span>
+            <a class="category-list" href="#"><!--카테고리1개-->
+                <span class="circle-list">
+                    <span class="circle-img">
                         <img src="resources/image/fund/living.jpg">
                     </span>
                     <span class="circle-name">리빙</span>
