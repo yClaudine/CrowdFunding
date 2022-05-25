@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tmpStore">
+	<select id="selectAllStore" resultType="ts">
+		select
+			store_no as storeNo,
+			member_id as memberId,
+			store_title as storeTitle,
+			store_category as storeCategory;
+			store_content as storeContent;
+			store_product as storeProduct;
+			store_productcontent as storeProductcontent;
+			store_price as storePrice;
+			store_count as storeCount;
+			store_delivery as storeDelivery;
+			store_return as storeReturn;
+			store_change as storeChange;
+			store_reportcount as storeReportcount;
+			store_warning as storeWarning;
+			store_img1 as storeImg1;
+			store_img2 as storeImg2;
+			store_img3 as storeImg3;
+			store_img4 as storeImg4;
+			store_img5 as storeImg5;   
+		from store_tmp
+	</select>
+	<insert id="createTmpStore" parameterType="ts">
+		insert into store_tmp
+		values (st_seq.nextval,#{memberId},null,#{stCategory},null,null,null,null,null,null,null,null,null,null,null,null,null)
+	</insert>
+	
+</mapper>
