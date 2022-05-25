@@ -12,6 +12,7 @@
 	  		fund_category as fundCategory,
 	  		fund_start as fundStart,
 	  		fund_end as fundEnd,
+	  		(TO_DATE(fund_end, 'YYYY-MM-DD')- TO_DATE(fund_start, 'YYYY-MM-DD')) as dateGap,
 	  		fund_intro as fundIntro,
 	  		fund_as as fundAs,
 	  		fund_like as fundLike,
