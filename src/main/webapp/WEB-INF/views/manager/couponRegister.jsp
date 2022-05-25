@@ -11,6 +11,8 @@
 	overflow: hidden;
 	width: 1200px;
 	margin: 0 auto;
+	 font-family: ns-medium;
+	 border-top: 1px solid #bfbfbf;
 }
 
 .left-content {
@@ -44,7 +46,7 @@
 	line-height: 50px;
 	font-size: 15px;
 	color: gray;
-	font-weight: bolder;
+	
 }
 
 .manager-menu>li>a {
@@ -95,6 +97,9 @@
 	background-color: #02c9c9;
 	border: 1px solid #02c9c9;
 	display: block;
+	border-radius: 5px;
+	margin:0;
+	margin-bottom:5px;
 }
 
 .main-content .btn-primary:hover {
@@ -107,10 +112,13 @@
 
 .coupon-table {
 	width: 100%;
-	margin-top: 30px;
 	margin-bottom: 30px;
+	font-size: 13px;
 }
-
+.coupon-table tr{
+	border-bottom: 2px solid #f2f4f6;
+	height: 100px;
+}
 .coupon-table th {
 	width: 20%;
 	text-align: center;
@@ -136,6 +144,11 @@
 .coupon-table p {
 	margin: 0;
 }
+input, select{
+	border: 0.5px solid gray;
+	padding: 3px;
+}
+
 </style>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -182,6 +195,7 @@
 						</select></td>
 						<td></td>
 					</tr>
+					<tr>
 					<th>카테고리</th>
 					<td><select name="mainTarget">
 							<option value="all">전체</option>

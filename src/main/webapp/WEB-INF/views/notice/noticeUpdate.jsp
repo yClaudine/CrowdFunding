@@ -11,7 +11,8 @@
      overflow: hidden;
      width: 1200px;
      margin: 0 auto;
-     
+     font-family: ns-medium;
+     border-top: 1px solid #bfbfbf;
  }
  .main-content{
      float: left;
@@ -23,7 +24,6 @@
      text-align: center;
      padding: 50px;
      font-weight: bolder;
-     border-top: 1px solid lightgray;
  }
  .main-content .btn{
      font-size: 20px;

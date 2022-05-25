@@ -10,7 +10,12 @@
 
 .content-wrap{
     width: 1200px;
-    margin: 0 auto;        
+    margin: 0 auto;  
+    border-top: 1px solid #bfbfbf;
+    
+}
+.content-top *{
+	font-family: ns-medium;
 }
 .maintitle {
 	text-align: center;
@@ -33,6 +38,7 @@
 .top-date{
     color: #868e96;
     font-size: 13px;
+    overflow:hidden;
 }
 .content-main{
  	min-height: 500px;
@@ -116,19 +122,39 @@
     padding: 10px;
 }
 .buttons{
-    width: 100px;
-    height: 40px;
-    color:#ffffff;
+	font-size: 15px;
+    width: 90px;
+    height: 35px;
     background-color: #00c4c4;
-    border:none;
+    border: 1px solid #d1e2e2;
+    color:white;
     font-weight: 300;
     float: right;
     margin: 5px;
     border-radius: 5px;
+    border-radius: 10px;
 }
 .buttons:hover{
+    background-color: #ffffff;
+    border: 1px solid #00b2b2;
+    color:#00b2b2;
     cursor: pointer;
-    font-size: 1.1em;
+    font-weight: 500;
+}
+.top-date>img{
+	width: 50px;
+	height: 50px;
+}
+.top-date>*{
+	float:left;
+}
+.top-date p{
+	margin: 0;
+}
+.top-date>div{
+	height: 50px;
+	padding-top: 5px;
+	padding-left: 5px;
 }
 </style>
 </head>
@@ -142,20 +168,26 @@
         <button class="delete buttons">삭제하기</button>
         <button class="modify buttons">수정하기</button>
     </div>
-	
 	</c:if>
-	
-	
 	
     <div class="main-content">
         <div class="content-top">
             <div class="top-title">${notice.noticeTitle }</div>
             <div class="top-date">
+            	<img  src="/resources/image/파이널로고1.png">
             	<c:choose>
             		<c:when test="${not empty notice.dateStart }">
-            			${notice.dateStart } ~ ${notice.dateEnd }
+            			<div>
+            				<p>FunFunFun</p>
+            				<p>${notice.dateStart } ~ ${notice.dateEnd }</p>
+            			</div>
             		</c:when>
-            		<c:otherwise>${notice.regDate }</c:otherwise>
+            		<c:otherwise>
+            		<div>
+            			<p>FunFunFun</p>
+            			<p>${notice.regDate }</p>
+            		</div>
+            		</c:otherwise>
             	</c:choose>
             </div>
         </div>
@@ -170,13 +202,14 @@
                     <div class="img"><img src="/resources/image/파이널로고2.png"></div>
                     <p>쿠폰과 함께 FunFunFun에서</p>
                     <p>구석구석 즐겁게 쇼핑하세요!</p> 
-                    <p>[쿠폰] ${coupon.couponName}</p>
+                    <p>${coupon.couponName}</p>
                     <div class="download"><button class="btns downloadBtn">쿠폰 다운로드</button></div>
                     <div class="coupon-info">
                         <p>적용대상 | 
                         	<c:choose>
                         		<c:when test="${coupon.mainTarget eq 'all'}">
                         			<c:choose>
+                        				<c:when test="${coupon.subTarget eq 'all'}">모든</c:when>
 		                        		<c:when test="${coupon.subTarget eq 'beauty'}">뷰티</c:when>
 		                        		<c:when test="${coupon.subTarget eq 'pet'}">애완용품</c:when>
 		                        		<c:when test="${coupon.subTarget eq 'living'}">리빙</c:when>
@@ -205,12 +238,9 @@
 		                        	</c:choose>
                         		</c:otherwise>
                         	</c:choose>
-                        	
-                        
-                        
                         
                         아이템 구매 회원 누구나</p>
-                        <p>유효기간 | 마이페이지>쿠폰>나의 쿠폰에서 사용기한을 확인해주세요.</p>
+                        <p>사용안내 | 마이페이지>쿠폰에서 사용기한 및 사용조건을 확인해주세요.</p>
                     </div>
 	               
             	</div>
@@ -237,7 +267,6 @@
 <script>
 $(".shoppingBtn").on("click",function(){
 	const mainTarget = $(".mainTarget").val();
-	const subTarget = $(".subTarget").val();
 	if(mainTarget == "fund"){
 		location.href="/fund.do";
 	}else if(mainTarget == "store"){

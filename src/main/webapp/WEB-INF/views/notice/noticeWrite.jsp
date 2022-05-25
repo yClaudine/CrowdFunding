@@ -11,7 +11,7 @@
      overflow: hidden;
      width: 1200px;
      margin: 0 auto;
-     
+     font-family: ns-medium;
  }
  .main-content{
      float: left;

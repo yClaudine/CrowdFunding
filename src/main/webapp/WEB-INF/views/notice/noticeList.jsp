@@ -6,10 +6,12 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <style>
+
 .content-wrap {
 	overflow: hidden;
 	width: 1200px;
 	margin: 0 auto;
+	font-family: ns-medium;
 }
 
 .main-content {
@@ -20,24 +22,27 @@
 }
 
 .main-content .btn {
-	font-size: 20px;
+	font-size: 17px;
 	margin: 5px;
-	width: 100px;
+	width: 90px;
 	height: 40px;
-	line-height: 20px;
+	line-height: 30px;
 	padding: 0;
+	font-weight: 500;
 }
 
 .main-content .btn-primary {
-	color: whitesmoke;
-	background-color: #02c9c9;
-	border: 1px solid #02c9c9;
+     background-color: #00b2b2;
+     border: 1px solid #d1e2e2;;
+     color:white;
 	display: block;
 }
 
 .main-content .btn-primary:hover {
-	background-color: #00b2b2;
-	border: 1px solid white;
+	background-color: white;
+	color:#00b2b2;
+    border: 1px solid #00b2b2;
+     cursor: pointer;
 }
 
 
@@ -46,6 +51,7 @@
 }
 
 .top-title {
+	
 	text-align: center;
 	font-weight: bolder;
 	font-size: 50px;
@@ -93,7 +99,8 @@ input[name='keyword'] {
 }
 
 .main-content .table {
-	margin-top: 30px;
+	margin: 0 auto;
+	width: 80%;
 }
 
 .main-content .table tr>th:nth-child(2) {
@@ -169,27 +176,25 @@ input[name='keyword'] {
 	text-align: center;
 }
 
-.tabs>li:hover {
+.tabs a:hover {
 	font-size: 1.1em;
 	cursor: pointer;
+	color: #212529;
 }
 .tabs a{
 	text-decoration:none;
 	color: #212529;
 }
-.tabcontent {
-	width: 70%;
-	margin: 0 auto;
-	padding: 0 auto;
-}
+
 
 .content-wrap {
 	width: 100%;
-	border-top: 1.5px solid #bfbfbf;
+	border-top: 0.5px solid #bfbfbf;
 }
 .pagination{
 	justify-content:center;
 	margin: 0 auto;
+	padding-top: 50px;
 }
 .pagination>.page-item>a {
 	color: #00b2b2;
