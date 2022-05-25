@@ -40,11 +40,6 @@
 	border: 1px solid white;
 }
 
-.coupon-table {
-	width: 100%;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
 
 .main-top {
 	width: 100%;
@@ -52,9 +47,9 @@
 
 .top-title {
 	text-align: center;
-	padding: 30px;
 	font-weight: bolder;
 	font-size: 50px;
+	padding-bottom: 30px;
 }
 
 .top-search {
@@ -98,7 +93,7 @@ input[name='keyword'] {
 }
 
 .main-content .table {
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .main-content .table tr>th:nth-child(2) {
@@ -107,8 +102,7 @@ input[name='keyword'] {
 
 .main-content .table th {
 	font-weight: normal;
-	height:115px;
-	line-height:37px
+	line-height:30px
 }
 
 .main-content .table th>* {
@@ -143,13 +137,13 @@ input[name='keyword'] {
 }
 
 .img {
-	width: 140px;
-	height: 140px;
+	width: 100px;
+	height: 100px;
 	margin: 0;
 }
 .img>img{
-	width: 140px;
-	height: 140px;
+	width: 100px;
+	height: 100px;
 }
 
 .tab-wrap {
@@ -186,7 +180,7 @@ input[name='keyword'] {
 .tabcontent {
 	width: 70%;
 	margin: 0 auto;
-	padding: 30px 0px;
+	padding: 0 auto;
 }
 
 .content-wrap {
@@ -248,8 +242,8 @@ input[name='keyword'] {
       
             <div class="main-middle"> 
             	<!-- 로그인되어있고, 관리자일 경우 글쓰기 가능하도록 -->
-            	<c:if test="${not empty sessionScope.m} && ${sessionScope.m.categoryNo eq 0}">
-            		<button type="button" class="btn btn-primary write">글쓰기</button>
+            	<c:if test="${not empty sessionScope.m && sessionScope.m.categoryNo eq 0}">
+            		<button type="button" class="btn btn-primary write">글쓰기 </button>
                 	<input type="hidden" class="writer" value="${sessionScope.m.memberId }">
             	</c:if>
                 <div class="tab-wrap">
@@ -267,7 +261,7 @@ input[name='keyword'] {
                     <div class="content-wrap">
                         <div class="tabcontent" id="all">
                        
-                            <table class="table ">
+                            <table class="table">
                                 <tbody>
                                 	<c:forEach var="n" items="${list }">
                                 		<tr>
@@ -319,7 +313,29 @@ input[name='keyword'] {
        
         </div>
     </div>
+    <input type="hidden" class="type" value="${type }">
 	<script>
+	//타입효과
+	const type=$(".type").val();
+	if(type == "all"){
+		$(".tabs").children().css("color","black");
+		$(".tabs").children().children().css("border-bottom","none");
+		$(".all").css("color","#00c4c4");
+		$(".all").css("border-bottom","5px solid #00c4c4");
+	}else if(type == "info"){
+		$(".tabs").children().css("color","black");
+		$(".tabs").children().children().css("border-bottom","none");
+		$(".info").css("color","#00c4c4");
+		$(".info").css("border-bottom","5px solid #00c4c4");
+	}else{
+		$(".tabs").children().css("color","black");
+		$(".tabs").children().children().css("border-bottom","none");
+		$(".event").css("color","#00c4c4");
+		$(".event").css("border-bottom","5px solid #00c4c4");
+	}
+	
+	
+	//글쓰기버튼
 	$(".write").on("click",function(){
 		const writer = $(".writer").val();
 		location.href="/insertNoticeFrm.do?noticeWriter="+writer;

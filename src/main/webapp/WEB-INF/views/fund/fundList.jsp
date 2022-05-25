@@ -406,8 +406,8 @@ li {
 
 <!--펀딩 리스트-->
         <div class="project-container">
-            <!--grid 1개 item-->
-            <div class="item">
+            
+            <div class="item"><!--grid 1개 item-->
                 <a href="#" class="project-wrap">
                     <img src="resources/image/fund/living.jpg">
                     <div class="project-card">
@@ -427,8 +427,31 @@ li {
                     <span class="project-amount">∙85,097,500원</span>
                     <span class="project-dayleft">6일 남음</span>
                 </div>
-            </div><!--grid 1개-->  
+            </div><!--grid 1개--> 
             
+           <c:forEach items="${list }" var="f" varStatus="i">
+            <div class="item"><!--grid 1개 item-->
+                <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
+                    <img src="resources/image/fund/living.jpg">
+                    <div class="project-card">
+                        <div class="project-title">
+                            ${f.fundName }
+                        </div>
+                        <div class="project-info">
+                            <span class="project-category">${f.fundCategory }</span>
+                            <span class="divide">|</span>
+                            <span class="project-seller">주식회사 노멀리스트</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="line"></div>
+                <div class="project-progress">
+                    <span class="project-percent">1687%</span>
+                    <span class="project-amount">∙${f.fundAmount }원</span>
+                    <span class="project-dayleft">${f.fundStart }일 남음</span>
+                </div>
+            </div><!--grid 1개--> 
+           </c:forEach>
 
             
         </div><!--grid container-->

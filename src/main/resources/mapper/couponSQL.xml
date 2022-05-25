@@ -79,8 +79,45 @@
   		min_price as minPrice,
   		coupon_status as couponStatus
   	from coupon 
-  	where valid_end <![CDATA[>]]> to_char(sysdate,'yyyy-mm-dd')
+  	where  coupon_status = 0
   	order by 1 desc
   	
   </select>
+  <select id="searchOneMemberCoupon" parameterType="map" resultType="mc">
+  	select
+  		mem_coupon_no as memCouponNo,
+  		member_no as memberNo,
+  		use_date as useDate,
+  		coupon_use as couponUse,
+  		coupon_status as couponStatus,
+  		coupon_no as couponNo,
+  		valid_end as validEnd
+  	from member_coupon
+  	where member_no=#{memberNo} and coupon_no=#{couponNo}
+  	
+  
+  </select>
+  <insert id="insertMemberCoupon" parameterType="map">
+  	insert into member_coupon values (
+  		member_coupon_seq.nextval,
+  		#{memberNo},
+  		null,
+  		0,
+  		0,
+  		#{couponNo},
+  		#{validEnd}
+  	)
+  </insert>
+  <update id="updateCouponStatus" parameterType="int">
+  	update coupon set coupon_status=1 where coupon_no=#{couponNo}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

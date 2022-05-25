@@ -13,8 +13,14 @@ public class FundListService {
 	@Autowired
 	private FundListDao dao;
 
-	public ArrayList<Fund> selectAllFund() {
-		return dao.selectAllFund();
+	//펀딩 리스트 메인페이지
+	public ArrayList<Fund> selectFundList() {
+		return dao.selectFundList();
+	}
+	
+	//펀딩 상세 메인페이지-story
+	public Fund selectOneFund(int fundNo) {
+		return dao.selectOneFund(fundNo);
 	}
 
 }
