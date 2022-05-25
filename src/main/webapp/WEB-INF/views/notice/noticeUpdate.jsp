@@ -12,6 +12,7 @@
      width: 1200px;
      margin: 0 auto;
      font-family: ns-medium;
+     border-top: 1px solid #bfbfbf;
  }
  .main-content{
      float: left;
@@ -23,7 +24,6 @@
      text-align: center;
      padding: 50px;
      font-weight: bolder;
-     border-top: 1px solid lightgray;
  }
  .main-content .btn{
      font-size: 20px;
@@ -91,7 +91,24 @@
      width: 100%;
      height: 40px;
  }
+.img {
+	width: 100px;
+	height: 100px;
+}
+.delFile{
+	 color: whitesmoke ;
+     background-color: #02c9c9;
+     border: 1px solid #02c9c9;
+	 width: 70px;
+	 height: 30px;
+	 border-radius: 5px;
+}
+.delFile:hover{
+ 	 color:#00b2b2;
+ 	 background-color: white;
+     border: 1px solid #00b2b2;
 
+}
 </style>
 <!-- 섬머노트 -->
 <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
@@ -99,6 +116,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
+
 <%@include file="/WEB-INF/views/common/header.jsp"%>
 <script src="/resources/js/summernote/summernote-lite.js"></script>
 <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
@@ -108,72 +126,98 @@
             <div class="main-content">
                 <div class="top-title"><h2>공지사항</h2></div>
                
-                <form class="form" action="/insertNotice.do" method="post" enctype="multipart/form-data" >
+                <form class="form" action="/updateNotice.do" method="post" enctype="multipart/form-data" >
+                	<input type="hidden" name="noticeNo" value="${n.noticeNo }">
                     <table class="manager-table">
                         <tr>
                             <th>분류</th>
                             <td>
-                                <input type="radio" name="noticeType" value="0" id="info">
-                                <label for="info">공지</label>
-                                <input type="radio" name="noticeType" value="1" id="event">
-                                <label for="event">이벤트</label>
+                            	<c:choose>
+                            		<c:when test="${n.noticeType eq 0}">
+                            			공지사항
+                            		</c:when>
+                            		<c:otherwise>
+                            			이벤트
+                            		</c:otherwise>
+                            	</c:choose>
                             </td>
                             <th>상단글 고정</th>
-                            <td><input type="checkbox" class="importantCheck">
-                            	<input type="hidden" name="important">
+                            <td><input type="checkbox" name="important" class="important" >
+                            	
                             </td>
                         </tr>
                         <tr>
                             <th>제목</th>
                             <td>
-                                <input type="text" name="noticeTitle" class="noticeTitle">
+                                <input type="text" name="noticeTitle" class="noticeTitle" value="${n.noticeTitle }">
                             </td>
                             <th>작성자</th>
                             <td>
-                            <c:if test="${not empty sessionScope.m && sessionScope.m.categoryNo eq 0}">
-                            <input type="hidden" name="noticeWriter" value="${sessionScope.m.memberId }" >${sessionScope.m.memberId }
-                            </c:if>
+                            ${n.noticeWriter }
                             </td>
                         </tr>
                         <tr>
                             <th>대표이미지</th>
+                            
                             <td colspan="3">
-                                <input type="file" name="file">
+                            	<input type="hidden" name="status" value="stay">
+                            	<c:choose>
+                            		<c:when test="${empty n.noticeFilepath }">
+                            			<input type="file" name="file">
+                            			<input type="hidden" name="oldFile" value="none">
+                            		</c:when>
+                            		<c:otherwise>
+                            			<input type="hidden" name="oldFile" value="${n.noticeFilepath }">
+                            			<img class="img" src="/resources/image/notice/main/${n.noticeFilepath}">
+                            			<input type="file" name="file" value="${n.noticeFilepath }" style="display:none;"  >
+                            			<button type="button" class="delFile">삭제하기</button>
+                            			<input type="file" name="newFile" style="display:none;">
+                            		</c:otherwise>
+                            	</c:choose>
                             </td>
                         <tr>
                             <th>내용</th>
                             <td colspan="3">
-                                <textarea cols="100" rows="20" id="noticeContent" name="noticeContent" class="noticeContent"></textarea>
+                                <textarea cols="100" rows="20" id="noticeContent" name="noticeContent" class="noticeContent" >${n.noticeContent }</textarea>
                             </td>
                         </tr>
-                        <tr>
-                            <th>쿠폰</th>
-                            <td colspan="3"  style="text-align: left;">
-                                <select name="couponNo" class="couponNo" readonly>
-                                    <option value="0">없음</option>
-                                    <c:forEach var="c" items="${couponList }">
-                                    	<option value="${c.couponNo}" start="${c.validStart }" end="${c.validEnd }">${c.couponName }</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>유효기간</th>
-                            <td  colspan="2" class="couponDate">
-                                    <input type="date" name="dateStart" id="start"> ~
-                                    <input type="date" name="dateEnd" id="end">
-                            </td>
-                        </tr>
+                        
+                        <c:if test="${n.couponNo ne 0 }">
+                        	<tr>
+                       			<th>쿠폰</th>
+                       			<td colspan="3"  style="text-align: left;">${c.couponName }</td>
+                        	</tr>
+                        </c:if>
+                        <c:if test="${not empty n.dateStart }">
+                        	<tr>
+                        		<th>유효기간</th>
+                        		<td  colspan="2"> ${n.dateStart }~${n.dateEnd }</td>
+                        	</tr>
+                        </c:if>
                     </table>
                     
-                    <input  type="submit" value="등록하기" class="btn btn-outline-primary">
+                    <input  type="submit" value="수정하기" class="btn btn-outline-primary">
                 </form>
                 
             </div>
         </div>
-        
+        <input type="hidden" class="information" value="${n.important }" >
  <script>
- 	  //섬머노트
+ 	//파일삭제
+ 	$(".delFile").on("click",function(){
+ 		$(this).prev().attr("name","old");
+ 		$(this).css("display","none");
+ 		$(this).next().attr("name","file").css("display","block");
+ 		$(this).prev().prev().css("display","none");
+ 		$(this).prev().prev().prev().prev().val("delete");
+ 	});
+ 	//값셋팅
+ 	const important = $(".information").val();
+	if(important == 1){
+		$(".important").prop("checked",true);
+	} 
+
+	//섬머노트
  	 $("#noticeContent").summernote({
 			height:600,
 			lang : "ko-KR",
@@ -200,95 +244,36 @@
 				}
 			});
 		}
- 
-	  
- 
-      //쿠폰 유효기간 시작일 제한
-        function formatDate(){
-            const d = new Date();
-            month = ""+(d.getMonth()+1);
-            day = ""+d.getDate();
-            year = d.getFullYear();
-            if(month.length<2){
-                month = "0"+month;
-            }
-            if(day.length<2){
-                day = "0"+day;
-            }
-            return [year, month, day].join('-');
-        }
-
-        //유효기간 지정시 -> 달력활성화 및 시작일, 끝나는날 제한
-        const validStart = $("#start");
-        const validEnd = $("#end");
-        validStart.on("click",function(){
-            validStart.attr("min",formatDate());
-            if(validEnd.val() != ''){
-                validStart.attr("max",validEnd.val());
-            }else{
-                validStart.removeAttr("max");
-            }
-        });
-        validEnd.on("click",function(){
-            if(validStart.val() != ''){
-                validEnd.attr("min",validStart.val());
-            }else{
-                validEnd.attr("min",formatDate());
-            }
-        });
-
-		//쿠폰선택시 유효기간 자동설정
-        $("select[name='couponNo']").on("change",function(){
-            const validStart = $("#start");
-            const validEnd = $("#end");
-            const couponStart = $("select[name='couponNo'] option:selected").attr("start");
-            const couponEnd = $("select[name='couponNo'] option:selected").attr("end");
-            if($(this).val() == 0){
-            	validStart.val("");
-            	validEnd.val("");
-                validStart.attr("readonly",false);
-                validEnd.attr("readonly",false);
-            }else{
-                validStart.attr("readonly",true).val(couponStart);
-                validEnd.attr("readonly",true).val(couponEnd);
-            }
-        });
         
       //제출하기 검사
         $("input[type='submit']").on("click",function(e){
-        	 //e.preventDefault();
-        	if($(".importantCheck").is(":checked")){
+        	
+        	if($(".important").is(":checked")){
          		$("input[name='important']").val(1);
          	}else{
          		$("input[name='important']").val(0);
          	}
-            const checkArr = [false, false, false];
-            //타입 체크 확인
-            const noticeType = $("input[name='noticeType']:checked").val();
-            if(noticeType != null){
-                checkArr[0] = true;
-            }
+            const checkArr = [false, false];
+            
             //제목 빈칸 확인
             const noticeTitle = $(".noticeTitle").val();
             if(noticeTitle != ""){
-                checkArr[1] = true;
+                checkArr[0] = true;
             }
             //내용 빈칸 확인
             const noticeContent = $(".noticeContent").val();
             if(noticeContent != ""){
-                checkArr[2] = true;
+                checkArr[1] = true;
                 
             }
-            if(!(checkArr[0]&&checkArr[1]&&checkArr[2])){
+            if(!(checkArr[0]&&checkArr[1])){
                 e.preventDefault();
                 alert("값을 확인해주세요");
             }
            
         });
-		
-		
-		
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </body>
 </html>

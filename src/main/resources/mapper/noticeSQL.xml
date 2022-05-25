@@ -78,4 +78,15 @@
   	from notice 
   	where notice_no=#{noticeNo}
  </select>
+ <delete id="deleteNotice" parameterType="int">
+ 	delete from notice where notice_no=#{noticeNo}
+ </delete>
+ <update id="updateNotice" parameterType="notice">
+ 	update notice set 
+ 		important = #{important},
+ 		notice_title = #{noticeTitle},
+ 		notice_content = #{noticeContent},
+ 		notice_filepath = #{noticeFilepath}
+ 	where notice_no = #{noticeNo}
+ </update>
 </mapper>
