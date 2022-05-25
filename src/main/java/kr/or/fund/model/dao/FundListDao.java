@@ -14,8 +14,15 @@ public class FundListDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<Fund> selectAllFund() {
+	//펀딩 리스트 메인페이지
+	public ArrayList<Fund> selectFundList() {
 		List list = sqlSession.selectList("fundList.selectAllFund");
 		return (ArrayList<Fund>)list;
+	}
+	
+	//펀딩 상세 메인페이지-story
+	public Fund selectOneFund(int fundNo) {
+		Fund f = sqlSession.selectOne("fundList.selectOneFund");
+		return f;
 	}
 }

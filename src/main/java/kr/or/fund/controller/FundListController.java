@@ -15,11 +15,21 @@ public class FundListController {
 	@Autowired
 	private FundListService service;
 	
+	//펀딩 리스트 메인페이지
 	@RequestMapping(value="/fund.do")
-	public String selectAllFund(Model model) {
-		ArrayList<Fund> list = service.selectAllFund();
+	public String FundList(Model model) {
+		ArrayList<Fund> list = service.selectFundList();
 		model.addAttribute("list",list);
 		return "fund/fundList";
 	}
+	//펀딩 상세 메인페이지-story
+	@RequestMapping(value="/fundView.do")
+	public String FundView(int fundNo, Model model)	{
+		Fund f = service.selectOneFund(fundNo);
+		model.addAttribute("f",f);
+		return "fund/fundView";
+		
+	}
+	
 	
 }
