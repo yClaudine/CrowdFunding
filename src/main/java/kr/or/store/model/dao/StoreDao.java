@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.fund.model.vo.Fund;
+import kr.or.member.vo.Member;
 import kr.or.store.model.vo.Store;
+import kr.or.store.model.vo.StoreStar;
 
 @Repository
 public class StoreDao {
@@ -34,5 +36,16 @@ public class StoreDao {
 	public int selectStoreCount() {
 		int totalCount = sqlSession.selectOne("store.selectTotalCount");
 		return totalCount;
+	}
+
+	public int insertComment(Store s) {
+		int result = sqlSession.insert("store.insertComment",s);
+		return result;
+	}
+
+
+	public ArrayList<StoreStar> selectcommentAllList(int storeNo) {
+		List list = sqlSession.selectList("storeStar.selectcommentAllList",storeNo);
+		return (ArrayList<StoreStar>)list;
 	}
 }

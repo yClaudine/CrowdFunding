@@ -9,7 +9,7 @@
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
 
 		<typeAlias type="kr.or.member.vo.Member" alias="m"/>
-
+	<typeAlias type="kr.or.store.model.vo.StoreStar" alias="ss"/>
 		<typeAlias type="kr.or.store.model.vo.Store" alias="s"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
 		<typeAlias type="kr.or.coupon.model.vo.Coupon" alias="coupon"/>		

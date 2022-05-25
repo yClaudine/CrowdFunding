@@ -6,9 +6,12 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.member.vo.Member;
 import kr.or.store.model.dao.StoreDao;
 import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
+import kr.or.store.model.vo.StoreStar;
+import kr.or.store.model.vo.StoreViewData;
 
 
 @Service
@@ -21,10 +24,13 @@ public class StoreService {
 		return dao.selectAllStore();
 	}
 
-	public Store selectOneStore(int storeNo) {
+	public StoreViewData selectOneStore(int storeNo) {
 		// TODO Auto-generated method stub
-		Store s = dao.selectOneStore(storeNo);
-		return s;
+		Store sm = dao.selectOneStore(storeNo);
+		ArrayList<StoreStar> list = dao.selectcommentAllList(storeNo);
+		//double starAvg = dao.selectStarAvg(storeNo);
+		StoreViewData sv = new StoreViewData(sm, list, 0);
+		return sv;
 	}
 
 	public StoreAllPageData selectStoreAllList(int reqPage) {
@@ -83,4 +89,11 @@ public class StoreService {
 		StoreAllPageData spd = new StoreAllPageData(list, pageNavi);
 		return spd;
 	}
+
+	public int insertComment(Store s) {
+		int result = dao.insertComment(s);
+		return result;
+	}
+
+
 }
