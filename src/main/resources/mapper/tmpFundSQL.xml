@@ -88,4 +88,15 @@
   		tf_end = #{tfEnd}
   	where tf_no = #{tfNo}
   </update>
+  <update id="updateTmpStory" parameterType="tf">
+  	update tmp_fund 
+  	set 
+  		tf_intro = #{tfIntro}, 
+  		tf_filepath1 = #{tfFilepath1},
+  		tf_filepath2 = #{tfFilepath2},
+  		tf_filepath3 = #{tfFilepath3},
+  		tf_filepath4 = #{tfFilepath4},
+  		tf_filepath5 = #{tfFilepath5}
+  	where tf_no = #{tfNo}
+  </update>
 </mapper>
