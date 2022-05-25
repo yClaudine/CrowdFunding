@@ -17,6 +17,8 @@
 		width: 130px;
 		padding-left: 25px;
 		padding-top: 40px;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	.fee-light{
 		background-color: rgb(238, 238, 238);
@@ -266,7 +268,7 @@
 		//자세히보기
 		$(".more-line>p").on("click",function(){
 			value = $(this).attr("value");
-			console.log(value);
+			location.href="/TmpDetail.do?tfNo=${tmpF.tfNo}&value="+value;
 		})
 		
 		// 사전에 입력된 요금제 있는지 체크

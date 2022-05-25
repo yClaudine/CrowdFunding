@@ -44,4 +44,14 @@ public class FundTmpDao {
 		return sqlSession.update("tmpFund.updateTmpFees",tf);
 	}
 
+	public int updateTmpBasic(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpBasic",tf);
+	}
+
+	public int updateTmpStory(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpStory",tf);
+	}
+
 }

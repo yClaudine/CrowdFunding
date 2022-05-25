@@ -22,6 +22,8 @@ html>body {
         overflow: hidden;
         width: 1200px;
         margin: 0 auto;
+        font-family: ns-medium;
+        border-top: 1px solid #bfbfbf;
     }
     .left-content{
         float: left;
@@ -50,7 +52,7 @@ html>body {
         line-height: 50px;
         font-size: 15px;
         color: gray;
-        font-weight: bolder;
+        
     }
     .manager-menu>li>a{
         display: block;
@@ -77,7 +79,7 @@ html>body {
     }
     .main-content>.btn-outline-primary, .coupon-modal .close-btn{
         color:#00b2b2;
-        border: 1.5px solid #00b2b2;
+        border: 1px solid #00b2b2;
     }
    .main-content>.btn-outline-primary:hover, .coupon-modal .close-btn:hover{
         background-color: #00b2b2;
@@ -92,7 +94,6 @@ html>body {
     }
     .main-content>.btn-primary:hover{
         background-color: #00b2b2;
-        border: 1px solid white;
         border: 1px solid #00b2b2;
     }
     .table{
@@ -111,7 +112,7 @@ html>body {
     	display:none;
     	width: 100%;
     	height: 100%;
-    	position: absolute;
+    	position: fixed;
     	top:0px;
     	left: 0px;
     	background-color: rgba(0,0,0,0.3);
@@ -174,7 +175,7 @@ html>body {
 	                <li>관리자페이지</li>
 	                <li><a href="#">펀딩관리</a></li>
 	                <li><a href="#">스토어관리</a></li>
-	                <li><a href="#">회원관리</a></li>
+	                <li><a href="/memberManage.do">회원관리</a></li>
 	                <li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
 	            </ul>
 	        </div>
@@ -211,7 +212,7 @@ html>body {
 	                        <td>${cp.validStart } ~ ${cp.validEnd }</td>
 	                        <c:choose>
 	                        	<c:when test="${cp.couponStatus eq 0}">
-	                        		<td>준비중</td>
+	                        		<td>게시전</td>
 	                       		</c:when>
 	                       		<c:when test="${cp.couponStatus eq 1}">
 	                        		<td>진행중</td>
@@ -311,10 +312,12 @@ $(".delete").on("click",function(){
     if(check == null){
         alert("삭제할 쿠폰을 선택해주세요");
     }else{
-    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "준비중"){
-    		location.href="/deleteCoupon.do?couponNo="+check;
+    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "게시전"){
+    		if(confirm("쿠폰을 삭제하시겠습니까?")){
+    			location.href="/deleteCoupon.do?couponNo="+check;
+    		}
     	}else{
-    		alert("게시 완료된 쿠폰은 삭제할 수 없습니다.");
+    		alert("게시전 쿠폰만 삭제 가능합니다.");
     	}
     }
 });
@@ -324,10 +327,10 @@ $(".modify").on("click",function(){
     if(check == null){
         alert("수정할 쿠폰을 선택해주세요");
     }else{
-    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "준비중"){
+    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "게시전"){
             location.href="/updateCouponFrm.do?couponNo="+check;
     	}else{
-    		alert("게시 완료된 쿠폰은 수정할 수 없습니다.");
+    		alert("게시전 쿠폰만 수정 가능합니다.");
     	}
     }
 });

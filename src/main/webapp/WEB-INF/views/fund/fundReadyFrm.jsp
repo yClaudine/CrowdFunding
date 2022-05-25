@@ -89,7 +89,7 @@
 						<h6>스토리 작성</h6>
 						<span class="check-fund">작성 전</span>
 					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
+						<button onclick="location.href='/fundStoryUpdateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>

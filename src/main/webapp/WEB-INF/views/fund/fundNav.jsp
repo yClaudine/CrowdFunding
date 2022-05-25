@@ -74,7 +74,7 @@
 		<ul class="nav-sub">
 			<li><a href="/fundFeeSelectFrm.do?tfNo=${tmpF.tfNo}">요금제 선택</a></li>
 			<li><a href="/fundInfoUpdateFrm.do?tfNo=${tmpF.tfNo}">기본 정보</a></li>
-			<li><a href="#">스토리 작성</a></li>
+			<li><a href="/fundStoryUpdateFrm.do?tfNo=${tmpF.tfNo}">스토리 작성</a></li>
 			<li><a href="#">리워드 설계</a></li>
 			<li><a href="#">위험요인 및 정책</a></li>
 			<li><a href="#">대표자 및 정산정보</a></li>

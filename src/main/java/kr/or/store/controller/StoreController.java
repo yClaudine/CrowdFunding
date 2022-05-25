@@ -80,4 +80,5 @@ public class StoreController {
 	public String Store() {
 		return "store/Store";
 	}
+	
 }
