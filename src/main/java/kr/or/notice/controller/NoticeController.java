@@ -91,6 +91,10 @@ public class NoticeController {
 		}
 		
 		int result = service.insertNotice(n);
+		//쿠폰있고 공지사항 등록 완료 후 -> 쿠폰 상태 게시완료로 바꿔주기
+		if(result>0 && n.getCouponNo() != 0) {
+			int result2 = couponService.updateCouponStatus(n.getCouponNo());
+		}
 		return "redirect:/notice.do?reqPage=1&type=all";
 	}
 	
@@ -149,5 +153,83 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "notice/noticeView";
 	}
+	
+	@RequestMapping(value="/deleteNotice.do")
+	public String deleteNotice(int noticeNo) {
+		int result = service.deleteNotice(noticeNo);
+		return "redirect:/notice.do?reqPage=1&type=all";
+	}
+	
+	@RequestMapping(value="/updateNoticeFrm.do")
+	public String updateNoticeFrm(int noticeNo, Model model) {
+		ArrayList<Coupon> couponList = couponService.selectValidCoupon();
+		model.addAttribute("couponList", couponList);
+		Notice notice = service.selectOneNotice(noticeNo);
+		model.addAttribute("n", notice);
+		Coupon coupon = couponService.selectOneCoupon(notice.getCouponNo());
+		model.addAttribute("c", coupon);
+		return "notice/noticeUpdate";
+	}
+	
+	@RequestMapping(value="/updateNotice.do")
+	public String updateNotice(Notice n, HttpServletRequest request, MultipartFile file, String status, String oldFile) {
+		
+		//stay이고 기존파일명 그대로일때 -> 기존파일명 그대로 넣어줘야함..
+		if(status.equals("stay") && !oldFile.equals("none") ) {
+			n.setNoticeFilepath(oldFile);
+		}else {
+			if(!file.isEmpty()) {
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/image/notice/main/");
+				String filename = file.getOriginalFilename();
+				String onlyFilename = filename.substring(0,filename.lastIndexOf("."));
+				String extention = filename.substring(filename.lastIndexOf("."));
+				String filepath = null;
+				//파일명중복검사
+				int count=0;
+				while(true) {
+					if(count == 0) {
+						filepath = onlyFilename+extention;
+					}else {
+						filepath = onlyFilename+"_"+count+extention;
+					}
+					File checkFile = new File(savePath+filepath);
+					if(!checkFile.exists()) {
+						break;
+					}
+					count++;
+				}
+				//파일업로드
+				try {
+					FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					byte[] bytes = file.getBytes();
+					bos.write(bytes);
+					bos.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				n.setNoticeFilepath(filepath);
+			}
+		}
+		
+		
+		
+		int result = service.updateNotice(n);
+		return "redirect:/noticeView.do?noticeNo="+n.getNoticeNo();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

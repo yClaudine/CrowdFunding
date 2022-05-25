@@ -41,4 +41,18 @@ public class NoticeDao {
 		Notice notice = sqlSession.selectOne("notice.selectOneNotice",noticeNo);
 		return notice;
 	}
+
+
+
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("notice.deleteNotice", noticeNo);
+	}
+
+
+
+	public int updateNotice(Notice n) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("notice.updateNotice", n);
+	}
 }

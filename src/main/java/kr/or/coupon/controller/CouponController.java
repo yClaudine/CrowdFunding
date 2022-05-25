@@ -3,7 +3,7 @@ package kr.or.coupon.controller;
 
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.coupon.model.service.CouponService;
 import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 
 @Controller
 public class CouponController {
@@ -65,6 +66,32 @@ public class CouponController {
 		return "redirect:/couponManage.do";
 	}
 	
+	
+//멤버쿠폰
+	@RequestMapping(value="/insertMemberCoupon.do")
+	public String insertMemberCoupon(int memberNo, int couponNo, int noticeNo, String validEnd, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("couponNo",couponNo);
+		map.put("validEnd", validEnd);
+		
+		MemberCoupon mc = service.searchOneMemberCoupon(map);
+		
+		if(mc == null) {
+			int result = service.insertMemberCoupon(map);
+			model.addAttribute("title", "확인" );
+			model.addAttribute("text", "다운로드 되었습니다.");
+			model.addAttribute("icon", "info");
+			model.addAttribute("loc", "/noticeView.do?noticeNo="+noticeNo);
+		}else {
+			model.addAttribute("title", " " );
+			model.addAttribute("text", "이미 다운로드 받은 쿠폰입니다.");
+			model.addAttribute("icon", "info");
+			model.addAttribute("loc", "/noticeView.do?noticeNo="+noticeNo);
+		}
+		return "manager/msg";
+		
+	}
 	
 }
 

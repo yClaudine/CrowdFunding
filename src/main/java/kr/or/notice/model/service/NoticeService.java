@@ -80,6 +80,16 @@ public class NoticeService {
 		// TODO Auto-generated method stub
 		return dao.selectOneNotice(noticeNo);
 	}
+
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteNotice(noticeNo);
+	}
+
+	public int updateNotice(Notice n) {
+		// TODO Auto-generated method stub
+		return dao.updateNotice(n);
+	}
 	
 	
 }
