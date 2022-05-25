@@ -21,7 +21,7 @@
 		
 		
 		
-		
+		<typeAlias type="kr.or.store.model.vo.TmpStore" alias="ts"/>
 		
 		
 		

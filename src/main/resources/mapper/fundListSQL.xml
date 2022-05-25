@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="fundList">
+<!-- 펀딩리스트 메인페이지 -->
     <select id="selectAllFund" resultType="f">
-  	select
-  		fund_no as fundNo,
-  		member_id as memberId,
-  		fund_name as fundName,
-  		fund_amount as fundAmount,
-  		fund_fees as fundFees,
-  		fund_category as fundCategory,
-  		fund_start as fundStart,
-  		fund_end as fundEnd,
-  		fund_intro as fundIntro,
-  		fund_as as fundAs,
-  		fund_like as fundLike,
-  		fund_reportcount as fundReportcount,
-  		fund_warning as fundWarning,
-  		fund_filepath1 as fundFilepath1,
-  		fund_filepath2 as fundFilepath2,
-  		fund_filepath3 as fundFilepath3,
-  		fund_filepath4 as fundFilepath4,
-  		fund_filepath5 as fundFilepath5
-  	from fund
+	  	select
+	  		fund_no as fundNo,
+	  		member_id as memberId,
+	  		fund_name as fundName,
+	  		fund_amount as fundAmount,
+	  		fund_fees as fundFees,
+	  		fund_category as fundCategory,
+	  		fund_start as fundStart,
+	  		fund_end as fundEnd,
+	  		(TO_DATE(fund_end, 'YYYY-MM-DD')- TO_DATE(fund_start, 'YYYY-MM-DD')) as dateGap,
+	  		fund_intro as fundIntro,
+	  		fund_as as fundAs,
+	  		fund_like as fundLike,
+	  		fund_reportcount as fundReportcount,
+	  		fund_warning as fundWarning,
+	  		fund_filepath1 as fundFilepath1,
+	  		fund_filepath2 as fundFilepath2,
+	  		fund_filepath3 as fundFilepath3,
+	  		fund_filepath4 as fundFilepath4,
+	  		fund_filepath5 as fundFilepath5
+	  	from fund
   </select>
+<!-- 펀딩 상세페이지 메인 -->
+  <select id="selectOneFund" parameterType="int" resultType="f">
+  		select * from fund where fund_no=#{fundNo}
+  </select>
+  
 </mapper>
