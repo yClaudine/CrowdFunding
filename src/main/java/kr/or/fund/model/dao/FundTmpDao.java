@@ -49,4 +49,9 @@ public class FundTmpDao {
 		return sqlSession.update("tmpFund.updateTmpBasic",tf);
 	}
 
+	public int updateTmpStory(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpStory",tf);
+	}
+
 }
