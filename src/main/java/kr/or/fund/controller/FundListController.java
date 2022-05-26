@@ -22,14 +22,25 @@ public class FundListController {
 		model.addAttribute("list",list);
 		return "fund/fundList";
 	}
+	//펀딩 리스트 메인 - 카테고리
+
+	
 	//펀딩 상세 메인페이지-story
 	@RequestMapping(value="/fundView.do")
 	public String FundView(int fundNo, Model model)	{
 		Fund f = service.selectOneFund(fundNo);
 		model.addAttribute("f",f);
-		return "fund/fundView";
-		
+		return "fund/fundView";	
 	}
+	
+	
+	/*펀딩 리스트 검색 필터링
+	@RequestMapping(value="/fundSearch.do")
+	public String FundList(Model model) {
+		ArrayList<Fund> list = service.searchFundList();
+		model.addAttribute("list",list);
+		return "fund/fundList";
+	}*/
 	
 	
 }
