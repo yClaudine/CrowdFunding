@@ -1,6 +1,7 @@
 package kr.or.coupon.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 
 @Repository
 public class CouponDao {
@@ -49,5 +51,32 @@ public class CouponDao {
 		int result = sqlSession.update("coupon.expireMemberCoupon", todayString);
 		return result;
 	}
+
+	public ArrayList<Coupon> selectValidCoupon() {
+		List list = sqlSession.selectList("coupon.selectValidCoupon");
+		return (ArrayList<Coupon>)list;
+	}
+	
+//멤버쿠폰
+	public MemberCoupon searchOneMemberCoupon(HashMap<String, Object> map) {
+		MemberCoupon mc = sqlSession.selectOne("coupon.searchOneMemberCoupon", map);
+		return mc;
+	}
+
+	public int insertMemberCoupon(HashMap<String, Object> map) {
+		int result = sqlSession.insert("coupon.insertMemberCoupon", map);
+		return result;
+	}
+
+	public int updateCouponStatus(int couponNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("coupon.updateCouponStatus", couponNo);
+	}
+	
+	
+	
+
+	
+	
 	
 }

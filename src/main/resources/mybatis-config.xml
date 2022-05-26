@@ -14,10 +14,14 @@
 		<typeAlias type="kr.or.coupon.model.vo.Coupon" alias="coupon"/>		
 		<typeAlias type="kr.or.fund.model.vo.TmpReward" alias="tr"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFundCalculate" alias="tfc"/>
+
+		<typeAlias type="kr.or.notice.model.vo.Notice" alias="notice"/>	
+		<typeAlias type="kr.or.coupon.model.vo.MemberCoupon" alias="mc"/>	
+	
 		
 		
 		
-		
+		<typeAlias type="kr.or.store.model.vo.TmpStore" alias="ts"/>
 		
 		
 		

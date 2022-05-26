@@ -78,6 +78,19 @@ html>body {
 	margin-right: 40px;
 }
 
+	.content-category{
+		align-self: center;
+		display: flex;
+		padding: 20px;
+		width: 100%;
+		text-align: center;
+	}
+	.content-categorylist{
+		align-self: center;
+		padding-left: 100px;
+		padding-right: 100px;
+		text-align: center;
+	}
 
 
 </style>
@@ -87,19 +100,30 @@ html>body {
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
+<div class="content-wrap">
 	<!--메인 이미지-->
     <div class="mainimg" >
         <ul class="slides">
-            <li class="slide img1"></li>
-            <li class="slide img2"></li>
+            <li class="slide img1">         	
+            </li>
+            
+            <li class="slide img2 maintext">
+            	<p class="img2text">
+            		아늑한 캠핑에
+            		<br>
+            		걸맞는 감성
+            	</p>
+            	<p class="img2text2">감성 캠핑템</p>
+            </li>
+            
             <li class="slide img3"></li>
             <li class="slide img4"></li>
             <li class="slide img5"></li>
         </ul>
     <p class="controller">
         <!--왼쪽 방향 화살표 오른쪽방향 화살표-->
-        <span class="prev">&lang;</span>
-        <span class="next">&rang;</span>
+        <span class="material-symbols-outlined prev">arrow_back_ios</span>
+        <span class="material-symbols-outlined next">arrow_forward_ios</span>
     </p>    
     </div>
     <!--이벤트 이미지-->
@@ -124,7 +148,43 @@ html>body {
     <div class="createstore">
     	<a class="createimg" href="/storeCreate.do">스토어 신청</a>
     </div>
-    	
+    
+    <div class="category-title">
+			<h5>상품 카테고리</h5>
+			<div class="content-category">
+				<div class="content-categorylist">
+					<a href="/home.do"><span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">가전</span>
+	                </div>
+				</div>
+				<div class="content-categorylist">
+					<a href="/beauty.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">뷰티</span>
+	                </div>
+				</div>
+				<div class="content-categorylist">
+					<a href="/pet.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">반려동물</span>
+	                </div>
+				</div>
+				<div class="content-categorylist">
+					<a href="/travel.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">여행</span>
+	                </div>
+				</div>
+				<div class="content-categorylist">
+					<a href="/food.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">푸드</span>
+	                </div>
+				</div>
+			</div>
+		</div>
+</div>
     <script>
     
     //첫번째 메인 이미지 스크립트
@@ -169,7 +229,7 @@ html>body {
         var newSlideCount = currentSlides.length;
 
         //너비 전체 구하기
-        var newWidth = (slideWidth + slideMargin)*newSlideCount+'px';
+        var newWidth = (window.innerWidth)*newSlideCount+'px';
         slides.style.width = newWidth;
     }
     function setInitialPos(){
@@ -187,9 +247,9 @@ html>body {
         moveSlide(currentIdx - 1);
     });
 
-    //다음 버튼
+    //슬라이드 보이는 표시
     function moveSlide(num) {
-        slides.style.left = -num * (slideWidth+slideMargin) +'px';
+        slides.style.left = -num * (window.innerWidth) +'px';
         currentIdx = num;
         
         //마지막이 되었을 때 다시 처음으로 돌아가게 하는 것
@@ -234,14 +294,23 @@ html>body {
     
     window.addEventListener('resize', function () {
         var img = document.querySelector('.slide');
+        var imgs = document.querySelectorAll('.slides li');
         var imgWidth = slideWidth;
-        var innerWidth = window.innerWidth;
+        var imgsWidth = updateWidth;
 
-        //뷰포트 1000px 이상일 때 width, rgb 변화
+        //뷰포트 1600px 이상일 때  width 변화
         if (innerWidth >= 1600) {
         	img.style.width = slideWidth;
+        	updateWidth();
+        	setInitialPos();
+        	
+
         } else {
         	img.style.width = slideWidth;
+        	updateWidth();
+        	setInitialPos();
+        	
+            
         }
     })
     
