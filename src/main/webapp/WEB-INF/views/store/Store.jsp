@@ -69,7 +69,7 @@ html>body {
 }
 
 .events div {
-	width: 300px;
+	width: 1100px;
 	height: 200px;
 	float: left;
 }
@@ -102,12 +102,10 @@ html>body {
 
 </style>
 <!-- slick -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <!-- 구글폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -184,7 +182,7 @@ html>body {
 	        <span class="prev2">&lang;</span>
 	        <span class="next2">&rang;</span>
     	</p>
-    	<div class="events">
+    	<div class="events autoplay">
     		<div class="eventimg1"></div>
     		<div class="eventimg2"></div>
     		<div class="eventimg3"></div>
@@ -196,7 +194,7 @@ html>body {
 
   
 	    <div class="createstore">
-	    	<a class="createimg" href="/storeCreate.do">스토어 신청</a>
+	    	<a class="createimg" href="/storeStart.do">스토어 신청</a>
 	    </div>
     
     <div class="category-title">
@@ -363,15 +361,17 @@ html>body {
             
         }
     })
-
-    $('.events').slick({
-	  slidesToShow: 3,
-	  slidesToScroll: 1,
-	  autoplay: true,
-	  autoplaySpeed: 2000,
-	  nextArrow:$('.next2'),
-	  prevArrow:$('.prev2'),
-	});
+	$(function(){
+	   $('.autoplay').slick({
+		  slidesToShow: 3,
+		  slidesToScroll: 1,
+		  autoplay: true,
+		  autoplaySpeed: 3000,
+		  prevArrow : $('.prev2'),        // 이전 화살표 모양 설정
+          nextArrow : $('.next2')        // 다음 화살표 모양 설정
+		});
+		
+	})
     
     
     
@@ -382,8 +382,9 @@ html>body {
 	
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
 
 </body>
 </html>
