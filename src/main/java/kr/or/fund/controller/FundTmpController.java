@@ -247,5 +247,11 @@ public class FundTmpController {
 		System.out.println(tf);
 		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
 	}
+	
+	@RequestMapping(value="/fundRewardCreateFrm.do")
+	public String fundRewardCreateFrm(int tfNo, Model model) {
+		pageMove(tfNo, model);
+		return "fund/fundRewardCreateFrm";
+	}
 
 }
