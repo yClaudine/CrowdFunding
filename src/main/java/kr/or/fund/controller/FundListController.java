@@ -17,9 +17,10 @@ public class FundListController {
 	
 	//펀딩 리스트 메인페이지
 	@RequestMapping(value="/fund.do")
-	public String FundList(Model model) {
-		ArrayList<Fund> list = service.selectFundList();
+	public String FundList(Model model, String category) {
+		ArrayList<Fund> list = service.selectFundList(category);
 		model.addAttribute("list",list);
+		model.addAttribute("category",category);
 		return "fund/fundList";
 	}
 	//펀딩 리스트 메인 - 카테고리

@@ -337,14 +337,14 @@ li {
     <div class="content">
     <!--카테고리 5개-->
         <div class="category" value="">
-            <a class="category-list" href="/fund.do?${f.fundNo }"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=all"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/leaves.jpg">
                     </span>
                     <span class="circle-name">BEST 펀딩</span>
                 </span>
-            <a class="category-list" href="/fundCategory.do"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=living"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/living.jpg">
@@ -352,7 +352,7 @@ li {
                     <span class="circle-name">리빙</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=beauty"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/beauty.jpg">
@@ -360,7 +360,7 @@ li {
                     <span class="circle-name">뷰티</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=pet"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/pet.jpg">
@@ -368,7 +368,7 @@ li {
                     <span class="circle-name">반려동물</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=travel"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/travel.jpg">
@@ -376,7 +376,7 @@ li {
                     <span class="circle-name">여행</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=food"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/food.jpg">

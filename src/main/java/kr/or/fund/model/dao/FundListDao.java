@@ -15,8 +15,8 @@ public class FundListDao {
 	private SqlSessionTemplate sqlSession;
 
 	//펀딩 리스트 메인페이지
-	public ArrayList<Fund> selectFundList() {
-		List list = sqlSession.selectList("fundList.selectAllFund");
+	public ArrayList<Fund> selectFundList(String category) {
+		List list = sqlSession.selectList("fundList.selectFundList");
 		return (ArrayList<Fund>)list;
 	}
 	
