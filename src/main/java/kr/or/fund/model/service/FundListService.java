@@ -1,6 +1,7 @@
 package kr.or.fund.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ public class FundListService {
 
 	//펀딩 리스트 메인페이지
 	public ArrayList<Fund> selectFundList(String category) {
-		return dao.selectFundList(category);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", category);
+		return dao.selectFundList(map);
 	}
 	
 	//펀딩 상세 메인페이지-story
