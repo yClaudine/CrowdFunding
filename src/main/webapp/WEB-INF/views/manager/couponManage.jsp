@@ -175,7 +175,7 @@ html>body {
 	                <li>관리자페이지</li>
 	                <li><a href="#">펀딩관리</a></li>
 	                <li><a href="#">스토어관리</a></li>
-	                <li><a href="/memberManage.do">회원관리</a></li>
+	                <li><a href="/sellerManage.do?keyword=&type=3">회원관리</a></li>
 	                <li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
 	            </ul>
 	        </div>
@@ -246,11 +246,11 @@ html>body {
 						<td id="discount"></td>
 					</tr>
 					<tr>
-						<th>쿠폰적용카테고리(메인)</th>
+						<th>메인 카테고리</th>
 						<td id="mainTarget"></td>
 					</tr>
 					<tr>
-						<th>쿠폰적용카테고리(서브)</th>
+						<th>서브 카테고리</th>
 						<td id="subTarget"></td>
 					</tr>
 					<tr>

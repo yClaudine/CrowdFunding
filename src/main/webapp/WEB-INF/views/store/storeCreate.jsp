@@ -57,6 +57,7 @@
 	}
 	#stCategory:hover{
 	color: white;
+	background-color: #00c4c4;
 	}
 </style>
 </head>

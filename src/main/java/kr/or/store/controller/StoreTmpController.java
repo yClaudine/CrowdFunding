@@ -14,11 +14,17 @@ public class StoreTmpController {
 	@Autowired
 	private StoreTmpService service;
 	
+	//스토어 페이지 이동
+	@RequestMapping(value="/storeStart.do")
+	public String storeStart() {
+		return"store/storeCreate";
+	}
+	
 	//스토어 생성
 	@RequestMapping(value="/storeCreate.do")
 	public String storeCreate(TmpStore t, Model model) {
 		int stNo = service.createTmpStore(t);
 		model.addAttribute("stNo", stNo);
-		return "redirect:/";
+		return "store/storeCreate2";
 	}
 }

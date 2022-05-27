@@ -128,6 +128,7 @@
      			<br><br>
 				<input type="submit" class="save-btn btn-info" value="저장하기">
 			</form>
+			<br><br><br>
 		</div>
 	</div>
 	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->
