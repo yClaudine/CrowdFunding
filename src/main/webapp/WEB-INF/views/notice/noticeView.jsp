@@ -21,7 +21,7 @@
 	text-align: center;
 	padding: 30px;
 	font-weight: bolder;
-	font-size: 50px;
+	font-size: 35px;
 }
 .main-content{
     margin: 70px;

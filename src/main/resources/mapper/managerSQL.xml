@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="manager">
+<select id="totalSellerCount" parameterType="map" resultType="int">
+	
+	select count(*) from 
+	(select 
+		seller_no as sellerNo,
+		member_id as memberId,
+		en_no as enNo,
+		en_path as enPath,
+		en_type as enType,
+		en_intro as enIntro,
+		owner,
+		photopath,
+		position,
+		address,
+		auth_seller as authSeller,
+		auth_massage as authMessage
+	from seller where
+	<choose>
+		<when test="type == 0">
+			auth_seller=0 
+		</when>
+		<when test="type == 1">
+			auth_seller=1 
+		</when>
+		<when test="type == 2">
+			auth_seller=2 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc
+	)
+
+	
+</select>
+<select id="selectSellerForManager" parameterType="map" resultType="sel">
+	select 
+		seller_no as sellerNo,
+		member_id as memberId,
+		en_no as enNo,
+		en_path as enPath,
+		en_type as enType,
+		en_intro as enIntro,
+		owner,
+		photopath,
+		position,
+		address,
+		auth_seller as authSeller,
+		auth_massage as authMessage
+	from seller where
+	<choose>
+		<when test="type == 0">
+			auth_seller=0 
+		</when>
+		<when test="type == 1">
+			auth_seller=1 
+		</when>
+		<when test="type == 2">
+			auth_seller=2 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc
+
+</select>
+<update id="changeMemberAuth" parameterType="map">
+	update member_tbl set category_no=#{categoryNo} where member_id=#{memberId}
+</update>
+<update id="changeSellerAuth" parameterType="sel">
+	update seller set auth_seller=#{authSeller}, auth_massage=#{authMessage} where seller_no=#{sellerNo}
+</update>
+<select id="moreSeller" parameterType="map" resultType="sel">
+	
+	select * from (select rownum as rnum, s.* from 
+	(select 
+		seller_no as sellerNo,
+		member_id as memberId,
+		en_no as enNo,
+		en_path as enPath,
+		en_type as enType,
+		en_intro as enIntro,
+		owner,
+		photopath,
+		position,
+		address,
+		auth_seller as authSeller,
+		auth_massage as authMessage
+	from seller where
+	<choose>
+		<when test="type == 0">
+			auth_seller=0 
+		</when>
+		<when test="type == 1">
+			auth_seller=1 
+		</when>
+		<when test="type == 2">
+			auth_seller=2 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc
+	)
+	s) where rnum between #{start} and #{end}
+
+</select>
+</mapper>

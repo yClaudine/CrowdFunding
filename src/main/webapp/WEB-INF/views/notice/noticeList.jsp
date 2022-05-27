@@ -51,10 +51,9 @@
 }
 
 .top-title {
-	
 	text-align: center;
 	font-weight: bolder;
-	font-size: 50px;
+	font-size: 35px;
 	padding-bottom: 30px;
 }
 
