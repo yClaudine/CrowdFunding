@@ -42,6 +42,23 @@
 		margin-top: 30px;
 		border-radius: 0px;
 	}
+	#stCategory{
+		color: #212529;
+		border-color: #00c4c4;
+	}
+	#stCategory:not(:last-child){
+		margin-right: 30px;
+	}
+	#stCategory{
+		margin-top: 30px;
+		margin-left: 15px;
+		font-weight: bold;
+		font-size: 15px;
+	}
+	#stCategory:hover{
+	color: white;
+	background-color: #00c4c4;
+	}
 </style>
 </head>
 <body>
@@ -71,9 +88,15 @@
 			</p>
 			<p style="font-size:15px; font-weight:normal;">추후 변경 가능합니다.
 			<form action="/storeCreate.do" method="post">
-				
+				<input type="hidden" name="memberId" value="test1">
+				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="리빙" name="stCategory">
+				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="뷰티" name="stCategory">
+				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="반려동물" name="stCategory">
+				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="여행" name="stCategory">
+				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="푸드" name="stCategory">
 			</form>
 		</div>
 	</div>
+	
 </body>
 </html>

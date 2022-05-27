@@ -336,8 +336,15 @@ li {
     
     <div class="content">
     <!--카테고리 5개-->
-        <div class="category">
-            <a class="category-list" href="#"><!--카테고리1개-->
+        <div class="category" value="">
+            <a class="category-list" href="/fund.do?category=all"><!--카테고리1개-->
+                <span class="circle-list">
+                    <span class="circle-img">
+                        <img src="resources/image/fund/leaves.jpg">
+                    </span>
+                    <span class="circle-name">BEST 펀딩</span>
+                </span>
+            <a class="category-list" href="/fundCategory.do?category=living"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/living.jpg">
@@ -345,7 +352,7 @@ li {
                     <span class="circle-name">리빙</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=beauty"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/beauty.jpg">
@@ -353,7 +360,7 @@ li {
                     <span class="circle-name">뷰티</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=pet"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/pet.jpg">
@@ -361,7 +368,7 @@ li {
                     <span class="circle-name">반려동물</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=travel"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/travel.jpg">
@@ -369,7 +376,7 @@ li {
                     <span class="circle-name">여행</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            <a class="category-list" href="/fundCategory.do?category=food"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/food.jpg">
@@ -384,20 +391,20 @@ li {
     <!--검색 옵션들-->
         <div class="search-filter">
             <div class="search-funding">
-                <form action="#" method="post">
+                <form action="/fundSearch.do" method="post">
                     <input type="text" class="list-search" placeholder="궁금한 펀딩을 검색해보세요">
                     <span class="material-symbols-outlined searchI">search</span>
                     
             <!--필터링1 - 진행중/종료된-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="title"><span>진행순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">종료된</option>
+                        <option ${(param.searchType=="title")?"selected":""} value="ongoing"><span>진행순</span></option>
+                        <option ${(param.searchType=="content")?"selected":""} value="end">종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="title"><span>인기순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">펀딩액순</option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">최신순</option>
+                        <option ${(param.searchType=="title")?"selected":""} value="hot"><span>최신순</span></option>
+                        <option ${(param.searchType=="content")?"selected":""} value="popular">인기순</option>
+                        <option ${(param.searchType=="content")?"selected":""} value="total">펀딩액순</option>
                     </select>
                 </form>
             </div>

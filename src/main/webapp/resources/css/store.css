@@ -36,13 +36,13 @@
 
 }
 .img2{
-    background-image: url(/resources/image/store/storeimg2.jfif);
+    background-image: url(/resources/image/store/storeimg2.png);
 }
 .img3{
-    background-image: url(/resources/image/store/storeimg3.jfif);
+    background-image: url(/resources/image/store/storeimg3.jpg);
 }
 .img4{
-    background-image: url(/resources/image/store/storeimg1.png);
+    background-image: url(/resources/image/store/storeimg4.png);
 }
 .img5{
     background-image: url(/resources/image/store/storeimg5.png);
@@ -61,19 +61,30 @@
     padding:0;
 }
 
-.img2text{
-	color: white;
+
+.imgtext{
 	font-size: 20px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
 }
 
-.img2text2{
-	color: white;
-	font-size: 10px;
+.imgtext2{
+	font-size: 13px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
+
+.img2>p{	
+	color: white;
+}
+
+.img3>p{
+	color: black;
+}
+
 
 .maintext{
-	padding-top: 200px;
-	padding-left: 30px;
+	padding-top: 250px;
+	padding-left: 50px;
 }
 
 .slides.animated{

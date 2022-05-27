@@ -95,7 +95,7 @@ html>body {
 		</div>
 
 		<div>
-			<a href="/fund.do"><h6>펀딩</h6></a>
+			<a href="/fund.do?category=all"><h6>펀딩</h6></a>
 		</div>
 		<div>
 			<a href="/Store.do"><h6>스토어</h6></a>
