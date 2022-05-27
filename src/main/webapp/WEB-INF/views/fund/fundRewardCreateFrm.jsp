@@ -47,9 +47,11 @@
 		width: 720px;
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 	.reward-wrap{
 		width: 340px;
+		margin-top: 30px;
 		border: 1px solid #ccc;
 		padding: 20px;
 		padding-bottom: 5px;
@@ -165,40 +167,25 @@
 			<br><br><br>
 			<div class="reward-total-wrap">
 				<div class="reward-wrap">
+					<div class="reward-status" style="display:none;">new</div>
+					<textarea class="reward-option" style="display:none;">ㅇㅇㅇ
+ㅇㅇㅇ
+ㅇㅇㅇ</textarea>
 					<div class="reward-title">
-						<div class="reward-price">100,000원</div>
-						<div class="reward-count">제한 수량 10개</div>
+						<div class="reward-price"><span>100,000</span>원</div>
+						<div class="reward-count">제한 수량 <span>10</span><span>개</span></div>
 					</div>
 					<div class="reward-name">리워드 1호</div>
 					<div class="reward-intro">리워드 1호 상세설명 입니다.</div>
 					<div class="reward-deliveryFee-wrap">
 						<div>배송비</div>
-						<div class="reward-deliveryFee">해당 없음</div>
+						<div class="reward-deliveryFee"><span>0</span>원</div>
 					</div>
 					<div class="reward-send-wrap">
 						<div>리워드 발송 시작일</div>
-						<div class="reward-send">2022년 08월초(1-10일)</div>
+						<div class="reward-send">2022-08-01</div>
 					</div>
-					<div class="btn-wrap">
-						<button type="button" id="reward-update" class="btn btn-outline-dark">편집</button>
-						<button type="button" id="reward-delete" class="btn btn-outline-dark">삭제</button>	
-					</div>
-				</div>
-				<div class="reward-wrap">
-					<div class="reward-title">
-						<div class="reward-price">100,000원</div>
-						<div class="reward-count">제한 수량 10개</div>
-					</div>
-					<div class="reward-name">리워드 1호</div>
-					<div class="reward-intro">리워드 1호 상세설명 입니다.</div>
-					<div class="reward-deliveryFee-wrap">
-						<div>배송비</div>
-						<div class="reward-deliveryFee">해당 없음</div>
-					</div>
-					<div class="reward-send-wrap">
-						<div>리워드 발송 시작일</div>
-						<div class="reward-send">2022년 08월초(1-10일)</div>
-					</div>
+					<div class="reward-no" style="display:none;">43</div>
 					<div class="btn-wrap">
 						<button type="button" id="reward-update" class="btn btn-outline-dark">편집</button>
 						<button type="button" id="reward-delete" class="btn btn-outline-dark">삭제</button>	
@@ -210,6 +197,105 @@
 			<br><br><br><br><br>
 		</div>
 	</div>
+	<script>
+		
+		//저장하기 버튼 클릭 시 모든 리워드의 상태값과 정보를 json string으로 전달
+		$(".save-btn").on("click",function(){
+			//reward들을 담을 json
+			const data = {};
+			
+			//reward 하나하나를 json화
+			$(".reward-wrap").each(function(index,item){
+				const reward = {
+						"tfNo" : ${tmpF.tfNo},
+						"rewardNo" : $(item).children().eq(7).text(),
+						"rewardStatus" : $(item).children().eq(0).text(),
+						"rewardName" : $(item).children().eq(3).text(),
+						"rewardIntro" : $(item).children().eq(4).text(),
+						"rewardPrice" : $(item).children().eq(2).children().eq(0).children().text().replace(/,/gi,""),
+						"rewardCount" : $(item).children().eq(2).children().eq(1).children().eq(0).text(),
+						"rewardOption" : $(item).children().eq(1).val(),
+						"rewardSend" : $(item).children().eq(6).children().eq(1).text(),
+						"rewardDeliveryFee" : $(item).children().eq(5).children().eq(1).children().text()
+				}
+				data[index] = reward;
+			});
+			
+			//controller로 json string 파일 전송
+			$.ajax({
+				method: 'post',
+				url: '/SaveTmpReward.do',
+				traditional: true,
+				data: {
+					data: JSON.stringify(data)
+				},
+				dataType: 'json',
+				success: function(res){
+					if(res > 0){
+						//location.href="fundReadyFrm.do?tfNo=${tmpF.tfNo}"	
+					}
+				}
+			});//ajax
+			
+		});//savebtn
+		
+		//사전에 입력된 값 있는지 체크
+		$(document).ready(function(){
+			let trNo;
+			let tfNo;
+			let trName;
+			let trIntro;
+			let trPrice;
+			let trCount;
+			let trOption;
+			let trSend;
+			let trDeliveryfee;
+			function uploadAppend(){
+				const rewardWrap = $("<div>").addClass("reward-wrap");
+				const rewardStatus = $("<div>").addClass("reward-status").css("display","none").text("upload");
+				const rewardOption = $("<textarea>").addClass("reward-option").css("display","none").val(trOption);
+				const rewardTitle = $("<div>").addClass("reward-title");
+				const rewardPrice = $("<div>").addClass("reward-price").text("원");
+				const trPriceComma = trPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				const rewardPriceSpan = $("<span>").text(trPriceComma);
+				const rewardCount = $("<div>").addClass("reward-count").text("제한수량 ");
+				const rewardCountSpan1 = $("<span>").text(trCount);
+				const rewardCountSpan2 = $("<span>").text("개");
+				const rewardName = $("<div>").addClass("reward-name").text(trName);
+				const rewardIntro = $("<div>").addClass("reward-intro").text(trIntro);
+				
+				
+				const rewardDeliveryFeeWrap = $("<div>").addClass("reward-deliveryFee-wrap")
+				
+				
+				rewardWrap.append(rewardStatus);
+				rewardWrap.append(rewardOption);
+				rewardPrice.prepend(rewardPriceSpan);
+				rewardTitle.append(rewardPrice);
+				rewardCount.append(rewardCountSpan1);
+				rewardCount.append(rewardCountSpan2);
+				rewardTitle.append(rewardCount);
+				rewardWrap.append(rewardTitle);
+				rewardWrap.append(rewardName);
+				rewardWrap.append(rewardIntro);
+				
+				$(".reward-total-wrap").append(rewardWrap);
+				console.log(rewardWrap);
+			}
+			<c:forEach var="reward" items="${tmpRewardList}">
+				trNo = ${reward.trNo};
+				tfNo = ${reward.tfNo};
+				trName = "${reward.trName}";
+				trIntro = "${reward.trIntro}";
+				trPrice = ${reward.trPrice};
+				trCount = ${reward.trCount};
+				trOption = "${reward.trOption}";
+				trSend = "${reward.trSend}";
+				trDeliveryfee = ${reward.trDeliveryfee};
+				uploadAppend();
+			</c:forEach>
+		});
+	</script>
 	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->
 </body>
 </html>
