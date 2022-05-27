@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.member.vo.Member;
 import kr.or.store.model.dao.StoreDao;
 import kr.or.store.model.vo.Store;
@@ -28,8 +30,8 @@ public class StoreService {
 		// TODO Auto-generated method stub
 		Store sm = dao.selectOneStore(storeNo);
 		ArrayList<StoreStar> list = dao.selectcommentAllList(storeNo);
-		//double starAvg = dao.selectStarAvg(storeNo);
-		StoreViewData sv = new StoreViewData(sm, list, 0);
+		double starAvg = dao.selectStarAvg(storeNo);
+		StoreViewData sv = new StoreViewData(sm, list, starAvg);
 		return sv;
 	}
 
@@ -94,6 +96,34 @@ public class StoreService {
 		int result = dao.insertComment(s);
 		return result;
 	}
+	/*
+	 public StoreViewData selectOneStore(int storeNo) {
+		// TODO Auto-generated method stub
+		Store sm = dao.selectOneStore(storeNo);
+		ArrayList<StoreStar> list = dao.selectcommentAllList(storeNo);
+		double starAvg = dao.selectStarAvg(storeNo);
+		StoreViewData sv = new StoreViewData(sm, list, starAvg);
+		return sv;
+	} 
+	 */
+
+
+	public ArrayList<MemberCoupon> SelectMemberCouponList(int memberNo) {
+		return dao.selectMemberCouponList(memberNo);
+	}
+
+	public Coupon selectOneCoupon(int couponNo, int totalprice, String storeCategory) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("couponNo", couponNo);
+        map.put("totalprice", totalprice);
+        map.put("storeCategory", storeCategory);
+        return dao.selectOneCoupon(map);
+	}
+
+
+
+
+
 
 
 }

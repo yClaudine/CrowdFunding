@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.member.vo.Member;
 import kr.or.store.model.vo.Store;
@@ -39,7 +41,7 @@ public class StoreDao {
 	}
 
 	public int insertComment(Store s) {
-		int result = sqlSession.insert("store.insertComment",s);
+		int result = sqlSession.insert("storeStar.insertComment",s);
 		return result;
 	}
 
@@ -48,4 +50,23 @@ public class StoreDao {
 		List list = sqlSession.selectList("storeStar.selectcommentAllList",storeNo);
 		return (ArrayList<StoreStar>)list;
 	}
+
+	public double selectStarAvg(int storeNo) {
+		double d = sqlSession.selectOne("storeStar.selectStarAvg",storeNo);
+		return d;
+	}
+
+	public ArrayList<MemberCoupon> selectMemberCouponList(int memberNo) {
+		List list = sqlSession.selectList("storepay.selectMemberCouponList",memberNo);
+		return (ArrayList<MemberCoupon>)list;
+	}
+
+	public Coupon selectOneCoupon(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("storepay.selectOneCoupon",map);
+	}
+
+
+
+
 }
