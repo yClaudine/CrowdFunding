@@ -344,7 +344,7 @@ li {
                     </span>
                     <span class="circle-name">BEST 펀딩</span>
                 </span>
-            <a class="category-list" href="/fundCategory.do?category=living"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=living"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/living.jpg">
@@ -352,7 +352,7 @@ li {
                     <span class="circle-name">리빙</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do?category=beauty"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=beauty"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/beauty.jpg">
@@ -360,7 +360,7 @@ li {
                     <span class="circle-name">뷰티</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do?category=pet"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=pet"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/pet.jpg">
@@ -368,7 +368,7 @@ li {
                     <span class="circle-name">반려동물</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do?category=travel"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=travel"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/travel.jpg">
@@ -376,7 +376,7 @@ li {
                     <span class="circle-name">여행</span>
                 </span>
             </a><!--카테고리1개-->
-            <a class="category-list" href="/fundCategory.do?category=food"><!--카테고리1개-->
+            <a class="category-list" href="/fund.do?category=food"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/food.jpg">
@@ -397,14 +397,14 @@ li {
                     
             <!--필터링1 - 진행중/종료된-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="ongoing"><span>진행순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="end">종료된</option>
+                        <option ${(param.searchType=="ongoing")?"selected":""} value="ongoing"><span>진행순</span></option>
+                        <option ${(param.searchType=="end")?"selected":""} value="end">종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="hot"><span>최신순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="popular">인기순</option>
-                        <option ${(param.searchType=="content")?"selected":""} value="total">펀딩액순</option>
+                        <option ${(param.searchType=="current")?"selected":""} value="current"><span>최신순</span></option>
+                        <option ${(param.searchType=="popular")?"selected":""} value="popular">인기순</option>
+                        <option ${(param.searchType=="total")?"selected":""} value="total">펀딩액순</option>
                     </select>
                 </form>
             </div>
@@ -412,30 +412,7 @@ li {
         <div class="space"></div>
 
 <!--펀딩 리스트-->
-        <div class="project-container">
-            
-            <div class="item"><!--grid 1개 item-->
-                <a href="#" class="project-wrap">
-                    <img src="resources/image/fund/living.jpg">
-                    <div class="project-card">
-                        <div class="project-title">
-                            [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요! (앵콜)
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">리빙</span>
-                            <span class="divide">|</span>
-                            <span class="project-seller">주식회사 노멀리스트</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="line"></div>
-                <div class="project-progress">
-                    <span class="project-percent">1687%</span>
-                    <span class="project-amount">∙85,097,500원</span>
-                    <span class="project-dayleft">6일 남음</span>
-                </div>
-            </div><!--grid 1개--> 
-            
+        <div class="project-container">           
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
                 <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
@@ -455,7 +432,7 @@ li {
                 <div class="project-progress">
                     <span class="project-percent">1687%</span>
                     <span class="project-amount">∙${f.fundAmount }원</span>
-                    <span class="project-dayleft">${f.fundStart }일 남음</span>
+                    <span class="project-dayleft">${f.dateGap }일 남음</span>
                 </div>
             </div><!--grid 1개--> 
            </c:forEach>
