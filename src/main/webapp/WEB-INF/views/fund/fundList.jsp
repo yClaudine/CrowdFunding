@@ -397,14 +397,14 @@ li {
                     
             <!--필터링1 - 진행중/종료된-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="ongoing"><span>진행순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="end">종료된</option>
+                        <option ${(param.searchType=="ongoing")?"selected":""} value="ongoing"><span>진행순</span></option>
+                        <option ${(param.searchType=="end")?"selected":""} value="end">종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="hot"><span>최신순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="popular">인기순</option>
-                        <option ${(param.searchType=="content")?"selected":""} value="total">펀딩액순</option>
+                        <option ${(param.searchType=="current")?"selected":""} value="current"><span>최신순</span></option>
+                        <option ${(param.searchType=="popular")?"selected":""} value="popular">인기순</option>
+                        <option ${(param.searchType=="total")?"selected":""} value="total">펀딩액순</option>
                     </select>
                 </form>
             </div>
