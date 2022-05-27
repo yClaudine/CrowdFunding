@@ -513,8 +513,75 @@
 			}
 		}
 		
+		//편집 -> 수정시 발동할 메소드
+		function modifyRewardModal(){
+			//등록전 체크를 위한 변수 초기화
+			modalChk[0] = 1;
+			modalChk[1] = 1;
+			modalChk[2] = 1;
+			modalChk[3] = 1;
+			modalChk[4] = 1;
+			modalChk[5] = 1;
+			trStatus = "update";
+			trName = $(".modal-name>td>input").val();
+			trIntro = $(".modal-intro>td>textarea").val();
+			trPrice = $(".modal-price>td>input").val();
+			trCount = $(".modal-count>td>input").val();
+			trOption = $(".modal-option>td>textarea").val();
+			trSend = $(".modal-send>td>input").val();
+			trDeliveryfee = $(".modal-deliveryfee>td>input").val();
+			if(trPrice == ""){
+				modalChk[0] = 0;
+			}
+			if(trName == ""){
+				modalChk[1] = 0;
+			}
+			if(trIntro == ""){
+				modalChk[2] = 0;
+			}
+			if(trDeliveryfee >= 0 && trDeliveryfee != ""){
+				modalChk[3] = 1;
+			}
+			if(trCount >= 0 && trCount != ""){
+				modalChk[4] = 1;
+			}
+			if(trSend != ""){
+				modalChk[5] = 1;
+			}
+			//최종 변수 체크
+			let chkCnt = 0;
+			$.each(modalChk,function(index,item){
+				if(item==1){
+					chkCnt++;
+				}
+			});
+			//작성 완료
+			const conf = confirm("해당 리워드를 수정하시겠습니까?"); 
+			if(conf && chkCnt == 6){
+				//수정해야할 개체 찾기
+				$(".reward-modal-back").css("display","none");
+				const searchNo = ".reward-no:contains("+trNo+")"
+				const modifyWrap = $(searchNo).parent();
+				//수정해야할 개체에 값 입력
+				modifyWrap.children().eq(0).text("update");
+				modifyWrap.children().eq(1).text(trOption);
+				const commaPrice = trPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				modifyWrap.children().eq(2).children().eq(0).children().text(commaPrice);
+				modifyWrap.children().eq(2).children().eq(1).children().eq(0).text(trCount);
+				modifyWrap.children().eq(3).text(trName);
+				modifyWrap.children().eq(4).text(trIntro);
+				modifyWrap.children().eq(5).children().eq(1).children().text(trDeliveryfee);
+				modifyWrap.children().eq(6).children().eq(1).text(trSend);
+			}else if(conf == false){
+				
+			}else{
+				alert("필수항목들을 작성해주세요");
+			}
+		}
+		
 		//추가하기 버튼 클릭시 발동할 메소드
 		function addReward(){
+			$(".modal-title>h3").text("리워드 추가")
 			$(".modal-name>td>input").val("");
 			$(".modal-name.table-caution>td>span").eq(0).text("60");
 			$(".modal-intro>td>textarea").val("");
@@ -525,15 +592,10 @@
 			$(".modal-option-preview>td>select").text("");
 			$(".modal-send>td>input").val("");
 			$(".modal-deliveryfee>td>input").val("");
+			$(".modal-btn-wrap>.btn-info").text("등록");
 			$(".modal-btn-wrap>.btn-info").attr("onclick","createRewardModal()");
 			$(".reward-modal-back").css("display","");
 		}
-		
-		//삭제하기 버튼 클릭시 발동할 메소드
-		function deleteReward(testvar){
-			console.log(testvar);
-		}
-		
 		
 		//저장하기 버튼 클릭 시 모든 리워드의 상태값과 정보를 json string으로 전달
 		$(".save-btn").on("click",function(){
@@ -599,7 +661,7 @@
 			const rewardNo = $("<div>").addClass("reward-no").css("display","none").text(trNo);
 			const btnWrap = $("<div>").addClass("btn-wrap");
 			const rewardUpdate = $("<button>").addClass("btn-outline-dark").addClass("btn").text("편집");
-			const rewardDelete = $("<button>").addClass("btn-outline-dark").addClass("btn").text("삭제").attr("onclick","deleteReward()");
+			const rewardDelete = $("<button>").addClass("btn-outline-dark").addClass("btn").text("삭제");
 			//하위 개체 붙이기
 			rewardPrice.prepend(rewardPriceSpan);
 			rewardTitle.append(rewardPrice);
@@ -625,6 +687,44 @@
 			rewardWrap.append(btnWrap);
 			//리워드 붙이기
 			$(".reward-total-wrap").append(rewardWrap);
+			//수정버튼에 이벤트 부여
+			rewardUpdate.on("click",function(){
+				//모달 띄우기 전 변수 저장
+				const updateWrap = $(this).parent().parent();
+				tfNo = ${tmpF.tfNo};
+				trNo = updateWrap.children().eq(7).text();
+				trStatus = updateWrap.children().eq(0).text();
+				trName = updateWrap.children().eq(3).text();
+				trIntro = updateWrap.children().eq(4).text();
+				trPrice = updateWrap.children().eq(2).children().eq(0).children().text().replace(/,/gi,"");
+				trCount = updateWrap.children().eq(2).children().eq(1).children().eq(0).text();
+				trOption = updateWrap.children().eq(1).val();
+				trSend = updateWrap.children().eq(6).children().eq(1).text();
+				trDeliveryfee = updateWrap.children().eq(5).children().eq(1).children().text();
+				
+				//모달에 값 넣고 띄우기
+				$(".modal-title>h3").text("리워드 수정")
+				$(".modal-name>td>input").val(trName);
+				$(".modal-name>td>input").change();
+				$(".modal-intro>td>textarea").val(trIntro);
+				$(".modal-intro>td>textarea").change();
+				$(".modal-price>td>input").val(trPrice);
+				$(".modal-count>td>input").val(trCount);
+				$(".modal-option>td>textarea").val(trOption);
+				$(".modal-option>td>textarea").change();
+				$(".modal-send>td>input").val(trSend);
+				$(".modal-deliveryfee>td>input").val(trDeliveryfee);
+				$(".modal-btn-wrap>.btn-info").text("수정");
+				$(".modal-btn-wrap>.btn-info").attr("onclick","modifyRewardModal()");
+				$(".reward-modal-back").css("display","");
+				
+			})
+			//삭제버튼에 이벤트 부여
+			rewardDelete.on("click",function(){
+				const deleteWrap = $(this).parent().parent();
+				deleteWrap.children().eq(0).text("delete");
+				deleteWrap.css("display","none");
+			})
 		}//rewardAppend()
 		
 		//사전에 입력된 값 있는지 체크
