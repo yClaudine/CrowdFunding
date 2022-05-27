@@ -25,31 +25,38 @@
 	  		fund_filepath3 as fundFilepath3,
 	  		fund_filepath4 as fundFilepath4,
 	  		fund_filepath5 as fundFilepath5
-	from fund
-		<choose>
-		<when test="category.equals('living')">
-		where fund_category='리빙' 
-		</when>
-		<when test="category.equals('beauty')">
-		where fund_category='뷰티' 
-		</when>
-		<when test="category.equals('pet')">
-		where fund_category='반려동물' 
-		</when>
-		<when test="category.equals('travel')">
-		where fund_category='여행' 
-		</when>
-		<when test="category.equals('food')">
-		where fund_category='푸드' 
-		</when>
-		</choose>
-	order by fund_no desc)n)
+	from fund 
+	 	<if test="!category.equals('BEST')">
+	 	where fund_category=#{category}
+	 	</if>
+		order by fund_no desc)n)
   </select>
   
   
 <!-- 펀딩 상세페이지 메인 -->
   <select id="selectOneFund" parameterType="int" resultType="f">
-  		select * from fund where fund_no=#{fundNo}
-  </select>
+	select 
+		fund_no as fundNo,
+	  	member_id as memberId,
+	  	fund_name as fundName,
+	  	fund_amount as fundAmount,
+	  	fund_fees as fundFees,
+	  	fund_category as fundCategory,
+	  	fund_start as fundStart,
+	  	fund_end as fundEnd,
+	  	(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+	  	fund_intro as fundIntro,
+	  	fund_as as fundAs,
+	  	fund_like as fundLike,
+	  	fund_reportcount as fundReportcount,
+	  	fund_warning as fundWarning,
+	  	fund_filepath1 as fundFilepath1,
+	  	fund_filepath2 as fundFilepath2,
+	  	fund_filepath3 as fundFilepath3,
+	  	fund_filepath4 as fundFilepath4,
+	  	fund_filepath5 as fundFilepath5
+	from fund
+	where fund_no=#{fundNo}
+	</select>
   
 </mapper>

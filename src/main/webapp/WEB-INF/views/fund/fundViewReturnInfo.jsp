@@ -37,7 +37,6 @@
     width: 100%;
     -webkit-filter: blur(5px);
     object-fit:cover;
-
 }
 
 .title-category{
@@ -74,17 +73,21 @@
 .funding-navi>a:hover{
     color: #00b2b2;
 }
-.funding-navi>a:nth-child(1){
+.funding-navi>a:nth-child(2){
     border-bottom: 3px solid #00c4c4;
 }
-.funding-navi>a:nth-child(1){
+.funding-navi>a:nth-child(2){
     color: #00b2b2;
 }
-
 .space-bar{
     width: 100%;
     border-top: 2px solid #b9b9b9;
 }
+
+
+
+
+
 
 .detail-container{
     display: flex;
@@ -92,6 +95,10 @@
     margin: 0 auto;
     width: 1000px;
     height: 1000px;
+}
+.return{
+    font-weight: 700;
+    font-size: 24px;
 }
 .detail-view{
     width: 630px;
@@ -105,78 +112,32 @@
     width: 310px;
     height: 1000px;
 }
-.main-img{
-    width: 630px;
-    height: 400px;
-}
-.main-img>img{
-    width: 100%;
-    height: 400px;
-}
-.detail-content{
-    color: #495057;
-    font-weight: 600;
-    padding: 20px;
-}
-.detail-funding{
-    margin-top: 30px;
-    background-color: #e7f9f9;
-    border-radius: 8px;
-    padding: 16px;
-}
-.detail-info{
-    color: #00b2b2;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 20px;
-    margin-bottom: 6px;
-}
 
-.detail-guide{
-    margin-top: 10px;
-    background-color: #ece4d8;
-    border-radius: 8px;
-    padding: 16px;
-    position: relative;
+.return-content{
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 30px;
 }
-.detail-fix{
+.detail-fix, .detail-active{
+    margin-top: 10px;
     color: #60656a;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     font-weight: 500;
+    padding-bottom: 20px;
 }
-.detail-fix2{
-    font-weight: 700;
+.detail-fix>a{
+    color: #00c4c4;
+    font-weight: 500;
+    text-decoration:underline;
 }
-.guide-modal{
-    position: absolute;
-    right: 24px;
-    bottom: 23px;
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    text-decoration: underline;
-    color: #495057;
+.detail-fix>span{
+    color: #969696;
 }
-.guide-modal:hover{
-    color: #00b2b2;
-    cursor: pointer;
-}
-.story{
-    margin-top: 50px;
-    margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 20px;
-}
-.detail-img{
-    width: 630px;
-    height: 400px;
-}
-.detail-img>img{
-    width: 100%;
-    height: 400px;
-    margin-bottom: 5px;
-}
+
+
+
 .remaining-day{
     font-size: 30px;
     line-height: 36px;
@@ -366,72 +327,6 @@
 
 
 
-
-
-
-.popup-wrap{
-    background-color:rgba(0,0,0,.3); 
-    justify-content:center; 
-    align-items:center;     
-    position:fixed;         
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;               
-    display:none; 
-    padding:15px; 
-}
-.popup{
-    width:100%;               
-    max-width:400px;          
-    border-radius:10px;       
-    overflow:hidden;          
-    background-color:#00b2b2;
-    box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
-}
-.popup-head{
-    width:100%;
-    height:50px;  
-    align-items:center;
-    justify-content:center;
-}
-.popup-body{                
-    width:100%;
-    background-color:#ffffff; 
-}
-.body-content{              
-    width:100%;
-    padding:30px;             
-}
-.body-titlebox{             
-    text-align:center;        
-    width:100%;
-    height:40px;
-    margin-bottom:10px;       
-}
-.body-contentbox{           
-    word-break:break-word;    
-    overflow-y:auto;          
-    min-height:100px;         
-    max-height:300px;         
-}
-.popup-foot{                      
-    width:100%;
-    height:50px;
-}
-.pop-btn{ 
-    display:inline-flex;          
-    width:50%;                      
-    height:100%;                    
-    justify-content:center;         
-    align-items:center;             
-    float:left;                     
-    color:#ffffff;                 
-    cursor:pointer;                 
-}
-.pop-btn.confirm{                 
-    border-right:1px solid #3b5fbf; 
-}
 </style>
 </head>
 <body>
@@ -450,38 +345,28 @@
         <a href="/fundViewSupporter.do?fundNo=${f.fundNo }"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
+
     <div class="detail-container">
         <!--왼쪽 콘텐츠-->
         <div class="detail-view">
-            <span class="main-img">
-                <img src="resources/image/fund/travel.jpg">
-            </span>
-            <div class="detail-content">
-                ${f.fundIntro }
+            <div class="return">이 프로젝트의 정보 및 정책을</div>
+            <div class="return">반드시 확인하세요.</div>
+            <div class="return-content">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</div>
+            <div class="detail-fix">참여한 펀딩 정보는 <a href="#">내 펀딩 내역</a>에서확인해주세요. 마감일 이후에는 펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 불가합니다.</div>
+            <hr>
+            <div class="return-content">사용 중 발생한 하자에 대한 A/S 정책</div>
+            <div class="detail-active">예시 - 보증기간 : 리워드 수령일로부터 한 달
+                - A/S규정 : 시착 및 세탁 전 발생한 문제에 대하여 제품 교환
+                - A/S가 불가한 경우 : 보증기간 이내일지라도 사용자의 고의 또는 과실로 인해 제품이 훼손되었거나 속옷의 특성상 시착&세탁 과정에서 제품의 가치가 현저히 손상된 경우</div>
+            <hr>
+            <div class="return-content">펀딩금 반환 안내</div>
+            <div class="detail-fix">아래 어느 하나에 해당될 경우 펀딩금 반환은 불가합니다.<br><span>- 메이커가 프로젝트 페이지 내에 명시적으로 고지한 하자 불인정 사유에 해당하는 경우<br>(예) 공장 제작 과정상 벌어짐 방지를 위해 봉제되어 제공되는 포켓은 하자 사유가 되지 않습니다.<br>- 서포터의 귀책 사유로 리워드의 일부 혹은 전체가 분실/파손/고장/오염/훼손이 발생된 경우<br>- 모니터 해상도의 차이로 인해 색상이나 이미지가 실제와 다른 경우<br>- 공연, 디지털컨텐츠, 여행 패키지 상품, 무형 서비스 및 컨텐츠의 제공이 완료되었을 경우</span><br><br>기타 주의 사항<br><span>- 크라우드펀딩의 특성상 프로젝트 종료 후 서포터의 단순변심으로 인한 펀딩금 반환은 불가합니다.<br>- 회사는 메이커와 상호 협의 하에 프로젝트를 취소할 수 있으며, 펀딩 종료 후 프로젝트가 취소될 경우에는 펀딩금이 반환됩니다.<br>- 하자가 있는 경우, 리워드 반송을 위한 배송비는 메이커가 부담하여야 하고 하자가 없는 경우에는 리워드 반송 및 재반송에 대한 배송비를 서포터에게 청구될 수 있습니다.</span>
             </div>
-            <div class="detail-funding">
-                <div class="detail-info">
-                    <span>목표 금액</span>
-                    <span>${f.fundAmount }원</span><br>
-                    <span>펀딩 기간</span>
-                    <span>${f.fundStart } ~ ${f.fundEnd }</span><br>
-                </div>
-                <span class="detail-fix">100%이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제는 순차적으로 취소됩니다.</span>
-            </div>
-            <div class="detail-guide">
-                <span class="detail-fix">메이커의 새로운 제품, 서비스 제작을 지원하는</span><br>
-                <span class="detail-fix2">크라우드펀딩 제대로 알고 펀딩하자</span>
-                <span href="#" class="guide-modal" id="modal-open">자세히 알아보기</span>            
-            </div>
-            <div class="story">프로젝트 스토리</div>
-            <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
-            </span>
-            <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
-            </span>
+ 
+
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
+        
         <!--오른쪽 콘텐츠-->
         <div class="detail-reward">
             <!--프로젝트 상태-->
@@ -554,35 +439,5 @@
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
 
-
-
-    
-    <!--자세히 알아보기 모달-->
-        <div class="container"> 
-        <div class="popup-wrap" id="popup"> 
-            <div class="popup">	
-                <div class="popup-head">	
-                    <span class="head-title">FunFunfun</span>
-                </div>
-                <div class="popup-body">	
-                    <div class="body-content">
-                        <div class="body-titlebox">
-                        <h1>Confirm Modal</h1>
-                        </div>
-                        <div class="body-contentbox">
-                        <span> 팝업내용
-                        </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="popup-foot">
-                <span class="pop-btn confirm" id="confirm">확인</span>
-                <span class="pop-btn close" id="close">창 닫기</span>
-                </div>
-            </div>
-        </div>
-    </div><!--모달-->
-
-                
 </body>
 </html>

@@ -23,7 +23,7 @@ public class FundListDao {
 	
 	//펀딩 상세 메인페이지-story
 	public Fund selectOneFund(int fundNo) {
-		Fund f = sqlSession.selectOne("fundList.selectOneFund");
+		Fund f = sqlSession.selectOne("fundList.selectOneFund",fundNo);
 		return f;
 	}
 }
