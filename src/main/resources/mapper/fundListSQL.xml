@@ -58,5 +58,4 @@
 	from fund
 	where fund_no=#{fundNo}
 	</select>
-  
 </mapper>

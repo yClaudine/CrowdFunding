@@ -25,5 +25,6 @@ public class FundListService {
 	public Fund selectOneFund(int fundNo) {
 		return dao.selectOneFund(fundNo);
 	}
-
+	
+	//펀딩 셀러 조회
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.fund.model.service.FundListService;
 import kr.or.fund.model.vo.Fund;
+import kr.or.member.vo.Seller;
 
 @Controller
 public class FundListController {
