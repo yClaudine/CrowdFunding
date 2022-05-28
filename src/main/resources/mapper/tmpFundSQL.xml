@@ -57,7 +57,7 @@
   		tr_option as trOption,
   		tr_send as trSend,
   		tr_deliveryfee as trDeliveryfee
-  	from tmp_reward where tf_no = ${tfNo} 
+  	from tmp_reward where tf_no = ${tfNo} order by 1
   </select>
   <select id="selectOneFundCalculate" parameterType="tf" resultType="tfc">
   	select
