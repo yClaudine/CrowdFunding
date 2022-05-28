@@ -9,6 +9,7 @@
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
 		<typeAlias type="kr.or.store.model.vo.StoreDelivery" alias="sd"/>
 		<typeAlias type="kr.or.member.vo.Member" alias="m"/>
+		<typeAlias type="kr.or.member.vo.Seller" alias="seller"/>
 		<typeAlias type="kr.or.store.model.vo.Storepay" alias="sp"/>
 		<typeAlias type="kr.or.store.model.vo.StoreStar" alias="ss"/>
 		<typeAlias type="kr.or.store.model.vo.StoreViewData" alias="sv"/>
