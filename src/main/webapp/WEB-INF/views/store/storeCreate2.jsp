@@ -121,7 +121,7 @@
 				//화면 이동 바꿔야 됨
 				location.href='/storeReadyFrm.do?stNo='+${stNo};
 			}else{
-				window.alert("약관 동의 체크를 모두 해 주시길 바랍니다.")
+				window.alert("약관 동의 체크를 모두 해 주시길 바랍니다..")
 				return;
 			}
 		})
