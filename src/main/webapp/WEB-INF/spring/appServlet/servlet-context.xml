@@ -75,6 +75,6 @@
 	
 	<context:component-scan base-package="kr.or.coupon" />
 	<context:component-scan base-package="kr.or.notice" />
-	
+	<context:component-scan base-package="kr.or.manager" />
 	
 </beans:beans>

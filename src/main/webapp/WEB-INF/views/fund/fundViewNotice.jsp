@@ -37,7 +37,6 @@
     width: 100%;
     -webkit-filter: blur(5px);
     object-fit:cover;
-
 }
 
 .title-category{
@@ -74,13 +73,12 @@
 .funding-navi>a:hover{
     color: #00b2b2;
 }
-.funding-navi>a:nth-child(1){
+.funding-navi>a:nth-child(3){
     border-bottom: 3px solid #00c4c4;
 }
-.funding-navi>a:nth-child(1){
+.funding-navi>a:nth-child(3){
     color: #00b2b2;
 }
-
 .space-bar{
     width: 100%;
     border-top: 2px solid #b9b9b9;
@@ -105,78 +103,70 @@
     width: 310px;
     height: 1000px;
 }
-.main-img{
-    width: 630px;
-    height: 400px;
+.funding-notice{
+    height: 50px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #495057;
 }
-.main-img>img{
-    width: 100%;
-    height: 400px;
-}
-.detail-content{
-    color: #495057;
+.fn-new{
+    color: #4a4a4a;
     font-weight: 600;
-    padding: 20px;
+    font-size: 22px;
+    float: left;
 }
-.detail-funding{
-    margin-top: 30px;
-    background-color: #e7f9f9;
-    border-radius: 8px;
-    padding: 16px;
+.fn-newNum{
+    color: #00c4c4;
+    font-size: 500;
+    float: left;
 }
-.detail-info{
-    color: #00b2b2;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 20px;
-    margin-bottom: 6px;
+.fn-search select{
+    border: none;
+    float: right;
+    color: #60656a;
+    text-align: center;
+    margin-top: 10px;
 }
 
-.detail-guide{
-    margin-top: 10px;
-    background-color: #ece4d8;
-    border-radius: 8px;
-    padding: 16px;
-    position: relative;
+.fn-view{
+    text-decoration: none;
 }
-.detail-fix{
-    color: #60656a;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 500;
-}
-.detail-fix2{
-    font-weight: 700;
-}
-.guide-modal{
-    position: absolute;
-    right: 24px;
-    bottom: 23px;
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    text-decoration: underline;
+.fn-category{
     color: #495057;
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: 00;
 }
-.guide-modal:hover{
-    color: #00b2b2;
-    cursor: pointer;
+.fn-title{
+    color: #4a4a4a;
+    font-weight: 500;
+    font-size: 17px;
 }
-.story{
-    margin-top: 50px;
-    margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 20px;
+.fn-date{
+    padding-top: 15px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    color: #495057;
+    border-bottom: 2px solid #bab9b9;
 }
-.detail-img{
-    width: 630px;
-    height: 400px;
+
+
+.fn-writeFrm{
+    float: right;
+    margin-top: 20px;
+    width: 150px;
+    height: 35px;
+    border: 1px solid #ffffff;
+    background-color: #00c4c4;
+    color: #ffffff;
+    border-radius: 5px;
 }
-.detail-img>img{
-    width: 100%;
-    height: 400px;
-    margin-bottom: 5px;
+.fn-writeFrm:hover{
+    background-color: #00b2b2;
+    color: #d4f8f8;
+    transition: 0.5s;
 }
+
+
 .remaining-day{
     font-size: 30px;
     line-height: 36px;
@@ -366,85 +356,6 @@
 
 
 
-
-.popup-wrap{
-    background-color:rgba(0,0,0,.3); 
-    justify-content:center; 
-    align-items:center;     
-    position:fixed;         
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;               
-    display:none; 
-    padding:15px; 
-}
-.popup{
-    width:100%;               
-    max-width:400px;          
-    border-radius:10px;       
-    overflow:hidden;          
-    background-color:#00b2b2;
-    box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
-}
-.popup-head{
-    width:100%;
-    height:50px;  
-    align-items:center;
-    justify-content:center;
-    padding-right: 20px;
-    font-size: 30px;
-}
-.popup-head>.pop-btn{
-justify-content: right;
-}
-.popup-body{                
-    width:100%;
-    background-color:#ffffff; 
-}
-.body-content{              
-    width:100%;
-    padding:30px;             
-}
-.body-titlebox{             
-    text-align:center;        
-    width:100%;
-    height:50px;
-    margin-bottom:10px;       
-}
-.body-titlebox span{
-    font-size: 20px;
-    font-weight: 500;
-}
-.body-contentbox{ 
-    margin-top: 20px;
-    border-top: 3px solid #00b2b2;          
-    word-break:break-word;    
-    overflow-y:auto;          
-    min-height:100px;         
-    max-height:400px;         
-}
-.body-contentbox span{
-    margin-top: 20px;
-    font-size: 14px;
-}
-.popup-foot{                      
-    width:100%;
-    height:50px;
-}
-.pop-btn{ 
-    display:inline-flex;          
-    width:100%;                      
-    height:100%;                    
-    justify-content:center;         
-    align-items:center;             
-    float:left;                     
-    color:#ffffff;                 
-    cursor:pointer;                 
-}
-.pop-btn.confirm{                 
-    border-right:1px solid #3b5fbf; 
-}
 </style>
 </head>
 <body>
@@ -463,38 +374,37 @@ justify-content: right;
         <a href="/fundViewSupporter.do?fundNo=${f.fundNo }"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
+
     <div class="detail-container">
         <!--왼쪽 콘텐츠-->
         <div class="detail-view">
-            <span class="main-img">
-                <img src="resources/image/fund/travel.jpg">
-            </span>
-            <div class="detail-content">
-                ${f.fundIntro }
+            <div class="funding-notice">
+                <span class="fn-new">새소식</span>
+                <span class="fn-newNum">4</span>
+                <span class="fn-search">
+                    <form action="#" method="post">
+                        <select name="searchType">
+                            <option ${(param.searchType=="title")?"selected":""} value="title"><span>전체</span></option>
+                            <option ${(param.searchType=="title")?"selected":""} value="title"><span>이벤트</span></option>
+                            <option ${(param.searchType=="content")?"selected":""} value="content">리워드 안내</option>
+                        </select>
+                    </form>
+                </span>
             </div>
-            <div class="detail-funding">
-                <div class="detail-info">
-                    <span>목표 금액</span>
-                    <span>${f.fundAmount }원</span><br>
-                    <span>펀딩 기간</span>
-                    <span>${f.fundStart } ~ ${f.fundEnd }</span><br>
-                </div>
-                <span class="detail-fix">100%이상 모이면 펀딩이 성공되며, 펀딩 마감일까지 목표 금액이 100% 모이지 않으면 결제는 순차적으로 취소됩니다.</span>
-            </div>
-            <div class="detail-guide">
-                <span class="detail-fix">메이커의 새로운 제품, 서비스 제작을 지원하는</span><br>
-                <span class="detail-fix2">크라우드펀딩 제대로 알고 펀딩하자</span>
-                <span href="#" class="guide-modal" id="modal-open">자세히 알아보기</span>            
-            </div>
-            <div class="story">프로젝트 스토리</div>
-            <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
-            </span>
-            <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
-            </span>
+            <!--새소식 1개 -->
+            <a href="#" class="fn-view">
+                <div class="fn-category">카테고리명</div>
+                <div class="fn-title">[펀딩오픈이벤트]72시간내 펀딩하시고 추가증정받아가세요!!</div>
+                <div class="fn-date">2022.05.12</div>
+            </a><!--새소식 1개 -->
+            
+
+
+            <button class="fn-writeFrm">새소식 작성</button>
+
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
+        
         <!--오른쪽 콘텐츠-->
         <div class="detail-reward">
             <!--프로젝트 상태-->
@@ -566,66 +476,5 @@ justify-content: right;
             </a><!--리워드 1개 생성-->
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
-
-
-
-    
-  <!--자세히 알아보기 모달-->
-        <div class="container"> 
-        <div class="popup-wrap" id="popup"> 
-            <div class="popup">	
-                <div class="popup-head">	
-                    <span class="head-title"></span>
-                    <!-- <span class="material-symbols-outlined pop-btn close" id="close">close</span>  -->                        
-                </div>
-                <div class="popup-body">	
-                    <div class="body-content">
-                        <div class="body-titlebox">
-                            <span>크라우드펀딩<br>제대로 알고 펀딩하자</span>
-                        </div>
-                        <div class="body-contentbox">
-                            <span> FUNFUNFUN 펀딩은 리워드를 단순히 구매하는 쇼핑이 아닌 <strong>메이커의 새로운 제품・서비스 제작 과정을 지원</strong>하는 것입니다.<br>
-                                따라서, <strong>펀딩은 전자상거래법상 통신판매에 해당하지 않으므로 단순 변심으로 인한 환불 등 관련 규정이 적용되지 않습니다.</strong>
-                                단, 펀딩 종료 전까지 언제든지 펀딩을 취소할 수 있습니다.
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="popup-foot">
-                <span class="pop-btn confirm" id="confirm">확인</span>
-                </div>
-            </div>
-        </div>
-    </div><!--모달-->
-
-<script>
-$(function(){
-    $("#confirm").click(function(){
-        modalClose();
-        //컨펌 이벤트 처리
-    });
-    $("#modal-open").click(function(){        
-    	$("#popup").css('display','flex').hide().fadeIn();
-    });
-    $("#close").click(function(){
-        modalClose();
-    });
-    function modalClose(){
-        $("#popup").fadeOut();
-    }
-});
-
-//미구현
-$(".like-btn").click(function(){
-    const like = $(this).find("span");
-    console.log(like);
-    if(like.text() == "favorite_border"){
-        like.text("favorite");
-    }else{
-        like.text("favorite_border");
-    }
-});
-</script>
-                
 </body>
 </html>

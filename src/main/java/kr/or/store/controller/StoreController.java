@@ -9,8 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.google.gson.Gson;
+
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.member.vo.Member;
 import kr.or.store.model.service.StoreService;
 import kr.or.store.model.vo.Store;
@@ -44,14 +49,10 @@ public class StoreController {
 		
 		model.addAttribute("s",sv.getS());
 		model.addAttribute("list",sv.getList());
-		
+		model.addAttribute("starAvg", sv.getStarAvg());
 		return "store/storeView";
 	}
-	@RequestMapping(value="/starWrite.do")
-	public String insertComment(Store s) {
-		int result = service.insertComment(s);
-		return "store/storeView.do?storeNo="+s.getStoreNo();
-	}
+	
 	/*
 	@RequestMapping(value = "/storeAllList.do")
 	public String storeAllList(int reqPage, Model model) {
@@ -70,10 +71,38 @@ public class StoreController {
 	public String storeTest() {
 		return "store/starTest";
 	}
+	@RequestMapping(value = "/insertStar.do")
+	public String insertComment(Model model,@SessionAttribute (required = false)Member m,Store s) {
+		int result = service.insertComment(s);
+		return "store/storeView.do?storeNo="+s.getStoreNo();
+		
+	}
+
+	/*
+	@RequestMapping(value="/storeView.do")
+	public String storeView(int storeNo, Model model,@SessionAttribute (required = false)Member m) {
+		StoreViewData sv = service.selectOneStore(storeNo);
+		
+		model.addAttribute("s",sv.getS());
+		model.addAttribute("list",sv.getList());
+		model.addAttribute("starAvg", sv.getStarAvg());
+		return "store/storeView";
+	}
+	for(int i=0;i<students.size();i++) {
+        Student s = students.get(i);
+        System.out.println(s.getName()+"\t"+s.getAge()+"\t"+s.getAddr());
+    }
+    */
 	@RequestMapping(value = "/storePayment.do")
-	public String storePayment(Model model,@SessionAttribute (required = false)Member m,int storeNo) {
-		
-		
+	public String storePayment(Model model,@SessionAttribute (required = false)Member m,int storeNo,int number,int totalprice,String storeCategory) {	//총금액이랑 카테고리
+		ArrayList<MemberCoupon> mcList = service.SelectMemberCouponList(m.getMemberNo());	//조회해오기
+		ArrayList<Coupon> cList = new ArrayList<Coupon>();
+		for(int i=0;i<mcList.size();i++){
+			MemberCoupon mc = mcList.get(i);
+		    Coupon c = service.selectOneCoupon(mc.getCouponNo(),totalprice,storeCategory);
+		    cList.add(c);
+		}
+		model.addAttribute("cList",cList);
 		return "store/storePayment";
 	}
 	@RequestMapping(value="/Store.do")

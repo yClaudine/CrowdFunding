@@ -14,8 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import kr.or.fund.model.service.FundTmpService;
 import kr.or.fund.model.vo.Fund;
@@ -251,7 +258,73 @@ public class FundTmpController {
 	@RequestMapping(value="/fundRewardCreateFrm.do")
 	public String fundRewardCreateFrm(int tfNo, Model model) {
 		pageMove(tfNo, model);
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		ArrayList<TmpReward> trl = service.selectReward(tf);
+		model.addAttribute("tmpRewardList",trl);
 		return "fund/fundRewardCreateFrm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/SaveTmpReward.do", produces="application/json;charset=utf-8")
+	public int SaveTmpReward(String data) {
+		//받아온 String을 jsonObject화
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObj = (JsonObject)jsonParser.parse(data);
+		
+		//DB 처리가 잘 되었는지 반환 할 변수
+		int result = 1;
+		
+		//각 jsonObject별로 명령을 수행한다.
+		for(int i=0;i<jsonObj.size();i++) {
+			//각 reward가 어떤 상태인지 status 부터 추출
+			String cnt = ""+i;
+			JsonObject reward = (JsonObject)jsonObj.get(cnt);
+			String status = reward.get("rewardStatus").toString().replaceAll("\"", "");
+			
+			//reward 값을 reward VO에 넣음
+			TmpReward tr = new TmpReward();
+			int rewardNo = Integer.parseInt(reward.get("rewardNo").toString().replaceAll("\"", ""));
+			tr.setTrNo(rewardNo);
+			int tfNo = Integer.parseInt(reward.get("tfNo").toString().replaceAll("\"", ""));
+			tr.setTfNo(tfNo);
+			tr.setTrName(reward.get("rewardName").toString().replaceAll("\"", ""));
+			tr.setTrIntro(reward.get("rewardIntro").toString().replaceAll("\"", ""));
+			int price = Integer.parseInt(reward.get("rewardPrice").toString().replaceAll("\"", ""));
+			tr.setTrPrice(price);
+			int count = Integer.parseInt(reward.get("rewardCount").toString().replaceAll("\"", ""));
+			tr.setTrCount(count);
+			String option = reward.get("rewardOption").toString().replaceAll("\"", "");
+			//option = option.replace("\r\n","<br>"); 줄바꿈 치환용인데 안바뀜
+			tr.setTrOption(option);
+			tr.setTrSend(reward.get("rewardSend").toString().replaceAll("\"", ""));
+			int deliveryfee = Integer.parseInt(reward.get("rewardDeliveryFee").toString().replaceAll("\"", "")); 
+			tr.setTrDeliveryfee(deliveryfee);
+			//System.out.println(tr); 값들 잘 들어갔는지 확인용
+			
+			//각 status별로 명령 수행
+			switch(status) {
+			case "new":
+				int createResult = service.createTmpReward(tr);
+				result *= createResult;
+				break;
+			case "upload":
+				//upload는 변경 사항이 없기 때문에 바꿀 필요 없음
+				break;
+			case "update":
+				int updateResult = service.updateTmpReward(tr);
+				result *= updateResult;
+				break;
+			case "delete":
+				int deleteResult = service.deleteTmpReward(tr);
+				result *= deleteResult;
+				break;
+			default:
+				break;
+			}//switch
+		}//for
+		
+		return result;
 	}
 
 }

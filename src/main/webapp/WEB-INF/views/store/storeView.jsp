@@ -15,21 +15,23 @@ html>body {
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="resources/css/bootstrap.css" rel="stylesheet"/>
+
 <style>
 	.menu-color{
-		min-width: 290px;
+		min-width: 250px;
 	}
 	.content-wrap{
 		display: flex;
 		width: 90%;
 		margin: 0 auto;
 		min-width: 900px;
+		padding-top: 50px;
 	}
 	.img-box{
 		width: 50%;
 		border: 1px solid black;
 		padding: 20px 20px;
-		margin-left: 100px;
+		margin-left: 50px;
 	}
 	.content-detail{
 		margin: 20px auto;
@@ -249,7 +251,7 @@ html>body {
 	}
 	.star-Box2{
 		text-align: center;	
-		font-size: 15px;
+		font-size: 12px;
 	}
 	#star{
 		font-size: 15px;
@@ -258,9 +260,13 @@ html>body {
 		width: 20%;
 		font-size: 15px;
 	}
+	.starcomment-wrap>.star-Box2>.material-symbols-outlined{
+		font-size: 15px;
+	}
 	.comment-wrap{
 		display: flex;
-		width: 80%;
+		width: 83%;
+		padding-bottom: 30px;
 	}
 	.content-list{
 		display: flex;
@@ -268,6 +274,7 @@ html>body {
 		min-width: 960px;
 		width: 90%;  
 		text-align: center;
+		flex-wrap: wrap;
 	}
 	.starcontent{
 		width: 80%;
@@ -275,16 +282,28 @@ html>body {
 		background-color: #e7f9f9;
 		padding: 10px 15px 10px;
 		text-align: left;
+		margin-left: 10px;
 	}
 	#report-button{
 		margin-left: 10px;
 		width: 40px;
 		height: 30px;
+		font-size: 15px;
 	}
 	.storeAllPrice{
 		padding-top:10px;
 	}
-
+	.starstar{
+		display: flex;
+		margin: 0 auto;
+	}
+	.avg{
+		display: flex;
+	}
+	#avgin{
+		padding-left: 15px;
+		font-size: 15px;
+	}
 </style>
 </head>
 <body>
@@ -292,17 +311,18 @@ html>body {
 	<div class="content-wrap">
 		<div class="img-box">${s.storeImg1 }</div>
 			<div class="content-detail">
-				<div class="store-category">${s.storeCategory }<div class="priceno">${s.storeTitle }</div></div>
+				<div class="store-category" id="category">${s.storeCategory }</div><div class="priceno" id="priceno">${s.storeTitle }</div>
 				<div class="store-select">
 					<div class="store-name">${s.storeProduct }<div class="priceno">${s.storePrice }원</div></div><br>
 					<div class="pm">
 						<input type='button' onclick='count("minus")' value='-' style="width: 25px;"/>						
-						&nbsp;&nbsp;<div id='result'>0</div>&nbsp;&nbsp;
+						&nbsp;&nbsp;<div id='result'>1</div>&nbsp;&nbsp;
 						<input type='button' onclick='count("plus")' value='+' style="width: 25px;"/>
 					</div><br><br>
 					<div class="store-delivery">
 						<div class="price-ko">배송비</div><div class="priceno">${s.storeDelivery } 원</div></div><br>
-					<div class="storeAllPrice"><div class="price-ko"><br>총 결제금액</div><div class="priceno" id="priceno"><br>0 원</div></div>
+					<div class="storeAllPrice">
+					<div class="price-ko">총 결제금액</div><div class="priceno" id="allprice">${s.storeDelivery+s.storePrice}</div></div>
 				</div>
 			<button type="submit" id="buy-button" style="width: 300px; height:40px; background-color: #00c4c4;">구매하기</button>
 		</div>
@@ -376,10 +396,58 @@ html>body {
 	    		</div>
             </div>
             <div class="tabcontent" id="star">
-                <h5 class="menu-color">"${s.storeProduct }" 실구매자 만족도</h5>
+            	<div class="starstar">
+                <h5 class="menu-color">"${s.storeProduct }" 구매자 만족도 </h5>
+                <div class="avg">
+                <c:forEach begin='1' end='5' varStatus="j">
+					<c:choose>
+						<c:when test="${starAvg ge j.count}">
+					    	<span class="material-symbols-outlined" style="color:#00b2b2;">star</span>
+					    </c:when>
+					    <c:otherwise>
+					    	<span class="material-symbols-outlined">star</span>
+					    </c:otherwise>
+					          				
+					</c:choose>                        					
+                </c:forEach><div id="avgin">${starAvg } 점 / 5.0 점</div> 
+                </div>
+                </div>
                 <hr>
-                
-				
+                <c:choose>
+					<c:when test="${empty sessionScope.m }">
+						<div class="content-list">
+					        <c:forEach items="${list }" var="ss" varStatus="i">
+					        	<div class="who">
+						        	<div class="allcomment-wrap"><span class="material-symbols-outlined">account_circle</span></div>
+								    <div class="membername">${ss.memberId }</div>
+							    </div>
+					        	<div class="comment-wrap">
+						            <div class="starcomment-wrap">
+						            <div class="star-Box2">
+							            	<div class="star-box2">
+							            		<c:forEach begin='1' end='5' varStatus="j">
+							            			<c:choose>
+							            				<c:when test="${ss.starScore ge j.count}">
+							            					<span class="material-symbols-outlined" style="color:#00b2b2;">star</span>
+							            				</c:when>
+							            				<c:otherwise>
+							            					<span class="material-symbols-outlined">star</span>
+							            				</c:otherwise>
+							            				
+							            			</c:choose>                        					
+		                        				</c:forEach>
+									        	
+									        </div>
+								            <div class="starScore">${ss.starScore }&nbsp;점	</div>
+							            </div>
+						            </div>
+						            <div class="starcontent">${ss.starContent }</div>
+					            </div>
+					            <button id="report-button">신고</button>
+					        </c:forEach>
+						</div>
+					</c:when>
+					<c:otherwise>			
 		                <div class="starCommentBox"> 
 					    	<form action="/insertStar.do" method="post">
 								<ul>
@@ -408,8 +476,8 @@ html>body {
 								</ul>
 							</form>
 						</div>
-					
-				
+					</c:otherwise>
+				</c:choose>
 			    <div class="content-list">
 			        <c:forEach items="${list }" var="ss" varStatus="i">
 			        	<div class="who">
@@ -420,11 +488,18 @@ html>body {
 				            <div class="starcomment-wrap">
 				            <div class="star-Box2">
 					            	<div class="star-box2">
-							        	<span class="material-symbols-outlined" id="star">star</span>
-							            <span class="material-symbols-outlined" id="star">star</span>
-							            <span class="material-symbols-outlined" id="star">star</span>
-							            <span class="material-symbols-outlined" id="star">star</span>
-							            <span class="material-symbols-outlined" id="star">star</span>
+					            		<c:forEach begin='1' end='5' varStatus="j">
+					            			<c:choose>
+					            				<c:when test="${ss.starScore ge j.count}">
+					            					<span class="material-symbols-outlined" style="color:#00b2b2;">star</span>
+					            				</c:when>
+					            				<c:otherwise>
+					            					<span class="material-symbols-outlined">star</span>
+					            				</c:otherwise>
+					            				
+					            			</c:choose>                        					
+                        				</c:forEach>
+							        	
 							        </div>
 						            <div class="starScore">${ss.starScore }&nbsp;점	</div>
 					            </div>
@@ -435,11 +510,7 @@ html>body {
 			        </c:forEach>
 				</div>
 				
-				
-				
-				
-				
-				
+	
             </div>
             <div class="tabcontent" id="change">
                 <h3 class="menu-color">반품/교환</h3>
@@ -518,18 +589,21 @@ html>body {
 		  const allPrice = document.getElementById('priceno');
 		  // 현재 화면에 표시된 값 구매수량
 		  let number = resultElement.innerText;
-		  
 		  // 더하기/빼기누를때
 		  if(type == 'plus') {
-			  if(number>=0&&number<${s.storeCount }){
+			  if(number>=1&&number<${s.storeCount }){
 				  number = parseInt(number) + 1;
 			  }else{
-				  confirm("${s.storeCount }개 이하로 선택해주세요.");
+				  confirm("1개 이상 ${s.storeCount }개 이하로 선택해주세요.");
+				  return;
 			  }
 		  }else if(type == 'minus')  {
-			  if(number>0){
+			  if(number>1){
 				  number = parseInt(number) - 1;
+			  }else{
+				  return;
 			  }
+			  
 		  }
 			//총 가격=상품가격*구매수량+배송비
 		  let priceno = ${s.storePrice }*number+${s.storeDelivery }+" 원";
@@ -544,10 +618,18 @@ html>body {
 	
 	
 	
-	
+	//number
 	$("#buy-button").on("click",function(){
+		const resultElement = document.getElementById('result');
+		let number = resultElement.innerText;
+		//총금액을 넘겨주기
+		const totalPrice = document.getElementById('allprice');
+		let totalprice = totalPrice.innerText;
+		//카테고리 넘겨주기
+		const category = document.getElementById('category');
+		let storeCategory = category.innerText;
 		if(confirm("구매창으로 넘어가시겠습니까?")){
-			location.href="/storePayment.do";
+			location.href="/storePayment.do?storeNo=${s.storeNo}&number="+number+"&totalprice="+totalprice+"&storeCategory="+storeCategory;
 		}
 	});
 	
@@ -564,6 +646,17 @@ html>body {
 	    });
 	    //화면이 완성되면 첫번째꺼 클릭해라!
 	    tabs.first().next().click();
+		var score=$("[name=star-score]");
+        
+        score.each(function(index,item){
+			
+			const starScore=$(item).val()*30;
+        	$(item).prev().animate({"width":starScore+"px"},3000);
+		});
+        
+        const content = $(".tapContent");
+        
+       tabs.eq(1).click();
 	});
 	//내용 더보기
 	$(".sub-menu").prev().append("<span class='more'>↓</span>");
@@ -589,7 +682,8 @@ html>body {
     	
     });*/
     
-    $(function(){	 
+    $(function(){
+    	      
     	   var s =0;
     	    const stars=$(".star-box").children();
     	        stars.on("mouseover",function(){
@@ -619,7 +713,7 @@ html>body {
     	        });     
     	       
 
-    	});	    
+    	});	
 	</script>
 </body>
 </html>

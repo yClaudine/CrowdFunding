@@ -27,4 +27,7 @@ public class Fund {
 	private String fundFilepath4;
 	private String fundFilepath5;
 	
+	//추가 조회 컬럼
+	private int dateGap;
+	
 }

@@ -37,12 +37,15 @@
     margin: 0 auto;
     display: flex;
     height: 200px;
-    width: 400px;
+    justify-content: center;
     padding-top: 50px;
 }
 
 .category-list {
+    border: none;
+    background-color: #fff;
     height: 100px;
+    padding: 0;
 }
 .circle-list {
     display: inline-block;
@@ -59,13 +62,6 @@
     width: 65px;
     height: 65px;
     margin-top: 10px;
-    margin-left: 7.5px;
-    border-radius: 65px;
-}
-
-.circle-img>img {
-    width: 65px;
-    height: 65px;
     border-radius: 65px;
 }
 
@@ -78,7 +74,11 @@
     color: #212529;
     text-align: center;
 }
-
+.circle-img>img {
+    width: 65px;
+    height: 65px;
+    border-radius: 65px;
+}
 
 .search-filter {
     align-items: center;
@@ -336,68 +336,75 @@ li {
     
     <div class="content">
     <!--카테고리 5개-->
-        <div class="category">
-            <a class="category-list" href="#"><!--카테고리1개-->
+        <div class="category" value="${f.fundCategory }">
+            <button class="category-list"><!--카테고리1개-->
+                <span class="circle-list">
+                    <span class="circle-img">
+                        <img src="resources/image/fund/leaves.jpg">
+                    </span>
+                    <span class="circle-name">BEST</span>
+                </span>
+            </button><!--카테고리1개-->
+            <button class="category-list"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/living.jpg">
                     </span>
                     <span class="circle-name">리빙</span>
                 </span>
-            </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            </button><!--카테고리1개-->
+            <button class="category-list"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/beauty.jpg">
                     </span>
                     <span class="circle-name">뷰티</span>
                 </span>
-            </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            </button><!--카테고리1개-->
+            <button class="category-list"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/pet.jpg">
                     </span>
                     <span class="circle-name">반려동물</span>
                 </span>
-            </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            </button><!--카테고리1개-->
+            <button class="category-list"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/travel.jpg">
                     </span>
                     <span class="circle-name">여행</span>
                 </span>
-            </a><!--카테고리1개-->
-            <a class="category-list" href="#"><!--카테고리1개-->
+            </button><!--카테고리1개-->
+            <button class="category-list"><!--카테고리1개-->
                 <span class="circle-list">
                     <span class="circle-img">
                         <img src="resources/image/fund/food.jpg">
                     </span>
                     <span class="circle-name">푸드</span>
                 </span>
-            </a><!--카테고리1개-->
+            </button><!--카테고리1개-->
 
         </div>
 
-        <form action="#"></form>
     <!--검색 옵션들-->
         <div class="search-filter">
             <div class="search-funding">
-                <form action="#" method="post">
+                <form action="/fundSearch.do" method="post">
                     <input type="text" class="list-search" placeholder="궁금한 펀딩을 검색해보세요">
                     <span class="material-symbols-outlined searchI">search</span>
                     
             <!--필터링1 - 진행중/종료된-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="title"><span>진행순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">종료된</option>
+                        <option ${(param.searchType=="ongoing")?"selected":""} value="ongoing"><span>진행순</span></option>
+                        <option ${(param.searchType=="end")?"selected":""} value="end">종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
                     <select name="searchType">
-                        <option ${(param.searchType=="title")?"selected":""} value="title"><span>인기순</span></option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">펀딩액순</option>
-                        <option ${(param.searchType=="content")?"selected":""} value="content">최신순</option>
+                        <option ${(param.searchType=="current")?"selected":""} value="current"><span>최신순</span></option>
+                        <option ${(param.searchType=="popular")?"selected":""} value="popular">인기순</option>
+                        <option ${(param.searchType=="total")?"selected":""} value="total">펀딩액순</option>
                     </select>
                 </form>
             </div>
@@ -405,30 +412,8 @@ li {
         <div class="space"></div>
 
 <!--펀딩 리스트-->
-        <div class="project-container">
-            
-            <div class="item"><!--grid 1개 item-->
-                <a href="#" class="project-wrap">
-                    <img src="resources/image/fund/living.jpg">
-                    <div class="project-card">
-                        <div class="project-title">
-                            [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요! (앵콜)
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">리빙</span>
-                            <span class="divide">|</span>
-                            <span class="project-seller">주식회사 노멀리스트</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="line"></div>
-                <div class="project-progress">
-                    <span class="project-percent">1687%</span>
-                    <span class="project-amount">∙85,097,500원</span>
-                    <span class="project-dayleft">6일 남음</span>
-                </div>
-            </div><!--grid 1개--> 
-            
+	<div class="ajax-container" >
+        <div class="project-container" id="project-container">           
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
                 <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
@@ -448,17 +433,39 @@ li {
                 <div class="project-progress">
                     <span class="project-percent">1687%</span>
                     <span class="project-amount">∙${f.fundAmount }원</span>
-                    <span class="project-dayleft">${f.fundStart }일 남음</span>
+                    <span class="project-dayleft">${f.dateGap }일 남음</span>
                 </div>
             </div><!--grid 1개--> 
            </c:forEach>
-
-            
         </div><!--grid container-->
-        
+       </div>
     </div><!--content-->
     
     <script>
+    //onclick="location.href='/fund.do?category=BEST'"
+    //const category = $(this).children().children().eq(1).text();
+	/*
+    $(".category-list").on("click",function(){
+    	let category = $(this).val(); //개별버튼값
+    	$.ajax({
+    		url : "/fund.do",
+    		data : {
+    			"category":category //버튼 value값 따라 작동하게
+    		},
+    		success : function(data){
+    			console.log(data);
+		    	//$("#ajax-container").load(location.href+' #ajax-container');
+    			
+    		}
+		})
+    });  
+    */
+    $(".category-list").on("click",function(){
+		const category = $(this).children().children().eq(1).text();
+		location.href="/fund.do?category="+category;
+		});
+    
+    //이미지 슬라이드(수정 필요)
     $(function () {
         var winW = cnt = setId = 0;
         resizeFn();
