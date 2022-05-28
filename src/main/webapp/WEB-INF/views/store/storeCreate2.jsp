@@ -107,7 +107,7 @@
 				</div>
 			</div>
 				<div class="checknext">
-					<button type="button" onclick="next()" class="btn btn-outline-dark" id="nextbutton">시작하기</button>
+					<button type="button" class="btn btn-outline-dark" id="nextbutton">시작하기</button>
 				</div>     
 
 
@@ -119,9 +119,9 @@
 			ok2 = document.querySelector('.check2');
 			if(ok.checked == true && ok2.checked == true){
 				//화면 이동 바꿔야 됨
-				location.href='/index.jsp';
+				location.href='/storeReadyFrm.do?stNo='+${stNo};
 			}else{
-				window.alert("약관 동의")
+				window.alert("약관 동의 체크를 모두 해 주시길 바랍니다.")
 				return;
 			}
 		})
