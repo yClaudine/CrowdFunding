@@ -367,8 +367,6 @@
 
 
 
-
-
 .popup-wrap{
     background-color:rgba(0,0,0,.3); 
     justify-content:center; 
@@ -394,6 +392,11 @@
     height:50px;  
     align-items:center;
     justify-content:center;
+    padding-right: 20px;
+    font-size: 30px;
+}
+.popup-head>.pop-btn{
+justify-content: right;
 }
 .popup-body{                
     width:100%;
@@ -406,14 +409,24 @@
 .body-titlebox{             
     text-align:center;        
     width:100%;
-    height:40px;
+    height:50px;
     margin-bottom:10px;       
 }
-.body-contentbox{           
+.body-titlebox span{
+    font-size: 20px;
+    font-weight: 500;
+}
+.body-contentbox{ 
+    margin-top: 20px;
+    border-top: 3px solid #00b2b2;          
     word-break:break-word;    
     overflow-y:auto;          
     min-height:100px;         
-    max-height:300px;         
+    max-height:400px;         
+}
+.body-contentbox span{
+    margin-top: 20px;
+    font-size: 14px;
 }
 .popup-foot{                      
     width:100%;
@@ -421,7 +434,7 @@
 }
 .pop-btn{ 
     display:inline-flex;          
-    width:50%;                      
+    width:100%;                      
     height:100%;                    
     justify-content:center;         
     align-items:center;             
@@ -557,32 +570,62 @@
 
 
     
-    <!--자세히 알아보기 모달-->
+  <!--자세히 알아보기 모달-->
         <div class="container"> 
         <div class="popup-wrap" id="popup"> 
             <div class="popup">	
                 <div class="popup-head">	
-                    <span class="head-title">FunFunfun</span>
+                    <span class="head-title"></span>
+                    <!-- <span class="material-symbols-outlined pop-btn close" id="close">close</span>  -->                        
                 </div>
                 <div class="popup-body">	
                     <div class="body-content">
                         <div class="body-titlebox">
-                        <h1>Confirm Modal</h1>
+                            <span>크라우드펀딩<br>제대로 알고 펀딩하자</span>
                         </div>
                         <div class="body-contentbox">
-                        <span> 팝업내용
-                        </span>
+                            <span> FUNFUNFUN 펀딩은 리워드를 단순히 구매하는 쇼핑이 아닌 <strong>메이커의 새로운 제품・서비스 제작 과정을 지원</strong>하는 것입니다.<br>
+                                따라서, <strong>펀딩은 전자상거래법상 통신판매에 해당하지 않으므로 단순 변심으로 인한 환불 등 관련 규정이 적용되지 않습니다.</strong>
+                                단, 펀딩 종료 전까지 언제든지 펀딩을 취소할 수 있습니다.
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div class="popup-foot">
                 <span class="pop-btn confirm" id="confirm">확인</span>
-                <span class="pop-btn close" id="close">창 닫기</span>
                 </div>
             </div>
         </div>
     </div><!--모달-->
 
+<script>
+$(function(){
+    $("#confirm").click(function(){
+        modalClose();
+        //컨펌 이벤트 처리
+    });
+    $("#modal-open").click(function(){        
+    	$("#popup").css('display','flex').hide().fadeIn();
+    });
+    $("#close").click(function(){
+        modalClose();
+    });
+    function modalClose(){
+        $("#popup").fadeOut();
+    }
+});
+
+//미구현
+$(".like-btn").click(function(){
+    const like = $(this).find("span");
+    console.log(like);
+    if(like.text() == "favorite_border"){
+        like.text("favorite");
+    }else{
+        like.text("favorite_border");
+    }
+});
+</script>
                 
 </body>
 </html>

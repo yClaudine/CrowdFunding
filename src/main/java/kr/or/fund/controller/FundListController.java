@@ -44,7 +44,7 @@ public class FundListController {
 		return "fund/fundViewReturnInfo";	
 	}
 	//펀딩 상세3 - 새소식 게시판
-	@RequestMapping(value="/fundViewNotice.do?")
+	@RequestMapping(value="/fundViewNotice.do")
 	public String FundViewNotice(int fundNo, Model model) {
 		Fund f = service.selectOneFund(fundNo);
 		model.addAttribute("f",f);
@@ -55,7 +55,7 @@ public class FundListController {
 	public String FundViewSupporter(int fundNo, Model model) {
 		Fund f = service.selectOneFund(fundNo);
 		model.addAttribute("f",f);
-		return "fund/fundViewSupoorter";	
+		return "fund/fundViewSupporter";	
 	}
 	
 	
