@@ -67,7 +67,6 @@
 		width: 200px;
 	}
 	.content-right{
-		width:80%;
 		padding-left: 75px;
 		padding-top: 60px; 
 	}

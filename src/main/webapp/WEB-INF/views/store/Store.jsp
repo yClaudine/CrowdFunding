@@ -11,6 +11,9 @@
 html>body {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+.body{
+	overflow-x: hidden;
+}
 
 .eventimg1 {
 	background-color: blue;
@@ -99,8 +102,28 @@ html>body {
 	color:#212529;
 }
 
+.marquee{
+	transform: rotate(-2deg);
+	margin-top: 50px;
+}	
+
+.marquee2{
+	transform: rotate(2deg);
+	margin-top: 50px;
+}	
+
+.marquee:hover{
+	cursor: pointer;
+}
+
+.marquee2:hover{
+	cursor: pointer;
+}
+	
 
 </style>
+
+
 <!-- slick -->
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <!-- 구글폰트 -->
@@ -112,6 +135,8 @@ html>body {
 <link href="resources/css/bootstrap.css" rel="stylesheet"/>
 <!-- store.css -->
 <link rel="stylesheet" href="resources/css/store.css">
+
+<link rel="stylesheet" href="resources/css/reset.css">
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -188,14 +213,19 @@ html>body {
     		<div class="eventimg3"></div>
     		<div class="eventimg4"></div>
     		<div class="eventimg5"></div>
-    	</udiv>
+    	</div>
     </div>
-
-
+		
+	<div class="marquee">
+	 	<marquee width=window.innerWidth height=50 bgcolor="#00b2b2" scrollamount="10"><font size="6" color="white">좋은 물건이 떠오르시나요? 
+	 	&emsp;&emsp; 지금 당장 FUNFUNFUN 스토어 신청을 클릭 한 번으로 해 보세요. </font></marquee>
+	</div>
+	<div class="marquee2">
+	 	<marquee width=window.innerWidth direction=right height=50 bgcolor="#e7f9f9" scrollamount="10"><font size="6" color="#868e96">FUNFUNFUN과 함께라면 
+	 	&emsp; 스토어 신청도 간편하게! </font></marquee>
+	</div>
+	<br><br><br>
   
-	    <div class="createstore">
-	    	<a class="createimg" href="/storeStart.do">스토어 신청</a>
-	    </div>
     
     <div class="category-title">
 			<h5>상품 카테고리</h5>
@@ -231,7 +261,7 @@ html>body {
 	                </div>
 				</div>
 			</div>
-		</div>
+		
 </div>
     <script>
     
@@ -373,8 +403,17 @@ html>body {
 		
 	})
     
+    $(".marquee").click(function(){
+    	location.href='/storeStart.do';
+    });
     
+    $(".marquee2").click(function(){
+    	location.href='/storeStart.do';
+    });
     
+	
+
+  
    
 
 

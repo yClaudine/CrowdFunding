@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class TmpStore {
 	private int stNo;
 	private String memberId;
+	private String stTitle;
 	private String stCategory;
 	private String stContent;
 	private String stProduct;

@@ -71,6 +71,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
+<link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+         crossorigin="anonymous"
+      />
+
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -121,11 +128,14 @@
 				//화면 이동 바꿔야 됨
 				location.href='/storeReadyFrm.do?stNo='+${stNo};
 			}else{
-				window.alert("약관 동의 체크를 모두 해 주시길 바랍니다..")
+				alert("약관 동의 체크를 모두 해 주시길 바랍니다..")
 				return;
 			}
 		})
+		
+	
 	
 	</script>
 </body>
+
 </html>
