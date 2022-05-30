@@ -16,6 +16,8 @@
 		<typeAlias type="kr.or.notice.model.vo.Notice" alias="notice"/>	
 		
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
+		<typeAlias type="kr.or.fund.model.vo.FundLike" alias="fl"/>
+		<typeAlias type="kr.or.fund.model.vo.Reward" alias="r"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpReward" alias="tr"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFundCalculate" alias="tfc"/>

@@ -22,5 +22,6 @@ public class Seller {
 	private String address;
 	private int authSeller;
 	private String authMessage; 
+	private int fundNo;
 	
 }

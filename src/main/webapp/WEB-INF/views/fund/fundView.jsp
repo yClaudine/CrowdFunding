@@ -16,7 +16,7 @@
     </style>
     <!--부트스트랩-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="../final_220518/resources/css" rel="stylesheet"/> 
+    <link rel="stylesheet" href="resources/css/header7.css"> 
     <!--구글 아이콘-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -234,7 +234,7 @@
     background-color: #dbdbdb;
     border: 1px solid white;
 }
-.like-btn{
+.like-btn{  
     width: 105px;
 }
 .like-btn .material-icons, .report-btn .material-icons{
@@ -251,7 +251,9 @@
 .like-btn>.btn-value, .report-btn>.btn-value{
     font-size: 16px;
 }
-
+.like-btn .material-icons{
+    color: #00c4c4;
+}
 .seller-info{
     margin-top: 30px;
     margin-bottom: 5px;
@@ -367,6 +369,8 @@
 
 
 
+
+
 .popup-wrap{
     background-color:rgba(0,0,0,.3); 
     justify-content:center; 
@@ -445,6 +449,51 @@ justify-content: right;
 .pop-btn.confirm{                 
     border-right:1px solid #3b5fbf; 
 }
+/*신고하기*/
+.report-foot{                      
+    width:100%;
+    height:50px;
+}
+.reprort-titlebox{             
+    text-align:center;        
+    width:100%;
+    height:30px;
+}
+.report-titlebox span{
+    font-size: 20px;
+    font-weight: 500;
+}
+.report-modal{ 
+    display:inline-flex;          
+    width:50%;                      
+    height:100%;                    
+    justify-content:center;         
+    align-items:center;             
+    float:left;                     
+    color:#ffffff;                 
+    cursor:pointer;                 
+}
+.report-contentbox{ 
+    border-top: 3px solid #00b2b2;          
+    word-break:break-word;    
+    overflow-y:auto;          
+    min-height:100px;         
+    max-height:400px;         
+}
+.body-contentbox span{
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+
+.report{                 
+    border-right:2px solid #fefefe; 
+}
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 </style>
 </head>
 <body>
@@ -499,7 +548,7 @@ justify-content: right;
         <div class="detail-reward">
             <!--프로젝트 상태-->
             <div class="project-status">
-                <div class="remaining-day">16일 남음</div><br>
+                <div class="remaining-day">${f.dateGap}일 남음</div><br>
                 <div class="rate-bar"></div>
                 <span class="achievement-rate">
                     <strong>1993</strong> % 달성
@@ -516,16 +565,17 @@ justify-content: right;
                 <br>
                 <div class="btn-box">
                     <button class="like-btn">
-                        <span class="material-icons">favorite_border</span>
-                        <span class="material-icons">favorite</span>
+                        <span class="material-icons likes">favorite_border</span>
+                        <!-- <span class="material-icons likes">favorite</span>  -->
                         <span class="btn-value">0</sp>
                     </button>
                     <button class="report-btn" type="submit">
                         <span class="material-icons">report</span>                
-                        <span class="btn-value">프로젝트 신고하기</sp>
+                        <span class="btn-value" id="report-open">프로젝트 신고하기</span>
                     </button>
                 </div>
             </div>
+            
             <!--메이커 정보-->
             <div class="seller-info">메이커 정보</div>
             <div class="seller-wrap">
@@ -533,11 +583,11 @@ justify-content: right;
                     <span class="material-symbols-outlined seller-profile">
                         badge</span>
                     <span class="seller-name">
-                        주식회사 리빙팩토리
+                       	${s.owner }
                     </span>
                 </div>
                 <div class="seller-intro">
-                    주식회사 리빙팩토리는 인테리어 용품, 가구 등을 판매합니다. 
+                   		${s.enIntro } 
                 </div> 
                 <button class="seller-dm">
                     <span class="material-symbols-outlined">
@@ -547,23 +597,27 @@ justify-content: right;
             </div>
             <!--리워드 정보-->
             <div class="reward-info">리워드 정보</div>
+         
             <!--리워드 1개 생성-->
+         <c:forEach items="${list }" var="r" varStatus="i">
             <a href="#" class="reward-linkwrap">
                 <div class="reward-wrap">
-                    <div class="reward-price">71,900원 펀딩</div>
-                    <div class="reward-name">[울트라슈퍼얼리버드] 쟁여두기 6개</div>
-                    <div class="reward-intro">자외선은 튕기고 비타민D는 흡수하는 광합썬! 세븐데이즈 마일드 선크림 6개</div>
+                    <div class="reward-price">${r.rewardPrice}원 펀딩</div>
+                    <div class="reward-name">${r.rewardName}</div>
+                    <div class="reward-intro">${r.rewardIntro}</div>
+                    <div class="reward-intro option">*옵션*<br>${r.rewardOption}</div>
                     <div class="reward-fix">배송비</div>
-                    <div class="reward-deliveryfee reward-active">0원</div>
+                    <div class="reward-deliveryfee reward-active">${r.rewardDeliveryfee}원</div>
                     <div class="reward-fix">리워드 발송 시작일</div>
-                    <div class="reward-send reward-active">2022년 05월 말 예정</div>
+                    <div class="reward-send reward-active">${r.rewardSend}</div>
                     <div class="reward-count">
-                        <span class="reward-fixcount">제한수량 700개</span>
-                        <span class="reward-remaining">현재 675개 남음!</span>
+                        <span class="reward-fixcount">제한수량 ${r.rewardCount}개</span>
+                        <span class="reward-remaining">현재 (데이터)개 남음!</span>
                     </div>
-                    <div class="reward-status reward-active">총 25개 펀딩완료</div>
+                    <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div>
                 </div>
             </a><!--리워드 1개 생성-->
+          </c:forEach>
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
 
@@ -597,8 +651,39 @@ justify-content: right;
             </div>
         </div>
     </div><!--모달-->
+    
+    <!--신고하기 모달-->
+    <div class="container"> 
+        <div class="popup-wrap" id="report-modal"> 
+            <div class="popup">	
+                <div class="popup-head">	
+                    <span class="head-title"></span>
+                    <!--<span class="material-symbols-outlined pop-btn close" id="close">close</span>-->
+                </div>
+                <div class="popup-body">	
+                    <div class="body-content">
+                        <div class="report-titlebox">
+                            <span>이 펀딩 프로젝트에 문제가 있나요?</span>
+                        </div>
+                        <div class="report-contentbox">
+                            <br><span>신고가 접수된 이후에는 원활한 진행을 위해 취소할 수 없습니다. </span><br><span>신중하게 신고해주세요.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-foot">
+                <span class="report-modal report" id="report">신고하기</span>
+                <span class="report-modal confirm" id="exit">닫기</span>
+
+                </div>
+            </div>
+        </div>
+    </div><!--모달--> 
+    <input type="hidden" class="fundNo" value="${f.fundNo }">
+    <input type="hidden" class="login" value="${not empty sessionScope.m}">
+    <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
 
 <script>
+//펀딩 설명 모달
 $(function(){
     $("#confirm").click(function(){
         modalClose();
@@ -615,15 +700,68 @@ $(function(){
     }
 });
 
-//미구현
-$(".like-btn").click(function(){
-    const like = $(this).find("span");
-    console.log(like);
-    if(like.text() == "favorite_border"){
-        like.text("favorite");
-    }else{
-        like.text("favorite_border");
+//프로젝트 신고하기 모달
+$(function(){
+    $("#confirm").click(function(){
+        modalClose();
+        //컨펌 이벤트 처리
+    });
+    $("#report-open").click(function(){        
+        $("#report-modal").css('display','flex').hide().fadeIn();
+    });
+    $("#exit").click(function(){
+        modalClose();
+    });
+    function modalClose(){
+        $("#report-modal").fadeOut();
     }
+});
+//신고하기 확인여부
+$(function(){
+	const login = $(".login").val();
+	const fundNo = $(".fundNo").val();
+	$("#report").click(function(){
+		if(login){
+			let result = confirm("정말 신고하시겠습니까?");
+			if(result==true){
+				location.href="/reportFund.do?fundNo="+fundNo;
+				//$("#report").attr('disabled', true);
+			}else{
+				$("#report-modal").fadeOut();
+			}				
+		}else{
+			alert("로그인을 진행해주세요.")
+		}
+		});
+	});
+
+//좋아요 
+$(".like-btn").click(function(){
+	const login = $(".login").val();
+	let fundNo = $(".fundNo").val();
+	let memberId = $(".memberId").val();
+	
+	if(login){	
+		
+		$.ajax({ //검증을 두번한 상태가 됨 -> 그냥 좋아요 자체를 ajax로 처리
+			url : "/fundLike.do",
+			data : {fundNo : fundNo, memberId : memberId},
+			success : function(data){
+				
+				if(data==0){	//좋아요 0이면 안누른 상태 -> 좋아요 처리
+					$(".like-btn .likes").text("favorite_border");
+					location.href="/fundView.do?fundNo="+fundNo; //좋아요만 처리 
+					
+				}else{			//좋아요 1이면 클릭된 상태 -> 좋아요 취소 
+					$(".like-btn .likes").text("favorite");
+					location.href="/fundView.do?fundNo="+fundNo;
+				}
+			}
+		});
+	}else{
+		alert("로그인을 진행해주세요.")
+	}
+	
 });
 </script>
                 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fundSeller">
+
+  <!-- 펀딩 seller 조회 -->
+  <select id="selectOneSeller" parameterType="int" resultType="sel">
+  
+ 	select 
+		seller_no as sellerNo,
+		member_id as memberId,
+		en_no as enNo,
+		en_path as enPath,
+		en_type as enType,
+		en_intro as enIntro,
+		owner,
+		photopath,
+		position,
+		address,
+		auth_seller as authSeller,
+		auth_massage as authMessage
+		fund_no as fundNo
+	from seller 
+	where fund_no=#{fundNo}
+
+  </select>
+
+</mapper>

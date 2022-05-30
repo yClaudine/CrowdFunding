@@ -58,5 +58,11 @@
 	from fund
 	where fund_no=#{fundNo}
 	</select>
-  
+
+<!-- 펀딩 신고하기 -->
+	<update id="updateReportCount" parameterType="int">
+	update fund set 
+		fund_reportcount = fund_reportcount+1 
+	where fund_no=#{fundNo}
+	</update>
 </mapper>

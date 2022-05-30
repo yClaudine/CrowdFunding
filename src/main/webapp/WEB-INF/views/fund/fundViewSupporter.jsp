@@ -425,6 +425,7 @@
                     <div class="reward-price">71,900원 펀딩</div>
                     <div class="reward-name">[울트라슈퍼얼리버드] 쟁여두기 6개</div>
                     <div class="reward-intro">자외선은 튕기고 비타민D는 흡수하는 광합썬! 세븐데이즈 마일드 선크림 6개</div>
+                    <div class="reward-intro option">*옵션*<br>1.감귤주스 1리터<br>2.감귤주스 갈고 남은 즙</div>
                     <div class="reward-fix">배송비</div>
                     <div class="reward-deliveryfee reward-active">0원</div>
                     <div class="reward-fix">리워드 발송 시작일</div>
