@@ -116,7 +116,7 @@
 			<span class="material-symbols-outlined">shopping_bag</span>
 			<span>나의 FUN(뻔)한</span>
 			<h4>${tmp.memberId }</h4>
-			<span>&nbsp;Store</span>
+			<span>의&nbsp;Store</span>
 		</div>
 		<div class="header-right">
 			<a href="/">나가기</a>
