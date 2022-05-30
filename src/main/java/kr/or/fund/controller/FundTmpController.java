@@ -255,6 +255,7 @@ public class FundTmpController {
 		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
 	}
 	
+	//리워드 설계 페이지로 가는 메소드
 	@RequestMapping(value="/fundRewardCreateFrm.do")
 	public String fundRewardCreateFrm(int tfNo, Model model) {
 		pageMove(tfNo, model);
@@ -265,6 +266,7 @@ public class FundTmpController {
 		return "fund/fundRewardCreateFrm";
 	}
 	
+	//리워드 설계 저장하기 버튼 눌렀을 시 작동하는 메소드
 	@ResponseBody
 	@RequestMapping(value="/SaveTmpReward.do", produces="application/json;charset=utf-8")
 	public int SaveTmpReward(String data) {
@@ -326,5 +328,20 @@ public class FundTmpController {
 		
 		return result;
 	}
+	
+	//위험요인 및 정책 페이지로
+	@RequestMapping(value="/fundPolicyCreateFrm.do")
+	public String fundPolicyCreateFrm(int tfNo, Model model) {
+		pageMove(tfNo, model);
+		return "fund/fundPolicyCreateFrm";
+	}
+	
+	//위험요인 및 정책 페이지 저장하기 버튼
+	@RequestMapping(value="/SaveTmpPolicy.do")
+	public String SaveTmpPolicy(TmpFund tf, Model model){
+		int result = service.updateTmpPolicy(tf);
+		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
+	}
+	
 
 }
