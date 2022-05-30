@@ -8,7 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.fund.model.vo.Fund;
+import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
+import kr.or.store.model.vo.Store;
+import kr.or.store.model.vo.StoreStar;
 
 @Repository
 public class ManagerDao {
@@ -40,4 +44,43 @@ public class ManagerDao {
 		List list = sqlSession.selectList("manager.moreSeller", map);
 		return (ArrayList<Seller>)list;
 	}
+
+	//멤버 관리
+	public ArrayList<Member> selectAllMember(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("manager.selectAllMember", map);
+		return (ArrayList<Member>)list;
+	}
+
+	public int selectMemberCount(HashMap<String, Object> countMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectMemberCount", countMap);
+	}
+
+	public ArrayList<StoreStar> selectOneStar(String memberId) {
+		List list = sqlSession.selectList("manager.selectOneStar", memberId);
+		return (ArrayList<StoreStar>)list;
+	}
+	
+	//펀드관리
+	public ArrayList<Fund> selectAllFund(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("manager.selectAllFund",map);
+		return (ArrayList<Fund>)list;
+	}
+
+	public int selectFundCount(HashMap<String, Object> countMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectFundCount", countMap);
+	}
+
+	public ArrayList<Store> selectAllStore(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("manager.selectAllStore", map);
+		return (ArrayList<Store>) list;
+	}
+
+	public int selectStoreCount(HashMap<String, Object> countMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectStoreCount", countMap);
+	}
+
+	
 }

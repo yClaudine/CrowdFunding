@@ -11,8 +11,9 @@
     overflow: hidden;
     width: 1200px;
     border-top: 1px solid #bfbfbf;
-     font-family: ns-medium;
-        border-top: 1px solid #bfbfbf;
+    font-family: ns-medium;
+    border-top: 1px solid #bfbfbf;
+    margin: 0 auto;
 }
 .left-content{
     float: left;
@@ -160,8 +161,8 @@ input[name='keyword']{
 	color: #60656a;
 }
 #sellerManage{
-	  color:#00b2b2;
-    border: 1px solid #00b2b2;
+	color:#00b2b2;
+    border: 2px solid #00b2b2;
     font-weight: bold;
     margin:0;
     margin-bottom: 5px;
@@ -206,6 +207,11 @@ select{
 	border: 1px solid #d1e2e2;;
 	color: white;
 }
+#reportManage>a{
+	display:block;
+	width: 100%;
+	height: 100%;
+}
 </style>
 </head>
 <body>
@@ -216,16 +222,16 @@ select{
             <div class="menu-wrap">
                 <ul class="manager-menu">
                     <li>관리자페이지</li>
-                    <li><a href="#">펀딩관리</a></li>
-                    <li><a href="#">스토어관리</a></li>
-                    <li><a href="#" class="active-menu">회원관리</a></li>
-                    <li><a href="/couponManage.do">쿠폰관리</a></li>
+                    <li><a href="/fundManage.do?reqPage=1&keyword=&type=all" >펀딩관리</a></li>
+                    <li><a href="/storeManage.do?reqPage=1&keyword=&type=all"  >스토어관리</a></li>
+                    <li><a href="/memberManage.do?reqPage=1&keyword=&type=all" class="active-menu">회원관리</a></li>
+                    <li><a href="/couponManage.do?reqPage=1&keyword=&type=3">쿠폰관리</a></li>
                 </ul>
             </div>
         </div>
         <div class="main-content">
             <div class="sub-menu">
-                <button type="button" class="btn" id="reportManage"><a href="#">회원 신고 관리</a></button>
+                <button type="button" class="btn" id="reportManage"><a href="/memberManage.do?reqPage=1&keyword=&type=all">회원 신고 관리</a></button>
                 <button type="button" class="btn" id="sellerManage">판매자 승인 관리</button>
             </div>
             <div class="top-search">

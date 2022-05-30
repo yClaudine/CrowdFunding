@@ -158,10 +158,10 @@ input, select{
 			<div class="menu-wrap">
 				<ul class="manager-menu">
 					<li>관리자페이지</li>
-					<li><a href="#">펀딩관리</a></li>
-					<li><a href="#">스토어관리</a></li>
-					<li><a href="#">회원관리</a></li>
-					<li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
+					 <li><a href="/fundManage.do?reqPage=1&keyword=&type=all" >펀딩관리</a></li>
+                    <li><a href="/storeManage.do?reqPage=1&keyword=&type=all"  >스토어관리</a></li>
+                    <li><a href="/memberManage.do?reqPage=1&keyword=&type=all" >회원관리</a></li>
+                    <li><a href="/couponManage.do?reqPage=1&keyword=&type=3" class="active-menu">쿠폰관리</a></li>
 				</ul>
 			</div>
 		</div>

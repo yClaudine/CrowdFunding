@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="coupon">
-  <select id="selectAllCoupon" resultType="coupon" >
-  	select
+
+<select id="selectAllCoupon" resultType="coupon">
+	select
   		coupon_no as couponNo,
   		coupon_name as couponName,
   		coupon_type as couponType,
@@ -14,7 +15,83 @@
   		min_price as minPrice,
   		coupon_status as couponStatus
   	from coupon order by 1 desc
+
+</select>
+  
+  <select id="selectcouponList" parameterType="map" resultType="coupon">
+  
+  select * from (select rownum as rnum, m.* from 
+  (select
+  		coupon_no as couponNo,
+  		coupon_name as couponName,
+  		coupon_type as couponType,
+  		discount,
+  		main_target as mainTarget,
+  		sub_target as subTarget,
+  		valid_start as validStart,
+  		valid_end as validEnd,
+  		min_price as minPrice,
+  		coupon_status as couponStatus
+  	from coupon where
+  	<choose>
+		<when test="type == 0">
+			coupon_status = 0
+		</when>
+		<when test="type == 1">
+			coupon_status = 1
+		</when>
+		<when test="type == 2">
+			coupon_status = 2
+		</when>
+		<otherwise>
+			1=1
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and lower(coupon_name) like lower('%'||#{keyword}||'%')
+	</if>
+	order by 1 desc)
+	m) where rnum between #{start} and #{end}
+  
+  
   </select>
+  <select id="selectCouponCount" parameterType="map" resultType="int">
+  	select count(*) from
+	(select
+  		coupon_no as couponNo,
+  		coupon_name as couponName,
+  		coupon_type as couponType,
+  		discount,
+  		main_target as mainTarget,
+  		sub_target as subTarget,
+  		valid_start as validStart,
+  		valid_end as validEnd,
+  		min_price as minPrice,
+  		coupon_status as couponStatus
+  	from coupon where
+  	<choose>
+		<when test="type == 0">
+			coupon_status = 0
+		</when>
+		<when test="type == 1">
+			coupon_status = 1
+		</when>
+		<when test="type == 2">
+			coupon_status = 2
+		</when>
+		<otherwise>
+			1=1
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and lower(coupon_name) like lower('%'||#{keyword}||'%')
+	</if>
+	)
+  
+  </select>
+  
   <insert id="insertCoupon" parameterType="coupon">
   	insert into coupon values(
   		coupon_seq.nextval,

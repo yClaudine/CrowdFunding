@@ -123,4 +123,241 @@
 	s) where rnum between #{start} and #{end}
 
 </select>
+<select id="selectAllMember" parameterType="map" resultType="m">
+	
+	select * from (select rownum as rnum, m.* from 
+	(select 
+		member_id as memberId,
+		member_pw as memberPw,
+		member_Name as memberName,
+		member_no as memberNo,
+		mem_phone as memPhone,
+		mem_email as memEmail,
+		gender,
+		category_no as categoryNo,
+		report,
+		auth_re as authRe,
+		mem_comment as memComment
+	from member_tbl where
+	
+	<choose>
+		<when test="type.equals('report')">
+			report<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc)
+	m) where rnum between #{start} and #{end}
+
+</select>
+<select id="selectMemberCount" parameterType="map" resultType="int">
+	select count(*) from
+	(select 
+		member_id as memberId,
+		member_pw as memberPw,
+		member_Name as memberName,
+		member_no as memberNo,
+		mem_phone as memPhone,
+		mem_email as memEmail,
+		gender,
+		category_no as categoryNo,
+		report,
+		auth_re as authRe,
+		mem_comment as memComment
+	from member_tbl where
+	
+	<choose>
+		<when test="type.equals('report')">
+			report<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	)
+	
+</select>
+<select id="selectOneStar" parameterType="string" resultType="ss">
+	select 
+    	star_no as starNo,
+        store_no as storeNo,
+        storepay_no as storepayNo,
+        store_product as storeProduct,
+        member_id as memberId,
+        star_date as starDate,
+        star_score as starScore,
+        star_content as starContent,
+        store_reportcount as storeReportcount
+	from store_star where member_id=#{memberId} and store_reportcount>0
+	
+</select>
+<select id="selectAllFund" parameterType="map" resultType="f">
+	select * from (select rownum as rnum, m.* from 
+	(select
+  		fund_no as fundNo,
+  		member_id as memberId,
+  		fund_name as fundName,
+  		fund_amount as fundAmount,
+  		fund_fees as fundFees,
+  		fund_category as fundCategory,
+  		fund_start as fundStart,
+  		fund_end as fundEnd,
+  		fund_intro as fundIntro,
+  		fund_as as fundAs,
+  		fund_like as fundLike,
+  		fund_reportcount as fundReportcount,
+  		fund_warning as fundWarning,
+  		fund_filepath1 as fundFilepath1,
+  		fund_filepath2 as fundFilepath2,
+  		fund_filepath3 as fundFilepath3,
+  		fund_filepath4 as fundFilepath4,
+  		fund_filepath5 as fundFilepath5
+  	from fund where
+	
+	<choose>
+		<when test="type.equals('report')">
+			fund_reportcount<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc)
+	m) where rnum between #{start} and #{end}
+
+</select>
+<select id="selectFundCount" parameterType="map" resultType="int">
+	select count(*) from
+	(	select 
+		fund_no as fundNo,
+  		member_id as memberId,
+  		fund_name as fundName,
+  		fund_amount as fundAmount,
+  		fund_fees as fundFees,
+  		fund_category as fundCategory,
+  		fund_start as fundStart,
+  		fund_end as fundEnd,
+  		fund_intro as fundIntro,
+  		fund_as as fundAs,
+  		fund_like as fundLike,
+  		fund_reportcount as fundReportcount,
+  		fund_warning as fundWarning,
+  		fund_filepath1 as fundFilepath1,
+  		fund_filepath2 as fundFilepath2,
+  		fund_filepath3 as fundFilepath3,
+  		fund_filepath4 as fundFilepath4,
+  		fund_filepath5 as fundFilepath5
+  	from fund where
+	
+	<choose>
+		<when test="type.equals('report')">
+			fund_reportcount<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	)
+
+</select>
+<select id="selectAllStore" parameterType="map" resultType="s">
+	select * from (select rownum as rnum, m.* from 
+	( select
+	  		store_no as storeNo,
+	  		member_id as memberId,
+	  		store_title as storeTitle,
+	  		store_category as storeCategory,
+	  		store_content as storeContent,
+	  		store_product as storeProduct,
+	  		store_productcontent as storeProductcontent,
+	  		store_price as storePrice,
+	  		store_count as storeCount,
+	  		store_delivery as storeDelivery,
+	  		store_return as storeReturn,
+	  		store_change as storeChange,
+	  		store_reportcount as storeReportcount,
+	  		store_warning as storeWarning,
+	  		store_img1 as storeImg1,
+	  		store_img2 as storeImg2,
+	  		store_img3 as storeImg3,
+	  		store_img4 as storeImg4,
+	  		store_img5 as storeImg5
+	  	from store where
+	
+	<choose>
+		<when test="type.equals('report')">
+			store_reportcount<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	order by 1 desc)
+	m) where rnum between #{start} and #{end}
+
+</select>
+<select id="selectStoreCount" parameterType="map" resultType="int">
+
+	select count(*) from
+	(	select
+	  		store_no as storeNo,
+	  		member_id as memberId,
+	  		store_title as storeTitle,
+	  		store_category as storeCategory,
+	  		store_content as storeContent,
+	  		store_product as storeProduct,
+	  		store_productcontent as storeProductcontent,
+	  		store_price as storePrice,
+	  		store_count as storeCount,
+	  		store_delivery as storeDelivery,
+	  		store_return as storeReturn,
+	  		store_change as storeChange,
+	  		store_reportcount as storeReportcount,
+	  		store_warning as storeWarning,
+	  		store_img1 as storeImg1,
+	  		store_img2 as storeImg2,
+	  		store_img3 as storeImg3,
+	  		store_img4 as storeImg4,
+	  		store_img5 as storeImg5
+	  	from store where
+	
+	<choose>
+		<when test="type.equals('report')">
+			store_reportcount<![CDATA[>]]> 0 
+		</when>
+		<otherwise>
+			1=1 
+		</otherwise>
+	</choose>
+	
+	<if test="!keyword.equals('')">
+		and member_id like '%'||#{keyword}||'%'
+	</if>
+	)
+</select>
+
+
+
 </mapper>

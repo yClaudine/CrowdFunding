@@ -120,7 +120,7 @@ html>body {
 
 					<c:when test="${sessionScope.m.categoryNo==0 }">
 						<div>
-							<a href="/couponManage.do" class="access">관리자페이지</a>
+							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access">관리자페이지</a>
 						</div>
 						<div>
 							<a href="" class="access">프로필</a>

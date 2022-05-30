@@ -22,7 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.or.manager.model.service.ManagerService;
+import kr.or.manager.model.vo.FundPageData;
+import kr.or.manager.model.vo.MemberPageData;
+import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
+import kr.or.store.model.vo.StoreAllPageData;
+import kr.or.store.model.vo.StoreStar;
 
 @Controller
 public class ManagerController {
@@ -117,23 +122,82 @@ public class ManagerController {
 		}
 	}
 	
-	//moreseller ajax
+	//moreSeller ajax
 	@ResponseBody
 	@RequestMapping(value="/moreSeller.do", produces="application/json;charset=utf-8")
 	public String moreSeller(int type, String keyword, int amount, int start) {
 		int end = start+amount-1;
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("type", type);
 		map.put("start", start);
 		map.put("end", end);
 		
-		
 		ArrayList<Seller> sellerList = service.moreSeller(map);
 		return new Gson().toJson(sellerList);
-		
 	}
+	
+	//회원 관리 페이지
+	@RequestMapping(value="/memberManage.do")
+	public String memberManager(int reqPage, String type, String keyword, Model model) {
+		//회원조회
+		MemberPageData mpd = service.selectAllMember(reqPage, type, keyword);
+		ArrayList<Member> mList = mpd.getList();
+		/*
+		경고수조회(해당멤버에게 admin이 보낸 메세지 수 )
+		ArrayList<Integer> rCountList = new ArrayList<Integer>();
+		for(int i=0;i<mList.size();i++) {
+			//Student s = students.get(i);
+			//System.out.println(s.getName()+"\t"+s.getAge()+"\t"+s.getAddr());
+			int result = service.countReport(memberId);
+			rCountList.add(result);
+		}
+		*/
+		model.addAttribute("list", mpd.getList());
+		model.addAttribute("pageNavi", mpd.getPageNavi());
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reqPage", reqPage);
+		//model.addAttribute("rCountList", rCountList);   
+		//jsp에서 경고수 <c:foreach>에서 ${rCountList}
+		return "manager/memberManage";
+	}
+	
+	//회원 신고 상세페이지
+	@RequestMapping(value="/memberReportDetail.do")
+	public String memberReportDetail(String memberId, Model model) {
+		ArrayList<StoreStar> list = service.selectOneStar(memberId);
+		model.addAttribute("starList", list);
+		return "manager/memberReport";
+	}
+	
+	//펀드 관리
+	@RequestMapping(value="/fundManage.do")
+	public String fundManage(int reqPage, String type, String keyword, Model model) {
+		//펀드조회
+		FundPageData fpd = service.selectAllFund(reqPage, type, keyword);
+		model.addAttribute("list", fpd.getList());
+		model.addAttribute("pageNavi", fpd.getPageNavi());
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reqPage", reqPage);
+		return "manager/fundManage";
+	}
+	//펀드 경고관리
+	
+	
+	//스토어 관리
+	@RequestMapping(value="/storeManage.do")
+	public String storeManage(int reqPage, String type, String keyword, Model model) {
+		StoreAllPageData spd = service.selectAllStore(reqPage, type, keyword);
+		model.addAttribute("list", spd.getList());
+		model.addAttribute("pageNavi", spd.getPageNavi());
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reqPage", reqPage);
+		return "manager/storeManage";
+	}
+	
 	
 }
 
