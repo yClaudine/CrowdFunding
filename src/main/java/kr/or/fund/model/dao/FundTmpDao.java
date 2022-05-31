@@ -69,4 +69,9 @@ public class FundTmpDao {
 		return sqlSession.delete("tmpFund.deleteTmpReward",tr);
 	}
 
+	public int updateTmpPolicy(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpPolicy",tf);
+	}
+
 }

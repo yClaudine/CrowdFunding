@@ -65,4 +65,9 @@ public class FundTmpService {
 		return dao.deleteTmpReward(tr);
 	}
 
+	public int updateTmpPolicy(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpPolicy(tf);
+	}
+
 }

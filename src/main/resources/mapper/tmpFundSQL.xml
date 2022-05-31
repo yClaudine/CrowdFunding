@@ -118,4 +118,10 @@
   <delete id="deleteTmpReward" parameterType="tr">
   	delete from tmp_reward where tr_no = #{trNo}
   </delete>
+  <update id="updateTmpPolicy" parameterType="tf">
+  	update tmp_fund 
+  	set 
+  		tf_as = #{tfAs}
+  	where tf_no = #{tfNo}
+  </update>
 </mapper>

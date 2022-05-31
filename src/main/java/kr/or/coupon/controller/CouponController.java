@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.coupon.model.service.CouponService;
 import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.CouponPageData;
 import kr.or.coupon.model.vo.MemberCoupon;
+import kr.or.store.model.vo.StoreAllPageData;
 
 @Controller
 public class CouponController {
@@ -28,13 +30,18 @@ public class CouponController {
 	}
 	
 	
-	
 	@RequestMapping(value="/couponManage.do")
-	public String couponManage(Model model) {
-		ArrayList<Coupon> list = service.selectAllCoupon();
-		model.addAttribute("list", list);
+	public String couponManage(int reqPage, String type, String keyword, Model model) {
+		CouponPageData cpd = service.selectAllCoupon(reqPage, type, keyword);
+		model.addAttribute("list", cpd.getList());
+		model.addAttribute("pageNavi", cpd.getPageNavi());
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reqPage", reqPage);
 		return "manager/couponManage";
 	}
+	
+	
 	
 	@RequestMapping(value="/insertCouponFrm.do")
 	public String insertCouponFrm() {

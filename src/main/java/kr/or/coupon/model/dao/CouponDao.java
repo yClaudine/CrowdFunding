@@ -17,9 +17,21 @@ public class CouponDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	public ArrayList<Coupon> selectAllCoupon() {
 		List list = sqlSession.selectList("coupon.selectAllCoupon");
 		return (ArrayList<Coupon>)list;
+	}
+
+	
+	public ArrayList<Coupon> selectAllCoupon(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("coupon.selectcouponList", map);
+		return (ArrayList<Coupon>)list;
+	}
+	
+	public int selectCouponCount(HashMap<String, Object> countMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("coupon.selectCouponCount", countMap);
 	}
 
 	public int insertCoupon(Coupon coupon) {
@@ -72,6 +84,9 @@ public class CouponDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("coupon.updateCouponStatus", couponNo);
 	}
+
+	
+	
 	
 	
 	
