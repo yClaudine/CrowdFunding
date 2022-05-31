@@ -15,6 +15,7 @@ import kr.or.fund.model.service.FundListService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundViewData;
+import kr.or.fund.model.vo.PayRewardViewData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
 
@@ -33,20 +34,14 @@ public class FundListController {
 		model.addAttribute("category",category);
 		return "fund/fundList";
 	}
-	/*펀딩 상세페이지
-	@RequestMapping(value="/fundView.do")
-	public String FundView(int fundNo, Model model)	{
-		Fund f = service.selectOneFundView(fundNo);
-		model.addAttribute("f",f);
-		return "fund/fundView";	
-	}*/
 	
-	//펀딩 상세 메인페이지-story 에러---------------------------------------------
+	//펀딩 상세 메인페이지-story
 	@RequestMapping(value="/fundView.do")
 	public String FundView(int fundNo,Model model)	{
 		FundViewData fvd = service.selectOneFundView(fundNo);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
+		model.addAttribute("fl",fvd.getFl());
 		model.addAttribute("list",fvd.getRewardList());
 		return "fund/fundView";	
 	}
@@ -60,32 +55,57 @@ public class FundListController {
 		//location.href="/fundView.do?fundNo=${f.fundNo }";
 	}
 	
-	//좋아요 ajax
+	//좋아요  
 	@ResponseBody
-	@RequestMapping(value="/fundLike.do", produces="application/json;charset=utf-8")
-	public String fundLike(int fundNo, String memberId) {
+	@RequestMapping(value="/fundLikeUp.do",produces="application/json;charset=utf-8")
+	public String fundLikeUp(FundLike fl) {
+		int result = service.insertFundlike(fl);
+		return new Gson().toJson(result);
+	}
+	//좋아요 취소
+	@ResponseBody
+	@RequestMapping(value="/fundLikeDown.do",produces="application/json;charset=utf-8")
+	public String fundLikeDown(int fundNo, String memberId) {
+		int result = service.deleteFundlike(fundNo);
+		return new Gson().toJson(result);
+	}
+	//좋아요 체크여부
+	@ResponseBody
+	@RequestMapping(value="/fundCheck.do",produces="application/json;charset=utf-8")
+	public String fundCheck(int fundNo, String memberId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
-		FundLike fl = service.selectOneFundlike(map);
-		
-		if(fl==null) { //해당 펀딩에 좋아요 한 회원 없음  -> 좋아요 row update, 총 row수
-			int result = service.insertFundlike(/*FundLike f*/);
-			return "0";
-		}else{			//좋아요 한 회원 있음 -> 좋아요 row delete, 총 row수
-			int result = service.deleteFundlike(fundNo);
-			return "1";
+		FundLike fc = service.fundCheck(map);
+		if(fc==null) {	//좋아요 안했을 때 -> insert
+			
 		}
-		//return new Gson().toJson();
+		
+		return "";
 	}
 	
-	/*fundlike 하나 insert??
-	public String insertFundlike(FundLike flView) {
-		int result = service.insertFundlike(flView);
-		return "";
-	}*/
+	//결제 상세---------------------------------------------------
+	//리워드 선택 페이지 이동
+	@RequestMapping(value="/payReward.do")
+	public String payRewardView(int fundNo, Model model) {
+		PayRewardViewData prvd = service.selectPayReward(fundNo);
+		model.addAttribute("f",prvd.getF());
+		model.addAttribute("list",prvd.getRewardList());
+		return "fund/payReward";	
+	}
+
+	//결제 최종 페이지 이동
+	@RequestMapping(value="/pay.do")
+	public String pay() {
+		return "fund/pay";
+	}
+	//결제 확인 페이지 이동
+	@RequestMapping(value="/payConfirm.do")
+	public String payConfirm() {
+		return "fund/payConfirm";
+	}
 	
-}
+}//class
 
 
 

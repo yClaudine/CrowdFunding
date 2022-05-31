@@ -39,20 +39,27 @@ public class FundListDao {
  		Seller s = sqlSession.selectOne("fundSeller.selectOneSeller",fundNo);
 		return s;
 	}
+	//펀딩 상세 - 해당 펀딩 좋아요 total
+	public FundLike selectFundTotal(int fundNo) {
+		FundLike fl = sqlSession.selectOne("fundLike.selectFundTotal",fundNo);
+		return fl;
+	}
 //-------------------------------------
 	//펀딩 신고
 	public int updateReportCount(int fundNo) {
 		int result = sqlSession.update("fundList.updateReportCount",fundNo);
 		return result;
 	}
-	//좋아요 ajax
+	/* 좋아요 ajax
 	public FundLike selectOneFundlike(HashMap<String, Object> map) {
 		FundLike fl = sqlSession.selectOne("fundLike.selectOneFundlike",map);
 		return fl;
 	}
+	
+	*/
 	//좋아요 insert
-	public int insertFundlike() {
-		int result = sqlSession.update("fundLike.insertFundlike");
+	public int insertFundlike(FundLike fl) {
+		int result = sqlSession.update("fundLike.insertFundlike",fl);
 		return result;
 	}
 	//좋아요 delete
@@ -60,6 +67,13 @@ public class FundListDao {
 		int result = sqlSession.delete("fundLike.deleteFundlike",fundNo);
 		return result;
 	}
+	//좋아요 체크
+	public FundLike fundCheck(HashMap<String, Object> map) {
+		FundLike fc = sqlSession.selectOne("fundLike.fundCheck",map);
+		return fc;
+	}
+
+
 
 	
 	

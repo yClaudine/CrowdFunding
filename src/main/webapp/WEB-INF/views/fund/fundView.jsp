@@ -559,7 +559,7 @@ justify-content: right;
                 <span class="total-supporter">
                     <strong>499</strong> 명의 서포터
                 </span><br>
-                <a href="#" class="funding-linkwrap">
+                <a href="/payReward.do?fundNo=${f.fundNo }" class="funding-linkwrap">
                     <div class="funding-link">펀딩하기</div>
                 </a>
                 <br>
@@ -567,7 +567,7 @@ justify-content: right;
                     <button class="like-btn">
                         <span class="material-icons likes">favorite_border</span>
                         <!-- <span class="material-icons likes">favorite</span>  -->
-                        <span class="btn-value">0</sp>
+                        <span class="btn-value">${fl.total}</sp>
                     </button>
                     <button class="report-btn" type="submit">
                         <span class="material-icons">report</span>                
@@ -681,6 +681,7 @@ justify-content: right;
     <input type="hidden" class="fundNo" value="${f.fundNo }">
     <input type="hidden" class="login" value="${not empty sessionScope.m}">
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
+    <!-- <input type="hidden" class="likeCheck" value=""> -->
 
 <script>
 //펀딩 설명 모달
@@ -740,28 +741,16 @@ $(".like-btn").click(function(){
 	const login = $(".login").val();
 	let fundNo = $(".fundNo").val();
 	let memberId = $(".memberId").val();
-	
-	if(login){	
-		
-		$.ajax({ //검증을 두번한 상태가 됨 -> 그냥 좋아요 자체를 ajax로 처리
-			url : "/fundLike.do",
-			data : {fundNo : fundNo, memberId : memberId},
+	//let likeCheck = $().val();
+	if(login){
+		$.ajax({
+			url : "/fundCheck.do",
 			success : function(data){
 				
-				if(data==0){	//좋아요 0이면 안누른 상태 -> 좋아요 처리
-					$(".like-btn .likes").text("favorite_border");
-					location.href="/fundView.do?fundNo="+fundNo; //좋아요만 처리 
-					
-				}else{			//좋아요 1이면 클릭된 상태 -> 좋아요 취소 
-					$(".like-btn .likes").text("favorite");
-					location.href="/fundView.do?fundNo="+fundNo;
-				}
 			}
-		});
-	}else{
-		alert("로그인을 진행해주세요.")
+		})
 	}
-	
+
 });
 </script>
                 

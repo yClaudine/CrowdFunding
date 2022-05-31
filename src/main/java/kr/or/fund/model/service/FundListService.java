@@ -10,6 +10,7 @@ import kr.or.fund.model.dao.FundListDao;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundViewData;
+import kr.or.fund.model.vo.PayRewardViewData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
 
@@ -34,8 +35,9 @@ public class FundListService {
 	public FundViewData selectOneFundView(int fundNo) {
 		Fund f = dao.selectOneFund(fundNo);
 		Seller s = dao.selectOneSeller(fundNo);
+		FundLike fl = dao.selectFundTotal(fundNo);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
-		FundViewData fvd = new FundViewData(f,list,s);
+		FundViewData fvd = new FundViewData(f,list,s,fl);
 		return fvd;
 	}
 	
@@ -45,17 +47,29 @@ public class FundListService {
 	public int updateReportCount(int fundNo) {
 		return dao.updateReportCount(fundNo);
 	}
-	//좋아요 ajax
+	/*좋아요 ajax
 	public FundLike selectOneFundlike(HashMap<String, Object> map) {
 		return dao.selectOneFundlike(map);
-	}
+	}*/
 	//좋아요 insert
-	public int insertFundlike() {
-		return dao.insertFundlike();
+	public int insertFundlike(FundLike fl) {
+		return dao.insertFundlike(fl);
 	}
 	//좋아요 delete
 	public int deleteFundlike(int fundNo) {
 		return dao.deleteFundlike(fundNo);
+	}
+	//좋아요 체크
+	public FundLike fundCheck(HashMap<String, Object> map) {
+		return dao.fundCheck(map);
+	}
+//--------------------------------------------------------
+	//리워드 선택 페이지 이동
+	public PayRewardViewData selectPayReward(int fundNo) {
+		Fund f = dao.selectOneFund(fundNo);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		PayRewardViewData prvd= new PayRewardViewData(f,list);
+		return prvd;
 	}
 
 }

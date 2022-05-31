@@ -17,7 +17,7 @@
 		position,
 		address,
 		auth_seller as authSeller,
-		auth_massage as authMessage
+		auth_massage as authMessage,
 		fund_no as fundNo
 	from seller 
 	where fund_no=#{fundNo}
