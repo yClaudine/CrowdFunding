@@ -57,7 +57,7 @@
   		tr_option as trOption,
   		tr_send as trSend,
   		tr_deliveryfee as trDeliveryfee
-  	from tmp_reward where tf_no = ${tfNo} 
+  	from tmp_reward where tf_no = ${tfNo} order by 1
   </select>
   <select id="selectOneFundCalculate" parameterType="tf" resultType="tfc">
   	select
@@ -97,6 +97,31 @@
   		tf_filepath3 = #{tfFilepath3},
   		tf_filepath4 = #{tfFilepath4},
   		tf_filepath5 = #{tfFilepath5}
+  	where tf_no = #{tfNo}
+  </update>
+  <insert id="createTmpReward" parameterType="tr">
+  	insert into tmp_reward 
+  	values (tr_seq.nextval, #{tfNo}, #{trName}, #{trIntro}, #{trPrice}, #{trCount}, #{trOption}, #{trSend}, #{trDeliveryfee})
+  </insert>
+  <update id="updateTmpReward" parameterType="tr">
+  	update tmp_reward
+  	set
+  		tr_name = #{trName},
+  		tr_intro = #{trIntro},
+  		tr_price = #{trPrice},
+  		tr_count = #{trCount},
+  		tr_option = #{trOption},
+  		tr_send = #{trSend},
+  		tr_deliveryfee = #{trDeliveryfee}
+  	where tr_no = #{trNo}
+  </update>
+  <delete id="deleteTmpReward" parameterType="tr">
+  	delete from tmp_reward where tr_no = #{trNo}
+  </delete>
+  <update id="updateTmpPolicy" parameterType="tf">
+  	update tmp_fund 
+  	set 
+  		tf_as = #{tfAs}
   	where tf_no = #{tfNo}
   </update>
 </mapper>

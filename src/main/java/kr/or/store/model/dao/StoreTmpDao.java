@@ -17,4 +17,9 @@ public class StoreTmpDao {
 		int result = t.getStNo();
 		return result;
 	}
+
+	public TmpStore selectOneTmpStore(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("tmpStore.selectOneTmpStore",ts);
+	}
 }

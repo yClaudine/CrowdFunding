@@ -15,4 +15,9 @@ public class StoreTmpService {
 		// TODO Auto-generated method stub
 		return dao.createTmpStore(t);
 	}
+
+	public TmpStore selectOneTmpStore(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return dao.selectOneTmpStore(ts);
+	}
 }

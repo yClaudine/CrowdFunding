@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FunFunFun</title>
+<title>Insert title here</title>
 </head>
-<style>
+	<style>
 	.menu-wrap{
 		width: 850px;
-		margin-left: -5px;
+		margin-top: 20px;
 	}
 	.ready-menu{
-		height: 80px;
+		height: 70px;
 		padding-left: 35px;
 		padding-right: 20px;
 		display: flex;
@@ -37,8 +37,8 @@
 		margin-top: 3px;
 	}
 	.ready-menu>button{
-		width: 112px;
-		height: 50px;
+		width: 100px;
+		height: 40px;
 		border: 1px solid #ccc;
 		background-color: #fff;
 		color: #aaa;
@@ -55,63 +55,51 @@
 		align: right;
 		border: none;
 	}
+
 </style>
 <body>
-	<%@include file="/WEB-INF/views/fund/fundHeader.jsp" %>
+	<%@include file="/WEB-INF/views/store/storeHeader.jsp" %>
 	<div class="creFund-wrap">
 		<div class="crefund-nav">
-			<%@include file="/WEB-INF/views/fund/fundNav.jsp" %>
+			<%@include file="/WEB-INF/views/store/storeNav.jsp" %>
 			<script>
 				$(".nav-top>li").addClass("select");
 				//$(".nav-sub>li:nth-child(1)").addClass("select");
 			</script>
 		</div>
-		<div class="crefund-content">
-			<h2>펀딩 준비</h2>
-			<h6>본격적으로 펀딩을 오픈하기 위해 프로젝트에 대한 필수항목을 작성하세요.</h6>
+		<div class="content-right">
+			<h2>스토어 준비</h2>
+			<h6>본격적으로 스토어를 오픈하기 위해 필수항목을 작성하세요.</h6>
 			<div class="menu-wrap">
 				<div class="ready-menu">
 					<div>
-						<h6>요금제 선택</h6>
-						<span class="check-fund">작성 전</span>
+						<h6>스토어 기본 정보</h6>
+						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='/fundFeeSelectFrm.do?tfNo=${tmpF.tfNo}'">작성하기</button>
+						<button onclick="location.href='/storeCreate3.do?stNo=${tmp.stNo}'">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
-						<h6>기본 정보</h6>
-						<span class="check-fund">작성 전</span>
+						<h6>상품 정보</h6>
+						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='/fundInfoUpdateFrm.do?tfNo=${tmpF.tfNo}'">작성하기</button>
+						<button onclick=" ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
-						<h6>스토리 작성</h6>
-						<span class="check-fund">작성 전</span>
+						<h6>반품/교환</h6>
+						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='/fundStoryUpdateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
+						<button onclick="location.href='' ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
-						<h6>리워드 설계</h6>
-						<span class="check-fund">작성 전</span>
+						<h6>대표자 및 정산 정보</h6>
+						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='/fundRewardCreateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
+						<button onclick="location.href='' ">작성하기</button>
 				</div>
-				<div class="ready-menu">
-					<div>
-						<h6>위험요인 및 정책</h6>
-						<span class="check-fund">작성 전</span>
-					</div>
-						<button onclick="location.href='/fundPolicyCreateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
-				</div>
-				<div class="ready-menu">
-					<div>
-						<h6>대표자 및 정산정보</h6>
-						<span class="check-fund">작성 전</span>
-					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
-				</div>
+
 				<button class="btn-info submit-btn">제출하기</button>
 			</div>
 		</div>
@@ -122,7 +110,8 @@
 		$(document).ready(function(){
 			
 			//각 항목별 작성 체크
-			const checkFund = $(".check-fund");
+			//보고 변경하기
+			const checkStore = $(".check-store");
 			const check = [0,0,0,0,0,0];
 			<c:if test="${tmpF.tfFees ne 0}">
 			check[0] = 1;
@@ -144,7 +133,7 @@
 			</c:if>
 			
 			//작성 완료 된 항목 메시지 수정
-			checkFund.each(function(index,item){
+			checkStore.each(function(index,item){
 				if(check[index] == 1){
 					$(checkFund[index]).text("작성완료");		
 				}
@@ -154,13 +143,13 @@
 			$(".submit-btn").on("click",function(){
 				if(confirm("작성 내용을 제출하시겠습니까?")){
 					let count = 0;
-					checkFund.each(function(index,item){
+					checkStore.each(function(index,item){
 						if(check[index] == 1){
 							count++;		
 						}
 					});
 					if(count == 6){
-						location.href="/CreateFund.do?tfNo=${tmpF.tfNo}";
+						location.href="/storeReadyFrm.do?stNo=${tmp.stNo}";
 					}else{
 						alert("필수 항목들을 모두 작성해주세요.");
 					}	
@@ -168,6 +157,5 @@
 			});			
 		});
 	</script>
-	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->
 </body>
 </html>

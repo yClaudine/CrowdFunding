@@ -54,4 +54,24 @@ public class FundTmpDao {
 		return sqlSession.update("tmpFund.updateTmpStory",tf);
 	}
 
+	public int createTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("tmpFund.createTmpReward",tr);
+	}
+
+	public int updateTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpReward",tr);
+	}
+
+	public int deleteTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("tmpFund.deleteTmpReward",tr);
+	}
+
+	public int updateTmpPolicy(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpPolicy",tf);
+	}
+
 }

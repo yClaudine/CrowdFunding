@@ -13,12 +13,9 @@
                 star_score as starScore,
                 star_content as starContent,
                 store_reportcount as storeReportcount
-		from store_star WHERE storeno=#{storeNo}
+		from store_star WHERE store_no=#{storeNo}
 	</select>
-	<insert id="insertComment" parameterType="ss">
-		INSERT INTO store_star VALUES
-		(STORE_STAR_SEQ.nextval,#{storeNo},#{storepayNo},#{storeProduct},#{memberId},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},#{storeReportcount})
-	</insert>
+	<!-- 조건에 storeno쓰는 이유는 table로 조건을 묻는게 아니니까! -->
 	<select id="selectcommentAllList" parameterType="int" resultType="ss">
 		select * from
 			(select 
@@ -33,5 +30,15 @@
                 store_reportcount as storeReportcount
 			from store_star order by star_no desc)
 			WHERE storeno=#{storeNo}
+	</select>
+	<insert id="insertComment" parameterType="ss">
+		INSERT INTO store_star VALUES
+		(STORE_STAR_SEQ.nextval,#{storeNo},#{storepayNo},#{storeProduct},#{memberId},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},#{storeReportcount})
+	</insert>
+	<!-- 평점 -->
+	<select id="selectStarAvg" parameterType="int" resultType="double">
+		select avg(star_score)
+  		from store_star
+  		WHERE store_no=#{storeNo}
 	</select>
 </mapper>
