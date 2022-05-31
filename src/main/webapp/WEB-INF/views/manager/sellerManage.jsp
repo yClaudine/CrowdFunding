@@ -197,7 +197,7 @@ select{
 	line-height: 25px;
 	color: #00b2b2;
 	border: 1px solid #00b2b2;
-	display: block;
+	display: none;
 	margin: 5px auto;
 	width: 99%;
 	background-color:#e7f9f9;
@@ -308,9 +308,10 @@ select{
            	 		</div>
             	</c:otherwise>
             </c:choose>
-           
-            
-            <button class="more-btn" id="more-btn" totalCount="${totalCount }" currentCount="0" value="1" >더보기</button>
+          
+           	 <button class="more-btn" id="more-btn" totalCount="${totalCount }" currentCount="0" value="1" >더보기</button>
+
+            	
         </div>
     </div>
   	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" >
@@ -344,10 +345,11 @@ $("#more-btn").on("click",function(){
 			$("#more-btn").attr("currentCount",currVal+data.length);
 			const totalCount = Number($("#more-btn").attr("totalCount"));
 			if(totalCount == (currVal+data.length)){
-				$("#more-btn").attr("disabled",true);
-				$("#more-btn").css("cursor","not-allowed");
+				//$("#more-btn").attr("disabled",true);
+				//$("#more-btn").css("cursor","not-allowed");
 				$("#more-btn").remove();
 			}
+			$("#more-btn").css("display","block");
 			//허가상태값 셋팅
 			const authSeller = $(".authSeller");
 			authSeller.each(function(index,item){

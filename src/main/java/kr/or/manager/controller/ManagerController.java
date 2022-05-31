@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.or.fund.model.vo.Fund;
 import kr.or.manager.model.service.ManagerService;
 import kr.or.manager.model.vo.FundPageData;
 import kr.or.manager.model.vo.MemberPageData;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
+import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
 import kr.or.store.model.vo.StoreStar;
 
@@ -46,9 +48,10 @@ public class ManagerController {
 		model.addAttribute("totalCount", totalCount);
 		
 		//셀러리스트 불러오기
+		/*
 		ArrayList<Seller> sellerList = service.selectSellerForManager(map);
 		model.addAttribute("sellerList", sellerList);
-		
+		*/
 		model.addAttribute("type", type);
 		model.addAttribute("keyword", keyword);
 		return "manager/sellerManage";
@@ -163,6 +166,14 @@ public class ManagerController {
 		return "manager/memberManage";
 	}
 	
+	//회원 상세보기
+	@ResponseBody
+	@RequestMapping(value="/memberDetail.do",produces="application/json;charset=utf-8")
+	public String memberDetail(int memberNo) {
+		Member m = service.selectOneMember(memberNo);
+		return new Gson().toJson(m);
+	}
+	
 	//회원 신고 상세페이지
 	@RequestMapping(value="/memberReportDetail.do")
 	public String memberReportDetail(String memberId, Model model) {
@@ -183,6 +194,16 @@ public class ManagerController {
 		model.addAttribute("reqPage", reqPage);
 		return "manager/fundManage";
 	}
+	//펀드 상세보기
+	@ResponseBody
+	@RequestMapping(value="/fundDetail.do",produces="application/json;charset=utf-8")
+	public String fundDetail(int fundNo) {
+		Fund f = service.selectOneFund(fundNo);
+		return new Gson().toJson(f);
+	}
+	
+	
+	
 	//펀드 경고관리
 	
 	
@@ -197,7 +218,13 @@ public class ManagerController {
 		model.addAttribute("reqPage", reqPage);
 		return "manager/storeManage";
 	}
-	
+	//스토어 상세보기
+	@ResponseBody
+	@RequestMapping(value="/storeDetail.do", produces="application/json;charset=utf-8")
+	public String storeDetail(int storeNo) {
+		Store s = service.selectOneStore(storeNo);
+		return new Gson().toJson(s);
+	}
 	
 }
 

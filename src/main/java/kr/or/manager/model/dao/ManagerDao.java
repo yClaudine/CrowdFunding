@@ -82,5 +82,20 @@ public class ManagerDao {
 		return sqlSession.selectOne("manager.selectStoreCount", countMap);
 	}
 
+	public Fund selectOneFund(int fundNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectOneFund", fundNo);
+	}
+
+	public Store selectOneStore(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectOneStore", storeNo);
+	}
+
+	public Member selectOneMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("manager.selectOneMember", memberNo);
+	}
+
 	
 }
