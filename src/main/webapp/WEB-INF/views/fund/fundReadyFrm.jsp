@@ -89,21 +89,21 @@
 						<h6>스토리 작성</h6>
 						<span class="check-fund">작성 전</span>
 					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
+						<button onclick="location.href='/fundStoryUpdateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
 						<h6>리워드 설계</h6>
 						<span class="check-fund">작성 전</span>
 					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
+						<button onclick="location.href='/fundRewardCreateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
 						<h6>위험요인 및 정책</h6>
 						<span class="check-fund">작성 전</span>
 					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
+						<button onclick="location.href='/fundPolicyCreateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>

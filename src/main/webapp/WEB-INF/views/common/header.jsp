@@ -95,13 +95,13 @@ html>body {
 		</div>
 
 		<div>
-			<a href="/fund.do"><h6>펀딩</h6></a>
+			<a href="/fund.do?category=BEST"><h6>펀딩</h6></a>
 		</div>
 		<div>
 			<a href="/Store.do"><h6>스토어</h6></a>
 		</div>
 		<div>
-			<a href=""><h6>공지사항</h6></a>
+			<a href="/notice.do?reqPage=1&type=all"><h6>공지사항</h6></a>
 		</div>
 
 		<div class="log">
@@ -120,7 +120,7 @@ html>body {
 
 					<c:when test="${sessionScope.m.categoryNo==0 }">
 						<div>
-							<a href="" class="access">관리자페이지</a>
+							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access">관리자페이지</a>
 						</div>
 						<div>
 							<a href="" class="access">프로필</a>

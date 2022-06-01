@@ -6,163 +6,222 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-html>body {
-	font-family: 'Noto Sans KR', sans-serif;
-}
-</style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link href="resources/css/bootstrap.css" rel="stylesheet"/>
+  .content-wrap{
+      overflow: hidden;
+      width: 1200px;
+      margin: 0 auto;
+      font-family: ns-medium;
+      border-top: 1px solid #bfbfbf;
+  }
+  .left-content{
+      float: left;
+      width: 15%;
+  }
+  .main-content{
+      float: left;
+      width: 85%;
+      padding: 80px;
+      padding-top: 85px;
+  }
+  .left-content>.title{
+      text-align: center;
+      font-size: 30px;
+      padding: 20px;
+  }
+.manager-menu{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      border: 1px solid lightgray;
+  }
+  .manager-menu>li{
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      font-size: 15px;
+      color: gray;
       
-    
-    <style>
-    .content-wrap{
-        overflow: hidden;
-        width: 1200px;
-        margin: 0 auto;
-    }
-    .left-content{
-        float: left;
-        width: 15%;
-    }
-    .main-content{
-        float: left;
-        width: 85%;
-        padding: 80px;
-        padding-top: 85px;
-    }
-    .left-content>.title{
-        text-align: center;
-        font-size: 30px;
-        padding: 20px;
-    }
-    .manager-menu{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        border: 1px solid lightgray;
-    }
-    .manager-menu>li{
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-        color: gray;
-        font-weight: bolder;
-    }
-    .manager-menu>li>a{
-        display: block;
-        text-decoration: none;
-        color: #212529;
-        background-color:#f2f4f6;
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-    }
-    .manager-menu>li>a:hover{
-        color: #e7f9f9;
-        cursor: pointer;
-        background-color: #00b2b2;
-    }
-    .manager-menu .active-menu{
-        color: #00b2b2;
-        font-weight: bold;
-    }
-    .main-content>.btn{
-        font-size: 15px;
-        margin: 5px;
-    }
-    .main-content>.btn-outline-primary, .coupon-modal .close-btn{
-        color:#00b2b2;
-        border: 1.5px solid #00b2b2;
-    }
-   .main-content>.btn-outline-primary:hover, .coupon-modal .close-btn:hover{
-        background-color: #00b2b2;
-        border: 1px solid #d1e2e2;;
-        color:white;
-        cursor: pointer;
-    }
-    .main-content>.btn-primary{
-        color: whitesmoke ;
-        background-color: #02c9c9;
-        border: 1px solid #02c9c9;
-    }
-    .main-content>.btn-primary:hover{
-        background-color: #00b2b2;
-        border: 1px solid white;
-        border: 1px solid #00b2b2;
-    }
-    .table{
-        margin-top: 50px;
-    }
-    .table>*{
-        text-align: center;
-    }
-    .table>tbody>tr:hover{
-        background-color: #e7f9f9;
-    }
-    input[name="radio"]:hover{
-        cursor: pointer;
-    }
-    .coupon-modal{
-    	display:none;
-    	width: 100%;
-    	height: 100%;
-    	position: absolute;
-    	top:0px;
-    	left: 0px;
-    	background-color: rgba(0,0,0,0.3);
-    	align-items: center;
-    }
-    .modal-div{
-    	margin: 0 auto;
-    	margin-top : 150px;
-    	background-color: #ffffff;
-    	width: 500px;
-    	height: auto;
-    	padding: 30px;
-    	border-radius : 5px;
-    }
-    .modal-title{
-    	width: 300px;
-    	margin: 0 auto;
-    	color: #02c9c9 ;
-        font-size: 20px;
-        text-align: center;
-    }
-    .coupon-table{
-    	margin: 10px auto;
-    }
-    .coupon-table tr{
-    	border-bottom : 1px solid gray;
-    }
-    .coupon-table th{
-    	border: 1px solid gray;
-    	text-align: center;
-    	background-color: #e7f9f9;
-    	padding: 8px;
-    	font-size: 13px;
-    }
-    .coupon-table td{
-    	padding: 8px;
-    	text-align: center;
-    }
-    .close-btn{
- 		text-align: center;
-    	width: 50px;
-    	margin: 0 auto;
-    }
-    .couponName{
-    	text-decoration:none;
-    	color: #212529;
-    }
-    .couponName:hover{
-    	cursor:pointer;
-    }
-    </style>
+  }
+  .manager-menu>li>a{
+      display: block;
+      text-decoration: none;
+      color: #212529;
+      background-color:#f2f4f6;
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      font-size: 15px;
+  }
+  .manager-menu>li>a:hover{
+      color: #e7f9f9;
+      cursor: pointer;
+      background-color: #00b2b2;
+  }
+  .manager-menu .active-menu{
+      color: #00b2b2;
+      font-weight: bold;
+  }
+  .main-content>.btn{
+      font-size: 15px;
+      margin: 5px;
+  }
+  .main-content>.btn-outline-primary, .coupon-modal .close-btn{
+      color:#00b2b2;
+      border: 1px solid #00b2b2;
+  }
+ .main-content>.btn-outline-primary:hover, .coupon-modal .close-btn:hover{
+      background-color: #00b2b2;
+      border: 1px solid #d1e2e2;;
+      color:white;
+      cursor: pointer;
+  }
+  .main-content>.btn-primary{
+      color: whitesmoke ;
+      background-color: #02c9c9;
+      border: 1px solid #02c9c9;
+  }
+  .main-content>.btn-primary:hover{
+      background-color: #00b2b2;
+      border: 1px solid #00b2b2;
+  }
+  .table{
+      margin-top: 50px;
+  }
+  .table>*{
+      text-align: center;
+  }
+  .table>tbody>tr:hover{
+      background-color: #e7f9f9;
+  }
+  input[name="radio"]:hover{
+      cursor: pointer;
+  }
+  .coupon-modal{
+  	display:none;
+  	width: 100%;
+  	height: 100%;
+  	position: fixed;
+  	top:0px;
+  	left: 0px;
+  	background-color: rgba(0,0,0,0.3);
+  	align-items: center;
+  }
+  .modal-div{
+  	margin: 0 auto;
+  	margin-top : 150px;
+  	background-color: #ffffff;
+  	width: 500px;
+  	height: auto;
+  	padding: 30px;
+  	border-radius : 5px;
+  }
+  .modal-title{
+  	width: 300px;
+  	margin: 0 auto;
+  	color: #02c9c9 ;
+      font-size: 20px;
+      text-align: center;
+  }
+  .coupon-table{
+  	margin: 10px auto;
+  }
+  .coupon-table tr{
+  	border-bottom : 1px solid gray;
+  }
+  .coupon-table th{
+  	border: 1px solid gray;
+  	text-align: center;
+  	background-color: #e7f9f9;
+  	padding: 8px;
+  	font-size: 13px;
+  }
+  .coupon-table td{
+  	padding: 8px;
+  	text-align: center;
+  }
+  .close-btn{
+	text-align: center;
+  	width: 50px;
+  	margin: 0 auto;
+  }
+  .couponName{
+  	text-decoration:none;
+  	color: #212529;
+  }
+  .couponName:hover{
+  	cursor:pointer;
+  }
+  
+.top-search{
+    width: 435px;
+    margin: 50px auto;
+}
+.top-search ul{
+    list-style-type: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 60px;
+    line-height: 60px;
+}
+.top-search li{
+    float: left;
+    margin: 10px;
+    line-height: 40px;
+}
+.top-search li>*:not(.material-icons){
+    height: 30px;
+    font-size: 13px;
+}
+.search-btn{
+    width: 60px;
+    line-height: 25px;
+    border-radius: 5px;
+    border: 1px solid #868e96;
+}
+.search-btn:hover{
+    cursor: pointer;
+    font-size: 1.1em;
+}
+input[name='keyword']{
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #868e96;
+    outline: none;
+}
+.pagination{
+	justify-content:center;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+.pagination>.page-item>a {
+	color: #00b2b2;
+}
+
+.pagination>.page-item.active>a {
+	background-color: #00b2b2;
+	border: 1px solid #00b2b2;
+}
+.type{
+	overflow: hidden;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+.type>select{
+	width: 100px;
+	height: 30px;
+	float: right;
+	font-size: 13px;
+}
+select{
+	border: 1px solid #bfbfbf;
+}
+
+</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -172,10 +231,10 @@ html>body {
 	        <div class="menu-wrap">
 	            <ul class="manager-menu">
 	                <li>관리자페이지</li>
-	                <li><a href="#">펀딩관리</a></li>
-	                <li><a href="#">스토어관리</a></li>
-	                <li><a href="#">회원관리</a></li>
-	                <li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
+	                <li><a href="/fundManage.do?reqPage=1&keyword=&type=all" >펀딩관리</a></li>
+                    <li><a href="/storeManage.do?reqPage=1&keyword=&type=all"  >스토어관리</a></li>
+                    <li><a href="/memberManage.do?reqPage=1&keyword=&type=all" >회원관리</a></li>
+                    <li><a href="/couponManage.do?reqPage=1&keyword=&type=3" class="active-menu">쿠폰관리</a></li>
 	            </ul>
 	        </div>
 	    	</div>
@@ -183,6 +242,31 @@ html>body {
 	        <button type="button" class="btn btn-outline-primary insert">쿠폰등록</button>
 	        <button type="button" class="btn btn-primary modify">수정하기</button>
 	        <button type="button" class="btn btn-primary delete">삭제하기</button>
+	        
+	         <div class="top-search">
+                <ul>
+                    <li style="line-height: 80px; margin: 0;">
+                        <span class="material-icons" style="font-size: 30px; height: 20px;" >search</span>
+                    </li>
+                    <li>
+                        <input type="text" name="keyword" id="keyword" placeholder="쿠폰명을 입력해주세요">
+                    </li>
+                    <li>
+                        <input type="submit" class="search-btn" value="검색"></input>
+                    </li>
+                </ul>
+            </div>
+            <div class="type">
+            	<select class="changeType">
+            		<option value="3">전체</option>
+            		<option value="0">게시전</option>
+            		<option value="1">진행중</option>
+            		<option value="2">만료</option>
+            	</select>
+            </div>
+            
+	        
+	        
 	            <table class="table table-hover">
 	                <thead>
 	                    <tr>
@@ -211,7 +295,7 @@ html>body {
 	                        <td>${cp.validStart } ~ ${cp.validEnd }</td>
 	                        <c:choose>
 	                        	<c:when test="${cp.couponStatus eq 0}">
-	                        		<td>준비중</td>
+	                        		<td>게시전</td>
 	                       		</c:when>
 	                       		<c:when test="${cp.couponStatus eq 1}">
 	                        		<td>진행중</td>
@@ -224,7 +308,9 @@ html>body {
 	                	</c:forEach>
 	                </tbody>
 	           </table>
+	           ${pageNavi}
     	</div>
+    	
 	</div>
 	
     <!-- 모달 -->
@@ -245,11 +331,11 @@ html>body {
 						<td id="discount"></td>
 					</tr>
 					<tr>
-						<th>쿠폰적용카테고리(메인)</th>
+						<th>메인 카테고리</th>
 						<td id="mainTarget"></td>
 					</tr>
 					<tr>
-						<th>쿠폰적용카테고리(서브)</th>
+						<th>서브 카테고리</th>
 						<td id="subTarget"></td>
 					</tr>
 					<tr>
@@ -261,7 +347,7 @@ html>body {
          	</div>
          		
           </div>
-
+	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
 <script>
 //모달클릭
 $(".couponName").on("click",function(){
@@ -311,10 +397,12 @@ $(".delete").on("click",function(){
     if(check == null){
         alert("삭제할 쿠폰을 선택해주세요");
     }else{
-    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "준비중"){
-    		location.href="/deleteCoupon.do?couponNo="+check;
+    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "게시전"){
+    		if(confirm("쿠폰을 삭제하시겠습니까?")){
+    			location.href="/deleteCoupon.do?couponNo="+check;
+    		}
     	}else{
-    		alert("게시 완료된 쿠폰은 삭제할 수 없습니다.");
+    		alert("게시전 쿠폰만 삭제 가능합니다.");
     	}
     }
 });
@@ -324,13 +412,41 @@ $(".modify").on("click",function(){
     if(check == null){
         alert("수정할 쿠폰을 선택해주세요");
     }else{
-    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "준비중"){
+    	if($("input[name='radio']:checked").parent().next().next().next().next().text() == "게시전"){
             location.href="/updateCouponFrm.do?couponNo="+check;
     	}else{
-    		alert("게시 완료된 쿠폰은 수정할 수 없습니다.");
+    		alert("게시전 쿠폰만 수정 가능합니다.");
     	}
     }
 });
+
+
+//기존값들
+const keyword=$(".information").attr("keyword");
+const type=$(".information").attr("optionType");
+const reqPage = $(".information").attr("reqPage");
+
+//키워드 셋팅
+if(keyword != ""){
+	$("#keyword").val(keyword);
+}
+
+//옵션셋팅(전체,0게시전,1게시후,2만료])
+const changeType = $(".changeType");
+changeType.val(type);
+
+//검색버튼 클릭시
+$(".search-btn").on("click",function(){
+	const value = $("#keyword").val();
+	location.href="/couponManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+});
+
+//옵션 변경시 적용(전체, 게시전, 진행중, 만료)
+changeType.on("change",function(){
+	const change = $(this).val();
+	location.href="/couponManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+});
+
 
 </script>
 </body>

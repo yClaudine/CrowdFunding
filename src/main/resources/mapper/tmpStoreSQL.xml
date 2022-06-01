@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tmpStore">
+	<select id="selectAllStore" resultType="ts">
+		select
+			store_no as storeNo,
+			member_id as memberId,
+			store_title as storeTitle,
+			store_category as storeCategory,
+			store_content as storeContent,
+			store_product as storeProduct,
+			store_productcontent as storeProductcontent,
+			store_price as storePrice,
+			store_count as storeCount,
+			store_delivery as storeDelivery,
+			store_return as storeReturn,
+			store_change as storeChange,
+			store_reportcount as storeReportcount,
+			store_warning as storeWarning,
+			store_img1 as storeImg1,
+			store_img2 as storeImg2,
+			store_img3 as storeImg3,
+			store_img4 as storeImg4,
+			store_img5 as storeImg5  
+		from store_tmp
+	</select>
+	<insert id="createTmpStore" parameterType="ts">
+		insert into store_tmp
+		values (st_seq.nextval,#{memberId},null,#{stCategory},null,null,null,null,null,null,null,null,null,null,null,null,null)
+		<selectKey resultType="int" order="AFTER" keyProperty="stNo">
+ 			select max(st_no) from store_tmp
+ 	</selectKey>
+	</insert>
+	<select id="selectOneTmpStore" parameterType="ts" resultType="ts">
+	select
+			st_no as stNo,
+			member_id as memberId,
+			st_title as stTitle,
+			st_category as stCategory,
+			st_content as stContent,
+			st_product as stProduct,
+			st_productcontent as stProductcontent,
+			st_price as stPrice,
+			st_count as stCount,
+			st_delivery as stDelivery,
+			st_return as stReturn,
+			st_change as stChange,
+			st_img1 as stImg1,
+			st_img2 as stImg2,
+			st_img3 as stImg3,
+			st_img4 as stImg4,
+			st_img5 as stImg5
+	from store_tmp where st_no = #{stNo}
+	</select>
+	
+</mapper>

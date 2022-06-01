@@ -12,6 +12,7 @@
 	overflow: hidden;
 	width: 1200px;
 	margin: 0 auto;
+	border-top: 1px solid #bfbfbf;
 }
 
 .left-content {
@@ -45,7 +46,7 @@
 	line-height: 50px;
 	font-size: 15px;
 	color: gray;
-	font-weight: bolder;
+	
 }
 
 .manager-menu>li>a {
@@ -96,6 +97,9 @@
 	background-color: #02c9c9;
 	border: 1px solid #02c9c9;
 	display: block;
+	border-radius: 5px;
+	margin:0;
+	margin-bottom:5px;
 }
 
 .main-content .btn-primary:hover {
@@ -108,10 +112,13 @@
 
 .coupon-table {
 	width: 100%;
-	margin-top: 30px;
 	margin-bottom: 30px;
+	font-size: 13px;
 }
-
+.coupon-table tr{
+	border-bottom: 2px solid #f2f4f6;
+	height: 100px;
+}
 .coupon-table th {
 	width: 20%;
 	text-align: center;
@@ -137,6 +144,10 @@
 .coupon-table p {
 	margin: 0;
 }
+input, select{
+	border: 0.5px solid gray;
+	padding: 3px;
+}
 </style>
 <body>
 <%@include file="/WEB-INF/views/common/header.jsp"%>
@@ -146,10 +157,10 @@
 			<div class="menu-wrap">
 				<ul class="manager-menu">
 					<li>관리자페이지</li>
-					<li><a href="#">펀딩관리</a></li>
-					<li><a href="#">스토어관리</a></li>
-					<li><a href="#">회원관리</a></li>
-					<li><a href="/couponManage.do" class="active-menu">쿠폰관리</a></li>
+					 <li><a href="/fundManage.do?reqPage=1&keyword=&type=all" >펀딩관리</a></li>
+                    <li><a href="/storeManage.do?reqPage=1&keyword=&type=all"  >스토어관리</a></li>
+                    <li><a href="/memberManage.do?reqPage=1&keyword=&type=all" >회원관리</a></li>
+                    <li><a href="/couponManage.do?reqPage=1&keyword=&type=3" class="active-menu">쿠폰관리</a></li>
 				</ul>
 			</div>
 		</div>

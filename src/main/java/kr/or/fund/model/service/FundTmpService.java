@@ -40,4 +40,34 @@ public class FundTmpService {
 		return dao.updateTmpFees(tf);
 	}
 
+	public int updateTmpBasic(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpBasic(tf);
+	}
+
+	public int updateTmpStory(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpStory(tf);
+	}
+
+	public int createTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return dao.createTmpReward(tr);
+	}
+
+	public int updateTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpReward(tr);
+	}
+
+	public int deleteTmpReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return dao.deleteTmpReward(tr);
+	}
+
+	public int updateTmpPolicy(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpPolicy(tf);
+	}
+
 }

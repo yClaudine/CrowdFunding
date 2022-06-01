@@ -21,6 +21,7 @@ html>body {
 		margin: 0 auto;
 		margin-top: 50px;
 		display: flex;
+		flex-wrap: wrap; 
 	}
 	.category-title{
 		width: 100%;
@@ -48,11 +49,41 @@ html>body {
     	display: inline-flex;
     	width: 100%;
 		text-align: center;
+		flex-wrap: wrap;
+		margin: 5px 5px 5px;
 	}
 	.allcontent-wrap{
 		width: 90%;
 		margin: 0 auto;
 		text-align: center;
+	}
+	.allcontent-wrap1{
+		margin: 0 auto;
+		text-align: center;
+	}
+	.allcontent-list>a{
+		text-decoration: none;
+		color: black;
+	}
+	.content-wrap1{
+	}
+	.content{
+		width: 25%;
+		padding: 25px 5px 15px;
+	}
+	.pageNavi-wrap{
+		color: #e7f9f9;
+	}
+	.pageNavi-wrap>a{
+		color: black;
+	}
+	.pageNavi-content>span,.pageNavi-content>a{
+		background-color: #00b2b2;
+		text-decoration: none;
+		font-size: 20px;
+		padding: 0px 10px 0px;
+		border-radius: 50%;
+		font-weight: bold;
 	}
 </style>
 </head>
@@ -113,13 +144,15 @@ html>body {
 		<div class="content-list">
 	    	<tbody>
 	        	<c:forEach items="${list }" var="s" varStatus="i">
-	        		<div class="allcontent-wrap">${(reqPage-1) *8 + i.count}</div>
-	        		<div class="content-wrap">
-		            	<div class="allcontent-wrap">${s.storeImg1 }
-		                	<div class="allcontent-list">
-		                	<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
-		                	</div>
-		                </div>
+	        		<div class="content">
+	        			<div class="allcontent-wrap1">${(reqPage-1) *8 + i.count}</div>
+	        			<div class="content-wrap1">
+			            	<div class="allcontent-wrap1">${s.storeImg1 }
+			                	<div class="allcontent-list">
+			                		<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
+			                	</div>
+			                </div>
+	                	</div>
 	                </div>
 	            </c:forEach>
 		   </tbody>
