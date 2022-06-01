@@ -26,12 +26,15 @@ html>body {
 </head>
 <body>
 	<%@include file="WEB-INF/views/common/header.jsp" %>
-
+	<h1><a href="/couponManage.do">임시관리자</a></h1>
  	<div class="content">
+ 		<a href="/dmMain.do">메시지</a>
  		<c:choose>
  			<c:when test="${not empty sessionScope.m.memberId }">
 					<a href="logout.do">로그아웃</a>
 					<a href="sellerReqFrm.do">판매자 신청</a>	
+					<a href="updateSellerFrm.do">판매자 수정</a>	
+					
  			</c:when>
  			<c:otherwise>
  				

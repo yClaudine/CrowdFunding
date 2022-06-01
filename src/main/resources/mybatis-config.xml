@@ -22,10 +22,11 @@
 		
 		
 		
+		
 		<typeAlias type="kr.or.member.vo.Seller" alias="sel"/>
 		<typeAlias type="kr.or.member.vo.Follow" alias="fol"/>
 		<typeAlias type="kr.or.member.vo.FundReq" alias="fr"/>
-		
+		<typeAlias type="kr.or.member.vo.Dm" alias="d"/>
 		
 	</typeAliases>
 	
