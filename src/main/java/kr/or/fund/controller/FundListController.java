@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.service.FundListService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundViewData;
 import kr.or.fund.model.vo.PayRewardViewData;
+import kr.or.fund.model.vo.PayViewData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
 
@@ -96,7 +99,19 @@ public class FundListController {
 
 	//결제 최종 페이지 이동
 	@RequestMapping(value="/pay.do")
-	public String pay() {
+	public String pay(int fundNo, String fundCategory, int memberNo, int rewardSum, Model model) {
+		PayViewData pvd = service.selectPay(fundNo);
+		model.addAttribute("f",pvd.getF());
+		model.addAttribute("rlist",pvd.getRewardList());
+		//쿠폰
+		ArrayList<MemberCoupon> mcList = service.SelectMemberCouponList(memberNo);	//조회해오기
+		ArrayList<Coupon> clist = new ArrayList<Coupon>();
+		for(int i=0;i<mcList.size();i++){
+			MemberCoupon mc = mcList.get(i);
+		    Coupon c = service.selectOneCoupon(mc.getCouponNo(),fundCategory,rewardSum);
+		    clist.add(c);
+		}
+		model.addAttribute("cList",clist);
 		return "fund/pay";
 	}
 	//결제 확인 페이지 이동

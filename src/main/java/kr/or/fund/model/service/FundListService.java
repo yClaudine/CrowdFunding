@@ -6,11 +6,14 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.dao.FundListDao;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundViewData;
 import kr.or.fund.model.vo.PayRewardViewData;
+import kr.or.fund.model.vo.PayViewData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
 
@@ -70,6 +73,27 @@ public class FundListService {
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
 		PayRewardViewData prvd= new PayRewardViewData(f,list);
 		return prvd;
+	}
+	//결제 페이지 - 펀딩, 리워드-----------------------------------
+	public PayViewData selectPay(int fundNo) {
+		Fund f = dao.selectOneFund(fundNo);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		PayViewData pvd= new PayViewData(f,list);
+		return pvd;
+	}
+
+	//멤버 다운로드 쿠폰
+	public ArrayList<MemberCoupon> SelectMemberCouponList(int memberNo) {
+		return dao.selectMemberCouponList(memberNo);
+	}
+
+	//쿠폰 하나 조회
+	public Coupon selectOneCoupon(int couponNo, String fundCategory, int rewardSum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("couponNo", couponNo);
+        map.put("rewardSum", rewardSum);
+        map.put("fundCategory", fundCategory);
+        return dao.selectOneCoupon(map);
 	}
 
 }

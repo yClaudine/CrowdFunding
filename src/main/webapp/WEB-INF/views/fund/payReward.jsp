@@ -128,12 +128,7 @@
     font-weight: 500;
     margin-bottom: 10px;
 }
-.reward-count{
-    display: block;
-    padding-top: 20px;
-    padding-left: 80px;
-    font-weight: 600;
-}
+
 .amount-btn{
     color: #00c4c4;
     font-size: 15px;
@@ -276,7 +271,8 @@ input {
     height:50px;
 }
 .pop-btn{ 
-    display:inline-flex;         text-align: center;
+    display:inline-flex;         
+    text-align: center;
     width: 100%;
     height:100%;                
     justify-content:center;      
@@ -381,13 +377,21 @@ input {
     background-color: #0097a7;
     color: #ffffff;
 }
-
+.amount-btn{
+	border:1px solid #868e96;
+}
+.reward-count{
+    display: none;
+    padding-top: 20px;
+    padding-left: 80px;
+    font-weight: 600;
+}
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="fund-title">
-        [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
+        ${f.fundName}
     </div>
     <div class="content-wrap">
         <div class="pay-step">
@@ -409,39 +413,36 @@ input {
            		<c:forEach items="${list }" var="r" varStatus="i">
                 <div class="one-reward active">
                     <label id="checked-reward">
-                    <div class="checked-active">
-                        <div class="checkbox-wrap">
-                            <input type="checkbox" name="reward-checked" id="checked-reward" value="">
-                        </div>
-                        <div class="reward-wrap">
-                            <input type="hidden" id="amountReward" value="전체수량">
-                            <input type="hidden" id="remainCnt"value="남은수량">
-                            <input type="hidden" id="limitCnt" value="제한수량">
-                            <div class="reward-price">${r.rewardPrice}원 펀딩</div>
-                            <span class="reward-name">${r.rewardName}</span>
-                            <span class="reward-remaining">(675개 남음)</span>
-                            <div class="reward-intro">${r.rewardIntro}</div>
-                            <div class="reward-intro option">*옵션*<br>
-                            ${r.rewardOption}
-                            </div>
-                            <span class="reward-fix">배송비</span>
-                            <span class="reward-deliveryfee reward-active">${r.rewardDeliveryfee}원</span>
-                            <span class="reward-fix">| 리워드 발송 시작일</span>
-                            <span class="reward-send reward-active">${r.rewardSend}</span>
-                        </div><!--reward-wrap-->
-                
-                    </div>
+	                    <div class="checked-active">
+	                        <div class="checkbox-wrap">
+	                            <input type="checkbox" class="reward-check" name="reward-check" id="reward-check" value="${r.rewardNo }">
+	                        </div>
+	                        <div class="reward-wrap">
+	                            <input type="hidden" id="amountReward" value="전체수량">
+	                            <input type="hidden" id="remainCnt"value="남은수량">
+	                            <input type="hidden" id="limitCnt" value="제한수량">
+	                            <div class="reward-price">${r.rewardPrice}원 펀딩</div>
+	                            <span class="reward-name">${r.rewardName}</span>
+	                            <span class="reward-remaining">(675개 남음)</span>
+	                            <div class="reward-intro">${r.rewardIntro}</div>
+	                            <div class="reward-intro option">*옵션*<br>
+	                            ${r.rewardOption}
+	                            </div>
+	                            <span class="reward-fix">배송비</span>
+	                            <span class="reward-deliveryfee reward-active">${r.rewardDeliveryfee}원</span>
+	                            <span class="reward-fix">| 리워드 발송 시작일</span>
+	                            <span class="reward-send reward-active">${r.rewardSend}</span>
+	                        </div><!--reward-wrap-->
+	                    </div>
                     </label>
                         <div class="reward-count">
                             <div class="select-amount reward-active">수량</div>
-                            <button class="material-icons amount-btn" id="down" onclick="down(this);">remove</button>
-                            <input class="amount-input" readonly></input>
-                            <button class="material-icons amount-btn" id="up" >add</button> 
+                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }down" id="up" onclick="changeQty(this,'down','${r.rewardPrice}','${r.rewardNo }')">remove</button>
+                            <input class="amount-input" value="0" readonly></input>
+                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up','${r.rewardPrice}','${r.rewardNo }')">add</button> 
                             <input type="hidden" class="rewardPrice" value="${r.rewardPrice}" >
-                            <input type="hidden" class="rewardNo" value="${r.rewardNo}" >
-                            <input type="text" class="reward-total">                           
-                        </div>
-                                                
+                            <input type="text" class="reward-total" value="0">                           
+                        </div>                             
                     </div><!--리워드박스-->
                 </c:forEach>
                 </div><!--리워드 1개 생성-->
@@ -454,7 +455,7 @@ input {
                 </div>
                 <div class="right-info">
                     <span>후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?</span><br>
-                    <input class="donation-input" name="" placeholder="0"></input>
+                    <input type="text" class="donation-input" placeholder="0" ></input>
                     <span class="right-span">원을 추가로 후원합니다.</span>
                 </div>
             </div>
@@ -480,8 +481,10 @@ input {
         </div>
         <div class="reward-confirm">
             <div class="funding-name">
-                [1.3억/마지막앵콜]블랙헤드 반드시 녹습니다! BHA함유 핑크효소클렌저에
-                <span class="total">59,024</span>원을 펀딩합니다.
+        		${f.fundName}에
+                <span class="funding-sum">0</span>원을 펀딩합니다.
+                <input type="text" class="reward-sum"></span>
+           
             </div>
             <div class="funding-link" id="modal-open">다음단계로 ></div>
 
@@ -530,62 +533,106 @@ input {
         </div>
     </div><!--content-wrap-->
     
+    <input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
+    <input type="hidden" class="fundNo" value="${f.fundNo }">
+    <input type="hidden" class="fundCategory" value="${f.fundCategory }">
+     <!-- 리워드 토탈용 -->
     
 <script>
 	//다음단계 이동
 		$("#confirm").click(function(){
-		location.href = "/pay.do";
+			//<결제 관련 다음페이지 필요한 것>
+			//각 리워드 별 금액, 선택한 수량
+			let rewardNo = $("input[name='reward-check']:checked").val();
+			//console.log(rewardNo);
+			//배송비 -> 다음 페이지에서 제이쿼리로 해도 될듯  ----> let fpayDeliveryfee=0;
+			//추가 후원금
+			//리워드 총금액 + 추가 후원금
+			let fpayFunding = Number($(".funding-sum").text());
+			
+			//<쿠폰용>
+			//결제할 멤버 번호
+			const memberNo = $(".memberNo").val();
+			//카테고리명
+			const fundCategory = $(".fundCategory").val();
+			//선택한 리워드 총금액
+			let rewardSum = Number($(".reward-sum").val()); 
+			
+			
+		location.href = "/pay.do?fundNo=${f.fundNo}&fundCategory="+fundCategory+"&memberNo="+memberNo+"&rewardSum="+rewardSum;
+		//&fundCategory="+fundCategory+"&memberNo="+memberNo+"&rewardNo="+rewardNo+"&rewardSum="+rewardSum;
 	});
 	
-		//updown버튼
-		$("#up").on("click", function () {
-			//let rewardPrice = val(".rewardPrice");
-		    const count = Number($(".amount-input").val());
-		    const countUp = count + 1;
-		    $(".amount-input").attr("value", countUp);
-		    //총 금액
-		    const rewardPrice = Number($(".rewardPrice").val());
-		    const rewardTotal = countUp * rewardPrice;
-		    $(".reward-total").attr("value",rewardTotal);
-		    //$(".reward-total").text(totalPrice.toLocaleString('ko-KR'));
-		});
-		
-		$("#down").on("click", function () {
-		    const count = $(".amount-input").val();
-		    if (count != 0) {
-		        const countDown = Number(count) - 1;
-		        $(".amount-input").attr("value", countDown);		
-		        //총 금액
-		    	const rewardPrice = Number($(".rewardPrice").val());
-			    const rewardTotal = countDown * rewardPrice;
-			    $(".reward-total").attr("value",rewardTotal);		    
+	function test(){
+		$("input[name='reward-check']").each(function (index) {
+			if($(this).is(":checked")==true){
+			let rewardNo = $(this).val();	
+			console.log(rewardNo);		
+				
 			}
-		});//down
+		});
+	}
 	
-	
-		
-		
-		
-		/* 리워드 체크박스 확인
-		$(".reward-count>.amount-btn").on("click",function(){
-		    let currAmount = Number($(".amount-input").val());
-		    //this = 둘 중(+,-) 현재 '클릭'한 버튼
-		    if($(this).text()=='add'){
-		        currAmount++;
-		    }else{
-		        if(currAmount != 1){//하한선 1이상 되도록 설정
-		            currAmount--;
-		        }
+	//리워드 토글
+	$('input[id="reward-check"]').change(function(){
+		$(this).parents(".one-reward").find(".reward-count").toggle();
+	});
+
+	//리워드 수량 조절
+		function changeQty(obj,type,rewardNo,rewardPrice){    	    	
+	    	if(type=='up'){
+			   	let count = Number($(obj).prev().val());
+			   	let fundingSum = Number($(".funding-sum").text());
+			   	//리워드 sum 총액만 구하기용
+			   	let rewardSum = Number($(".reward-sum").val()); //
+			    const countUp = count + 1;
+			    $(obj).prev().attr("value", countUp);
+			    //리워드 1개
+			    const rewardPrice = Number($(obj).next().val());
+			    const rewardTotal = countUp * rewardPrice;
+			    $(obj).next().next().attr("value",rewardTotal);	
+			    //리워드 sum 용
+			    rewardSum = rewardSum+rewardPrice;
+			    $(".reward-sum").val(rewardSum);
+			    //리워드 + 후원금 용
+			    fundingSum = fundingSum+rewardPrice;
+			    $(".funding-sum").text(fundingSum);
+			    
+			    
+	    	}else if(type=='down'){
+		    	let count = Number($(obj).next().val());
+				let fundingSum = Number($(".funding-sum").text());
+			   	//리워드 sum 총액만 구하기용
+			   	let rewardSum = Number($(".reward-sum").val()); //
+			    const countDown = count - 1;
+			    if (count != 1) {        
+			    	$(obj).next().attr("value", countDown);		
+			        //리워드 1개
+			    	const rewardPrice = Number($(obj).next().next().next().val());
+				    const rewardTotal = countDown * rewardPrice;
+				    $(obj).next().next().next().next().attr("value",rewardTotal);
+				    //리워드 + 후원금 용
+				    rewardSum=rewardSum-rewardPrice;
+				    $(".reward-sum").val(rewardSum);
+				    //리워드 + 후원금 용
+				    fundingSum=fundingSum-rewardPrice;
+				    $(".funding-sum").text(fundingSum);
+				}		    	
 		    }
-		    
-		    //총액
-		    $(".amount").text(currAmount);
-		    const price = Number($(".price").children().first().text());
-		    $("#totalPrice").text(currAmount*price);
-		});	
-	});	
-		
-		*/
+		}
+	
+	//후원금 더하기
+		$(".donation-input").change(function(){
+			let currentDonation = Number($(".donation-input").val());
+			//console.log(currentDonation);
+			let fundingSum = Number($(".funding-sum").text());
+			fundingSum = fundingSum+currentDonation;
+			$(".funding-sum").text(fundingSum);
+			//$(".donation-input").val('');
+		});
+	
+	//메모 - input 해킹 방지?? : on("propertychange change keyup paste input",
+	
 		
 		//구매하기
 		function buyItNow(productId) {
@@ -644,17 +691,13 @@ input {
 	
 	//다음단계 모달 아코디언
 	$(document).ready(function(){
-	    $(".accordion").on("click", ".heading", function() {
-	
-	    $(this).toggleClass("active").next().slideToggle();
-	
-	    $(".contents").not($(this).next()).slideUp(300);
-	    $(this).siblings().removeClass("active");
+	    $(".accordion").on("click", ".heading", function() {	
+	    	$(this).toggleClass("active").next().slideToggle();
+	    	$(".contents").not($(this).next()).slideUp(300);
+	    	$(this).siblings().removeClass("active");
 	    });
 	});
-	 
 	
-
 	    
 </script>
     

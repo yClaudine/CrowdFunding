@@ -96,7 +96,7 @@
 .pay-wrap .reward-active{
     float: right;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     margin-left: 15px;
 }
 .pay-info{
@@ -138,8 +138,17 @@
     height: 20px;
 }
 .reward-wrap{
-    width: 730px;
+    width: 100%;
 }
+.coupon-wrap{
+    width: 100%;
+    margin-top: 60px;
+    border-top: 2px dotted #b3b3b3;
+    
+}
+
+
+
 .reward-price{
     font-weight: 600;
     margin-bottom: 10px;
@@ -167,10 +176,9 @@
     font-weight: 500;
 }
 .reward-active{
-    font-size: 13px;
+    font-size: 12px;
     color: #60656a;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-weight: 300;
 }
 
 .final-info{
@@ -274,12 +282,13 @@
     color: #dadce0;
     cursor: pointer;
 }
+}
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="fund-title">
-        [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
+        ${f.fundName }
     </div>
     <div class="content-wrap">
         <div class="pay-step">
@@ -295,15 +304,24 @@
                 <!--결제 상세1-->
                 <div class="one-pay first-wrap">
                     <div class="pay-wrap">
-                        <span class="reward-name">[울트라슈퍼얼리버드] 쟁여두기 6개</span>
-                        <div class="reward-intro">자외선은 튕기고 비타민D는 흡수하는 광합썬! 세븐데이즈 마일드 선크림 6개</div>
-                        <span class="reward-fee reward-active">71,900원 펀딩</span>
-                        <span class="reward-active">수량 : 1개</span>
-                        <div class="coupon">사용 가능 쿠폰</div>
-                        <select name="coupon-type" class="coupon-type">
-                            <option ${(param.searchType=="title")?"selected":""} value="title"><span>쿠폰예시</span></option>
-                            <option ${(param.searchType=="content")?"selected":""} value="content">쿠폰예시2</option>
-                        </select>
+           			<c:forEach items="${rlist }" var="r" varStatus="i">
+                        <div class="reward-wrap">
+                            <span class="reward-name">${r.rewardName}</span>
+                            <div class="reward-intro">${r.rewardOption }
+                                <span class="reward-fee reward-active">${r.rewardPrice }원 펀딩</span>
+                                <span class="reward-active">수량 : 1개</span>
+                            </div>
+                        </div>
+                    </c:forEach>    
+                        <div class="coupon-wrap">
+                            <div class="coupon">사용 가능 쿠폰</div>
+                            <select name="coupon-type" class="coupon-type">
+                            <c:forEach items="${clist }" var="c" varStatus="i">
+                                <option><span>${c.couponName}</span></option>                                                        
+                            </c:forEach>
+                            	<option><span>쿠폰 예시</span></option>
+                            </select>
+                        </div>
                     </div>
                 </div><!--리워드박스-->
                 
@@ -313,7 +331,7 @@
                 </div>  
                 <div class="one-pay active">
                     <div class="final-info">
-                        <span>펀딩금액</span>
+                        <span>리워드 금액</span>
                         <span class="flex-right">100,090 원</span>
                     </div>
                     <div class="final-info">
@@ -342,11 +360,11 @@
                     </div>
                     <div class="supporter-detail">
                         <div class="supporter-fix">이름</div>
-                        <div>홍길동</div>
+                        <div>${sessionScope.m.memberName }</div>
                         <div class="supporter-fix">이메일</div>
-                        <div>funfunfun@naver.com</div>
+                        <div>${sessionScope.m.memEmail }</div>
                         <div class="supporter-fix">휴대폰 번호</div>
-                        <div>01000000000</div>
+                        <div>${sessionScope.m.memPhone }</div>
                     </div>        
                 </div>    
                 <div class="supporter-wrap">

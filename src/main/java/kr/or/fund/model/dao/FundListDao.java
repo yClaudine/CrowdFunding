@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.coupon.model.vo.Coupon;
+import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.Reward;
@@ -72,6 +74,19 @@ public class FundListDao {
 		FundLike fc = sqlSession.selectOne("fundLike.fundCheck",map);
 		return fc;
 	}
+
+	//멤버 다운로드 쿠폰-----------------------------------------------------------
+	public ArrayList<MemberCoupon> selectMemberCouponList(int memberNo) {
+		List list = sqlSession.selectList("fundPay.selectMemberCouponList",memberNo);
+		return (ArrayList<MemberCoupon>)list;
+	}
+
+	//쿠폰 하나 조회
+	public Coupon selectOneCoupon(HashMap<String, Object> map) {
+		return sqlSession.selectOne("fundPay.selectOneCoupon",map);
+	}
+	
+	
 
 
 
