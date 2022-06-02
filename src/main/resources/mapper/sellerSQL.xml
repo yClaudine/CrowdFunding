@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="seller">
-	<insert id="insertSeller" parameterType="s">
+	<insert id="insertSeller" parameterType="sel">
 		insert into seller values(seller_seq.nextval,#{memberId},#{enNo},#{enPath},#{enType},#{enIntro},#{owner},#{photopath},#{position},#{address},#{authSeller},null)
 			
 	</insert>
-  
+  	<select id="selectOneSeller" parameterType="m" resultType="sel">
+  		
+  		select 
+  		seller_no as sellerNo,
+  		Member_id as memberId,
+  		en_no as enNo,
+  		en_path as enPath,
+  		en_type as enType,
+  		en_intro as enIntro,
+  		owner,
+  		photopath,
+  		position,
+  		address,
+  		auth_seller as authSeller,
+  		auth_massage as authMessage
+  		
+  		from seller where member_id=#{memberId}
+  		
+  	</select>
+  	<update id="updateSeller" parameterType="sel">
+  		update seller set en_no=#{enNo},en_path=#{enPath},en_type=#{enType},
+  		en_intro=#{enIntro},owner=#{owner},photopath=#{photopath},position=#{position},
+  		address=#{address} where member_id=#{memberId}
+  		
+  	</update>
 </mapper>
