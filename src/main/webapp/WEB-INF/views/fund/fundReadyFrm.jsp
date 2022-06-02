@@ -110,7 +110,7 @@
 						<h6>대표자 및 정산정보</h6>
 						<span class="check-fund">작성 전</span>
 					</div>
-						<button onclick = "location.href = '#' ">작성하기</button>
+						<button onclick="location.href='/fundCalculateFrm.do?tfNo=${tmpF.tfNo}' ">작성하기</button>
 				</div>
 				<button class="btn-info submit-btn">제출하기</button>
 			</div>
