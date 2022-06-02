@@ -213,6 +213,21 @@ public class ManagerService {
 		StoreAllPageData spd = new StoreAllPageData(list, pageNavi);
 		return spd;
 	}
+	//펀드 하나 조회
+	public Fund selectOneFund(int fundNo) {
+		// TODO Auto-generated method stub
+		return dao.selectOneFund(fundNo);
+	}
+
+	public Store selectOneStore(int storeNo) {
+		// TODO Auto-generated method stub
+		return dao.selectOneStore(storeNo);
+	}
+
+	public Member selectOneMember(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.selectOneMember(memberNo);
+	}
 
 	
 	

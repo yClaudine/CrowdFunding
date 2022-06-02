@@ -1,5 +1,7 @@
 package kr.or.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,6 +130,18 @@ public class MemberController {
 		}
 		
 	}
+	@RequestMapping(value="selectAllMember.do",produces ="application/json;charset=utf-8")
+	@ResponseBody
+	public String selectAllMember() {
+		ArrayList<Member> list = new ArrayList<Member>();
+		list = service.selectAllMember();
+		
+		return new Gson().toJson(list);
+	}
+	
+	
+		
 	
 	
 }
+

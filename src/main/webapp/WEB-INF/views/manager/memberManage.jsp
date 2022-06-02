@@ -211,6 +211,63 @@ select{
 	width: 100%;
 	height: 100%;
 }
+.modal-wrap{
+    width: 100vw;
+    height: 110vh;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.detail-modal{
+    background-color: #e7f9f9;
+    width: 50vw;
+    min-width: 500px;
+    max-width: 1000px;
+    max-height: 800px;
+    border-radius: 5px;
+}
+.modal-top{
+	width: 250px;
+	margin: 0 auto;
+	padding: 10px;
+}
+.modal-top h3{
+	margin: 0;
+}
+.detail-btn:hover{
+	cursor: pointer;
+}
+.detail-table{
+	margin: 10px;
+	min-height: 330px;
+}
+.detail-table tr{
+	border: 1px solid #bfbfbf;
+}
+.detail-table th{
+	border: 1px solid #bfbfbf;
+	width: 17%;
+	vertical-align: middle;
+	text-align:center;
+}
+.detail-table td{
+	vertical-align: middle;
+	padding: 5px;
+}
+.modal-close{
+	width: 100%;
+	height: 50px;
+	border: #00c4c4;
+	background-color:  #00c4c4;
+	color: #ffffff;
+	border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -277,7 +334,9 @@ select{
 		                     
 		                    	<c:forEach items="${list }" var="mem">
 		                    		<tr>
-			                            <td class="memberId">${mem.memberId }</td>
+			                            <td class="memberId">
+			                            	<span class="detail-btn" memberNo=${mem.memberNo}>${mem.memberId }</span>
+			                            </td>
 			                            <td>${mem.memberName }</td>
 			                            <td>
 			                            	<c:choose>
@@ -320,7 +379,20 @@ select{
         </div>
     </div>
   	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
-
+<!-- 모달 -->
+	<div class="modal-wrap">
+        <div class="detail-modal">
+            <div class="modal-top">
+                <h3>스토어 상세정보</h3>
+            </div>
+            <div class="modal-content">
+                <table border="1" class="detail-table">
+                	
+                </table>
+            </div>
+            <button class="modal-close">닫기</button>
+        </div>
+    </div>
 
 <script>
 //기존값들
@@ -355,6 +427,47 @@ $(".detail").on("click",function(){
 	location.href="/memberReportDetail.do?memberId="+memberId;
 });
 
+//모달 오픈
+$(".detail-btn").on("click",function(){
+       $(".modal-wrap").css("display","flex");
+       const memberNo = $(this).attr("memberNo");
+       $.ajax({
+       	url : "/memberDetail.do",
+       	type:"post",
+       	data : {memberNo:memberNo},
+       	success: function(m){
+       		const table = $(".detail-table");
+       		let gender = "성별";
+       		if(m.gender == 0){
+       			gender = "남";
+       		}else{
+       			gender = "여";
+       		}
+       		let category ="회원";
+       		if(m.categoryNo == 0){
+       			category = "관리자";
+       		}else if(m.categoryNo == 1){
+       			category = "일반회원";
+       		}else{
+       			category = "판매자";
+       		}
+       		
+       		let content = "<tr><th>회원번호</th><td>"+m.memberNo+"</td></tr><tr><th>멤버아이디</th><td>"+m.memberId+"</td></tr><tr><th>이름</th><td>"+m.memberName+"</td></tr>";
+       		content += "<tr><th>핸드폰</th><td>"+m.memPhone+"</td></tr><tr><th>이메일</th><td>"+m.memEmail+"</td></tr><tr><th>성별</th><td>"+gender+"</td></tr>";
+       		content += "<tr><th>회원분류</th><td>"+category+"</td></tr><tr><th>소개</th><td>"+m.memComment+"</td></tr>";
+       		
+       		table.empty();
+       		table.append(content);
+       	
+       	},
+       	error :function(){
+       		console.log("서비스 호출 실패");
+       	}
+       });
+   });
+$(".modal-close").on("click",function(){
+       $(".modal-wrap").css("display","none");
+   });
 </script>
 
 </body>

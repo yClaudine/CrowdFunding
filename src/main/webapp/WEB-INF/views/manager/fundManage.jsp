@@ -75,7 +75,7 @@
     border: 1px solid #02c9c9;
     margin: 0;
     margin-bottom: 5px;
-    width: 85px;
+    width: 60px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -135,7 +135,7 @@ input[name='keyword']{
 	 padding: 3px;
 }
 .main-content .table td:last-child{
-	width: 100px;
+	width: 150px;
 }
 .main-content .table td:nth-child(2){
 	width: 50%;
@@ -205,6 +205,64 @@ select{
 .table td{
 	vertical-align: middle;
 }
+.modal-wrap{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.detail-modal{
+    background-color: #e7f9f9;
+    width: 50vw;
+    min-width: 500px;
+    max-width: 1000px;
+   
+    max-height: 800px;
+    border-radius: 5px;
+}
+.modal-top{
+	width: 190px;
+	margin: 0 auto;
+	padding: 10px;
+}
+.modal-top h3{
+	margin: 0;
+}
+.detail-btn:hover{
+	cursor: pointer;
+}
+.detail-table{
+	margin: 10px;
+	min-height: 330px;
+}
+.detail-table tr{
+	border: 1px solid #bfbfbf;
+}
+.detail-table th{
+	border: 1px solid #bfbfbf;
+	width: 17%;
+	vertical-align: middle;
+	text-align:center;
+}
+.detail-table td{
+	vertical-align: middle;
+	padding: 5px;
+}
+.modal-close{
+	width: 100%;
+	height: 50px;
+	border: #00c4c4;
+	background-color:  #00c4c4;
+	color: #ffffff;
+	border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -267,7 +325,9 @@ select{
 		                    	<c:forEach items="${list }" var="f">
 		                    		<tr>
 		                    			<td>${f.fundNo}</td>
-		                    			<td class="fundName">${f.fundName }</td>
+		                    			<td class="fundName">
+		                    				<span class="detail-btn" fundNo=${f.fundNo}>${f.fundName }</span>
+		                    			</td>
 			                            <td class="memberId">${f.memberId }</td>
 			                            <td>
 			                            	<c:choose>
@@ -281,7 +341,8 @@ select{
 										</td>
 										<td>${f.fundWarning }</td>
 			                            <td>
-			                                <button type="button" class="btn btn-primary detail">경고관리</button>
+			                                <button type="button" class="btn btn-primary delete">삭제</button>
+			                                <button type="button" class="btn btn-primary detail">경고</button>
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
@@ -297,7 +358,20 @@ select{
         </div>
     </div>
   	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
-
+	<!-- 모달 -->
+	<div class="modal-wrap">
+        <div class="detail-modal">
+            <div class="modal-top">
+                <h3>펀딩 상세정보</h3>
+            </div>
+            <div class="modal-content">
+                <table border="1" class="detail-table">
+                	
+                </table>
+            </div>
+            <button class="modal-close">닫기</button>
+        </div>
+    </div>
 
 <script>
 //기존값들
@@ -326,12 +400,40 @@ changeType.on("change",function(){
 	location.href="/fundManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
 });
 
-//상세보기버튼
+//경고버튼
 $(".detail").on("click",function(){
 	const memberId = $(this).parent().parent().children().eq(2).text();
 	const fundNo = $(this).parent().parent().children().eq(0).text();
 	location.href="/fundReportDetail.do?memberId="+memberId+"&fundNo="+fundNo;
 });
+
+
+//모달 오픈
+ $(".detail-btn").on("click",function(){
+        $(".modal-wrap").css("display","flex");
+        const fundNo = $(this).attr("fundNo");
+        $.ajax({
+        	url : "/fundDetail.do",
+        	type:"post",
+        	data : {fundNo:fundNo},
+        	success: function(f){
+        		const table = $(".detail-table");
+        		let content = "<tr><th>펀드번호</th><td>"+f.fundNo+"</td></tr><tr><th>펀드제목</th><td>"+f.fundName+"</td></tr><tr><th>판매자아이디</th><td>"+f.memberId+"</td></tr>";
+        		content += "<tr><th>목표금액</th><td>"+f.fundAmount+"</td></tr><tr><th>요금제</th><td>"+f.fundFees+"</td></tr>";
+        		content += "<tr><th>카테고리</th><td>"+f.fundCategory+"</td></tr><tr><th>펀드시작일</th><td>"+f.fundStart+"</td></tr>";
+        		content += "<tr><th>펀드종료일</th><td>"+f.fundEnd+"</td></tr><tr><th>프로젝트 소개</th><td>"+f.fundIntro+"</td></tr><tr><th>하자에 대한 A/S</th><td>"+f.fundAs+"</td></tr>";
+        		table.empty();
+        		table.append(content);
+        	
+        	},
+        	error :function(){
+        		console.log("서비스 호출 실패");
+        	}
+        });
+    });
+ $(".modal-close").on("click",function(){
+        $(".modal-wrap").css("display","none");
+    });
 
 </script>
 </body>

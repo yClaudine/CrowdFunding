@@ -34,10 +34,17 @@
 			width:100px;
 			text-align:center;
 		}
+		#h5{
+		    font-size: 20px;
+		    padding-left: 80px;
+		    color: #212529;
+		    font-weight:400;
+		}
 	</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>    
+	<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
     <div class="content">
         <div class="wrapper">
             <div class="one"></div>
@@ -65,6 +72,9 @@
                     	<a href="logout.do" class="aout"><button class="btn btn-outline-success" id="outBtn">로그아웃</button></a>
                     </c:if>
                 </div>
+                <div class="logout onload">
+                	<a href="onLoadFrm.do" class="aout"><button class="btn btn-outline-success" id="outBtn">신청 현황</button></a>
+                </div>
                 <div class="setting">
                     <a href="setting.do" class="mUS"><span class="material-symbols-outlined" id="sett">
                         settings
@@ -72,6 +82,7 @@
                     </span><sup>설정</sup></a>
                     
                 </div>
+                
             </div>
             <div class="four">
                 <ul class="count">
@@ -102,7 +113,7 @@
                         </a>
                     </div>
                 </div>
-                <h4>Community</h4>
+                <span id="h5">Community</span>
                 <div class="myCommunity">
                     
                     <div class="comm">
@@ -122,7 +133,7 @@
                         </a>
                     </div>
                 </div>
-                <h4>Activity</h4>
+                <span id="h5">Activity</span>
                 <div class="mycomment">
                     <div class="comm">
                         <a href="mycomment.do">
@@ -310,5 +321,32 @@
         </div>
         </div>
     </div>
+    <script>
+    	$(function(){
+    		const onload =$(".onload");
+    		const memberId = $("[name=memberId]").val();
+    		$.ajax({
+    			url : "/selectSeller.do",
+    			data : {memberId:memberId},
+    			type : "get",
+    			success: function(s){
+    				if(s!=null&&s.authSeller==0||s.authSeller==1){
+    					console.log(s.authMessage);
+    					onload.show();
+    				}else{
+    					onload.hide();
+    					
+    						
+    					
+    					
+    				}
+    			},
+    			error: function(){
+    				contsole.log("프로그램 데이터 에러");
+    			}
+    		});
+    	});
+    
+    </script>
 </body>
 </html>
