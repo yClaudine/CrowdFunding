@@ -40,4 +40,21 @@
 	<update id="updateMember" parameterType="m">
 		update member_tbl set member_name=#{memberName},mem_email=#{memEmail},mem_phone=#{memPhone} where member_id=#{memberId}
 	</update>
+	
+	<select id="selectAllMember" resultType="m">
+		select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			
+			from member_tbl
+	</select>
 </mapper>

@@ -1,6 +1,8 @@
 package kr.or.member.service;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,11 @@ public class MemberService {
 	public int updateMember(Member m) {
 		
 		return dao.updateMember(m);
+	}
+
+	public ArrayList<Member> selectAllMember() {
+		
+		return dao.selectAllMember();
 	}
 
 }
