@@ -1,5 +1,8 @@
 package kr.or.member.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -40,6 +43,11 @@ public class MemberDao {
 		
 		int result = sqlSession.update("member.updateMember",m);
 		return result;
+	}
+
+	public ArrayList<Member> selectAllMember() {
+		List list = sqlSession.selectList("member.selectAllMember");
+		return (ArrayList<Member>)list;
 	}
 
 }
