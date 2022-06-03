@@ -25,6 +25,7 @@ import kr.or.fund.model.vo.Fund;
 import kr.or.manager.model.service.ManagerService;
 import kr.or.manager.model.vo.FundPageData;
 import kr.or.manager.model.vo.MemberPageData;
+import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
 import kr.or.store.model.vo.Store;
@@ -179,6 +180,7 @@ public class ManagerController {
 	public String memberReportDetail(String memberId, Model model) {
 		ArrayList<StoreStar> list = service.selectOneStar(memberId);
 		model.addAttribute("starList", list);
+		model.addAttribute("memberId", memberId);
 		return "manager/memberReport";
 	}
 	
@@ -224,6 +226,17 @@ public class ManagerController {
 	public String storeDetail(int storeNo) {
 		Store s = service.selectOneStore(storeNo);
 		return new Gson().toJson(s);
+	}
+	
+	
+	//경고 보낸메세지 불러오기(ajax)
+	@RequestMapping(value="/getReportList.do",produces ="application/json;charset=utf-8")
+	@ResponseBody
+	public String getReportList(String memberId, int category, int categoryNo) {
+		
+		ArrayList<Dm> list = service.selectReportList(memberId,category,categoryNo);
+		
+		return new Gson().toJson(list);
 	}
 	
 }

@@ -45,4 +45,26 @@ public class Dmdao {
 		int result = sqlSession.update("dm.updateRc",dmNo);
 		return result;
 	}
+
+
+	public int TotalCount(HashMap<String, Object> count) {
+		
+		int Tcount = sqlSession.selectOne("dm.totalCount",count);
+		return Tcount;
+	}
+
+	public int deleteMessage(int dmNo) {
+		
+		
+		return sqlSession.delete("dm.deleteMessage",dmNo);
+	}
+
+
+	
+
+	public int reportCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("dm.reportCount", map);
+	}
+
 }
