@@ -58,7 +58,7 @@
 			</p>
 			<form action="/fundCreate.do" method="post">
 				<input type="text" class="form-control" name="tfName" placeholder="펀딩 제목 입력">
-				<input type="hidden" name="memberId" value="user1">
+				<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 				<input type="submit" value="펀딩 생성하기" class="btn btn-outline-info">
 			</form>
 		</div>
@@ -67,6 +67,31 @@
 		</div>
 	</div>
 	
-	
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>
+	<script>
+	$("[type=submit]").on("click",function(e){
+		//펀딩 제목과 memberId를 체크할 변수
+		const chk = [0,0];
+		const tfName = $("[name=tfName]").val();
+		const memberId = $("[name=memberId]").val();
+		//펀딩 제목 체크
+		if(tfName == ""){
+			chk[0] = 0;
+		}else{
+			chk[0] = 1;
+		}
+		//로그인 상태 체크
+		if(memberId == ""){
+			chk[1] = 0;
+		}else{
+			chk[1] = 1;
+		}
+		//둘다 정상이 아니면 서브밋 비활성화
+		if(chk[0] == 0 || chk[1] == 0){
+			alert("로그인을 하시고 펀딩 제목을 입력하여 주세요.");
+			e.preventDefault();
+		}
+	});
+	</script>
 </body>
 </html>
