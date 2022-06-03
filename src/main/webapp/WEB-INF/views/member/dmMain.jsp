@@ -552,7 +552,7 @@
 
 			//웹소켓을 구현할 함수를 만들어줍니다.
 			//먼저 주소를 지정해줍니다
-			ws = new WebSocket("ws://192.168.219.100:8090/dm.do");
+			ws = new WebSocket("ws://localhost/dm.do");
 			//연결했을 때
 			ws.onopen = onOpen;
 			//메시지를 받았을 때 

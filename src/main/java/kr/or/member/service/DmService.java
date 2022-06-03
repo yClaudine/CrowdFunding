@@ -59,5 +59,14 @@ public class DmService {
 		
 		return result;
 	}
+//관리자가 경고시, 경고수 +1
+	@Transactional
+	public int reportCount(int category, int categoryNo, String recvMemId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("category", category);
+		map.put("categoryNo", categoryNo);
+		map.put("recvMemId", recvMemId);
+		return dao.reportCount(map);
+	}
 
 }

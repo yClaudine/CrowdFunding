@@ -11,6 +11,7 @@ import kr.or.fund.model.vo.Fund;
 import kr.or.manager.model.dao.ManagerDao;
 import kr.or.manager.model.vo.FundPageData;
 import kr.or.manager.model.vo.MemberPageData;
+import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
 import kr.or.notice.model.vo.Notice;
@@ -227,6 +228,14 @@ public class ManagerService {
 	public Member selectOneMember(int memberNo) {
 		// TODO Auto-generated method stub
 		return dao.selectOneMember(memberNo);
+	}
+
+	public ArrayList<Dm> selectReportList(String memberId, int category, int categoryNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("category", category);
+		map.put("categoryNo", categoryNo);
+		return dao.selectReportList(map);
 	}
 
 	
