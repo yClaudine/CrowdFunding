@@ -61,6 +61,7 @@ public class DirectMessageHandler extends TextWebSocketHandler{
 			
 		}else if(type.equals("dmSend")) {
 			//type이 dmsend였을때 데이터 베이스를 보내주기 위함 
+			
 			String sendMemId = element.getAsJsonObject().get("sendMemId").getAsString(); 
 			String recvMemId = element.getAsJsonObject().get("recvMemId").getAsString();
 			String mContent = element.getAsJsonObject().get("mContent").getAsString();
