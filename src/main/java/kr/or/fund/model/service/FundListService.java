@@ -96,4 +96,12 @@ public class FundListService {
         return dao.selectOneCoupon(map);
 	}
 
+	public ArrayList<Coupon> selectCouponList(int memberNo, String fundCategory, int rewardSum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("memberNo", memberNo);
+        map.put("rewardSum", rewardSum);
+        map.put("fundCategory", fundCategory);
+		return dao.selectCouponList(map);
+	}
+
 }

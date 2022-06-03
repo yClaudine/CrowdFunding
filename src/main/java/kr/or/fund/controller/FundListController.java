@@ -2,6 +2,7 @@ package kr.or.fund.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,32 +87,43 @@ public class FundListController {
 		
 		return "";
 	}
+	/*리워드 페이지 ajax--------------------------------------------------------
+	@ResponseBody
+	@RequestMapping(value="/checkedReward.do",produces="application/json;charset=utf-8")
+	public String checkedReward() {
+		return new Gson().toJson();
+	};
+	*/
+	
 	
 	//결제 상세---------------------------------------------------
-	//리워드 선택 페이지 이동
-	@RequestMapping(value="/payReward.do")
+	//리워드, 결제 페이지로 이동
+	@RequestMapping(value="/payFunding.do")
 	public String payRewardView(int fundNo, Model model) {
 		PayRewardViewData prvd = service.selectPayReward(fundNo);
 		model.addAttribute("f",prvd.getF());
 		model.addAttribute("list",prvd.getRewardList());
-		return "fund/payReward";	
+		return "fund/payFunding";	
+	}
+	//쿠폰 리스트 ajax 버전
+	@ResponseBody
+	@RequestMapping(value="/selectCouponList.do",produces="application/json;charset=utf-8")
+	public String CouponList(String fundCategory, int memberNo, int rewardSum) {
+		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum);
+		return new Gson().toJson(clist);
 	}
 
+	
+	//사용여부 X -----------------------------------------------------------------------
 	//결제 최종 페이지 이동
 	@RequestMapping(value="/pay.do")
 	public String pay(int fundNo, String fundCategory, int memberNo, int rewardSum, Model model) {
 		PayViewData pvd = service.selectPay(fundNo);
 		model.addAttribute("f",pvd.getF());
-		model.addAttribute("rlist",pvd.getRewardList());
+		model.addAttribute("rlist",pvd.getRewardList());		
 		//쿠폰
-		ArrayList<MemberCoupon> mcList = service.SelectMemberCouponList(memberNo);	//조회해오기
-		ArrayList<Coupon> clist = new ArrayList<Coupon>();
-		for(int i=0;i<mcList.size();i++){
-			MemberCoupon mc = mcList.get(i);
-		    Coupon c = service.selectOneCoupon(mc.getCouponNo(),fundCategory,rewardSum);
-		    clist.add(c);
-		}
-		model.addAttribute("cList",clist);
+		ArrayList<Coupon> cList = service.selectCouponList(memberNo,fundCategory,rewardSum);
+		model.addAttribute("clist",cList);
 		return "fund/pay";
 	}
 	//결제 확인 페이지 이동

@@ -20,6 +20,10 @@
     <!--구글 아이콘-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   	<!--다음 우편번호 찾기-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    
 <style>
 .fund-title{
     font-size: 22px;
@@ -386,10 +390,447 @@ input {
     padding-left: 80px;
     font-weight: 600;
 }
+
+/*다음단계 모달*/
+.popup-wrap{
+    background-color:rgba(0,0,0,.3); 
+    justify-content:center; 
+    align-items:center;     
+    position:fixed;         
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;               
+    display:none; 
+    padding:15px; 
+}
+.popup{
+    width:100%;               
+    max-width:400px;          
+    border-radius:10px;       
+    overflow:hidden;          
+    background-color:#00b2b2;
+    box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
+}
+.popup-head{
+    background-color: #ffffff;
+    color: #010f0f;
+    padding-top: 20px;
+    font-size: 18px;
+    width:100%;
+    height:50px;  
+    line-height: 50px;
+
+}
+.popup-body{                
+    width:100%;
+    background-color:#ffffff; 
+}
+.body-content{              
+    width:100%;
+    padding:30px;             
+}
+.body-contentbox{           
+    word-break:break-word;    
+    overflow-y:auto;          
+    min-height:100px;         
+    max-height:300px;         
+}
+.body-contentbox input{
+    width: 15px;
+    height: 15px;
+}
+.modal-flex{
+    display: flex;
+}
+.modal-flex span{
+    margin-left: 10px;
+}
+.check-detail{
+    float: left;
+    margin-left: 26px;
+}
+
+
+.popup-foot{                      
+    width:100%;
+    height:50px;
+}
+.pop-btn{ 
+    display:inline-flex;         
+    text-align: center;
+    width: 100%;
+    height:100%;                
+    justify-content:center;      
+    align-items:center;          
+    color:#ffffff;              
+    cursor:pointer;               
+}
+.pop-btn:hover{
+    background-color: #0097a7;
+    transition-duration: 0.5s;
+}
+
+
+.funding-link{
+    margin: 30px auto 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    border-radius: 2px;
+    line-height: 50px;
+    height: 50px;
+    background-color: #00c4c4;
+    width: 150px;
+    
+}
+.funding-link:hover{
+    transition: 0.5s;
+    background-color: #00b2b2;
+    color: #dadce0;
+    cursor: pointer;
+}
+#close{
+    margin-top: 10px;
+    font-weight: 600;
+}
+#close:hover{
+    cursor: pointer;
+}
+#confirm{
+    border: none;
+    background-color: #00b2b2;
+}
+#confirm:hover{
+    background-color: #0097a7;
+    color: #ffffff;
+}
+
+/*아코디언 메뉴*/
+.accordion {
+    margin-top: 20px;
+    max-width: 300px;
+    background: linear-gradient(to bottom right, #FFF, #f7f7f7);
+    background: #0097a7;
+    margin: 20px auto 0;
+    border-radius: 3px;
+    box-shadow: 0 10px 15px -20px rgba(0, 0, 0, 0.3), 0 30px 45px -30px rgba(0, 0, 0, 0.3), 0 80px 55px -30px rgba(0, 0, 0, 0.1);
+}
+.heading {
+    color: #FFF;
+    font-size:14px;
+    border-bottom: 1px solid #e7e7e7;
+	letter-spacing: 0.8px;
+    padding: 10px;
+    cursor: pointer;  
+}
+.heading:nth-last-child(2){
+    border-bottom:0; 
+}
+.heading:hover {
+    background: #00838f;
+    border-radius: 0;
+}
+.heading:first-child:hover {
+    border-radius: 3px 3px 0 0;
+}
+.heading:nth-last-child(2):hover{
+    border-radius:0 0 3px 3px;
+}
+.heading::before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    border-top: 7px solid #f5f5f5;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    float: right;
+    transform: rotate(0);
+    transition: all 0.5s;
+    margin-top: 5px;
+}
+.active.heading::before {
+    transform: rotate(-180deg);
+}
+.not-active.heading::before {
+    transform: rotate(0deg);
+}
+.contents {
+	display: none;
+	background: #FFFAFA;
+	padding: 15px;
+    color: #7f8fa4;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/*2번 단계---------------------*/
+.fund-title2{
+    font-size: 22px;
+    background-color: #A29584;
+    color: #f2f4f6;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+}
+.content-wrap2{
+    width: 650px;
+    margin: 0 auto;
+    padding: 0 0 100px;
+}
+.pay-step2{
+    height: 150px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.pay-step2 div{
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    display: block;
+    margin: 0 30px;
+    text-align: center;
+    border-radius: 45px;
+    border:2.2px dotted #60656a;
+    color: #60656a;
+    font-weight: 500;
+}
+.pay-step2 .active2{
+    background-color: #00c4c4;
+    border: none;
+    color: #f2f4f6;
+}
+
+.pay-wrap2{
+    padding-bottom: 15px;
+}
+
+
+.pay-wrap2>.coupon2{
+    border-top: 3px dotted #b3b3b3;
+    margin-top: 50px;
+    padding-top: 10px;
+    color: #4a4a4a;
+    font-size: 15px;
+    font-weight: 480;
+}
+
+.coupon-type2{
+    margin-top: 10px;
+    width: 500px;
+    height: 30px;
+    border-radius: 3px;
+    color: #60656a;
+    justify-content: center;
+    text-align: right;
+    padding-right: 20px;
+    margin-left: 100px;
+}
+.coupon-type2 option{
+    margin-right: 20px;
+}
+.coupon-type2:focus{
+    outline: none;
+}
+
+
+.pay-wrap2 .reward-active2{
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+.pay-info2{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.pay-info2 span:nth-child(1){
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.pay-info2>.reward-span2{
+    font-size: 13px;
+    font-weight:450;
+    color: #60656a;
+}
+.payment2{
+    margin-bottom: 50px;
+}
+.one-pay2{
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px 20px;
+    margin-bottom: 10px;
+}
+
+.checked-active2{
+    display: flex;
+    color: #4a4a4a;
+}
+.checkbox-wrap2{
+    margin-left: 20px;
+    margin-right: 40px;
+    margin-top: 20px
+}
+.checkbox-wrap2>input{
+    font-size: 20px;;
+    width: 20px;
+    height: 20px;
+}
+.reward-wrap2{
+    width: 100%;
+}
+.coupon-wrap2{
+    width: 100%;
+    margin-top: 60px;
+    border-top: 2px dotted #b3b3b3;
+    
+}
+
+
+
+.reward-price2{
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.reward-name2{
+    font-weight: 600;
+    color: #00c4c4;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.reward-remaining2{
+    font-size: 13px;
+    margin-left: 10px;
+    color: #00c4c4;
+}
+.reward-intro2{
+    font-size: 13px;
+    color: #969696;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.reward-fix2{
+    font-size: 13px;
+    color: #969696;
+    font-weight: 500;
+}
+.reward-active2{
+    font-size: 12px;
+    color: #60656a;
+    font-weight: 100;
+}
+
+.final-info2{
+    display: flex;
+}
+.final-info2 span{
+    padding-top: 10px;
+    color: #4a4a4a;
+    font-size: 15px;
+    font-weight: 500;
+}
+.flex-right2{
+    margin-left: auto;
+}
+.final-price2{
+    border-top: 2px solid #4a4a4a;
+    margin-top: 20px;
+}
+.final-price2 span{
+    font-size: 18px;
+    font-weight: 500;
+}
+.delivery-wrap2{
+    display: flex;
+}
+
+.supporter-wrap2{
+    width: 650px;
+    margin-top: 60px;
+}
+.supporter-info2{
+    font-size: 22px;
+    font-weight: 500;
+}
+.supporter-detail2{
+    background-color: #EEEDE9;
+    margin-right: 20px;
+    border-radius: 5px;
+    padding: 30px;
+}
+.supporter-detail2 div{
+    margin-bottom: 10px;
+    color: #4a4a4a;
+}
+.supporter-fix2{
+    font-weight: 600;
+}
+.delivery-detail2{
+    border-top: 3px solid #b3b3b3;
+    border-bottom: 3px solid #b3b3b3;
+    padding: 20px;
+    margin-left: auto;
+    font-weight: 500;
+}
+.delivery-detail2 input{
+    margin-bottom: 20px;
+    width: 300px;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #9F9583;
+}
+.post-find{
+    font-size: 14px;
+    font-weight: 400;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    line-height: 35px;
+    height: 35px;
+    background-color: #9F9583;
+    width: 120px;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#postcode,#address{
+    margin-bottom: 0;
+    border: none;
+}
+#postcode,#address:focus{
+    outline: none;
+}
+	
+.pay-btn2{
+    margin: 50px auto 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    line-height: 50px;
+    height: 50px;
+    background-color: #00c4c4;
+    width: 200px;
+    text-align: center;
+    display: block;
+    
+}
+.pay-btn2:hover{
+    transition: 0.5s;
+    background-color: #00b2b2;
+    color: #dadce0;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
+<div class="payPage1">
     <div class="fund-title">
         ${f.fundName}
     </div>
@@ -543,43 +984,184 @@ input {
         </div>
     </div><!--content-wrap-->
     
-<c:forEach items="${list }" var="r" varStatus="i">  
-	<div class="test-wrap" value="${r.rewardNo }" style="display:none;">	
-        <span class="reward-name2">${r.rewardName}</span>
-        <div class="reward-intro2">${r.rewardOption }
-           <span class="reward-fee2 reward-active2">원 펀딩</span>
-           <span class="reward-active2">수량 : 1개</span>
-        </div>
+</div><!-- 페이지1========================================================================== -->  
+
+<div class="payPage2">    <!--두번째 단계 ---------------------------------------------------------->
+    <div class="fund-title2">
+        [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
     </div>
-</c:forEach>
+    <div class="content-wrap2">
+        <div class="pay-step2">
+            <div class="">리워드 선택</div>
+            <div class="active2">결제</div>
+            <div>결제 확인</div>
+        </div>
+        <!--form-->
+        <form name="purchaseForm2" id="purchaseForm2" method="post">
+            <input type="hidden" name="" value="">
+            <!--전체 결제 상세-->
+            <div class="paymen2t">
+                <!--결제 상세1-->
+                <div class="one-pay2 first-wrap2">
+                    <div class="pay-wrap2">
+           			<c:forEach items="${list }" var="r" varStatus="i">                   
+                        <div class="reward-wrap2">
+                            <span class="reward-name2">${r.rewardName}</span>
+                            <div class="reward-intro2">${r.rewardOption }
+                                <span class="reward-fee2 reward-active2">0원 펀딩</span>
+                                <span class="reward-active2">수량 : 0개</span>
+                            </div>
+                        </div>
+                     </c:forEach>
+                        <div class="coupon-wrap">
+                            <div class="coupon">사용 가능 쿠폰</div>
+                            <select id="coupon-type2" class="coupon-type2">
+                                <option>쿠폰예시</option>
+                            </select>
+                        </div>
+                    </div>
+                </div><!--리워드박스-->
+                
+                <!--결제 상세2-->
+                <div class="pay-info2">
+                    <span>결제 금액</span>
+                </div>  
+                <div class="one-pay active2">
+                    <div class="final-info2">
+                        <span>펀딩금액</span>
+                        <span class="flex-right2 reward-sum2"></span>
+                    </div>
+                    <div class="final-info2">
+                        <span>쿠폰 차감금액</span>
+                        <span class="flex-right2">
+                        	-<span>원</span>
+                        </span>
+                    </div>
+                    <div class="final-info2">
+                        <span>추가 후원금</span>
+                        <span class="flex-right2 donation-input2"></span>
+                    </div>
+                    <div class="final-info2">
+                        <span>배송비</span>
+                        <span class="flex-right2">
+                        	-<span>원</span>
+                        </span>
+                    </div>
+                    <div class="final-info2 final-price2">
+                        <span>최종 결제 금액</span>
+                        <span class="flex-right2">0원</span>
+                    </div>
+                </div>
+            </div><!--전체 결제 상세-->
+            <!--서포터 정보, 배송지-->
+            <div class="delivery-wrap2">
+                <div class="supporter-wrap2">
+                    <div class="supporter-info2">
+                     	   펀딩 서포터
+                    </div>
+                    <div class="supporter-detail2">
+                        <div class="supporter-fix2">이름</div>
+                        <div>${sessionScope.m.memberName }</div>
+                        <div class="supporter-fix2">이메일</div>
+                        <div>${sessionScope.m.memEmail }</div>
+                        <div class="supporter-fix2">휴대폰 번호</div>
+                        <div>${sessionScope.m.memPhone }</div>
+                    </div>        
+                </div>    
+                <div class="supporter-wrap2">
+                    <div class="supporter-info2">
+                  	      리워드 배송지
+                    </div>
+                    <div class="delivery-detail2">
+                        <div>이름</div>
+                        <input class="delivery-active2">
+                        <div>휴대폰 번호</div>
+                        <input class="delivery-active2">
+                        <div>주소</div>
+                                    
+                        <!--주소 API-->
+                    	<div class="address-wrap">
+							<button type="button" id="post-find" class="post-find" onclick="searchAddr();">주소찾기</button>
+                            <input type="text" name="postcode" id="postcode" class="input-form" placeholder="주소를 먼저 검색하세요" readonly>
+                            <input type="text" name="address" id="address" class="input-form" placeholder="상세주소 입력란" readonly>
+                            <input type="text" name="detailAddress" id="detailAddress" class="input-form" placeholder="상세주소">
+                        <div>배송 시 요청사항(선택)</div>
+                        <input class="delivery-active2" placeholder="ex) 부재시 경비실에 보관해주세요.">
+                    </div>        
+                </div>
+            </div>
+        </form>
+    </div><!--content-wrap-->
+    <button id="payment2" class="pay-btn2">펀딩 결제하기</button>
+
+</div>
+ 
+<input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
+<input type="hidden" class="fundCategory" value="${f.fundCategory }">
+  
+  
+  
     
 <script>
-
-	//다음단계 이동
-		$("#confirm").click(function(){
-			//<결제 관련 다음페이지 필요한 것>
-			//각 리워드 별 금액, 선택한 수량
-			let rewardNo = $("input[name='reward-check']:checked");
-			//반복문 처리 rewardNo 여러개 넘겨야 함 배열같은거로  //받을 때도 리워드 no... 
-
-			//console.log(rewardNo);
-			//배송비 -> 다음 페이지에서 제이쿼리로 해도 될듯  ----> let fpayDeliveryfee=0;
-			//추가 후원금
-			//리워드 총금액 + 추가 후원금
-			let fpayFunding = Number($(".funding-sum").text());
-			
-			//<쿠폰용>
-			//결제할 멤버 번호
-			const memberNo = $(".memberNo").val();
-			//카테고리명
-			const fundCategory = $(".fundCategory").val();
-			//선택한 리워드 총금액
-			let rewardSum = Number($(".reward-sum").val()); 
-	
-		location.href = "/pay.do?fundNo=${f.fundNo}&fundCategory="+fundCategory+"&memberNo="+memberNo+"&rewardSum="+rewardSum;
-		//&fundCategory="+fundCategory+"&memberNo="+memberNo+"&rewardNo="+rewardNo+"&rewardSum="+rewardSum;
+	//페이지 컨트롤
+	$(document).ready(function(){	
+		$(".payPage1").show();
+		$(".payPage2").hide();
+	});
+	//2단계
+	$("#confirm").on("click",function(){
+		$(".payPage2").show();
+		$(".payPage1").hide();
 	});
 	
+
+	//결제 페이지
+	$("#confirm").on("click",function(){
+		//<쿠폰용>
+		//결제할 멤버 번호
+		const memberNo = $(".memberNo").val();
+		//카테고리명
+		const fundCategory = $(".fundCategory").val();
+		//선택한 리워드 총금액
+		let rewardSum = Number($(".reward-sum").val()); 
+		
+		$.ajax({
+			url : "/selectCouponList.do",
+			data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum},
+			success : function(data){
+				const select = $("#coupon-type2");
+				select.empty();
+				for(let i=0; i<data.length; i++){
+					select.append("<option value="+data[i].couponType+">"+data[i].couponName+"</option>");
+				}//for문
+			}
+		});
+	});
+
+	//쿠폰 차감
+    $("#coupon-type2").on("change",function(){
+        let couponType = $("#coupon-type2 option:selected").val();
+        console.log(couponType);
+        //val 0:배송비 무로, 1:%할인, 2:원화 할인
+        
+        $.ajax({
+            url:'/couponType.do',
+            data: {yellow_id:$(this)[0].value},
+            success: function (data) {
+                selectTerm = "<option value='0'>템플릿코드</option>"; 
+                $("#template_code option").remove(); 
+                $.each(JSON.parse(data) , function (key, value) {
+                    selectTerm += "<option value=" + value.code + ">" + value.name + "</option>";
+                }); 
+                $("#template_code").append(selectTerm);
+            },
+            error: function () {
+                console.log('error');
+            }
+        }); 
+    });
+	
+
 
 	//리워드 토글
 	$('.reward-check').click(function(){
@@ -587,19 +1169,19 @@ input {
 		const index = $('.reward-check').index(this);
 		//console.log("reward-wrap : "+$(".test-wrap").length);
 		if(amountBox.css('display')==('none')){	//none일 때
-			console.log(index+"인덱스");
+			//console.log(index+"인덱스");
 			//보이게하기
 			amountBox.css('display','block');
 			//console.log($(".amount-btn").length);
 			$(".amount-btn").eq(2*index+1).click();		
-			$(".test-wrap").eq(index).show();
+			$(".reward-wrap2").eq(index).show();
 	
 		}else{ //block일 때
 			amountBox.css('display','none');
 			$(".amount-input").eq(index).val(0);
 			$(".reward-total").eq(index).val(0);	
 			//$(".amount-btn").eq(2*index-1).click();	
-			$(".test-wrap").eq(index).hide();
+			$(".reward-wrap2").eq(index).hide();
 		}
 		totalPrice();
 	});
@@ -610,13 +1192,13 @@ input {
 			   	let count = Number($(obj).prev().val());
 			   	//리워드 sum 총액만 구하기용			   	
 			    const countUp = count + 1;
-			    console.log(countUp);
+			    //console.log(countUp);
 			    $(obj).prev().val(countUp);
 			    //리워드 1개
 			    const rewardPrice = Number($(obj).next().val());
 			    const rewardTotal = countUp * rewardPrice;
-			    $(obj).next().next().val(rewardTotal);
-			    $(".reward-fee2").val(rewardTotal);
+			    $(obj).next().next().val(rewardTotal);    
+			    //다음페이지
 		    
 	    	}else if(type=='down'){
 		    	let count = Number($(obj).next().val());				
@@ -638,16 +1220,20 @@ input {
 			totalPrice();
 		});
 
+	//토탈 함수
 		function totalPrice(){
 			const checkBox = $('.reward-check:checked');
 			let totalPrice = 0;
 			for(let i=0;i<checkBox.length;i++){
 				totalPrice += Number(checkBox.eq(i).parents(".one-reward").find(".reward-total").val());
 			}
-			console.log(totalPrice);
+			//console.log(totalPrice);
 			$(".reward-sum").val(totalPrice);
+			$(".reward-sum2").text(totalPrice+"원");	//다음페이지
 			let currentDonation = Number($(".donation-input").val());
 			$(".funding-sum").text(totalPrice+currentDonation);
+			$(".donation-input2").text(currentDonation+"원");
+			
 		}
 	
 	
@@ -698,7 +1284,23 @@ input {
 	    });
 	});
 
-	    
+	//============================================================
+	//주소 API
+	//다음 우편번호 주소찾기
+		function searchAddr(){
+		    new daum.Postcode({
+		        oncomplete: function(data) { //data에 선택한 주소가 들어감
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            console.log(data);
+		        	//들어오는 data값 사용해서 활용하면 됨
+		        	$("#postcode").val(data.zonecode);
+		        	$("#address").val(data.roadAddress);
+		        	$("#detailAddress").focus();
+		        }
+		    }).open();
+		}
+	
 </script>
     
 </body>

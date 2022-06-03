@@ -85,6 +85,11 @@ public class FundListDao {
 	public Coupon selectOneCoupon(HashMap<String, Object> map) {
 		return sqlSession.selectOne("fundPay.selectOneCoupon",map);
 	}
+
+	public ArrayList<Coupon> selectCouponList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("fundPay.selectCouponList",map);
+		return (ArrayList<Coupon>)list;
+	}
 	
 	
 

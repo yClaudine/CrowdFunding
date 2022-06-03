@@ -559,7 +559,7 @@ justify-content: right;
                 <span class="total-supporter">
                     <strong>499</strong> 명의 서포터
                 </span><br>
-                <a href="/payReward.do?fundNo=${f.fundNo }" class="funding-linkwrap">
+                <a href="/payFunding.do?fundNo=${f.fundNo }" class="funding-linkwrap">
                     <div class="funding-link">펀딩하기</div>
                 </a>
                 <br>

@@ -317,9 +317,8 @@
                             <div class="coupon">사용 가능 쿠폰</div>
                             <select name="coupon-type" class="coupon-type">
                             <c:forEach items="${clist }" var="c" varStatus="i">
-                                <option><span>${c.couponName}</span></option>                                                        
+                                <option>${c.couponName}</option>                                                        
                             </c:forEach>
-                            	<option><span>쿠폰 예시</span></option>
                             </select>
                         </div>
                     </div>
@@ -331,7 +330,7 @@
                 </div>  
                 <div class="one-pay active">
                     <div class="final-info">
-                        <span>리워드 금액</span>
+                        <span>리워드 총 금액</span>
                         <span class="flex-right">100,090 원</span>
                     </div>
                     <div class="final-info">
@@ -384,8 +383,6 @@
                             <input type="text" name="postcode" id="postcode" class="input-form" placeholder="우편번호를 먼저 검색하세요" readonly>
                             <input type="text" name="address" id="address" class="input-form" placeholder="상세주소 입력란" readonly>
                             <input type="text" name="detailAddress" id="detailAddress" class="input-form" placeholder="상세주소">
-                        </input>
-
                         <div>배송 시 요청사항(선택)</div>
                         <input class="delivery-active" placeholder="ex) 부재시 경비실에 보관해주세요.">
                     </div>        
