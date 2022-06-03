@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.fund.model.vo.Fund;
+import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
 import kr.or.store.model.vo.Store;
@@ -95,6 +96,11 @@ public class ManagerDao {
 	public Member selectOneMember(int memberNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("manager.selectOneMember", memberNo);
+	}
+
+	public ArrayList<Dm> selectReportList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("manager.selectReportList",map);
+		return (ArrayList<Dm>)list;
 	}
 
 	

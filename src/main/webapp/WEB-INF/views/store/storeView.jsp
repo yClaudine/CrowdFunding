@@ -304,6 +304,15 @@ html>body {
 		padding-left: 15px;
 		font-size: 15px;
 	}
+	.wrap{
+		display: flex;
+	}
+	.priceno1{
+		padding-left: 150px;
+	}
+	.storeAllPrice{
+		padding-top: 20px;
+	}
 </style>
 </head>
 <body>
@@ -311,20 +320,27 @@ html>body {
 	<div class="content-wrap">
 		<div class="img-box">${s.storeImg1 }</div>
 			<div class="content-detail">
-				<div class="store-category" id="category">${s.storeCategory }</div><div class="priceno" id="priceno">${s.storeTitle }</div>
+				<div class="wrap">
+				<div class="store-category" id="category">${s.storeCategory }</div><div class="priceno1" id="priceno">${s.storeTitle }</div></div>
 				<div class="store-select">
-					<div class="store-name">${s.storeProduct }<div class="priceno">${s.storePrice }원</div></div><br>
+					<div class="store-name">${s.storeProduct }<div class="priceno">${s.storePrice } 원</div></div><br>
 					<div class="pm">
 						<input type='button' onclick='count("minus")' value='-' style="width: 25px;"/>						
 						&nbsp;&nbsp;<div id='result'>1</div>&nbsp;&nbsp;
 						<input type='button' onclick='count("plus")' value='+' style="width: 25px;"/>
 					</div><br><br>
 					<div class="store-delivery">
-						<div class="price-ko">배송비</div><div class="priceno">${s.storeDelivery } 원</div></div><br>
+						<div class="price-ko">배송비</div><div class="priceno">${s.storeDelivery } 원</div></div><br></div>
 					<div class="storeAllPrice">
-					<div class="price-ko">총 결제금액</div><div class="priceno" id="allprice">${s.storeDelivery+s.storePrice}</div></div>
-				</div>
-			<button type="submit" id="buy-button" style="width: 300px; height:40px; background-color: #00c4c4;">구매하기</button>
+					<div class="price-ko">총 결제금액</div><div class="priceno" id="allprice">${s.storeDelivery+s.storePrice} </div></div>
+					<c:choose>
+						<c:when test="${!empty sessionScope.m }">
+							<button type="submit" id="buy-button" style="width: 300px; height:40px; background-color: #00c4c4;">구매하기</button>
+						</c:when>
+						<c:otherwise>
+							<br><br><a href="/" style="padding-left:10px; text-decoration: none; color: #00b2b2;"> 로그인 후 구매가 가능합니다.(click!)</a>
+						</c:otherwise>
+					</c:choose>
 		</div>
 	</div><br><br>
     <div class="tab-wrap">
@@ -586,7 +602,7 @@ html>body {
 		  // 결과를 표시할 element 구매수량
 		  const resultElement = document.getElementById('result');
 		// 결과를 표시할 element 총가격
-		  const allPrice = document.getElementById('priceno');
+		  const allPrice = document.getElementById('allprice');
 		  // 현재 화면에 표시된 값 구매수량
 		  let number = resultElement.innerText;
 		  // 더하기/빼기누를때
@@ -605,11 +621,11 @@ html>body {
 			  }
 			  
 		  }
-			//총 가격=상품가격*구매수량+배송비
-		  let priceno = ${s.storePrice }*number+${s.storeDelivery }+" 원";
+		  //총 가격=상품가격*구매수량+배송비
+		  let priceno = ${s.storePrice }*number+${s.storeDelivery };
 		  
 		  // 결과 출력
-		  document.getElementById('priceno').value = priceno;
+		  document.getElementById('allprice').value = priceno;
 		  allPrice.innerText = priceno;
 		  resultElement.innerText = number;
 		}
@@ -632,6 +648,7 @@ html>body {
 			location.href="/storePayment.do?storeNo=${s.storeNo}&number="+number+"&totalprice="+totalprice+"&storeCategory="+storeCategory;
 		}
 	});
+
 	
 	$(function(){
 	    const tabs = $(".tabs>li");

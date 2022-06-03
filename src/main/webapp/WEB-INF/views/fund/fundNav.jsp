@@ -77,6 +77,6 @@
 			<li><a href="/fundStoryUpdateFrm.do?tfNo=${tmpF.tfNo}">스토리 작성</a></li>
 			<li><a href="/fundRewardCreateFrm.do?tfNo=${tmpF.tfNo}">리워드 설계</a></li>
 			<li><a href="/fundPolicyCreateFrm.do?tfNo=${tmpF.tfNo} ">위험요인 및 정책</a></li>
-			<li><a href="#">대표자 및 정산정보</a></li>
+			<li><a href="/fundCalculateFrm.do?tfNo=${tmpF.tfNo}">대표자 및 정산정보</a></li>
 		</ul>
 </ul>

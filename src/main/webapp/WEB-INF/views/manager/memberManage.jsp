@@ -349,7 +349,7 @@ select{
 			                            	</c:choose>
 											
 										</td>
-										<td>경고수</td>
+										<td>${mem.memberWarning }</td>
 			                            <td>
 			                            	<input type="hidden" class="authRe" value=${mem.authRe }>
 			                                <select name="authChange" id="authChange">
@@ -359,7 +359,7 @@ select{
 			                            </td>
 			                            <td>
 			                                <button type="button" class="btn btn-primary authChange">권한수정</button>
-			                                <button type="button" class="btn btn-primary detail">상세보기</button>
+			                                <button type="button" class="btn btn-primary detail">경고관리</button>
 			                                <input type="hidden" value="${mem.memberId }" >
 			                                <input type="hidden" >
 			                            </td>

@@ -12,6 +12,8 @@ import com.google.gson.Gson;
 import kr.or.member.service.DmService;
 import kr.or.member.vo.Dm;
 
+import kr.or.member.vo.pagiDm;
+
 @Controller
 public class DmController {
 
@@ -26,11 +28,13 @@ public class DmController {
 	
 	@RequestMapping(value="/getDmList.do",produces ="application/json;charset=utf-8")
 	@ResponseBody
-	public String getDmList(String memberId, int check) {
+	public String getDmList(String memberId, int check,int req) {
 		
-		ArrayList<Dm> list = service.selectDmList(memberId,check);
 		
-		return new Gson().toJson(list);
+		pagiDm dm = service.selectDmList(memberId,check,req);
+		 
+		
+		return new Gson().toJson(dm);
 	}
 	
 	@RequestMapping(value="/selectOneDm",produces = "application/json;charset=utf-8")
@@ -41,10 +45,18 @@ public class DmController {
 		
 		return new Gson().toJson(m);
 	}
-	@RequestMapping(value="readCk.do",produces="application/jason;charset=utf-8")
+	@RequestMapping(value="readCk.do",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String readCk(int dmNo) {
 		int result = service.updateReadCk(dmNo);
+		return new Gson().toJson(result);
+	}
+	
+	@RequestMapping(value="/deleteMessage.do",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String deleteMessage(int dmNo) {
+		
+		int result = service.deleteMessage(dmNo);
 		return new Gson().toJson(result);
 	}
 }
