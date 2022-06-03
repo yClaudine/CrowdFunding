@@ -74,4 +74,14 @@ public class FundTmpDao {
 		return sqlSession.update("tmpFund.updateTmpPolicy",tf);
 	}
 
+	public int createTmpFundCalculate(TmpFundCalculate tfc) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("tmpFund.createTmpFundCalculate",tfc);
+	}
+
+	public int updateTmpFundCalculate(TmpFundCalculate tfc) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpFund.updateTmpFundCalculate",tfc);
+	}
+
 }

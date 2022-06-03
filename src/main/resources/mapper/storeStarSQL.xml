@@ -31,7 +31,8 @@
 			from store_star order by star_no desc)
 			WHERE storeno=#{storeNo}
 	</select>
-	<insert id="insertComment" parameterType="ss">
+	<!-- storepay가 꼭 있어야 함 -->
+	<insert id="insertComment" parameterType="ss">	
 		INSERT INTO store_star VALUES
 		(STORE_STAR_SEQ.nextval,#{storeNo},#{storepayNo},#{storeProduct},#{memberId},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},#{storeReportcount})
 	</insert>

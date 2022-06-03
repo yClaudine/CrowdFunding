@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3><a href="/storeList.do?reqPage=1">상품전체보기</a></h3>
+	<h3><a href="/storeList.do?reqPage=1&storeCategory=all">상품전체보기</a></h3>
 </body>
 </html>
