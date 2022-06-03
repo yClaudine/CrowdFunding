@@ -70,4 +70,14 @@ public class FundTmpService {
 		return dao.updateTmpPolicy(tf);
 	}
 
+	public int createTmpFundCalculate(TmpFundCalculate tfc) {
+		// TODO Auto-generated method stub
+		return dao.createTmpFundCalculate(tfc);
+	}
+
+	public int updateTmpFundCalculate(TmpFundCalculate tfc) {
+		// TODO Auto-generated method stub
+		return dao.updateTmpFundCalculate(tfc);
+	}
+
 }

@@ -8,7 +8,16 @@
  	
  	<insert id="dmInsert" parameterType="d">
  		<!-- 아직은 이렇게 정보 입력  -->
- 		insert into message values(dm_seq.nextval,#{sendMemId},#{recvMemId},#{mTitle},#{mContent},to_char(sysdate,'yyyy-mm-dd hh:mi:ss'),'0',1,0,#{category},0 )
+ 		insert into message values(dm_seq.nextval,#{sendMemId},#{recvMemId},#{mTitle},#{mContent},to_char(sysdate,'yyyy-mm-dd hh:mi:ss'),'0',1,
+ 		<choose>
+ 				<when test="sendMemId.equals('admin')">
+ 					1,
+ 				</when>
+ 				<otherwise>
+ 					0,
+ 				</otherwise>
+ 		</choose>
+ 		#{category},#{categoryNo} )
  	</insert>
  	<select id="selectDmList" parameterType="map" resultType="d">
  		select * from(select rownum as rnum, p.* from (select 
@@ -57,6 +66,7 @@
  		update message set read_ck=0,m_Rectime=to_char(sysdate,'yyyy-mi-dd hh:mm:ss') where dm_no = #{dmNo}
 	</update>
 	
+
 	<select id="totalCount" parameterType="map" resultType="int">
 	 	select count(*) from message where 
 	 	<choose>
@@ -74,4 +84,20 @@
 	<delete id="deleteMessage" parameterType="int">
 		delete from message where dm_no = #{dmNo}
 	</delete>
+
+	<update id="reportCount" parameterType="map">
+		<choose>
+			<when test="category == 1">
+				update fund set fund_warning = fund_warning+1, fund_reportcount=0 where fund_no=#{categoryNo}
+			</when>
+			<when test="category == 2">
+				update store set store_warning = store_warning+1, store_reportcount=0 where store_no=#{categoryNo}
+			</when>
+			<when test="category == 3">
+				update member_tbl set member_warning = member_warning+1, report=0 where member_id=#{recvMemId}
+			</when>
+		</choose>
+	</update>
+	
+	
 </mapper>

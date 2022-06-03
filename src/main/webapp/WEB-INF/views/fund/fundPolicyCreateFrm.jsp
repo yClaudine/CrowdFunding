@@ -229,6 +229,7 @@
 			const text = "${tmpF.tfAs}";
 			tfAs = text.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
 			$(".aspolicy-wrap>textarea").val(tfAs);
+			$(".aspolicy-wrap>textarea").keydown();
 			const checkBox = $("[type=checkbox]");
 			$.each(checkBox,function(index,item){
 				item.checked = true;

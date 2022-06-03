@@ -52,6 +52,9 @@ html>body {
 		flex-wrap: wrap;
 		margin: 5px 5px 5px;
 	}
+	.content-categorylist>span:hover{
+		cursor: pointer;
+	}
 	.allcontent-wrap{
 		width: 90%;
 		margin: 0 auto;
@@ -65,8 +68,7 @@ html>body {
 		text-decoration: none;
 		color: black;
 	}
-	.content-wrap1{
-	}
+
 	.content{
 		width: 25%;
 		padding: 25px 5px 15px;
@@ -85,6 +87,10 @@ html>body {
 		border-radius: 50%;
 		font-weight: bold;
 	}
+
+	.material-symbols-outlined:focus{
+		border: 2px solid #00b2b2;
+	}
 </style>
 </head>
 <body>
@@ -95,43 +101,38 @@ html>body {
 			<h5>상품 카테고리</h5>
 			<div class="content-category">
 				<div class="content-categorylist">
-					<a href="/home.do"><span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
+					<span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">가전</span>
+	                	<span class="store-content">home</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
-					<a href="/beauty.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">뷰티</span>
+	                	<span class="store-content">beauty</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
-					<a href="/pet.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">반려동물</span>
+	                	<span class="store-content">pet</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
-					<a href="/travel.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">여행</span>
+	                	<span class="store-content">travel</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
-					<a href="/food.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">푸드</span>
+	                	<span class="store-content">food</span>
 	                </div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="content-wrap">
-			<div class="content-list">
-				<span class="material-symbols-outlined">favorite</span><b>BEST 상품</b>
-			</div>
-	
 	
 	
 	</div>
@@ -162,5 +163,12 @@ html>body {
 		</div>
 	</div>
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
+	<script>
+	$(".material-symbols-outlined").on("click",function(){
+		const storeCategory = $(this).next().children().text();
+		location.href="/storeList.do?reqPage=1&storeCategory="+storeCategory;
+	});
+
+	</script>
 </body>
 </html>

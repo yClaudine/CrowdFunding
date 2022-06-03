@@ -56,11 +56,42 @@
 			    store_no as storeNo,
 			    member_id as memberId,
 			    store_product as storeProduct,
-			    store_productcontent as storeProductcontent
-			from store order by store_no desc)s)
-			where rnum between #{start} and #{end}
+			    store_productcontent as storeProductcontent,
+			    store_category as storeCategory
+			from store
+	  	<if test="!storeCategory.equals('all')">
+	 	where store_category=#{storeCategory}
+	 	</if>
+	 	 order by store_no desc
+	 	 )s)where rnum between #{start} and #{end}
 	</select>
-	<select id="selectTotalCount" resultType="int">
+	<select id="selectTotalCount" parameterType="map" resultType="int">
 		select count(*) from store
+		<if test="!storeCategory.equals('all')">
+	 	where store_category=#{storeCategory}
+	 	</if>
+	</select>
+	<select id="selectStoreCategoryList" parameterType="map" resultType="s">
+		select
+	  		store_no as storeNo,
+	  		member_id as memberId,
+	  		store_title as storeTitle,
+	  		store_category as storeCategory,
+	  		store_content as storeContent,
+	  		store_product as storeProduct,
+	  		store_productcontent as storeProductcontent,
+	  		store_price as storePrice,
+	  		store_count as storeCount,
+	  		store_delivery as storeDelivery,
+	  		store_return as storeReturn,
+	  		store_change as storeChange,
+	  		store_reportcount as storeReportcount,
+	  		store_warning as storeWarning,
+	  		store_img1 as storeImg1,
+	  		store_img2 as storeImg2,
+	  		store_img3 as storeImg3,
+	  		store_img4 as storeImg4,
+	  		store_img5 as storeImg5
+	  	from store where store_category=#{storeCategory}
 	</select>
 </mapper>

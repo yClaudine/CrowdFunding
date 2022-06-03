@@ -17,7 +17,7 @@ public class TmpFundCalculate {
 	private String tfcRepBirth;
 	private String tfcMail;
 	private String tfcBankName;
-	private int tfcBankNo;
+	private long tfcBankNo;
 	private String tfcBankAccount;
 	private String tfcBankFilepath;
 

@@ -67,12 +67,14 @@ public class DirectMessageHandler extends TextWebSocketHandler{
 			String mContent = element.getAsJsonObject().get("mContent").getAsString();
 			String mTitle = element.getAsJsonObject().get("mTitle").getAsString();
 			int category = element.getAsJsonObject().get("category").getAsInt();
+			int categoryNo = element.getAsJsonObject().get("categoryNo").getAsInt();
 			Dm dm = new Dm();
 			dm.setSendMemId(sendMemId);
 			dm.setRecvMemId(recvMemId);
 			dm.setMContent(mContent);
 			dm.setCategory(category);
 			dm.setMTitle(mTitle);
+			dm.setCategoryNo(categoryNo);
 			int result = service.insertDm(dm); //받은 쪽지가 몇개인지 들어와있는 상태 sender에 session에 알림이 receiver에게 가야합니다. 
 			if(result!= -1) {
 				WebSocketSession receiverSession = connectMembers.get(recvMemId);
@@ -80,6 +82,10 @@ public class DirectMessageHandler extends TextWebSocketHandler{
 					TextMessage tm = new TextMessage(String.valueOf(result));
 					receiverSession.sendMessage(tm);
 				}
+			}
+			//관리자가 경고쪽지 보낼시, 해당 테이블 경고수 count++
+			if(sendMemId.equals("admin")) {
+				int result2 = service.reportCount(category, categoryNo, recvMemId);
 			}
 		}
 		

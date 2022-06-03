@@ -46,6 +46,7 @@ public class Dmdao {
 		return result;
 	}
 
+
 	public int TotalCount(HashMap<String, Object> count) {
 		
 		int Tcount = sqlSession.selectOne("dm.totalCount",count);
@@ -60,4 +61,10 @@ public class Dmdao {
 
 
 	
+
+	public int reportCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("dm.reportCount", map);
+	}
+
 }

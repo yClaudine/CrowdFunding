@@ -35,8 +35,8 @@ public class StoreDao {
 		return (ArrayList<Store>)list;
 	}
 
-	public int selectStoreCount() {
-		int totalCount = sqlSession.selectOne("store.selectTotalCount");
+	public int selectStoreCount(HashMap<String, Object> map) {
+		int totalCount = sqlSession.selectOne("store.selectTotalCount",map);
 		return totalCount;
 	}
 
@@ -65,7 +65,6 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("storepay.selectOneCoupon",map);
 	}
-
 
 
 

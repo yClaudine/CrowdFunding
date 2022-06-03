@@ -162,6 +162,72 @@ select{
 .review-tbl tr>*:last-child{
 	width: 60%;
 }
+.modal-wrap{
+    width: 100vw;
+    height: 130vh;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.detail-modal{
+    background-color: #e7f9f9;
+    min-width: 600px;
+    min-height: 500px;
+    border-radius: 5px;
+}
+.modal-header{
+	width: 190px;
+	margin: 0 auto;
+	padding: 10px;
+}
+.modal-top h3{
+	margin: 0;
+}
+.detail-table{
+	margin: 5px auto;
+	min-height: 300px;
+	width: 100%;
+}
+.detail-table tr{
+	border: 1px solid #bfbfbf;
+}
+.detail-table th{
+	border: 1px solid #bfbfbf;
+	width: 17%;
+	vertical-align: middle;
+	text-align:center;
+}
+.detail-table td{
+	vertical-align: middle;
+	padding: 5px;
+}
+.report-tbl tr>th:nth-child(2), .report-tbl tr>td:nth-child(2){
+	width: 20%;
+}
+.report-tbl tr>th:nth-child(4), .report-tbl tr>td:nth-child(4){
+	width: 40%;
+}
+.report-tbl tr>th:nth-child(5), .report-tbl tr>td:nth-child(5){
+	width: 10%;
+}
+.detail-table input{
+	width: 100%;
+}
+
+.btns{
+	width: 100px;
+	height: 50px;
+	border: #00c4c4;
+	background-color:  #00c4c4;
+	color: #ffffff;
+	margin: 5px;
+	border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -216,7 +282,7 @@ select{
           	 		</div>
             </div>
             <div class="mini-title"><h4>경고 관리</h4></div>
-            <button type="button" class="btn btn-primary">쪽지 보내기</button>
+            <button type="button" class="btn btn-primary" onclick="sendDmModal();" >쪽지 보내기</button>
             <div class="box report">
             	<c:choose>
 	            	<c:when test="1=2">
@@ -227,13 +293,14 @@ select{
 			            	<table class="table table-hover report-tbl">
 			                    <thead>
 			                        <tr>
-			                            <th>보낸날짜</th>
 			                            <th>받은사람</th>
-			                            <th>읽음여부</th>
+			                            <th>제목</th>
+			                            <th>보낸시간</th>
 			                            <th>내용</th>
+			                            <th>읽음여부</th>
 			                        </tr>
 			                    </thead>
-			                    <tbody class="tbody">
+			                    <tbody class="tbody sendTbody">
 			                    	
 			                    </tbody>
 			                </table> 
@@ -245,7 +312,125 @@ select{
            
         </div>
     </div>
+    <!-- 쪽지 보내기 모달 -->
+  <div id="sendDm-modal" class="modal-wrap">
+		<div class="detail-modal">
+			<div class="modal-header"><h3>쪽지보내기</h3></div>
+			<hr>
+			<div >
+				<table class="sendDmFrm detail-table">
+					<tr>
+						<th>수신자 : </th>
+						<td><input  id="memberId" name="memberId" value="${memberId }" readonly></td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td><input type="text" name="mTitle"></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td><textarea cols="60" rows="10" name="dmContent"></textarea></td>
+					</tr>
+				</table>
+				<button class="btns" onclick="dmSend();">쪽지보내기</button>
+				<button class="btns modal-close" onclick="dmClose();">닫기</button>
+			</div>
+		</div>
+	</div>
+	
   
+  
+  
+  
+  <script>
+  
+  let memberId;
+  let ws;
+	$(function(){
+		memberId = $("#memberId").val();
+		ws = new WebSocket("ws://localhost/dm.do");
+		ws.onopen = onOpen;
+		ws.onmessage = receiveMsg;
+		ws.onclose = onClose;
+	});
+	function onOpen(){
+		//소켓연결이 되면 자동으로 실행되는 메서드
+		const data = {type:"enter",memberId:memberId};
+		ws.send(JSON.stringify(data));
+	}
+	function receiveMsg(param){
+		getSendDm();
+	}
+	function onClose(){
+		
+	}
+	
+//쪽지보내기 클릭시 모달띄우기
+	function sendDmModal(){
+		$("#sendDm-modal").css("display","flex");
+	}
+	function dmClose(){
+        $("#sendDm-modal").css("display","none");
+        $("[name=dmContent]").val("");
+        $("[name=mTitle]").val("");
+    }
+	
+//쪽지보내기 버튼
+	function dmSend(){
+		const dmContent = $("[name=dmContent]").val();
+		const mTitle = $("[name=mTitle]").val();
+		const data = {
+				type: "dmSend",
+				sendMemId: "admin",
+				recvMemId : memberId,
+				mContent : dmContent,
+				mTitle: mTitle,
+				category: 3,
+				categoryNo: 1
+		}
+		//data를 json객체로 만들어 넘겨주기
+		ws.send(JSON.stringify(data));
+		getSendDm();  //보낸메세지함 업데이트
+		dmClose(); //모달닫기
+		
+	}
+//쪽지보내기 버튼시 보낸메세지함 업데이트
+	function getSendDm(){
+		$.ajax({
+			url : "/getReportList.do",
+			type : "post",
+			data : {
+					memberId:memberId, 
+					category: 3,
+					categoryNo: 1
+					},
+			success : function(list){
+				const tr= $(".sendTbody");
+				tr.empty();
+				let code;
+				if(list.length == 0){
+					code = "<tr><td colspan='5'>쪽지가 없습니다.</td></tr>";
+				}else{
+					for(let i=0; i<list.length;i++){
+						if(list[i].readCk == 0){
+							code += "<tr><td>"+list[i].recvMemId+"</td><td>"+list[i].mTitle+"</td><td>"+list[i].mDatetime+"</td><td>"+list[i].mContent+"</td><td>읽음</td></tr>"
+						}else{
+							code += "<tr><td>"+list[i].recvMemId+"</td><td>"+list[i].mTitle+"</td><td>"+list[i].mDatetime+"</td><td>"+list[i].mContent+"</td><td>읽지않음</td></tr>"
+						}
+						
+						//code += "<tr><td>"+list[i].recvMemId+"</td><td>"+list[i].mTitle+"</td><td>"+list[i].mDatetime+"</td><td>"+list[i].mContent+"</td><td>"+읽음+"</td></tr>"
+					}
+				}
+				tr.append(code);
+				
+				
+			}
+		});
+	}
+ 
+	
+	
+  </script>
 	
 </body>
 </html>
