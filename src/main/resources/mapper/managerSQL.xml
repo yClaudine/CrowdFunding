@@ -137,7 +137,8 @@
 		category_no as categoryNo,
 		report,
 		auth_re as authRe,
-		mem_comment as memComment
+		mem_comment as memComment,
+		member_warning as memberWarning
 	from member_tbl where
 	
 	<choose>
@@ -395,7 +396,34 @@
 	from member_tbl where member_no=#{memberNo}
 
 </select>
+<select id="selectReportList" parameterType="map" resultType="d">
+	select 
+ 			dm_no as dmNo,
+ 			send_mem_id as sendMemId,
+ 			recv_mem_id as recvMemId,
+ 			m_title as mTitle,
+ 			m_content as mContent,
+ 			m_datetime as mDatetime,
+ 			m_rectime as mRectime,
+ 			read_ck as readCk,
+ 			warning,
+ 			category,
+ 			category_no as categoryNo
+ 			from message where 
+ 			send_mem_id = 'admin'
+ 			and recv_mem_id =#{memberId}
+ 			and category = #{category}
+ 			<choose>
+ 				<when test="category==1">
+ 					and category_no = #{categoryNo}
+ 				</when>
+ 				<when test="category==2">
+ 					and category_no = #{categoryNo}
+ 				</when>
+ 			</choose>
+ 			order by read_ck desc, dm_no desc 
 
+</select>
 
 
 

@@ -125,6 +125,34 @@ public class FundTmpController {
 	//FUND 신청하기 메서드 추후 작성
 	@RequestMapping(value="/CreateFund.do")
 	public String CreateFund(int tfNo) {
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		//해당하는 임시 펀드 번호로 해당하는 데이터들을 모두 불러오기 
+		TmpFund tmpF = service.selectOneTmpFund(tf);
+		ArrayList<TmpReward> tRList = service.selectReward(tf);
+		TmpFundCalculate tfc = service.selectOneFundCalculate(tf);
+		//불러온 값들을 펀드 테이블과 연계된 테이블에 인서트
+		int result = 1;
+		//펀드 테이블로 -> 해당 메서드는 새로 생성될 펀드 번호 return
+		int fundResult = service.createFund(tmpF);
+		result *= fundResult;
+		//리워드 테이블로 -> 각 임시 리워드에 위의 펀드 번호 세팅
+		for(TmpReward tr : tRList) {
+			tr.setTfNo(fundResult);;
+			int rewardResult = service.createReward(tr);
+			result *= rewardResult;
+		}
+		//정산 테이블로 -> 위의 펀드 번호 세팅
+		tfc.setTfNo(fundResult);
+		int calculateResult = service.createFundCalculate(tfc);
+		result *= calculateResult;
+		//데이터들이 정상적으로 옮겨졌으면 임시 테이블에 있던 데이터 삭제하는 작업
+		int deleteResult = 0;
+		if(result > 0) {
+			deleteResult = service.deleteTmpFund(tf);
+		}else {
+			System.out.println("insert 과정에서 error 발생!");
+		}
 		return "redirect:/";
 	}
 	
@@ -251,7 +279,6 @@ public class FundTmpController {
 		tfIntro = tfIntro.replace("\r\n","<br>");
 		tf.setTfIntro(tfIntro);
 		int result = service.updateTmpStory(tf);
-		System.out.println(tf);
 		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
 	}
 	
@@ -343,5 +370,65 @@ public class FundTmpController {
 		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
 	}
 	
+	//대표자 및 정산정보 페이지로
+	@RequestMapping(value="/fundCalculateFrm.do")
+	public String fundCalculateFrm(int tfNo, Model model) {
+		pageMove(tfNo, model);
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		TmpFundCalculate tfc = service.selectOneFundCalculate(tf);
+		model.addAttribute("tfc",tfc);
+		return "fund/fundCalculateFrm";
+	}
+	
+	//정산정보 저장하기 버튼
+	@RequestMapping(value="/saveTmpCalculate.do")
+	public String saveTmpCalculate(MultipartFile[] upfile, HttpServletRequest request, TmpFundCalculate tfc, String status, String[] imageStatus, Model model) {
+		//신규가 아닐 때 기존에 입력되어 있던 tfc 정보를 불러올 객체
+		TmpFundCalculate atfc = null;
+		//filepath를 저장할 Arr 생성
+		String pathArr[] = {"",""};
+		//수정일 경우 지울 파일의 경로를 저장할 arr
+		String deleteArr[] = {"",""};
+		if(status.equals("modify")) {
+			TmpFund tf = new TmpFund();
+			tf.setTfNo(tfc.getTfNo());
+			atfc = service.selectOneFundCalculate(tf);
+			deleteArr[0] = atfc.getTfcRepFilepath();
+			deleteArr[1] = atfc.getTfcBankFilepath();
+		}
+		
+		//이미지 파일에 변동 있었을때 업로드 로직
+		//1. 파일업로드 경로 설정
+		//request.getSession().getServletContext().getRealPath() -> /webapp/폴더 경로
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/image/fund/calculate/");
+		//1-1. 업로드 파일 상태에 따라 업로드만 할지, 기존 파일 삭제 후 업로드 할지 결정
+		for(int i=0; i<2; i++) {
+			if(imageStatus[i].equals("new")) {
+				pathArr[i] = fileUpload(upfile[i], savePath);
+			}else if(imageStatus[i].equals("modify")) {
+				File file = new File(savePath+deleteArr[i]);
+				file.delete();
+				pathArr[i] = fileUpload(upfile[i], savePath);
+			}else {
+				pathArr[i] = deleteArr[i];
+			}
+			//1-2. 앞으로 조작할 tfc 객체에 filepath경로 세팅
+			tfc.setTfcRepFilepath(pathArr[0]);
+			tfc.setTfcBankFilepath(pathArr[1]);
+		}
+		
+		//status에 따라 비즈니스 로직 처리
+		int result = 1;
+		if(status.equals("new")) {
+			int insertResult = service.createTmpFundCalculate(tfc);
+			result *= insertResult;
+		}else if(status.equals("modify")) {
+			int updateResult = service.updateTmpFundCalculate(tfc);
+			result *= updateResult;
+		}
+
+		return "redirect:/fundReadyFrm.do?tfNo="+tfc.getTfNo();
+	}
 
 }

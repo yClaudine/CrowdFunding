@@ -599,41 +599,43 @@
 		
 		//저장하기 버튼 클릭 시 모든 리워드의 상태값과 정보를 json string으로 전달
 		$(".save-btn").on("click",function(){
-			//reward들을 담을 json
-			const data = {};
-			
-			//reward 하나하나를 json화
-			$(".reward-wrap").each(function(index,item){
-				const reward = {
-						"tfNo" : ${tmpF.tfNo},
-						"rewardNo" : $(item).children().eq(7).text(),
-						"rewardStatus" : $(item).children().eq(0).text(),
-						"rewardName" : $(item).children().eq(3).text(),
-						"rewardIntro" : $(item).children().eq(4).text(),
-						"rewardPrice" : $(item).children().eq(2).children().eq(0).children().text().replace(/,/gi,""),
-						"rewardCount" : $(item).children().eq(2).children().eq(1).children().eq(0).text(),
-						"rewardOption" : $(item).children().eq(1).val(),
-						"rewardSend" : $(item).children().eq(6).children().eq(1).text(),
-						"rewardDeliveryFee" : $(item).children().eq(5).children().eq(1).children().text()
-				}
-				data[index] = reward;
-			});
-			
-			//controller로 json string 파일 전송
-			$.ajax({
-				method: 'post',
-				url: '/SaveTmpReward.do',
-				traditional: true,
-				data: {
-					data: JSON.stringify(data)
-				},
-				dataType: 'json',
-				success: function(res){
-					if(res > 0){
-						location.href="fundReadyFrm.do?tfNo=${tmpF.tfNo}"	
+			if(confirm("작성 내용을 저장하시겠습니까?")){
+				//reward들을 담을 json
+				const data = {};
+				
+				//reward 하나하나를 json화
+				$(".reward-wrap").each(function(index,item){
+					const reward = {
+							"tfNo" : ${tmpF.tfNo},
+							"rewardNo" : $(item).children().eq(7).text(),
+							"rewardStatus" : $(item).children().eq(0).text(),
+							"rewardName" : $(item).children().eq(3).text(),
+							"rewardIntro" : $(item).children().eq(4).text(),
+							"rewardPrice" : $(item).children().eq(2).children().eq(0).children().text().replace(/,/gi,""),
+							"rewardCount" : $(item).children().eq(2).children().eq(1).children().eq(0).text(),
+							"rewardOption" : $(item).children().eq(1).val(),
+							"rewardSend" : $(item).children().eq(6).children().eq(1).text(),
+							"rewardDeliveryFee" : $(item).children().eq(5).children().eq(1).children().text()
 					}
-				}
-			});//ajax
+					data[index] = reward;
+				});
+				
+				//controller로 json string 파일 전송
+				$.ajax({
+					method: 'post',
+					url: '/SaveTmpReward.do',
+					traditional: true,
+					data: {
+						data: JSON.stringify(data)
+					},
+					dataType: 'json',
+					success: function(res){
+						if(res > 0){
+							location.href="fundReadyFrm.do?tfNo=${tmpF.tfNo}"	
+						}
+					}
+				});//ajax	
+			}
 		});//savebtn
 		
 		//리워드 생성, 로드

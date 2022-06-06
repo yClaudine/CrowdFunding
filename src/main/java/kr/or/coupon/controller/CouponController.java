@@ -51,7 +51,7 @@ public class CouponController {
 	@RequestMapping(value="/insertCoupon.do")
 	public String insertCoupon(Coupon coupon) {
 		int result = service.insertCoupon(coupon);
-		return "redirect:/couponManage.do";
+		return "redirect:/couponManage.do?reqPage=1&keyword=&type=3";
 	}
 	
 	@RequestMapping(value="/updateCouponFrm.do")
@@ -64,13 +64,13 @@ public class CouponController {
 	@RequestMapping(value="/updateCoupon.do")
 	public String updateCoupon(Coupon c) {
 		int result = service.updateCoupon(c);
-		return "redirect:/couponManage.do";
+		return "redirect:/couponManage.do?reqPage=1&keyword=&type=3";
 	}
 	
 	@RequestMapping(value="/deleteCoupon.do")
 	public String deleteCoupon(int couponNo) {
 		int result = service.deleteCoupon(couponNo);
-		return "redirect:/couponManage.do";
+		return "redirect:/couponManage.do?reqPage=1&keyword=&type=3";
 	}
 	
 	

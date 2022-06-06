@@ -268,12 +268,13 @@
 $(".shoppingBtn").on("click",function(){
 	const mainTarget = $(".mainTarget").val();
 	if(mainTarget == "fund"){
-		location.href="/fund.do";
+		location.href="/";
 	}else if(mainTarget == "store"){
-		location.href="/Store.do";
+		location.href="/";
 	}else{
 		location.href="/";
 	}
+	
 });
 
 //오늘날짜가져오기
@@ -299,7 +300,8 @@ $(".downloadBtn").on("click",function(){
 	const noticeNo = $(".noticeNo").val();
 	const validEnd = $(".validEnd").val();
 	const today = formatDate();
-	if(validEnd<today){
+	
+	if(validEnd != "" && validEnd<today){
 		alert("만료된 쿠폰입니다.")
 	}else{
 		if(memberNo == 0){

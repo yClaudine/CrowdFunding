@@ -34,6 +34,21 @@
 .mc2 {
 	height: 400px;
 }
+.modal-contents3{
+	height:450px;
+}
+
+.mc6{
+	height:800px;
+}
+
+#pagi{
+	display:flex;
+	
+ 	justify-content:center;
+ 
+}
+
 </style>
 <body>
 	<!-- 첫 번째 Modal을 여는 클래스 -->
@@ -54,7 +69,7 @@
 						contact_mail </span>
 				</div>
 				<div class="second1">
-					<span class="user">user1</span> <span class="close">&times;</span>
+					<span class="user">${sessionScope.m.memberId }</span> <span class="close">&times;</span>
 				</div>
 				<div class="third1">
 					<button class="btn btn-primary" id="sendbtn" type="button"
@@ -84,6 +99,11 @@
 
 					</tbody>
 					<tfoot>
+						<tr class="table-light PTR">
+							<td colspan="5" class="recvTd">
+								
+							</td>							
+						</tr>
 					</tfoot>
 				</table>
 				<div class="footer"></div>
@@ -100,9 +120,14 @@
 						</tr>
 					</thead>
 					<tbody>
-
+						
 					</tbody>
 					<tfoot>
+						<tr class="table-light PTR">
+							<td colspan="5" class="sendTd">
+								
+							</td>							
+						</tr>
 					</tfoot>
 				</table>
 			</div>
@@ -145,8 +170,9 @@
 					<td colspan="5" rowpan="2"
 						style="border-bottom: none; padding-left: 250px">
 						<input type="hidden" class="dmNo">
-						<button class="btn btn-primary btnd" onclick="reply();">답장</button>
+						<button class="btn btn-primary btnd reply">답장</button>
 						<button class="btn btn-primary btnd" onclick="closeModal2();">확인</button>
+						<button class="btn btn-primary btnd delete">삭제</button>
 					</td>
 
 				</tr>
@@ -163,16 +189,15 @@
 		<!-- 세 번째 Modal의 내용 -->
 		<div class="modal-contents3">
 			<table class="table">
-				<tr class=" down">
+				<tr class=" down mc3"> 
 					<th colspan="1"
 						style="border-top-left-radius: 10px; line-height: 50px; border-right: 1px solid rgba(0, 0, 0, 0.2);">선택</th>
 					<td colspan="4"
 						style="border-top-right-radius: 10px; line-height: 50px;"
 						scope="col">
 						<button class="btn btn-primary btnd choice">멤버</button>
-						<button class="btn btn-primary btnd choice">펀딩</button>
-						<button class="btn btn-primary btnd choice">스토어</button> <span
-						class="close">&times;</span>
+						 
+						<span class="close">&times;</span>
 					</td>
 
 				</tr>
@@ -200,10 +225,6 @@
 					<td colspan="4" rowspan="1" style="height: 140px;"><textarea
 							class="modalInput" name="mContent" id="mContent"
 							style="width: 300px;" rows="10" placeholder="100자 이내로 입력해주세요"></textarea></td>
-				</tr>
-				<tr class="down receiveCk">
-					<th colspan="3">수신확인 <span>20212.2321</span></th>
-
 				</tr>
 				<tr>
 					<td colspan="5" rowspan="2"
@@ -251,7 +272,7 @@
 				modals.eq(index).css({
 					"display" : "block"
 				});
-				recvMemId();
+				recvMemId(1);
 				choice.eq(0).click();
 			});
 			spanes.eq(index).on("click", function() {
@@ -261,7 +282,10 @@
 			});
 		});
 		//메시지 수신 
-		function recvMemId() {
+		function recvMemId(req) {
+			if(req==null){
+				req=1;
+			}
 			memberId = $("#memberId").val();
 			$(".recv").addClass("active");
 			$(".send").removeClass("active");
@@ -273,12 +297,19 @@
 						type : "post",
 						data : {
 							memberId : memberId,
-							check : 0
+							check : 0,
+							req : req
 						},
-						success : function(list) {
-							if (list.length == 0) {
+						success : function(dm) {
+							
+							if (dm.list.length == 0) {
 								const table = $(".rT>tbody");
 								table.empty();
+								const tr = $("<tr>");
+								const td = $("<td colspan='5'>");
+								
+									
+								
 								const span = $("<span class='material-symbols-outlined'>")
 								span.text("priority_high");
 								span.css({
@@ -286,22 +317,24 @@
 									"color" : "red"
 								});
 								const span2 = $("<span>");
-								span2.text("받은 쪽지가 없습니다");
-								table.append(span);
-								table.append(span2);
+								span2.text("받은 쪽지가 없음");
+								td.append(span);
+								td.append(span2);
+								tr.append(td);
+								table.append(tr);
 								span2.css({
+									"colspan" :"5",
 									"border-top" : "none",
 									"color" : "red"
 								});
-
 							} else {
 								const table = $(".rT>tbody");
 								table.empty();
-								for (let i = 0; i < list.length; i++) {
-
+								for (let i = 0; i < dm.list.length; i++) {
+																		
 									const tr = $("<tr>");
 									const tdh = $("<td>");
-									tdh.text(list[i].dmNo);
+									tdh.text(dm.list[i].dmNo);
 									tdh.css({
 										"display" : "none"
 									});
@@ -314,11 +347,11 @@
 									td.css({
 										"width" : "80px"
 									});
-									td.text(list[i].sendMemId);
+									td.text(dm.list[i].sendMemId);
 									tr.append(td);
 									const td1 = $("<td>");
 									const div = $("<div>")
-									div.text(list[i].mTitle);
+									div.text(dm.list[i].mTitle);
 									div.addClass("recDetail");
 									div.css({
 										"width" : "60px",
@@ -330,16 +363,17 @@
 									td1.append(div);
 
 									const td2 = $("<td>");
-									td2.text(list[i].mDatetime);
+									td2.text(dm.list[i].mDatetime);
 									const td3 = $("<td>");
 									const td4 = $("<td>");
-									if (list[i].warning == 1) {
-										td3.addClass("warning");
+									if (dm.list[i].warning == 1) {
+										
 										td3.text("!");
-										$(".warning").css({
+										$(td3).css({
+											"line-height" : "30px",
 											"text-align" : "center",
-											"font-size" : "13px",
-											"font-color" : "red",
+											"font-size" : "18px",
+											"color" : "red",
 											"width" : "80px"
 										});
 									} else {
@@ -352,7 +386,7 @@
 											"width" : "80px"
 										});
 									}
-									if (list[i].readCk == 1) {
+									if (dm.list[i].readCk == 1) {
 
 										td4.text("1");
 										td4.css({
@@ -381,6 +415,8 @@
 								//쪽지 값 불러오기 
 
 							}
+							$(".recvTd").empty();
+							$(".recvTd").append(dm.pagination);
 						}//success
 
 					});
@@ -389,7 +425,10 @@
 		//수신자 정보 ajax로 값 가져오기
 
 		//메시지 발신 상태 ajax
-		function sendMemId() {
+		function sendMemId(req) {
+			if(req==null){
+				req=1;
+			}
 			$(".send").addClass("active");
 			$(".recv").removeClass("active");
 			$(".sendContent").show()
@@ -400,10 +439,12 @@
 						type : "post",
 						data : {
 							memberId : memberId,
-							check : 1
+							check : 1,
+							req : req
 						},
-						success : function(list) {
-							if (list.length == 0) {
+						success : function(dm) {
+							console.log(dm);
+							if (dm.list.length == 0) {
 								const table = $(".sT>tbody");
 								table.empty();
 								const span = $("<span class='material-symbols-outlined'>")
@@ -424,11 +465,11 @@
 							} else {
 								const table = $(".sT>tbody");
 								table.empty();
-								for (let i = 0; i < list.length; i++) {
+								for (let i = 0; i < dm.list.length; i++) {
 
 									const tr = $("<tr>");
 									const tdh = $("<td>");
-									tdh.text(list[i].dmNo);
+									tdh.text(dm.list[i].dmNo);
 									tdh.css({
 										"display" : "none"
 									});
@@ -441,11 +482,11 @@
 									td.css({
 										"width" : "80px"
 									});
-									td.text(list[i].recvMemId);
+									td.text(dm.list[i].recvMemId);
 									tr.append(td);
 									const td1 = $("<td>");
 									const div = $("<div>");
-									div.text(list[i].mTitle);
+									div.text(dm.list[i].mTitle);
 									div.addClass("sendDetail");
 									div.css({
 										"width" : "60px",
@@ -456,9 +497,9 @@
 									});
 									td1.append(div);
 									const td2 = $("<td>");
-									td2.text(list[i].mRectime);
+									td2.text(dm.list[i].mRectime);
 									const td3 = $("<td>");
-									if (list[i].readCk == 1) {
+									if (dm.list[i].readCk == 1) {
 
 										td3.text("1");
 										td3.css({
@@ -486,6 +527,8 @@
 								//쪽지 값 불러오기 
 
 							}
+							$(".sendTd").empty();
+							$(".sendTd").append(dm.pagination);
 						}//success
 
 					});
@@ -503,8 +546,8 @@
 								.on(
 										"click",
 										function() {
-											if (index == 0) {
-												category = 3;
+											
+												category = 0;
 												$
 														.ajax({
 															url : "/selectAllMember.do",
@@ -524,19 +567,20 @@
 																				"[name=recvMemId]")
 																				.append(
 																						option);
+																		
 																	}
 
 																}
-
+																modals.eq(2).css("display", "block");
 															}
 
 														});
-											}
+										
 											//멤버일 때 seller를 불러옴 
 										});
 					});
 
-			modals.eq(2).css("display", "block");
+			
 		}
 		function closeModal() {
 			$(".modal").eq(2).css("display", "none");
@@ -552,7 +596,9 @@
 
 			//웹소켓을 구현할 함수를 만들어줍니다.
 			//먼저 주소를 지정해줍니다
-			ws = new WebSocket("ws://192.168.219.100:8090/dm.do");
+
+			ws = new WebSocket("ws://192.168.10.13:8090/dm.do");
+
 			//연결했을 때
 			ws.onopen = onOpen;
 			//메시지를 받았을 때 
@@ -562,6 +608,8 @@
 
 			//디테일을 보기위한 함수 발신 상세보기 
 			$(document).on("click", ".sendDetail", function() {
+				$(".reply").hide();
+				$(".delete").show();
 				const dmNo = $(this).parent().prev().prev().text();
 				$(".Cd").empty();
 				$(".Cd").text("수신일");
@@ -584,13 +632,34 @@
 							"display":"block"
 						});
 					}
+					
+				});
+
+				$(".delete").on("click",function(){
+						delete1(dmNo);
 				});
 
 			});
+			function delete1(dmNo){
+				
+				$.ajax({
+					
+						url : "/deleteMessage.do",
+						data : {dmNo:dmNo},
+						success: function(data){
+							 if(data==1){
+								 sendMemId(1);
+							 }
+							 closeModal2();
+						}
+				});
+			}
 			// 수신자 상세보기 
 			$(document).on("click", ".recDetail", function() {
+				$(".reply").show();
+				$(".delete").hide();
 				const dmNo = $(this).parent().prev().prev().text();
-				let sendMemId;
+				let sendMemId; 
 				$(".Cd").empty();
 				$(".Cd").text("발신일");
 				$(".Cw").empty();
@@ -604,19 +673,36 @@
 					type : "post",
 					data :{dmNo:dmNo},
 					success: function(dm){
-						sendMemId = dm.sendMemId;
+						
 						$(".cmDate").text(dm.mDatetime);
 						$(".cmContent").text(dm.mContent);
 						$(".cmTitle").text(dm.mTitle);
 						$(".cmWriter").text(dm.sendMemId);
+						sendMemId =dm.sendMemId;
+						
 						$(".dmNo").val("");
 						$(".dmNo").val(dmNo);
 						
 						modals.eq(1).css({
 							"display":"block"
 						});
+						//ajax청보처리 완료
+						//답장을 위한 모달 만들어서 전송 
+						console.log(sendMemId);
+						if(sendMemId==='admin'){
+							alert("관리자에겐 답장할 수 없습니다");
+							$(".reply").hide();
+						}else{
+							$(".reply").show();
+							$(".reply").on("click",function(){
+								
+								reply(dmNo);
+							});
+							
+						}
 						
 					}
+					
 				});
 				//ajax로 정보를 가져와 연결 
 				$.ajax({
@@ -626,7 +712,7 @@
 					success : function(data){
 						console.log(data);
 						if(data>0){
-							recvMemId();
+							recvMemId(1);
 							const data1 = {type : "read", memberId : memberId}
 							ws.send(JSON.stringify(data1));
 							
@@ -635,26 +721,28 @@
 						}
 					}
 				});
-				//ajax청보처리 완료
-				//답장을 위한 모달 만들어서 전송 
-				
 			
+				
 			});
 
 		});
 		
-		function reply(){
-			let dmNo = $(".dmNo").val();
+		function reply(dmNo){
+			
 			$.ajax({
 				url : "selectOneDm.do",
 				type : "post",
 				data : {dmNo:dmNo},
-				success : function(data){
-					$("[name=recvMemId]").val("");
+				success : function(data){	
+					$("[name=recvMemId]").empty();
+					const op = $("<option>");
+					op.text("");
+					op.text(data.sendMemId);
+					$("[name=recvMemId]").append(op);
 					modals.eq(2).css({
 						"display" : "block"
 					});	
-					console.log(data);
+					
 				}
 				
 			});
@@ -674,6 +762,7 @@
 
 		//데이터 보내기
 		function dmSend() {
+			let category = 0;
 			const memberId = $("#memberId").val();
 			const receiver = $("[name=recvMemId]").val();
 			const dmContent = $("[name=mContent]").val();
@@ -691,15 +780,15 @@
 			}
 			console.log(data);
 			ws.send(JSON.stringify(data));
-			sendMemId();
-			recvMemId();
+			sendMemId(1);
+			recvMemId(1);
 			closeModal();
 		}
 		function receiveMsg(param) {
 			console.log(param);
 			$("#num").text(param.data);
-			recvMemId();
-			sendMemId();
+			
+			
 		}
 		function onClose() {
 

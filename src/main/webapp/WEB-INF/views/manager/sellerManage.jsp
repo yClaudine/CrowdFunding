@@ -332,7 +332,7 @@ $("#more-btn").on("click",function(){
 				const tbody = $(".tbody");
 				
 				let code = "<tr><td class='memberId'>"+s.memberId+"</td><td>"+s.owner+"</td><td>"+s.enNo;
-				code += "</td><td><a href='/photoFileDown.do?photopath="+s.enPath+"'>파일확인</a></td>";
+				code += "</td><td><a href='/photoFileDown.do?enPath="+s.enPath+"'>파일확인</a></td>";
 				code += "<td><input type='hidden' class='authSeller' value="+s.authSeller;
 				code += "><select name='auth' id='auth'><option value='1'>승인</option><option value='2'>미승인</option><option value='0' disabled>심사전</option></select></td>";
 				code += "<td><button type='button' class='btn btn-primary change'>변경</button><input type='hidden' class='oldAuth' value="+s.authSeller;

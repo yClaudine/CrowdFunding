@@ -183,10 +183,10 @@
 				chk2 = 1;
 			}
 			if(chk1 == 0 || chk2 == 0){
-				console.log(chk1);
-				console.log(chk2);
 				alert("첫번째 이미지를 입력해주시고, 프로젝트 요약을 작성해주세요.")
 				e.preventDefault();	
+			}else if(!confirm("작성 내용을 저장하시겠습니까?")){
+				e.preventDefault();
 			}
 		})
 		

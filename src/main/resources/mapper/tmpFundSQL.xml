@@ -63,7 +63,7 @@
   	select
   		tfc_no as tfcNo,
   		tf_no as tfNo,
-  		tfc_rep_category as tfcCategory,
+  		tfc_rep_category as tfcRepCategory,
   		tfc_rep_name as tfcRepName,
   		tfc_rep_email as tfcRepEmail,
   		tfc_rep_filepath as tfcRepFilepath,
@@ -124,4 +124,48 @@
   		tf_as = #{tfAs}
   	where tf_no = #{tfNo}
   </update>
+  <insert id="createTmpFundCalculate" parameterType="tfc">
+  	insert into tmp_fund_calculate
+  	values (tfc_seq.nextval, #{tfNo}, #{tfcRepCategory}, #{tfcRepName}, #{tfcRepEmail}, #{tfcRepFilepath}, #{tfcRepBirth}, #{tfcMail}, #{tfcBankName}, #{tfcBankNo}, #{tfcBankAccount}, #{tfcBankFilepath})
+  </insert>
+  <update id="updateTmpFundCalculate" parameterType="tfc">
+  	update tmp_fund_calculate 
+  	set 
+  		tfc_rep_category = #{tfcRepCategory}, 
+  		tfc_rep_name = #{tfcRepName},
+  		tfc_rep_email = #{tfcRepEmail},
+  		tfc_rep_filepath = #{tfcRepFilepath},
+  		tfc_rep_birth = #{tfcRepBirth},
+  		tfc_mail = #{tfcMail},
+  		tfc_bank_name = #{tfcBankName},
+  		tfc_bank_no = #{tfcBankNo},
+  		tfc_bank_account = #{tfcBankAccount},
+  		tfc_bank_filepath = #{tfcBankFilepath}
+  	where tf_no = #{tfNo}
+  </update>
+  <insert id="createFund" parameterType="tf">
+  	insert into fund
+  	values (fund_seq.nextval, #{memberId}, #{tfName}, #{tfAmount}, #{tfFees}, #{tfCategory}, #{tfStart}, #{tfEnd}, #{tfIntro}, #{tfAs}, 0, 0, 0, #{tfFilepath1}, #{tfFilepath2}, #{tfFilepath3}, #{tfFilepath4}, #{tfFilepath5})
+  	<selectKey resultType="int" order="AFTER" keyProperty="tfNo">
+ 			select max(fund_no) from fund
+ 	</selectKey>
+  </insert>
+  <insert id="createReward" parameterType="tr">
+  	insert into reward
+  	values (reward_seq.nextval, #{tfNo}, #{trName}, #{trIntro}, #{trPrice}, #{trCount}, #{trOption}, #{trSend}, #{trDeliveryfee})
+  </insert>
+  <insert id="createFundCalculate" parameterType="tfc">
+  	insert into fund_calculate
+  	values (fc_seq.nextval, #{tfNo}, #{tfcRepCategory}, #{tfcRepName}, #{tfcRepEmail}, #{tfcRepFilepath}, #{tfcRepBirth}, #{tfcMail}, #{tfcBankName}, #{tfcBankNo}, #{tfcBankAccount}, #{tfcBankFilepath})
+  </insert>
+  <delete id="deleteTmpFund" parameterType="tf">
+  	{call
+        declare
+        begin
+            delete from tmp_fund where tf_no = #{tfNo};
+            delete from tmp_reward where tf_no = #{tfNo};
+            delete from tmp_fund_calculate where tf_no = #{tfNo};
+        end
+    }
+  </delete>
 </mapper>

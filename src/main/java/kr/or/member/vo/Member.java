@@ -22,7 +22,7 @@ public class Member {
 	private int authRe;
 	private int report;
 	private String memComment;
-	
+	private int memberWarning;
 	
 	
 }
