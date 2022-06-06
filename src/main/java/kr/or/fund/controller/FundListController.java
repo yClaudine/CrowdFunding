@@ -4,23 +4,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.mapping.ParameterMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.sun.javafx.collections.MappingChange.Map;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.service.FundListService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
+import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.FundViewData;
 import kr.or.fund.model.vo.PayRewardViewData;
 import kr.or.fund.model.vo.PayViewData;
 import kr.or.fund.model.vo.Reward;
+import kr.or.fund.model.vo.RewardCart;
 import kr.or.member.vo.Seller;
 
 @Controller
@@ -47,9 +54,10 @@ public class FundListController {
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
 		model.addAttribute("list",fvd.getRewardList());
+		model.addAttribute("plist",fvd.getPayList());
 		return "fund/fundView";	
 	}
-
+	
 	//펀딩 신고
 	@RequestMapping(value="/reportFund.do")
 	public String reportFund(int fundNo) {
@@ -59,84 +67,6 @@ public class FundListController {
 		//location.href="/fundView.do?fundNo=${f.fundNo }";
 	}
 	
-	//좋아요  
-	@ResponseBody
-	@RequestMapping(value="/fundLikeUp.do",produces="application/json;charset=utf-8")
-	public String fundLikeUp(FundLike fl) {
-		int result = service.insertFundlike(fl);
-		return new Gson().toJson(result);
-	}
-	//좋아요 취소
-	@ResponseBody
-	@RequestMapping(value="/fundLikeDown.do",produces="application/json;charset=utf-8")
-	public String fundLikeDown(int fundNo, String memberId) {
-		int result = service.deleteFundlike(fundNo);
-		return new Gson().toJson(result);
-	}
-	//좋아요 체크여부
-	@ResponseBody
-	@RequestMapping(value="/fundCheck.do",produces="application/json;charset=utf-8")
-	public String fundCheck(int fundNo, String memberId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("fundNo",fundNo);
-		map.put("memberId",memberId);
-		FundLike fc = service.fundCheck(map);
-		if(fc==null) {	//좋아요 안했을 때 -> insert
-			
-		}
-		
-		return "";
-	}
-	/*리워드 페이지 ajax--------------------------------------------------------
-	@ResponseBody
-	@RequestMapping(value="/checkedReward.do",produces="application/json;charset=utf-8")
-	public String checkedReward() {
-		return new Gson().toJson();
-	};
-	*/
-	
-	
-	//결제 상세---------------------------------------------------
-	//리워드, 결제 페이지로 이동
-	@RequestMapping(value="/payFunding.do")
-	public String payRewardView(int fundNo, Model model) {
-		PayRewardViewData prvd = service.selectPayReward(fundNo);
-		model.addAttribute("f",prvd.getF());
-		model.addAttribute("list",prvd.getRewardList());
-		return "fund/payFunding";	
-	}
-	//쿠폰 리스트 ajax 버전
-	@ResponseBody
-	@RequestMapping(value="/selectCouponList.do",produces="application/json;charset=utf-8")
-	public String CouponList(String fundCategory, int memberNo, int rewardSum) {
-		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum);
-		return new Gson().toJson(clist);
-	}
-
-	
-	//사용여부 X -----------------------------------------------------------------------
-	//결제 최종 페이지 이동
-	@RequestMapping(value="/pay.do")
-	public String pay(int fundNo, String fundCategory, int memberNo, int rewardSum, Model model) {
-		PayViewData pvd = service.selectPay(fundNo);
-		model.addAttribute("f",pvd.getF());
-		model.addAttribute("rlist",pvd.getRewardList());		
-		//쿠폰
-		ArrayList<Coupon> cList = service.selectCouponList(memberNo,fundCategory,rewardSum);
-		model.addAttribute("clist",cList);
-		return "fund/pay";
-	}
-	//결제 확인 페이지 이동
-	@RequestMapping(value="/payConfirm.do")
-	public String payConfirm() {
-		return "fund/payConfirm";
-	}
-	
-}//class
-
-
-
-
 	/*펀딩 상세2 - 반환정책
 	@RequestMapping(value="/fundViewReturnInfo.do")
 	public String FundViewReturnInfo(int fundNo, Model model) {
@@ -156,6 +86,128 @@ public class FundListController {
 		return "fund/fundViewSupporter";	
 	}
 	
+
+	
+	//좋아요  --------------------------------------
+	@ResponseBody
+	@RequestMapping(value="/fundLikeUp.do",produces="application/json;charset=utf-8")
+	public String fundLikeUp(FundLike fl) {
+		int result = service.insertFundlike(fl);
+		return new Gson().toJson(result);
+	}
+	//좋아요 취소
+	@ResponseBody
+	@RequestMapping(value="/fundLikeDown.do",produces="application/json;charset=utf-8")
+	public String fundLikeDown(int fundNo, String memberId) {
+		int result = service.deleteFundlike(fundNo);
+		return new Gson().toJson(result);
+	}
+	/*좋아요 체크여부
+	@ResponseBody
+	@RequestMapping(value="/fundCheck.do",produces="application/json;charset=utf-8")
+	public String fundCheck(int fundNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("memberId",memberId);
+		FundLike fc = service.fundCheck(map);
+		if(fc==null) {	//좋아요 안했을 때 -> insert
+			
+		}
+		
+		return "";
+	}
+	*/
+
+	
+	//결제 상세---------------------------------------------------
+	//리워드, 결제 페이지로 이동
+	@RequestMapping(value="/payFunding.do")
+	public String payRewardView(int fundNo, Model model) {
+		PayRewardViewData prvd = service.selectPayReward(fundNo);
+		model.addAttribute("f",prvd.getF());
+		model.addAttribute("list",prvd.getRewardList());
+		return "fund/payFunding";	
+	}
+	//결제 확인 페이지 이동 - 카드결제
+	@RequestMapping(value="/payConfirm.do")
+	public String payConfirm(int fundNo, String memberId, int fpayFinalpay, Model model) {
+		PayViewData pvd = service.payConfirm(fundNo,memberId,fpayFinalpay);
+		model.addAttribute("f",pvd.getF());
+		model.addAttribute("list",pvd.getRewardList());
+		model.addAttribute("fp",pvd.getFp());
+		return "fund/payConfirm";
+	}
+	
+	//결제 확인 페이지 이동 - 무통장입금
+	@RequestMapping(value="/payConfirm2.do")
+	public String payConfirm2(int fundNo, String memberId, int fpayFinalpay, Model model) {
+		PayRewardViewData prvd = service.selectPayReward(fundNo);
+		model.addAttribute("f",prvd.getF());
+		model.addAttribute("list",prvd.getRewardList());
+		
+		return "fund/payConfirm2";
+	}
+	
+
+	
+	
+
+	
+	//쿠폰 리스트 ajax 버전
+	@ResponseBody
+	@RequestMapping(value="/selectCouponList.do",produces="application/json;charset=utf-8")
+	public String CouponList(String fundCategory, int memberNo, int rewardSum) {
+		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum);
+		return new Gson().toJson(clist);
+	}
+
+	//최종 결제 정보 인서트
+	@ResponseBody
+	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
+	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod) {
+		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod);
+		return new Gson().toJson(result);
+	}
+	
+	//사용여부 X -----------------------------------------------------------------------
+	/*카트 insert
+	@ResponseBody
+	@RequestMapping(value="/insertCart.do",produces="application/json;charset=utf-8")
+	public String insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		int result = service.insertCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
+		return new Gson().toJson(result);
+	}
+	//카트 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteCart.do",produces="application/json;charset=utf-8")
+	public String deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		int result = service.deleteCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
+		return new Gson().toJson(result);
+	}*/
+	/*리워드 카트 array insert
+	@ResponseBody
+	@RequestMapping(value="/insertReward.do",produces="application/json;charset=utf-8")
+	public String insertReward(@RequestParam(value = "reward[]")List<String> reward){
+		//JsonArray array = JsonArray.fromObject(reward.get("reward"));
+		System.out.println(reward);
+		for(int i=0; i<reward.size(); i++) {
+			System.out.println(reward);
+		}
+		
+		//int result = service.insertReward(reward);
+		return new Gson().toJson(reward);
+	}*/
+	
+
+
+	
+}//class
+
+
+
+
+
 	
 	/*펀딩 리스트 검색 필터링
 	@RequestMapping(value="/fundSearch.do")

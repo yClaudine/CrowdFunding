@@ -15,4 +15,5 @@ public class FundViewData {
 	private ArrayList<Reward> rewardList;
 	private Seller s;
 	private FundLike fl;
+	private ArrayList<FundPay> payList;
 }

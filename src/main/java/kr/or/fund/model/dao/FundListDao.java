@@ -12,6 +12,7 @@ import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
+import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
 
@@ -75,22 +76,52 @@ public class FundListDao {
 		return fc;
 	}
 
-	//멤버 다운로드 쿠폰-----------------------------------------------------------
-	public ArrayList<MemberCoupon> selectMemberCouponList(int memberNo) {
-		List list = sqlSession.selectList("fundPay.selectMemberCouponList",memberNo);
-		return (ArrayList<MemberCoupon>)list;
-	}
 
-	//쿠폰 하나 조회
-	public Coupon selectOneCoupon(HashMap<String, Object> map) {
-		return sqlSession.selectOne("fundPay.selectOneCoupon",map);
-	}
-
+	//조건별 쿠폰 리스트 최종쿼리
 	public ArrayList<Coupon> selectCouponList(HashMap<String, Object> map) {
 		List list = sqlSession.selectList("fundPay.selectCouponList",map);
 		return (ArrayList<Coupon>)list;
 	}
 	
+	//결제 정보 인서트
+	public int insertPay(HashMap<String, Object> map) {
+		int result = sqlSession.insert("fundPay.insertPay",map);
+		return result;
+	}
+	//결제 정보 하나 조회
+	public FundPay selectOnePay(int fundNo, String memberId, int fpayFinalpay) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("memberId",memberId);
+		map.put("fpayFinalpay",fpayFinalpay);
+		FundPay fp = sqlSession.selectOne("fundpay.selectOnePay",map);
+		return fp;
+	}
+
+	//모든 결제 정보 조회
+	public ArrayList<FundPay> selectPayList(int fundNo) {
+		List plist = sqlSession.selectList("fundPay.selectPay",fundNo);
+		return (ArrayList<FundPay>)plist;
+	}
+
+
+	
+	/*리워드 카트 인서트
+	public int insertCart(HashMap<String, Object> map) {
+		int result = sqlSession.insert("fundPay.insertCart",map);
+		return result;
+	}
+	//리워드 카트 삭제
+	public int deleteCart(HashMap<String, Object> map) {
+		int result = sqlSession.delete("fundPay.deleteCart",map);
+		return result;
+	}*/
+
+	/*array 리워드 카트 인서트
+	public int insertReward(HashMap<String, Object> map) {
+		int result = sqlSession.insert("fundPay.insertReward",map);
+		return result;
+	}*/
 	
 
 

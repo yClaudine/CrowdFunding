@@ -1,7 +1,5 @@
 package kr.or.fund.model.vo;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PayViewData {
-	private Fund f;
-	private ArrayList<Reward> rewardList;
-	private FundPay fp;
+public class RewardCart {
+	int cartNo;
+	int memberNo;
+	int rewardNo;
+	int rewardAmount;
 }

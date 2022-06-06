@@ -22,6 +22,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    	<!--다음 우편번호 찾기-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- 아임포트 결제 -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	
 
     
 <style>
@@ -574,7 +577,6 @@ input {
     text-align: center;
 }
 .content-wrap2{
-    width: 650px;
     margin: 0 auto;
     padding: 0 0 100px;
 }
@@ -681,15 +683,13 @@ input {
 }
 .reward-wrap2{
     width: 100%;
+    display:none;
 }
 .coupon-wrap2{
     width: 100%;
     margin-top: 60px;
     border-top: 2px dotted #b3b3b3;
-    
 }
-
-
 
 .reward-price2{
     font-weight: 600;
@@ -818,6 +818,8 @@ input {
     width: 200px;
     text-align: center;
     display: block;
+    margin-bottom: 100px;
+    
     
 }
 .pay-btn2:hover{
@@ -826,11 +828,196 @@ input {
     color: #dadce0;
     cursor: pointer;
 }
+
+.method{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+label{
+    margin-right: 20px;
+}
+label span{
+    margin-left:5px;
+}
+/*page3---------------*/
+
+.fund-title3{
+    font-size: 22px;
+    background-color: #A29584;
+    color: #f2f4f6;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    
+}
+.content-wrap3{
+    width: 650px;
+    margin: 0 auto;
+    padding: 0 0 100px;
+}
+.pay-step3{
+    height: 150px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.pay-step3 div{
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    display: block;
+    margin: 0 30px;
+    text-align: center;
+    border-radius: 45px;
+    border:2.2px dotted #60656a;
+    color: #60656a;
+    font-weight: 500;
+}
+.pay-step3 .active3{
+    background-color: #00c4c4;
+    border: none;
+    color: #f2f4f6;
+}
+
+.pay-wrap3{
+	display:none;
+    padding-bottom: 15px;
+}
+
+.pay-wrap3 .reward-active3{
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+.reward-active3{
+    font-size: 13px;
+    color: #60656a;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.one-pay3{
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px 20px;
+    margin-bottom: 10px;
+}
+.reward-name3{
+    font-weight: 600;
+    color: #00c4c4;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.reward-intro3{
+    font-size: 13px;
+    color: #969696;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.final-info3{
+    display: flex;
+}
+.final-info3 span{
+    padding-top: 10px;
+    color: #4a4a4a;
+    font-size: 15px;
+    font-weight: 500;
+}
+.flex-right3{
+    margin-left: auto;
+}
+.final-price3{
+    border-top: 2px solid #9f9f9f;
+    border-bottom: 2px solid #9f9f9f;
+    margin-top: 20px;
+}
+.final-price3 span{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.pay-info3{
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+.pay-info3 span{
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.info-detail3{
+    margin-top: 10px;
+    font-size: 14px;
+}
+.payment3{
+    margin-bottom: 0px;
+}
+
+.button-wrap3{
+    margin: 0 auto;
+    display: flex;
+    width: 450px;
+    text-align: center;
+    justify-items: center;
+}
+
+.project-btn3{
+    background-color: #c5c5c5;
+}
+.mypage-btn3{
+    background-color: #A29584;
+}
+
+.pay-btn3{
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    line-height: 50px;
+    height: 50px;
+    width: 200px;
+    text-align: center;
+    display: block;
+    
+}
+.project-btn3:hover{
+    transition: 0.5s;
+    background-color: #979696;
+    color: #ffffff;
+    cursor: pointer;
+}
+.mypage-btn3:hover{
+    transition: 0.5s;
+    background-color: #b9a386;
+    color: #ffffff;
+    cursor: pointer;
+}
+.cash-method{
+    margin-top: 50px;
+    color: #b9a386;
+    margin-bottom: 70px;
+}
+.cash-detail{
+    font-size: 19px;
+    font-weight: 500;
+    color: #60656a;
+}
+#purchaseForm2{
+    width: 650px;
+    margin: 0 auto;
+}
+.button-wrap3{
+    margin-bottom: 100px;
+}
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
-<div class="payPage1">
+<div class="payPage1" id="payPage1">
     <div class="fund-title">
         ${f.fundName}
     </div>
@@ -856,7 +1043,7 @@ input {
                     <label id="checked-reward">
 	                    <div class="checked-active">
 	                        <div class="checkbox-wrap">
-	                            <input type="checkbox" class="reward-check" name="reward-check${r.rewardNo}" id="reward-check" value="${r.rewardNo }">
+	                            <input type="checkbox" class="reward-check" name="reward-check" id="reward-check" value="${r.rewardNo }">
 	                        </div>
 	                        <div class="reward-wrap">
 	                            <input type="hidden" id="amountReward" value="전체수량">
@@ -870,7 +1057,10 @@ input {
 	                            ${r.rewardOption}
 	                            </div>
 	                            <span class="reward-fix">배송비</span>
-	                            <span class="reward-deliveryfee reward-active">${r.rewardDeliveryfee}원</span>
+	                            <span class="reward-deliveryfee reward-active">
+	                            	<span class="reward-delivery">${r.rewardDeliveryfee}</span>
+	                            	<span>원</span>
+	                            </span>
 	                            <span class="reward-fix">| 리워드 발송 시작일</span>
 	                            <span class="reward-send reward-active">${r.rewardSend}</span>
 	                        </div><!--reward-wrap-->
@@ -878,25 +1068,15 @@ input {
                     </label>
                         <div class="reward-count">
                             <div class="select-amount reward-active">수량</div>
-                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }down" id="up" onclick="changeQty(this,'down')">remove</button>
-                            <input class="amount-input" value="0" readonly></input>
-                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up')">add</button> 
+                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }down" id="up" onclick="changeQty(this,'down')" value="${r.rewardNo }">remove</button>
+                            <input type="text" class="amount-input" value="0" name="${r.rewardNo }" readonly></input>
+                            <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up')" value="${r.rewardNo }">add</button> 
                             <input type="hidden" class="rewardPrice" value="${r.rewardPrice}" >
                             <input type="text" class="reward-total" value="0">                           
                         </div>                             
                     </div><!--리워드박스-->
                 </c:forEach>
                 </div><!--리워드 1개 생성-->
-                <!-- 테스트용
-                <c:forEach items="${list }" var="r" varStatus="i">
-                    <input type="checkbox" class="reward-wrap" name="${r.rewardNo }" value="${r.rewardNo }">
-                        <span class="reward-name">${r.rewardName}</span>
-                           <div class="reward-intro">${r.rewardOption }
-                               <span class="reward-fee reward-active">${r.rewardPrice }원 펀딩</span>
-                               <span class="reward-active">수량 : 1개</span>
-                            </div>
-                    </c:forEach>
- 				-->
             	
 <!--수정-->
             <!--후원금(선택)-->
@@ -920,11 +1100,11 @@ input {
                 <span>서포터 목록에 서포터 이름과 펀딩 금액이 공개됩니다. 조용히 펀딩하고 싶으시다면, 비공개로 선택해주세요.</span><br>
                 <div class="public-checkwrap">
                     <label id="name-public">
-                        <input type="checkbox" id="name-public">
+                        <input type="checkbox" name="nameShow" id="name-show" value="0">
                         <span>이름 비공개</span>
                     </label>
                     <label id="fund-public">
-                        <input type="checkbox" id="fund-public">
+                        <input type="checkbox" name="fundingShow" id="fund-show" value="0">
                         <span>펀딩액 비공개</span>
                     </label>
                 </div>     
@@ -933,8 +1113,10 @@ input {
         <div class="reward-confirm">
             <div class="funding-name">
         		${f.fundName}에
-                <span class="funding-sum">0</span>원을 펀딩합니다.
-                <input type="text" class="reward-sum"></span>
+                <span class="funding-sum">0</span>원을 펀딩합니다.	<!-- 리워드+후원금 -->
+                <input type="text" class="reward-sum">	<!-- 순수 리워드 합계 -->
+                <input type="text" class="max-fee">	<!-- 최종 배송비 -->
+                <input type="text" class="final-pay">	<!-- 최종 결제비용 -->
            
             </div>
             <div class="funding-link" id="modal-open">다음단계로 ></div>
@@ -986,9 +1168,9 @@ input {
     
 </div><!-- 페이지1========================================================================== -->  
 
-<div class="payPage2">    <!--두번째 단계 ---------------------------------------------------------->
+<div class="payPage2" id="payPage2">    <!--두번째 단계 ---------------------------------------------------------->
     <div class="fund-title2">
-        [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
+        ${f.fundName}
     </div>
     <div class="content-wrap2">
         <div class="pay-step2">
@@ -998,7 +1180,6 @@ input {
         </div>
         <!--form-->
         <form name="purchaseForm2" id="purchaseForm2" method="post">
-            <input type="hidden" name="" value="">
             <!--전체 결제 상세-->
             <div class="paymen2t">
                 <!--결제 상세1-->
@@ -1008,15 +1189,24 @@ input {
                         <div class="reward-wrap2">
                             <span class="reward-name2">${r.rewardName}</span>
                             <div class="reward-intro2">${r.rewardOption }
-                                <span class="reward-fee2 reward-active2">0원 펀딩</span>
-                                <span class="reward-active2">수량 : 0개</span>
+                                <!-- 
+                                <span class="reward-fee2 reward-active2">
+                                	<span class="selected-sum"></span>
+                                	<span>원 펀딩</span>
+                                </span>
+                                <span class="reward-active2">
+                                	<span>수량 : </span>
+                                	<input class="selected-amount" value="${r.rewardNo }" name="">
+                                	<span>개</span>
+                                </span>
+                                 -->
                             </div>
                         </div>
                      </c:forEach>
                         <div class="coupon-wrap">
                             <div class="coupon">사용 가능 쿠폰</div>
                             <select id="coupon-type2" class="coupon-type2">
-                                <option>쿠폰예시</option>
+                                <option>사용 가능한 쿠폰이 없습니다.</option>
                             </select>
                         </div>
                     </div>
@@ -1028,28 +1218,32 @@ input {
                 </div>  
                 <div class="one-pay active2">
                     <div class="final-info2">
-                        <span>펀딩금액</span>
+                        <span>리워드 선택 금액</span>
                         <span class="flex-right2 reward-sum2"></span>
+                        <span>원</span>
                     </div>
                     <div class="final-info2">
                         <span>쿠폰 차감금액</span>
                         <span class="flex-right2">
-                        	-<span>원</span>
+                        	<span>-</span>
+                        	<span class="coupon-discount2"></span>
+                        	<span>원</span>
                         </span>
                     </div>
                     <div class="final-info2">
                         <span>추가 후원금</span>
                         <span class="flex-right2 donation-input2"></span>
+                        <span>원</span>
                     </div>
                     <div class="final-info2">
                         <span>배송비</span>
-                        <span class="flex-right2">
-                        	-<span>원</span>
-                        </span>
+                        <span class="flex-right2 delivery-fee2"></span>
+                        <span>원</span>
                     </div>
                     <div class="final-info2 final-price2">
                         <span>최종 결제 금액</span>
-                        <span class="flex-right2">0원</span>
+                        <span class="flex-right2 final-pay2" id="final-pay2"></span>
+                        <span>원</span>
                     </div>
                 </div>
             </div><!--전체 결제 상세-->
@@ -1066,6 +1260,15 @@ input {
                         <div>${sessionScope.m.memEmail }</div>
                         <div class="supporter-fix2">휴대폰 번호</div>
                         <div>${sessionScope.m.memPhone }</div>
+                    </div>
+                    <div class="pay-method">
+                        <div class="supporter-info2 method">결제 방법</div>
+                        <label>
+                            <input type="radio" name="payMethod" id="pay-method" value="0"><span>무통장입금</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="payMethod" id="pay-method" value="1"><span>카드결제</span>   
+                        </label>
                     </div>        
                 </div>    
                 <div class="supporter-wrap2">
@@ -1074,48 +1277,108 @@ input {
                     </div>
                     <div class="delivery-detail2">
                         <div>이름</div>
-                        <input class="delivery-active2">
+                        <input class="delivery-active2 d-name">
                         <div>휴대폰 번호</div>
-                        <input class="delivery-active2">
-                        <div>주소</div>
-                                    
+                        <input class="delivery-active2 d-phone">
+                        <div>주소</div>                                   
                         <!--주소 API-->
                     	<div class="address-wrap">
 							<button type="button" id="post-find" class="post-find" onclick="searchAddr();">주소찾기</button>
-                            <input type="text" name="postcode" id="postcode" class="input-form" placeholder="주소를 먼저 검색하세요" readonly>
-                            <input type="text" name="address" id="address" class="input-form" placeholder="상세주소 입력란" readonly>
-                            <input type="text" name="detailAddress" id="detailAddress" class="input-form" placeholder="상세주소">
+                            <input type="text" name="postcode" id="postcode" class="input-form d-addr1" placeholder="주소를 먼저 검색하세요" readonly>
+                            <input type="text" name="address" id="address" class="input-form d-addr2" placeholder="상세주소 입력란" readonly>
+                            <input type="text" name="detailAddress" id="detailAddress" class="input-form d-addr3" placeholder="상세주소">
                         <div>배송 시 요청사항(선택)</div>
-                        <input class="delivery-active2" placeholder="ex) 부재시 경비실에 보관해주세요.">
+                        <input class="delivery-active2 d-message" placeholder="ex) 부재시 경비실에 보관해주세요.">
                     </div>        
                 </div>
             </div>
         </form>
     </div><!--content-wrap-->
     <button id="payment2" class="pay-btn2">펀딩 결제하기</button>
-
 </div>
- 
+<!--세번째 단계------------------------------------------------------------------->
+<div class="payPage3" id="payPage3">
+    <div class="fund-title3">
+        [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
+    </div>
+    <div class="content-wrap3">
+        <div class="pay-step3">
+            <div class="">리워드 선택</div>
+            <div class="">결제</div>
+            <div class="active3">결제 확인</div>
+        </div>
+        <!--form-->
+        <form name="purchaseForm3" id="purchaseForm3" method="post">
+            <input type="hidden" name="" value="">
+            <!--전체 결제 상세-->
+            <div class="payment">
+                <!--결제 상세1-->
+                <div class="one-pay first-wrap3">
+                     <!--리워드박스-->
+                    <c:forEach items="${list }" var="r" varStatus="i">                   
+                    <div class="pay-wrap3">
+                        <span class="reward-name3">${r.rewardName }</span>
+                        <div class="reward-intro3">
+                        	<span>${r.rewardOption }</span>
+	                        <!-- <span class="reward-active3">수량 : 1개</span>-->                        
+                        </div>
+                    </div><!--리워드 1개-->
+                    </c:forEach>
+                    <div class="final-info3 final-price3">
+                        <span>최종 결제 금액</span>
+                        <span class="flex-right3">
+                        	<span class="final-pay2"></span>
+                        	<span>원</span>
+                        </span>
+                    </div>
+                </div><!--리워드박스-->
+                
+                <div class="cash-method">
+                    <div class="cash-detail">2022년 6월 15일 자정까지 아래 계좌로 입금</div>
+                    <div>국민은행  96594545-01-05787522 (FUNFUNFUN)</div>
+                    <div>입금자명 : ${sessionScope.m.memberName }</div>
+                </div>
+
+
+                <!--결제 상세2-->
+                <div class="pay-info3">
+                    <span>결제완료 유의사항</span>
+                    <div class="info-detail3">
+                        <div>
+                            - 펀딩이 달성되지 않을 시, 결제 금액은 순차적으로 취소됩니다.</div>
+                        <div>
+                            - 결제실행일에 결제자 귀책사유(한도초과, 이용정지 등)로 인하여 결제가 실패할 수 있습니다.
+                        </div> 
+                        <div>
+                            - 1차 결제 실패 시 실패일로부터 3 영업일 동안 재 결제를 실행합니다.
+                        </div>
+                    </div>  
+                </div>  
+            </div><!--전체 결제 상세-->
+       </form>
+    </div><!--content-wrap-->
+    <div class="button-wrap3">
+        <button id="payment3" class="pay-btn3 project-btn3" onclick="location.href='/fund.do?category=BEST'">다른 프로젝트 보기</button>
+        <button id="payment3" class="pay-btn3 mypage-btn3" onclick="location.href='/myPageFrm.do'">마이페이지 확인</button>
+    </div>
 <input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
 <input type="hidden" class="fundCategory" value="${f.fundCategory }">
-  
-  
+<input type="hidden" class="fundNo" value="${f.fundNo }">
+<input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
+<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">  
+</div>
+ 
   
     
 <script>
 	//페이지 컨트롤
 	$(document).ready(function(){	
-		$(".payPage1").show();
-		$(".payPage2").hide();
+		$("#payPage1").show();
+		$("#payPage2").hide();
+		$("#payPage3").hide();
 	});
-	//2단계
-	$("#confirm").on("click",function(){
-		$(".payPage2").show();
-		$(".payPage1").hide();
-	});
-	
 
-	//결제 페이지
+	//결제 페이지 쿠폰리스트
 	$("#confirm").on("click",function(){
 		//<쿠폰용>
 		//결제할 멤버 번호
@@ -1123,94 +1386,166 @@ input {
 		//카테고리명
 		const fundCategory = $(".fundCategory").val();
 		//선택한 리워드 총금액
-		let rewardSum = Number($(".reward-sum").val()); 
-		
+		let rewardSum = Number($(".reward-sum").val()); 	
 		$.ajax({
 			url : "/selectCouponList.do",
 			data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum},
 			success : function(data){
 				const select = $("#coupon-type2");
 				select.empty();
+				select.append("<option value=-1>[다음 쿠폰 중 하나만 선택 가능합니다.]</option>")
 				for(let i=0; i<data.length; i++){
-					select.append("<option value="+data[i].couponType+">"+data[i].couponName+"</option>");
-				}//for문
-			}
+					select.append("<option value="+data[i].discount+">"+data[i].couponName+"</option>");
+				}//for문		
+				$("#payPage2").show();
+				$("#payPage1").hide();
+			}//success
+		});//ajax
+		
+		/*
+		let reward = [];
+		let obj = {};
+		$("input[name='reward-check']:checked").each(function(i){
+			//let index = $("reward-check").index(this);
+			let memberNo = $(".memberNo").val();
+			let fundNo = $(".fundNo").val();
+			let rewardNo = ($(this).val());
+			let rewardAmount = ($(this).parents(".one-reward").find(".amount-input").val());
+			obj.memberNo = memberNo;
+			obj.fundNo = fundNo;
+			obj.rewardNo = rewardNo;
+			obj.rewardAmount = rewardAmount;
+			reward.push(obj);
+			obj={};
 		});
+		console.log(reward);
+		let jsonData = JSON.stringify(reward);
+		
+		$.ajax({
+			url : "/insertReward.do",
+			type:"post",
+			traditional:true,
+			data : {reward:jsonData},
+			//{memberNo:memberNo,rewardNo:rewardNo,rewardAmount:rewardAmount,fundNo:fundNo},
+			success : function(data){
+				alert("성공");
+			}
+			
+		})*/
 	});
+		
 
-	//쿠폰 차감
-    $("#coupon-type2").on("change",function(){
-        let couponType = $("#coupon-type2 option:selected").val();
-        console.log(couponType);
-        //val 0:배송비 무로, 1:%할인, 2:원화 할인
-        
-        $.ajax({
-            url:'/couponType.do',
-            data: {yellow_id:$(this)[0].value},
-            success: function (data) {
-                selectTerm = "<option value='0'>템플릿코드</option>"; 
-                $("#template_code option").remove(); 
-                $.each(JSON.parse(data) , function (key, value) {
-                    selectTerm += "<option value=" + value.code + ">" + value.name + "</option>";
-                }); 
-                $("#template_code").append(selectTerm);
-            },
-            error: function () {
-                console.log('error');
-            }
-        }); 
+	//쿠폰 차감 반영 결제금액
+	$("#coupon-type2").on("change",function(){
+        let discount = $("#coupon-type2 option:selected").val();	//선택옵션
+		//원래 배송비
+        let fee = $(".max-fee").val();
+        let fundingSum = Number($(".funding-sum").text());//리워드+후원(배송비X)
+		let rewardSum2 = Number($(".reward-sum2").text());//리워드만
+		let donation = Number($(".donation-input2").text());//후원금만
+		let finalPay = Number($(".final-pay").val());//배송비 포함금액
+        //최종 결제용
+		//let coupon = Number($(".coupon-disount").text());//쿠폰차감액
+		//let delivery = Number($(".delivery-fee2").text());//배송비 최종
+		
+        	if(discount==-1){		//쿠폰 선택안했을 때
+		    	$(".coupon-discount2").text("0");
+		    	$(".delivery-fee2").text(fee); 
+		    	//최종 결제 금액 = 원래 최종결제용
+		    	$(".final-pay2").text(finalPay);
+        	}	
+        	if(discount==0){	//0:배송비 무료
+        		$(".delivery-fee2").text("0");
+        		//최종 결제 금액 =원래 배송비 제외 금액
+        		$(".final-pay2").text(fundingSum);
+		    }else{ 
+		    	$(".delivery-fee2").text(fee); 	
+		    }
+        	
+        	if(0<discount){	//1:%할인 ex)30 -> 30%할인
+				//차감될 금액
+				let minus = rewardSum2 *discount/100;
+				$(".coupon-discount2").text(minus);
+				//최종 결제 금액 = 원래 최종에 쿠폰 차감
+				$(".final-pay2").text(finalPay-minus);
+		    }else{ 
+		    	//쿠폰 다시 0
+		    	$(".coupon-discount2").text("0");
+		    }
+        	
+        	if(100<discount){	//2:원화 할인 ex)5000 -> 5000원할인       		
+				//차감될 금액
+				let minus = discount;
+				$(".coupon-discount2").text(minus);
+				//최종 결제 금액 = 원래 최종에 쿠폰 차감
+				$(".final-pay2").text(finayPay-minus);
+		    }else{ 
+		    	//쿠폰 다시 0
+		    	//$(".coupon-discount2").text("0");
+		    }
+
     });
-	
-
 
 	//리워드 토글
 	$('.reward-check').click(function(){
 		let amountBox = $(this).parents(".one-reward").find(".reward-count");
 		const index = $('.reward-check').index(this);
-		//console.log("reward-wrap : "+$(".test-wrap").length);
-		if(amountBox.css('display')==('none')){	//none일 때
+		//console.log($(".reward-wrap2").length);
+		//console.log($(".reward-wrap2").eq(index).text());
+		if(amountBox.css('display')==('none')){	//none일 때 클릭 -> 보이게하기
 			//console.log(index+"인덱스");
-			//보이게하기
 			amountBox.css('display','block');
 			//console.log($(".amount-btn").length);
 			$(".amount-btn").eq(2*index+1).click();		
 			$(".reward-wrap2").eq(index).show();
-	
-		}else{ //block일 때
+			$(".pay-wrap3").eq(index).show();
+
+		}else{ 									//block일 때 클릭 -> 접기
 			amountBox.css('display','none');
 			$(".amount-input").eq(index).val(0);
-			$(".reward-total").eq(index).val(0);	
-			//$(".amount-btn").eq(2*index-1).click();	
+			$(".reward-total").eq(index).val(0);
 			$(".reward-wrap2").eq(index).hide();
+			$(".pay-wrap3").eq(index).hide();
+			
+			//$(".selected-input").eq(index).val(0);
 		}
 		totalPrice();
 	});
 
 	//리워드 수량 조절
-		function changeQty(obj,type){    	  
+		function changeQty(obj,type){  
 	    	if(type=='up'){
 			   	let count = Number($(obj).prev().val());
 			   	//리워드 sum 총액만 구하기용			   	
 			    const countUp = count + 1;
-			    //console.log(countUp);
 			    $(obj).prev().val(countUp);
+			    
+			    /*
+			    let origin = $(obj).val();
+			    console.log(origin);
+			    let select = $(obj).parents("body").find(".selected-amount").val();
+			    console.log(select);
+				const add = select +1;
+			    if(origin == select){
+				    $(obj).parents("body").find(".selected-amount").val(add);			    	
+			    }*/
+			   			    
 			    //리워드 1개
 			    const rewardPrice = Number($(obj).next().val());
 			    const rewardTotal = countUp * rewardPrice;
 			    $(obj).next().next().val(rewardTotal);    
-			    //다음페이지
-		    
+			    				
 	    	}else if(type=='down'){
-		    	let count = Number($(obj).next().val());				
+		    	let count = Number($(obj).next().val());	
 			   	//리워드 sum 총액만 구하기용			   	
 			    const countDown = count - 1;			   	
 			    if (count != 1) {        
-			    	$(obj).next().val(countDown);		
+			    	$(obj).next().val(countDown);				    	
 			        //리워드 1개
 			    	const rewardPrice = Number($(obj).next().next().next().val());
 				    const rewardTotal = countDown * rewardPrice;
 				    $(obj).next().next().next().next().val(rewardTotal);
-				}		    	
+				}			    
 		    }
 	    	totalPrice();
 		}
@@ -1220,7 +1555,7 @@ input {
 			totalPrice();
 		});
 
-	//토탈 함수
+	//리워드 수량 토탈 함수
 		function totalPrice(){
 			const checkBox = $('.reward-check:checked');
 			let totalPrice = 0;
@@ -1229,20 +1564,63 @@ input {
 			}
 			//console.log(totalPrice);
 			$(".reward-sum").val(totalPrice);
-			$(".reward-sum2").text(totalPrice+"원");	//다음페이지
+			$(".reward-sum2").text(totalPrice);	//다음페이지
 			let currentDonation = Number($(".donation-input").val());
 			$(".funding-sum").text(totalPrice+currentDonation);
-			$(".donation-input2").text(currentDonation+"원");
-			
+			$(".donation-input2").text(currentDonation); //다음페이지
+		
+			//최종 결제
+			let fundingSum = Number($(".funding-sum").text());
+			let maxFee = Number($(".max-fee").val());
+			$(".final-pay").val(fundingSum+maxFee);
+			//다음페이지 적용
+			$(".final-pay2").text(fundingSum+maxFee);			
 		}
 	
+		//최대 배송비 구하기
+		//배송비 array
+		const fee = new Map();
+		fee.set(0,0);
+		$('.reward-check').on("change",function(){
+		//인덱스
+		const val = $(this).val();
+			if($(this).is(":checked")){
+				//console.log(val);
+				const deliveryFee = $(this).parent().next().find(".reward-delivery").text();	
+				fee.set(val,deliveryFee);			
+				//console.log(fee.get(val));	
+				//console.log(fee);
+			}else{
+				fee.delete(val);
+			}	
+			//console.log(Math.max(...fee.values()));
+			const maxFee = Math.max(...fee.values());
+			//두 페이지 적용
+			$(".max-fee").val(maxFee);
+			$(".delivery-fee2").text(maxFee);
+		});
+
+
 	
-	
+	//서포터 이름, 펀딩액 공개여부
+	$("#name-show").change(function(){
+		    if($(this).is(":checked")){
+		        $(this).val(1);
+		    }else{
+		    	$(this).val(0);
+		    }
+		});
+	$("#fund-show").change(function(){
+	    if($(this).is(":checked")){
+	        $(this).val(1);
+	    }else{
+	    	$(this).val(0);
+	    }
+	});
 	
 	//메모 - input 해킹 방지?? : on("propertychange change keyup paste input",
-	
-		
-		//다음단계 체크박스 확인
+
+		/*다음단계 체크박스 확인
 		$(".confirm-check").change(function(){
 		    if($(".confirm-check").length == $(".confirm-check").length){
 		        alert("확인");
@@ -1257,7 +1635,7 @@ input {
 		    if($(".confirm-check").is(":checked")==true){
 		        console.log("체크된 상태");
 		    }
-		})
+		})*/
 		
 	//다음단계 모달
 	$(function(){
@@ -1300,6 +1678,113 @@ input {
 		        }
 		    }).open();
 		}
+	
+	//결제 API=====================================================
+		$("#payment2").on("click",function(){
+			if(!$(".d-name").val()){
+				alert("수령인을 확인해주세요.");
+				$(".d-name").focus();
+			}
+			if(!$(".d-phone").val()){
+				alert("전화번호를 확인해주세요.");
+				$(".d-phone").focus();
+			}
+			if(!$(".d-addr3").val()){
+				alert("배송지를 확인해주세요.");
+				$(".d-addr3").focus();
+			}
+			if(!$(".d-message").val()){
+				alert("배송메시지를 확인해주세요.");
+				$(".d-message").focus();
+			}
+
+			//결제 변수 저장
+			let memberId = $(".memberId").val();
+			let memberName = $(".memberName").val();
+			let fundNo = $(".fundNo").val();
+			let fpayDeliveryfee = Number($(".delivery-fee2").text());
+			let fpaySupport = Number($(".donation-input2").text());
+			let fpayRewardTotal = Number($(".reward-sum2").text());
+			let fpayFunding = fpaySupport+fpayRewardTotal;
+			let fpayFinalpay = Number($(".final-pay2").text());
+			let nameShow = $("#name-show").val();
+			let fundingShow = $("#fund-show").val();
+			let payMethod = $("input[name='payMethod']:checked").val();
+			console.log(memberId+","+memberName+","+fundNo+","+fpaySupport+","+fpayDeliveryfee+","+fpayRewardTotal+","+fpayFunding+","+fpayFinalpay+","+nameShow+","+fundingShow+","+payMethod);
+			
+			//배송지 변수 저장
+			let	fdeliveryName = $(".d-name").val();
+			let	fdeliveryPhone = $(".d-phone").val();
+			let	fdeliveryAddress = $(".d-addr1").val()+$(".d-addr2").val()+$(".d-addr3").val();
+			let	fdeliveryMessage = $(".d-message").val();
+			console.log(fdeliveryName+","+fdeliveryPhone+","+fdeliveryAddress+","+fdeliveryMessage)
+						
+			//카드결제일 때 아임포트
+			if($("input[name='payMethod']:checked").val()=="1"){	
+				const price = $("#final-pay2").text();
+				//거래 고유 ID생성을 위해 현재 결제 날짜를 이용해서 처리
+				const d = new Date();
+				//date 값 생성 시 ""를 더하지 않으면 숫자 + 연산이 되므로 문자 덧셈을 위해 ""를 추가해줘야 함
+				const date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+				IMP.init("imp41020915");	//결제 API 사용을 위한 식별코드입력
+				IMP.request_pay({
+					merchant_uid : "상품코드_"+date,			//거래ID
+					name : "결제 테스트",						//결제이름
+					amount : price,							//결제금액
+					buyer_email	: "khtest0401@gmail.com", 	//구매자 email주소
+					buyer_tel : "010-0000-0000",			//구매자 전화번호
+					buyer_addr : "일산",						//구매자 주소
+					buyer_postcode : "12345"				//구매자 우편번호
+				},function(rsp){
+					if(rsp.success){
+						console.log("결제 성공");
+						console.log("고유ID : "+rsp.imp_uid);
+						console.log("상점거래ID : "+rsp.merchant_uid);
+						console.log("결제 금액 : "+rsp.paid_amount);
+						console.log("카드승인번호 : "+rsp.apply_num);
+						//추가 DB작업이 필요한 경우 이 부분에 결제내역을 DB에 저장하는 코드 작성
+						//결제 정보 insert
+						$.ajax({
+							url : "/PayInfo.do",
+							data : {
+								memberId:memberId,memberName:memberName,fundNo:fundNo,fpayDeliveryfee:fpayDeliveryfee,
+								fpaySupport:fpaySupport,fpayRewardTotal:fpayRewardTotal,fpayFunding:fpayFunding,
+								fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod
+							},
+							success : function(data){
+								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+
+							},
+							error : function(){
+								console.log("실패");
+							}
+						})//결제ajax
+						
+					}else{
+						alert("결제가 취소되었습니다. 다시 시도해세요.");
+					}
+				});//카드결제 끝			
+			}else if($("input[name='payMethod']:checked").val()=="0"){ //무통장입금일 때
+				let result = confirm("무통장입금을 진행하시겠습니까?");
+				if(result==true){
+					$.ajax({
+						url : "/PayInfo.do",
+						data : {
+							memberId:memberId,memberName:memberName,fundNo:fundNo,fpayDeliveryfee:fpayDeliveryfee,
+							fpaySupport:fpaySupport,fpayRewardTotal:fpayRewardTotal,fpayFunding:fpayFunding,
+							fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod
+						},
+						success : function(data){
+							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+						},
+						error : function(){
+							console.log("실패");
+							alert("결제가 취소 되었습니다. 다시 시도하세요.");
+						}
+					});	//ajax			
+				}
+			}
+		});	//payment2 버튼	
 	
 </script>
     
