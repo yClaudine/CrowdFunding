@@ -26,6 +26,15 @@
               min_price as minPrice,
               coupon_status as couponStatus
           from coupon 
-        where coupon_no=#{couponNo} and main_target in ('all','store') and sub_target in ('all',#{storeCategory}) and #{totalprice} <![CDATA[>]]> min_price and to_char(sysdate,'YYYY-MM-DD')<![CDATA[>=]]> valid_start 	
+        where coupon_no=#{couponNo} and main_target in ('all','store') and sub_target in ('all',#{storeCategory}) and #{totalprice} <![CDATA[>]]> min_price and (to_char(sysdate,'YYYY-MM-DD')<![CDATA[>=]]>valid_start or valid_start is null) 	
 	</select>
+	<select id="selectStorepayNo" parameterType="map" resultType="int">
+		select NVL(storepay_no,0) as storepayNo
+		 from storepay
+		where member_no=#{memberNo} and store_no=#{storeNo}
+	</select>
+	<insert id="insertPay" parameterType="map">
+	INSERT INTO storepay VALUES
+		(STORE_STAR_SEQ.nextval,(select mem_coupon_no from member_coupon where member_no=#{memberNo} and coupon_no=#{couponNo}),#{storeNo},#{memberNo},#{storeDelivery},#{storePrice},1,to_char(sysdate,'yyyy-mm-dd'),#{storepayAllprice})
+	</insert>
 </mapper>

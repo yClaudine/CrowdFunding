@@ -49,10 +49,11 @@ public class StoreController {
 	@RequestMapping(value="/storeView.do")
 	public String storeView(int storeNo, Model model,@SessionAttribute (required = false)Member m) {
 		StoreViewData sv = service.selectOneStore(storeNo);
-		
+		ArrayList<Integer> storepayNo = service.selectStorepayNo(m.getMemberNo(),storeNo);
 		model.addAttribute("s",sv.getS());
 		model.addAttribute("list",sv.getList());
 		model.addAttribute("starAvg", sv.getStarAvg());
+		model.addAttribute("storepayNo", storepayNo);
 		return "store/storeView";
 	}
 	/*
@@ -71,27 +72,14 @@ public class StoreController {
 	}
 
 	@RequestMapping(value = "/insertStar.do")
-	public String insertComment(Model model,@SessionAttribute (required = false)Member m,Store s) {
-		int result = service.insertComment(s);
-		return "store/storeView.do?storeNo="+s.getStoreNo();
+	public String insertComment(Model model,@SessionAttribute (required = false)Member m,StoreStar ss) {
+		int result = service.insertComment(ss);
+		//되돌아 가기 위해서는 redirect:를 앞에 
+		return "redirect:/storeView.do?storeNo="+ss.getStoreNo();
 		
 	}
 
-	/*
-	@RequestMapping(value="/storeView.do")
-	public String storeView(int storeNo, Model model,@SessionAttribute (required = false)Member m) {
-		StoreViewData sv = service.selectOneStore(storeNo);
-		
-		model.addAttribute("s",sv.getS());
-		model.addAttribute("list",sv.getList());
-		model.addAttribute("starAvg", sv.getStarAvg());
-		return "store/storeView";
-	}
-	for(int i=0;i<students.size();i++) {
-        Student s = students.get(i);
-        System.out.println(s.getName()+"\t"+s.getAge()+"\t"+s.getAddr());
-    }
-    */
+
 	@RequestMapping(value = "/storePayment.do")
 	public String storePayment(Model model,@SessionAttribute (required = false)Member m,int storeNo,int number,int totalprice,String storeCategory) {	//총금액이랑 카테고리
 		StoreViewData sv = service.selectOneStore(storeNo);
@@ -103,7 +91,7 @@ public class StoreController {
 		    System.out.println(mc.getCouponNo());
 		    if(c != null){
 		    	cList.add(c);
-		    	}
+		    }
 		}
 		System.out.println(cList);
 		System.out.println(mcList);
@@ -113,14 +101,19 @@ public class StoreController {
 		model.addAttribute("s", sv.getS());
 		return "store/storePayment";
 	}
+	
 	@RequestMapping(value="/pay.do")
-	public String pay(Model model, @SessionAttribute (required = false)Member m, int storeNo,int number,int totalprice,String storeCategory) {
+	public String pay(Model model, @SessionAttribute (required = false)Member m, int storeNo,int number,int couponNo,int storeDelivery,int storePrice, int storepayAllprice) {
 		StoreViewData sv = service.selectOneStore(storeNo);
-		model.addAttribute("totalprice", totalprice);
+		int insertPay = service.insertPay(m.getMemberNo(),couponNo,storeNo,number,storeDelivery,storePrice,storepayAllprice);
+		System.out.println(storeNo);
+		System.out.println(couponNo);
+		model.addAttribute("totalprice", storepayAllprice);
 		model.addAttribute("number", number);
 		model.addAttribute("s", sv.getS());
 		return "store/pay";
 	}
+	
 	@RequestMapping(value="/Store.do")
 	public String Store() {
 		return "store/Store";

@@ -313,6 +313,9 @@ html>body {
 	.storeAllPrice{
 		padding-top: 20px;
 	}
+	.star-box>span:hover{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -477,14 +480,16 @@ html>body {
 								            <span class="material-symbols-outlined">star</span>
 								            <span class="material-symbols-outlined">star</span>
 								        </div>
-								        <span class="num">0</span>
-								        <input type="hidden" name="starScore" value="0">&nbsp;점	
+								        <span class="num"></span>
+								        <input type="hidden" name="starScore" value="0"> 점
 								    </div>                           
 								    </li>
 								    <li>
-									    <input type="hidden" name="memberId" value="${s.memberId }">
+									    <input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 									    <input type="hidden" name="storeNo" value="${s.storeNo }">
-									    <textarea class="input-form" name="starContent"> </textarea>
+									    <input type="hidden" name="storeProduct" value="${s.storeProduct }">
+						            	<input type="hidden" name="storepayNo" value="${storepayNo }">
+									    <textarea class="input-form" name="starContent"></textarea>
 									 </li>
 									 <li>
 									    <button type="submit" class="btn">등록</button>
@@ -517,12 +522,13 @@ html>body {
                         				</c:forEach>
 							        	
 							        </div>
-						            <div class="starScore">${ss.starScore }&nbsp;점	</div>
+						            <div class="starScore2">${ss.starScore }&nbsp;점	</div>
 					            </div>
 				            </div>
 				            <div class="starcontent">${ss.starContent }</div>
 			            </div>
 			            <button id="report-button">신고</button>
+			            <a href=></a>
 			        </c:forEach>
 				</div>
 				
@@ -645,10 +651,13 @@ html>body {
 		const category = document.getElementById('category');
 		let storeCategory = category.innerText;
 		if(confirm("구매창으로 넘어가시겠습니까?")){
+			
 			location.href="/storePayment.do?storeNo=${s.storeNo}&number="+number+"&totalprice="+totalprice+"&storeCategory="+storeCategory;
 		}
 	});
 
+	
+	
 	
 	$(function(){
 	    const tabs = $(".tabs>li");
@@ -667,8 +676,8 @@ html>body {
         
         score.each(function(index,item){
 			
-			const starScore=$(item).val()*30;
-        	$(item).prev().animate({"width":starScore+"px"},3000);
+			const starScore2=$(item).val()*30;
+        	$(item).prev().animate({"width":starScore2+"px"},3000);
 		});
         
         const content = $(".tapContent");
@@ -703,7 +712,7 @@ html>body {
     	      
     	   var s =0;
     	    const stars=$(".star-box").children();
-    	        stars.on("mouseover",function(){
+    	        stars.on("click",function(){
     	            stars.css("color","#ccc");
     	            const index=stars.index(this);
     	            for(let i=0; i<=index; i++){
@@ -711,26 +720,11 @@ html>body {
     	            }
     	            const num=$(".num").eq(0).text(index+1);
     	            num.next().attr("value",index+1);
-    	            
-    	            stars.on("click",function(){
-    	                s=1;
-    	                for(let e=0; e<=index; e++){
-    	                    stars.eq(s).css("color","#00c4c4");
-    	                }
-    	            });
-    	            stars.on("mouseout",function(){
-    	                if(s!=1){
-    	                      
-    	                    stars.css("color","#ccc");
-    	                    const num=$(".num").eq(0).text(0); 
-    	                    num.next().attr("value",0);
-    	                }
-    	            });
-    	            s=0;   
-    	        });     
-    	       
+    	            $("[name=starScore]").val(index+1);
+    	        }); 
 
-    	});	
+    	});
+    
 	</script>
 </body>
 </html>
