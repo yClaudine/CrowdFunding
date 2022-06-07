@@ -26,11 +26,11 @@
 	where fund_no = #{fundNo} and memberId = #{memberId}
 	</delete>
 	
-<!-- 좋아요 체크
-	<selcet id="fundCheck" parameterType="map" resultType="fl">
+<!-- 좋아요 체크-->
+	<select id="fundCheck" parameterType="map" resultType="fl">
 	select 
 		count(*) as likeCheck 
 	from fund_like 
 	where fund_no =#{fundNo} and member_id=#{memberId}
-	</selcet>	 -->
+	</select>	 
 </mapper>

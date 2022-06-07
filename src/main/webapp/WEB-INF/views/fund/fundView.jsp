@@ -567,7 +567,8 @@ justify-content: right;
                     <button class="like-btn">
                         <span class="material-icons likes">favorite_border</span>
                         <!-- <span class="material-icons likes">favorite</span>  -->
-                        <span class="btn-value">${fl.total}</sp>
+                        <span class="btn-value">${fl.total}</span>
+                        <span class="btn-value">${fl.likeCheck}</span>
                     </button>
                     <button class="report-btn" type="submit">
                         <span class="material-icons">report</span>                

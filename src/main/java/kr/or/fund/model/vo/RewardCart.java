@@ -12,4 +12,5 @@ public class RewardCart {
 	int memberNo;
 	int rewardNo;
 	int rewardAmount;
+	int fundNo;
 }

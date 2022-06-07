@@ -1361,11 +1361,11 @@ label span{
         <button id="payment3" class="pay-btn3 project-btn3" onclick="location.href='/fund.do?category=BEST'">다른 프로젝트 보기</button>
         <button id="payment3" class="pay-btn3 mypage-btn3" onclick="location.href='/myPageFrm.do'">마이페이지 확인</button>
     </div>
-<input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
-<input type="hidden" class="fundCategory" value="${f.fundCategory }">
-<input type="hidden" class="fundNo" value="${f.fundNo }">
-<input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
-<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">  
+	<input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
+	<input type="hidden" class="fundCategory" value="${f.fundCategory }">
+	<input type="hidden" class="fundNo" value="${f.fundNo }">
+	<input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
+	<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">  
 </div>
  
   
@@ -1420,6 +1420,7 @@ label span{
 		});
 		console.log(reward);
 		let jsonData = JSON.stringify(reward);
+		//js를 하나의 긴 문자로 만들어줌 -> 지금은 reward 키값을 긴 문자열 하나로 전송함(json parser로 처리필요)
 		
 		$.ajax({
 			url : "/insertReward.do",
@@ -1449,7 +1450,7 @@ label span{
 		//let delivery = Number($(".delivery-fee2").text());//배송비 최종
 		
         	if(discount==-1){		//쿠폰 선택안했을 때
-		    	$(".coupon-discount2").text("0");
+		    	//$(".coupon-discount2").text("0");
 		    	$(".delivery-fee2").text(fee); 
 		    	//최종 결제 금액 = 원래 최종결제용
 		    	$(".final-pay2").text(finalPay);
@@ -1478,7 +1479,8 @@ label span{
 				let minus = discount;
 				$(".coupon-discount2").text(minus);
 				//최종 결제 금액 = 원래 최종에 쿠폰 차감
-				$(".final-pay2").text(finayPay-minus);
+				$("#final-pay2").text(finalPay-minus);
+				console.log(finalPay,minus);
 		    }else{ 
 		    	//쿠폰 다시 0
 		    	//$(".coupon-discount2").text("0");
@@ -1520,17 +1522,7 @@ label span{
 			   	let count = Number($(obj).prev().val());
 			   	//리워드 sum 총액만 구하기용			   	
 			    const countUp = count + 1;
-			    $(obj).prev().val(countUp);    
-			    /*
-			    let origin = $(obj).val();
-			    console.log(origin);
-			    let select = $(obj).parents("body").find(".selected-amount").val();
-			    console.log(select);
-				const add = select +1;
-			    if(origin == select){
-				    $(obj).parents("body").find(".selected-amount").val(add);			    	
-			    }*/
-			   			    
+			    $(obj).prev().val(countUp);    			   			    
 			    //리워드 1개
 			    const rewardPrice = Number($(obj).next().val());
 			    const rewardTotal = countUp * rewardPrice;
@@ -1795,7 +1787,8 @@ label span{
 					});	//ajax			
 				}//confirm if
 			}//else if
-		});	//payment2 버튼	
+		});	
+	//payment2 버튼	
 	
 </script>
     

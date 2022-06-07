@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
@@ -102,7 +104,8 @@ public class FundListController {
 		int result = service.deleteFundlike(fundNo);
 		return new Gson().toJson(result);
 	}
-	/*좋아요 체크여부
+	*/
+	//좋아요 체크여부
 	@ResponseBody
 	@RequestMapping(value="/fundCheck.do",produces="application/json;charset=utf-8")
 	public String fundCheck(int fundNo, String memberId) {
@@ -116,7 +119,7 @@ public class FundListController {
 		
 		return "";
 	}
-	*/
+	
 
 	
 	//결제 상세---------------------------------------------------
@@ -185,19 +188,32 @@ public class FundListController {
 		int result = service.deleteCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
 		return new Gson().toJson(result);
 	}*/
-	/*리워드 카트 array insert
+	
+	//리워드 카트 array insert
 	@ResponseBody
 	@RequestMapping(value="/insertReward.do",produces="application/json;charset=utf-8")
-	public String insertReward(@RequestParam(value = "reward[]")List<String> reward){
+	public String insertReward(String reward){
 		//JsonArray array = JsonArray.fromObject(reward.get("reward"));
 		System.out.println(reward);
-		for(int i=0; i<reward.size(); i++) {
-			System.out.println(reward);
+		//변환, 꺼내쓰는 작업 중요 (특히 검색엔진쪽, 데이터 편집)
+		JsonParser parser = new JsonParser();
+		JsonArray jsonarray = parser.parse(reward).getAsJsonArray();
+		ArrayList<RewardCart> result = new ArrayList<RewardCart>();
+		for(int i=0; i<jsonarray.size(); i++) {
+			//json객체 배열 유연해서 확실히 타입 지정
+			JsonObject object = jsonarray.get(0).getAsJsonObject();
+			RewardCart r = new RewardCart();
+			//소켓에서 json으로 꺼내는 방식 참고해야 함 -> ()에 키값
+			r.setMemberNo(object.get("memberNo").getAsInt());
+			r.setRewardNo(object.get("rewardNo").getAsInt());
+			r.setFundNo(object.get("fundNo").getAsInt());
+			r.setRewardAmount(object.get("rewardAmount").getAsInt());
+			result.add(r);
 		}
+		//for문 끝나고 result에 add해주면 됨
 		
-		//int result = service.insertReward(reward);
 		return new Gson().toJson(reward);
-	}*/
+	}
 	
 
 
