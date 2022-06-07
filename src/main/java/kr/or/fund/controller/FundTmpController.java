@@ -125,6 +125,34 @@ public class FundTmpController {
 	//FUND 신청하기 메서드 추후 작성
 	@RequestMapping(value="/CreateFund.do")
 	public String CreateFund(int tfNo) {
+		TmpFund tf = new TmpFund();
+		tf.setTfNo(tfNo);
+		//해당하는 임시 펀드 번호로 해당하는 데이터들을 모두 불러오기 
+		TmpFund tmpF = service.selectOneTmpFund(tf);
+		ArrayList<TmpReward> tRList = service.selectReward(tf);
+		TmpFundCalculate tfc = service.selectOneFundCalculate(tf);
+		//불러온 값들을 펀드 테이블과 연계된 테이블에 인서트
+		int result = 1;
+		//펀드 테이블로 -> 해당 메서드는 새로 생성될 펀드 번호 return
+		int fundResult = service.createFund(tmpF);
+		result *= fundResult;
+		//리워드 테이블로 -> 각 임시 리워드에 위의 펀드 번호 세팅
+		for(TmpReward tr : tRList) {
+			tr.setTfNo(fundResult);;
+			int rewardResult = service.createReward(tr);
+			result *= rewardResult;
+		}
+		//정산 테이블로 -> 위의 펀드 번호 세팅
+		tfc.setTfNo(fundResult);
+		int calculateResult = service.createFundCalculate(tfc);
+		result *= calculateResult;
+		//데이터들이 정상적으로 옮겨졌으면 임시 테이블에 있던 데이터 삭제하는 작업
+		int deleteResult = 0;
+		if(result > 0) {
+			deleteResult = service.deleteTmpFund(tf);
+		}else {
+			System.out.println("insert 과정에서 error 발생!");
+		}
 		return "redirect:/";
 	}
 	

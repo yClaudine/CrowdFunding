@@ -222,7 +222,7 @@ html>body {
 						</div>
 						<div class="use-coupon">
 							<h5>쿠폰 사용</h5>
-							<select id="select" name="select-coupon">
+							<select id="select" name="couponNo">
 									<option value="" selected disabled>쿠폰을 선택하세요.</option> 									
 								<c:forEach items="${cList }" var="coupon" varStatus="i">
 									<option value="${coupon.couponNo }" type="${coupon.couponType}" discount="${coupon.discount }">${coupon.couponName}</option>
@@ -241,16 +241,18 @@ html>body {
 								<div>배송비</div><div class="right" id="deliveryPrice">${s.storeDelivery }</div>
 							</div><hr>
 							<div class="product-price">
-								<input type="hidden" name="storeNo" value="${s.storeNo }">
-								<input type="hidden" name="totalprice" value="${totalprice }" id="changePrice">
-								<input type="hidden" name="number" value="${number }">
-								<input type="hidden" name="memberNo" value="${m.memberNo }">
+								<input type="text" name="storeNo" value="${s.storeNo }">
+								<input type="text" name="memberNo" value="${m.memberNo }">
+								<input type="text" name="storeDelivery" value="${s.storeDelivery }">
+								<input type="text" name="storePrice" value="${s.storePrice }">
+								<input type="text" name="storepayAllprice" value="${totalprice }" id="changePrice">
+								<input type="text" name="number" value="${number }">
 								<div>최종 결제금액</div><div class="right" id="finalPrice">${totalprice }</div>
 							</div>
 							<input type="checkbox" id="chk" name="service" class="button"/> 구매조건, 결제 진행 및 결제 대행 서비스 / 개인정보 제 3자 제공 동의(필수)
 						</div><br>
 							
-						<div class="submit-btn"><button id="submit" type="button" onclick="requestPay()">결제하기</button></div>
+						<div class="submit-btn"><button id="submit" type="button" disabled onclick="requestPay()">결제하기</button></div>
 						<input type="submit" id="submitBtn">
 					</div>
 					</form>
@@ -411,8 +413,11 @@ function sample4_execDaumPostcode() {
 				console.log("고유ID : "+rsp.imp_uid);
 				console.log("상점거래ID : "+rsp.merchant_uid);
 				console.log("결제금액 : "+rsp.paid_amount);
-				console.log("카드승인번호 : "+rsp.apply_num);				
-				$("#submitBtn").click();
+				console.log("카드승인번호 : "+rsp.apply_num);
+				//결제금액value를 넣어줄 곳
+				const resultElement3 = document.getElementById('finalPrice');
+				let finalPrice = resultElement3.innerText;
+				$("#submitBtn").click();				
 				
 		      } else {		    	  
 		    	  alert("결제 도중 에러가 발생했습니다. 관리자에게 문의하세요.");

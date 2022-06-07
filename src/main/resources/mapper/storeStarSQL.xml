@@ -32,13 +32,14 @@
 			WHERE storeno=#{storeNo}
 	</select>
 	<!-- storepay가 꼭 있어야 함 -->
+	
 	<insert id="insertComment" parameterType="ss">	
 		INSERT INTO store_star VALUES
-		(STORE_STAR_SEQ.nextval,#{storeNo},#{storepayNo},#{storeProduct},#{memberId},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},#{storeReportcount})
+		(STORE_STAR_SEQ.nextval,#{storepayNo},#{storeNo},#{memberId},#{storeProduct},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},0)
 	</insert>
 	<!-- 평점 -->
 	<select id="selectStarAvg" parameterType="int" resultType="double">
-		select avg(star_score)
+		select nvl(avg(star_score),0)
   		from store_star
   		WHERE store_no=#{storeNo}
 	</select>

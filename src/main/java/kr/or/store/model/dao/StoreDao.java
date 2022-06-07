@@ -40,8 +40,8 @@ public class StoreDao {
 		return totalCount;
 	}
 
-	public int insertComment(Store s) {
-		int result = sqlSession.insert("storeStar.insertComment",s);
+	public int insertComment(StoreStar ss) {
+		int result = sqlSession.insert("storeStar.insertComment",ss);
 		return result;
 	}
 
@@ -65,6 +65,23 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("storepay.selectOneCoupon",map);
 	}
+
+
+	public ArrayList<Integer> selectStorepayNo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub sqlSession.selectList("storepay.selectStorepayNo",map);
+		List list = sqlSession.selectList("storepay.selectStorepayNo",map);
+		
+		return (ArrayList<Integer>)list;
+	}
+
+
+	public int insertPay(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("storepay.insertPay",map);
+	}
+
+
+
 
 
 

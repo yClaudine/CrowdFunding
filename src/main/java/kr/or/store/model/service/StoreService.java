@@ -93,20 +93,11 @@ public class StoreService {
 		return spd;
 	}
 
-	public int insertComment(Store s) {
-		int result = dao.insertComment(s);
+	public int insertComment(StoreStar ss) {
+		int result = dao.insertComment(ss);
 		return result;
 	}
-	/*
-	 public StoreViewData selectOneStore(int storeNo) {
-		// TODO Auto-generated method stub
-		Store sm = dao.selectOneStore(storeNo);
-		ArrayList<StoreStar> list = dao.selectcommentAllList(storeNo);
-		double starAvg = dao.selectStarAvg(storeNo);
-		StoreViewData sv = new StoreViewData(sm, list, starAvg);
-		return sv;
-	} 
-	 */
+
 
 
 	public ArrayList<MemberCoupon> SelectMemberCouponList(int memberNo) {
@@ -121,9 +112,27 @@ public class StoreService {
         return dao.selectOneCoupon(map);
 	}
 
+	public ArrayList<Integer> selectStorepayNo(int memberNo,int storeNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("storeNo", storeNo);
+		return dao.selectStorepayNo(map);
+	}
 
+	public int insertPay(int memberNo, int couponNo, int storeNo, int number, int storeDelivery, int storePrice,
+			int storepayAllprice) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("couponNo", couponNo);
+		map.put("storeNo", storeNo);
+		map.put("number", number);
+		map.put("storeDelivery", storeDelivery);
+		map.put("storePrice", storePrice);
+		map.put("storepayAllprice", storepayAllprice);
+		return dao.insertPay(map);
+	}
 
-
+	
 
 
 
