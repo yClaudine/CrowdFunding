@@ -559,9 +559,9 @@ justify-content: right;
                 <span class="total-supporter">
                     <strong>499</strong> 명의 서포터
                 </span><br>
-                <a href="/payFunding.do?fundNo=${f.fundNo }" class="funding-linkwrap">
-                    <div class="funding-link">펀딩하기</div>
-                </a>
+                <div class="funding-linkwrap">
+                    <button class="funding-link" id="pay" style="border:none;">펀딩하기</button>
+                </div>
                 <br>
                 <div class="btn-box">
                     <button class="like-btn">
@@ -684,6 +684,15 @@ justify-content: right;
     <!-- <input type="hidden" class="likeCheck" value=""> -->
 
 <script>
+$("#pay").click(function(){
+	const login = $(".login").val();
+	if (login){
+		location.href="/payFunding.do?fundNo=${f.fundNo }";
+	}else{
+		alert("로그인을 먼저 진행해주세요");
+	}
+});
+
 //펀딩 설명 모달
 $(function(){
     $("#confirm").click(function(){
@@ -749,6 +758,8 @@ $(".like-btn").click(function(){
 				
 			}
 		})
+	}else{
+		alert("로그인이 필요합니다.");
 	}
 
 });

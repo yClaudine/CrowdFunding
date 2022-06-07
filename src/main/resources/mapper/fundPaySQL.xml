@@ -54,6 +54,46 @@
  		#{payMethod}
  	)
 	</insert>
+	<!-- 결제 정보 한 개 조회 -->
+	<select id="selectOnePay" parameterType="map" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where fund_no=#{fundNo} and member_id=#{memberId} and fpay_finalpay=#{fpayFinalpay}	
+	</select>
+	<!-- 펀딩 결제 정보 리스트 -->
+	<select id="selectPayList" parameterType="int" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where fund_no=#{fundNo}
+	</select>
 	
 	<!-- 리워트 카트 -->
 	<insert id="insertCart" parameterType="map">

@@ -1219,7 +1219,7 @@ label span{
                 <div class="one-pay active2">
                     <div class="final-info2">
                         <span>리워드 선택 금액</span>
-                        <span class="flex-right2 reward-sum2"></span>
+                        <span class="flex-right2 reward-sum2" id="reward-sum2"></span>
                         <span>원</span>
                     </div>
                     <div class="final-info2">
@@ -1232,12 +1232,12 @@ label span{
                     </div>
                     <div class="final-info2">
                         <span>추가 후원금</span>
-                        <span class="flex-right2 donation-input2"></span>
+                        <span class="flex-right2 donation-input2" id="donation-input2"></span>
                         <span>원</span>
                     </div>
                     <div class="final-info2">
                         <span>배송비</span>
-                        <span class="flex-right2 delivery-fee2"></span>
+                        <span class="flex-right2 delivery-fee2" id="delivery-fee2"></span>
                         <span>원</span>
                     </div>
                     <div class="final-info2 final-price2">
@@ -1496,14 +1496,16 @@ label span{
 			//console.log(index+"인덱스");
 			amountBox.css('display','block');
 			//console.log($(".amount-btn").length);
-			$(".amount-btn").eq(2*index+1).click();		
+			$(".amount-btn").eq(2*index+1).click();			
 			$(".reward-wrap2").eq(index).show();
 			$(".pay-wrap3").eq(index).show();
-
+	
+			
 		}else{ 									//block일 때 클릭 -> 접기
 			amountBox.css('display','none');
 			$(".amount-input").eq(index).val(0);
 			$(".reward-total").eq(index).val(0);
+			$(".max-fee").val(0);
 			$(".reward-wrap2").eq(index).hide();
 			$(".pay-wrap3").eq(index).hide();
 			
@@ -1518,8 +1520,7 @@ label span{
 			   	let count = Number($(obj).prev().val());
 			   	//리워드 sum 총액만 구하기용			   	
 			    const countUp = count + 1;
-			    $(obj).prev().val(countUp);
-			    
+			    $(obj).prev().val(countUp);    
 			    /*
 			    let origin = $(obj).val();
 			    console.log(origin);
@@ -1598,6 +1599,10 @@ label span{
 			//두 페이지 적용
 			$(".max-fee").val(maxFee);
 			$(".delivery-fee2").text(maxFee);
+			
+			let rewardSum = Number($(".reward-sum").val());		
+			$(".final-pay").val(rewardSum+maxFee);
+			totalPrice();
 		});
 
 
@@ -1684,29 +1689,33 @@ label span{
 			if(!$(".d-name").val()){
 				alert("수령인을 확인해주세요.");
 				$(".d-name").focus();
+				return;
 			}
 			if(!$(".d-phone").val()){
 				alert("전화번호를 확인해주세요.");
 				$(".d-phone").focus();
+				return;
 			}
 			if(!$(".d-addr3").val()){
 				alert("배송지를 확인해주세요.");
 				$(".d-addr3").focus();
+				return;
 			}
 			if(!$(".d-message").val()){
 				alert("배송메시지를 확인해주세요.");
 				$(".d-message").focus();
+				return;
 			}
 
 			//결제 변수 저장
 			let memberId = $(".memberId").val();
 			let memberName = $(".memberName").val();
 			let fundNo = $(".fundNo").val();
-			let fpayDeliveryfee = Number($(".delivery-fee2").text());
-			let fpaySupport = Number($(".donation-input2").text());
-			let fpayRewardTotal = Number($(".reward-sum2").text());
+			let fpayDeliveryfee = Number($("#delivery-fee2").text());
+			let fpaySupport = Number($("#donation-input2").text());
+			let fpayRewardTotal = Number($("#reward-sum2").text());
 			let fpayFunding = fpaySupport+fpayRewardTotal;
-			let fpayFinalpay = Number($(".final-pay2").text());
+			let fpayFinalpay = $("#final-pay2").text();
 			let nameShow = $("#name-show").val();
 			let fundingShow = $("#fund-show").val();
 			let payMethod = $("input[name='payMethod']:checked").val();
@@ -1719,6 +1728,8 @@ label span{
 			let	fdeliveryMessage = $(".d-message").val();
 			console.log(fdeliveryName+","+fdeliveryPhone+","+fdeliveryAddress+","+fdeliveryMessage)
 						
+			//if(!$(".d-name").val() && !$(".d-phone").val() && !$(".d-addr3").val() && !$(".d-message").val()){
+			
 			//카드결제일 때 아임포트
 			if($("input[name='payMethod']:checked").val()=="1"){	
 				const price = $("#final-pay2").text();
@@ -1759,7 +1770,7 @@ label span{
 								console.log("실패");
 							}
 						})//결제ajax
-						
+				
 					}else{
 						alert("결제가 취소되었습니다. 다시 시도해세요.");
 					}
@@ -1782,8 +1793,8 @@ label span{
 							alert("결제가 취소 되었습니다. 다시 시도하세요.");
 						}
 					});	//ajax			
-				}
-			}
+				}//confirm if
+			}//else if
 		});	//payment2 버튼	
 	
 </script>

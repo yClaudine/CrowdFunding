@@ -141,10 +141,10 @@ public class FundListController {
 	//결제 확인 페이지 이동 - 무통장입금
 	@RequestMapping(value="/payConfirm2.do")
 	public String payConfirm2(int fundNo, String memberId, int fpayFinalpay, Model model) {
-		PayRewardViewData prvd = service.selectPayReward(fundNo);
-		model.addAttribute("f",prvd.getF());
-		model.addAttribute("list",prvd.getRewardList());
-		
+		PayViewData pvd = service.payConfirm(fundNo,memberId,fpayFinalpay);
+		model.addAttribute("f",pvd.getF());
+		model.addAttribute("list",pvd.getRewardList());
+		model.addAttribute("fp",pvd.getFp());
 		return "fund/payConfirm2";
 	}
 	

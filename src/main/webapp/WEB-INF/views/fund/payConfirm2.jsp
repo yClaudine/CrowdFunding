@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
-.fund-title{
+.fund-title3{
     font-size: 22px;
     background-color: #A29584;
     color: #f2f4f6;
@@ -30,18 +30,18 @@
     line-height: 70px;
     text-align: center;
 }
-.content-wrap{
+.content-wrap3{
     width: 650px;
     margin: 0 auto;
     padding: 0 0 100px;
 }
-.pay-step{
+.pay-step3{
     height: 150px;
     align-items: center;
     display: flex;
     justify-content: center;
 }
-.pay-step div{
+.pay-step3 div{
     width: 90px;
     height: 90px;
     line-height: 90px;
@@ -53,88 +53,93 @@
     color: #60656a;
     font-weight: 500;
 }
-.pay-step .active{
+.pay-step3 .active3{
     background-color: #00c4c4;
     border: none;
     color: #f2f4f6;
 }
 
-.pay-wrap{
-    padding-bottom: 15px;
+.pay-wrap3{
+    margin-top: 30px;
+    padding-bottom: 10px;    
 }
 
-.pay-wrap .reward-active{
+.pay-wrap3 .reward-active3{
     float: right;
     font-size: 14px;
     font-weight: 500;
     margin-left: 15px;
 }
-.reward-active{
-    font-size: 13px;
-    color: #60656a;
-    font-weight: 500;
-    margin-bottom: 10px;
-}
-.one-pay{
+.one-pay3{
     background-color: #f9f9f9;
     border-radius: 5px;
     padding: 20px 20px;
     margin-bottom: 10px;
 }
-.reward-name{
+.reward-name3{
     font-weight: 600;
     color: #00c4c4;
-    font-size: 15px;
+    font-size: 17px;
     margin-bottom: 10px;
 }
-.reward-intro{
-    font-size: 13px;
+.reward-intro3{
+    font-size: 16px;
     color: #969696;
     font-weight: 500;
     margin-bottom: 20px;
 }
-.final-info{
+.final-info3{
     display: flex;
 }
-.final-info span{
+.final-info3 span{
     padding-top: 10px;
     color: #4a4a4a;
     font-size: 15px;
     font-weight: 500;
 }
-.flex-right{
+.flex-right3{
     margin-left: auto;
 }
-.final-price{
+.final-price3{
     border-top: 2px solid #9f9f9f;
     border-bottom: 2px solid #9f9f9f;
     margin-top: 20px;
 }
-.final-price span{
+.final-price3 span{
     padding-top: 5px;
     padding-bottom: 5px;
     font-size: 18px;
     font-weight: 500;
 }
-.pay-info{
+.pp2{
+    color: #979696;
+}
+.pp3{
+    border-top: none;
+    margin-top: 3px;
+}
+.pp3 span{
+    color: #b9a386;
+}
+.pay-info3{
     margin-top: 50px;
     margin-bottom: 10px;
     font-weight: 300;
 }
-.pay-info span{
+.pay-info3 span{
     font-size: 16px;
     font-weight: 500;
     margin-right: 10px;
 }
-.info-detail{
+.info-detail3{
     margin-top: 10px;
     font-size: 14px;
 }
-.payment{
+.payment3{
     margin-bottom: 0px;
 }
 
-.button-wrap{
+.button-wrap3{
     margin: 0 auto;
     display: flex;
     width: 450px;
@@ -142,14 +147,14 @@
     justify-items: center;
 }
 
-.project-btn{
+.project-btn3{
     background-color: #c5c5c5;
 }
-.mypage-btn{
+.mypage-btn3{
     background-color: #A29584;
 }
 
-.pay-btn{
+.pay-btn3{
     margin: 0 auto;
     font-size: 18px;
     font-weight: 400;
@@ -163,75 +168,73 @@
     display: block;
     
 }
-.project-btn:hover{
+.project-btn3:hover{
     transition: 0.5s;
     background-color: #979696;
     color: #ffffff;
     cursor: pointer;
 }
-.mypage-btn:hover{
+.mypage-btn3:hover{
     transition: 0.5s;
     background-color: #b9a386;
     color: #ffffff;
     cursor: pointer;
 }
+.cash-method{
+    margin-top: 50px;
+    color: #b9a386;
+    margin-bottom: 70px;
+}
+.cash-detail{
+    font-size: 19px;
+    font-weight: 500;
+    color: #60656a;
 }
 </style>
 </head>
 <body>
-	<%@include file="/WEB-INF/views/common/header.jsp" %>
-    <!--jquery-->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
-    <!--구글폰트-->
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-    html>body {
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-    </style>
-    <!--부트스트랩-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="../final_220518/resources/css" rel="stylesheet"/> 
-    <!--구글 아이콘-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!--페이지 css, js-->
-    <script src=""></script>
-    <link href="resources/p3_confirm.css" rel="stylesheet">
-</head>
-<body>
-    <div class="fund-title">
+<div class="last-page">
+    <div class="fund-title3">
         [16000명의 선택] 초경량 카본 자동 단우산이 돌아왔어요(앵콜)
     </div>
-    <div class="content-wrap">
-        <div class="pay-step">
+    <div class="content-wrap3">
+        <div class="pay-step3">
             <div class="">리워드 선택</div>
             <div class="">결제</div>
-            <div class="active">결제 확인</div>
+            <div class="active3">결제 확인</div>
         </div>
         <!--form-->
-        <form name="purchaseForm" id="purchaseForm" method="post">
+        <form name="purchaseForm3" id="purchaseForm3" method="post3">
             <input type="hidden" name="" value="">
             <!--전체 결제 상세-->
             <div class="payment">
                 <!--결제 상세1-->
-                <div class="one-pay first-wrap">
-                    <div class="pay-wrap">
-                        <span class="reward-name">[울트라슈퍼얼리버드] 쟁여두기 6개</span>
-                        <div class="reward-intro">자외선은 튕기고 비타민D는 흡수하는 광합썬! 세븐데이즈 마일드 선크림 6개</div>
-                        <span class="reward-active">수량 : 1개</span>
+                <div class="one-pay first-wrap3">
+                    <div class="pay-wrap3">
+                        <span class="reward-name3">펀딩 프로젝트 : ${f.fundName }</span>
+                        <div class="reward-intro3">${f.fundIntro }</div>
                     </div>
-                    <div class="final-info final-price">
-                        <span>최종 결제 완료 펀딩가</span>
-                        <span class="flex-right">100,900원</span>
+                    <div class="final-info3 final-price3 pp2">
+                        <span>이 프로젝트에 펀딩한 금액</span>
+                        <span class="flex-right3">${fp.fpayFunding }원</span>
+                    </div>
+                    <div class="final-info3 final-price3 pp3">
+                        <span>최종 결제 금액</span>
+                        <span class="flex-right3">${fp.fpayFinalpay }원</span>
                     </div>
                 </div><!--리워드박스-->
                 
+                <div class="cash-method">
+                    <div class="cash-detail">2022년 6월 15일 자정까지 아래 계좌로 입금</div>
+                    <div>국민은행  96594545-01-05787522 (FUN여수민FUN)</div>
+                    <div>입금자명 : ${sessionScope.m.memberName }</div>
+                </div>
+
+
                 <!--결제 상세2-->
-                <div class="pay-info">
+                <div class="pay-info3">
                     <span>결제완료 유의사항</span>
-                    <div class="info-detail">
+                    <div class="info-detail3">
                         <div>
                             - 펀딩이 달성되지 않을 시, 결제 금액은 순차적으로 취소됩니다.</div>
                         <div>
@@ -243,10 +246,12 @@
                     </div>  
                 </div>  
             </div><!--전체 결제 상세-->
+        </form>
     </div><!--content-wrap-->
-    <div class="button-wrap">
-        <button id="payment" class="pay-btn project-btn" onclick="">다른 프로젝트 보기</button>
-        <button id="payment" class="pay-btn mypage-btn" onclick="">마이페이지 확인</button>
+    <div class="button-wrap3">
+        <button id="payment3" class="pay-btn3 project-btn3" onclick="location.href='/fund.do?category=BEST'">다른 프로젝트 보기</button>
+        <button id="payment3" class="pay-btn3 mypage-btn3" onclick="location.href='/myPageFrm.do'">마이페이지 확인</button>
     </div>
+</div>
 </body>
 </html>

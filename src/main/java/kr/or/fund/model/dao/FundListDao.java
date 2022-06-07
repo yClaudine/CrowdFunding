@@ -88,19 +88,20 @@ public class FundListDao {
 		int result = sqlSession.insert("fundPay.insertPay",map);
 		return result;
 	}
+	
 	//결제 정보 하나 조회
 	public FundPay selectOnePay(int fundNo, String memberId, int fpayFinalpay) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
 		map.put("fpayFinalpay",fpayFinalpay);
-		FundPay fp = sqlSession.selectOne("fundpay.selectOnePay",map);
+		FundPay fp = sqlSession.selectOne("fundPay.selectOnePay",map);
 		return fp;
 	}
 
 	//모든 결제 정보 조회
 	public ArrayList<FundPay> selectPayList(int fundNo) {
-		List plist = sqlSession.selectList("fundPay.selectPay",fundNo);
+		List plist = sqlSession.selectList("fundPay.selectPayList",fundNo);
 		return (ArrayList<FundPay>)plist;
 	}
 
