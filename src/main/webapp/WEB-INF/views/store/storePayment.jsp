@@ -223,7 +223,7 @@ html>body {
 						<div class="use-coupon">
 							<h5>쿠폰 사용</h5>
 							<select id="select" name="couponNo">
-									<option value="" selected disabled>쿠폰을 선택하세요.</option> 									
+									<option value="0">쿠폰을 선택하세요.</option> 									
 								<c:forEach items="${cList }" var="coupon" varStatus="i">
 									<option value="${coupon.couponNo }" type="${coupon.couponType}" discount="${coupon.discount }">${coupon.couponName}</option>
 								</c:forEach>
@@ -241,12 +241,12 @@ html>body {
 								<div>배송비</div><div class="right" id="deliveryPrice">${s.storeDelivery }</div>
 							</div><hr>
 							<div class="product-price">
-								<input type="text" name="storeNo" value="${s.storeNo }">
-								<input type="text" name="memberNo" value="${m.memberNo }">
-								<input type="text" name="storeDelivery" value="${s.storeDelivery }">
-								<input type="text" name="storePrice" value="${s.storePrice }">
-								<input type="text" name="storepayAllprice" value="${totalprice }" id="changePrice">
-								<input type="text" name="number" value="${number }">
+								<input type="hidden" name="storeNo" value="${s.storeNo }">
+								<input type="hidden" name="memberNo" value="${m.memberNo }">
+								<input type="hidden" name="storeDelivery" value="${s.storeDelivery }">
+								<input type="hidden" name="storePrice" value="${s.storePrice }">
+								<input type="hidden" name="storepayAllprice" value="${totalprice }" id="changePrice">
+								<input type="hidden" name="number" value="${number }">
 								<div>최종 결제금액</div><div class="right" id="finalPrice">${totalprice }</div>
 							</div>
 							<input type="checkbox" id="chk" name="service" class="button"/> 구매조건, 결제 진행 및 결제 대행 서비스 / 개인정보 제 3자 제공 동의(필수)

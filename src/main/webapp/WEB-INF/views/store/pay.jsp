@@ -18,14 +18,14 @@ html>body {
 </head>
 <body>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
-	<h5>결제완료</h5>
-	<ul>
-		<li>결제자 : ${m.memberName }</li>
-		<li>배송지 : ${s.storeDelivery }</li>
-		<li>결제 상품 : ${s.storeProduct }</li>
-		<li>구매 상품 개수 : ${number }</li>
-		<li>결제 금액 : ${totalprice }</li>
-		<li><a href="/">홈으로</a></li>
+	<br>
+	<br>
+	<h5 style="padding-left: 20px;">결제완료</h5>
+	<hr>
+	<ul style="text-align: center; width:90%;">
+		<li style="text-align: center; width:100%;"><h2 style="margin-top: 150px; text-align: center; height: 100px; background-color: #00c4c4; padding-top: 30px;">${m.memberName } 님의 "${s.storeProduct }" 구매가 완료 되었습니다.</h2></li>
+		
+		<li style="font-size: 20px; text-align: center; margin-top: 50px;"><a href="/" style="text-decoration: none;">홈으로</a></li>
 	</ul>
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
