@@ -2,26 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="fundLike">
 
-<!-- 좋아요 한 사람 조회 -->
- 	<select id="selectOneFundlike" parameterType="map" resultType="fl">
- 		select
-		like_no as likeNo,
-		fund_no as fundNo,
-		member_id as memberId,
+<!-- 해당 펀딩 좋아요 총 개수 -->
+	<select id="selectFundTotal" parameterType="int" resultType="fl"> 
+ 	select
+		count(*) as total
 	from fund_like
-	where member_id=#{memberId} and fund_no=#{fundNo}
- 	</select>	
- 	
-<!-- 좋아요 총 row 
-	<select id="selectTotalLike" parameterType="" resultType="">
-	select count(*) as total from fund_like;
+	where fund_no=#{fundNo}
 	</select>
-	-->
+	
+	
 <!-- 좋아요 클릭 인서트-->
 	<insert id="insertFundlike" parameterType="fl">
 	insert into fund_like(
 		fl_seq.nextval,
-		#{likeNo},
 		#{fundNo},
 		#{memberId}
 	)
@@ -30,7 +23,14 @@
 <!-- 좋아요 취소 -->
 	<delete id="deleteFundlike" parameterType="int">
 	delete from fund_like
-	where fund_no = #{fundNo}
+	where fund_no = #{fundNo} and memberId = #{memberId}
 	</delete>
 	
+<!-- 좋아요 체크-->
+	<select id="fundCheck" parameterType="map" resultType="fl">
+	select 
+		count(*) as likeCheck 
+	from fund_like 
+	where fund_no =#{fundNo} and member_id=#{memberId}
+	</select>	 
 </mapper>

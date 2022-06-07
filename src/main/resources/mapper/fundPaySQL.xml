@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="fundPay">
+
+	<select id="selectCouponList" parameterType="map" resultType="coupon">
+	select
+	    coupon_no as couponNo,
+	    coupon_name as couponName,
+	    coupon_type as couponType,
+	    discount
+	    from coupon
+	    where coupon_no in 
+	        (select
+	        coupon_no as couponNo from member_coupon
+	        where coupon_no in 
+	        	(select coupon_no from coupon where main_target in ('all','fund') and
+		         <choose>
+					<when test="fundCategory.equals('푸드')">
+					sub_target in ('all','food') 			
+					</when>
+					<when test="fundCategory.equals('뷰티')">
+					sub_target in ('all','beauty') 			
+					</when>
+					<when test="fundCategory.equals('반려동물')">
+					sub_target in ('all','pet') 			
+					</when>
+					<when test="fundCategory.equals('여행')">
+					sub_target in ('all','travel') 			
+					</when>
+					<when test="fundCategory.equals('리빙')">
+					sub_target in ('all','living') 			
+					</when>
+				</choose>                                       
+	                and #{rewardSum} <![CDATA[>]]> min_price)
+	                and member_no=#{memberNo} and coupon_use=0 and coupon_status=0)
+	</select>
+	
+	<!-- 결제정보 인서트-->
+	<insert id="insertPay" parameterType="map">
+ 	insert into fund_pay values(
+ 		fpay_seq.nextval,
+ 		#{memberId},
+ 		#{memberName},
+ 		#{fundNo},
+ 		#{fpayDeliveryfee},
+ 		#{fpaySupport},
+ 		#{fpayRewardTotal},
+ 		#{fpayFunding},
+ 		#{fpayFinalpay},
+ 		0,
+ 		to_char(sysdate,'yyyy-mm-dd'),
+ 		#{nameShow},
+ 		#{fundingShow},
+ 		#{payMethod}
+ 	)
+	</insert>
+	<!-- 결제 정보 한 개 조회 -->
+	<select id="selectOnePay" parameterType="map" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where fund_no=#{fundNo} and member_id=#{memberId} and fpay_finalpay=#{fpayFinalpay}	
+	</select>
+	<!-- 펀딩 결제 정보 리스트 -->
+	<select id="selectPayList" parameterType="int" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where fund_no=#{fundNo}
+	</select>
+	
+	<!-- 리워트 카트 -->
+	<insert id="insertCart" parameterType="map">
+	insert into reward_cart values(
+		rc_seq.nextval,
+		#{memberNo},
+		#{fundNo},
+		#{rewardNo},
+		#{rewardAmount}
+	)
+	</insert>
+	<!-- 리워트 카트 삭제 -->
+	<insert id="deleteCart" parameterType="map">
+	delete reward_cart 
+	where member_no=#{memberNo} and fund_no=#{fundNo} and reward_no=#{rewardNo}
+	)
+	</insert>
+</mapper>

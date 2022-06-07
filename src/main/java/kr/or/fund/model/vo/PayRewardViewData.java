@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class FundViewData {
+public class PayRewardViewData {
 	private Fund f;
 	private ArrayList<Reward> rewardList;
-	private Seller s;
-	private FundLike fl;
-	private ArrayList<FundPay> payList;
 }

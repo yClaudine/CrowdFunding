@@ -191,7 +191,6 @@
     color: #60656a;
 }
 </style>
-   
 </head>
 <body>
 <div class="last-page">
@@ -210,10 +209,9 @@
             <!--전체 결제 상세-->
             <div class="payment">
                 <!--결제 상세1-->
-                
                 <div class="one-pay first-wrap3">
                     <div class="pay-wrap3">
-                        <span class="reward-name3">${f.fundName }</span>
+                        <span class="reward-name3">펀딩 프로젝트 : ${f.fundName }</span>
                         <div class="reward-intro3">${f.fundIntro }</div>
                     </div>
                     <div class="final-info3 final-price3 pp2">
@@ -226,6 +224,13 @@
                     </div>
                 </div><!--리워드박스-->
                 
+                <div class="cash-method">
+                    <div class="cash-detail">2022년 6월 15일 자정까지 아래 계좌로 입금</div>
+                    <div>국민은행  96594545-01-05787522 (FUN여수민FUN)</div>
+                    <div>입금자명 : ${sessionScope.m.memberName }</div>
+                </div>
+
+
                 <!--결제 상세2-->
                 <div class="pay-info3">
                     <span>결제완료 유의사항</span>

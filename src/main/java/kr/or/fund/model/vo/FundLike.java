@@ -14,4 +14,5 @@ public class FundLike {
 	
 	//추가 컬럼
 	private int total;
+	private int likeCheck;
 }
