@@ -278,17 +278,26 @@ html>body {
 	}
 	.starcontent{
 		width: 80%;
-		min-width: 650px;
+		min-width: 610px;
 		background-color: #e7f9f9;
 		padding: 10px 15px 10px;
 		text-align: left;
 		margin-left: 10px;
 	}
+	.star-box2{
+		min-width: 131px;
+	}
 	#report-button{
 		margin-left: 10px;
 		width: 40px;
 		height: 30px;
-		font-size: 15px;
+		font-size: 12px;
+		border-radius: 10px;
+		border: none;
+		
+	}
+	#report-button:hover{
+		background-color: #e6354c;
 	}
 	.storeAllPrice{
 		padding-top:10px;
@@ -315,6 +324,28 @@ html>body {
 	}
 	.star-box>span:hover{
 		cursor: pointer;
+	}
+	.reportCount{
+		margin-top : 30px;
+		background-color: #dee2e6;
+		font-size: 13px;
+		border: none;
+	}
+	.reportCount:hover{
+		background-color: #f3a5a5;
+	}
+	.commentUpdate{
+		font-size: 13px;
+		text-decoration: none;
+		color: #00b2b2;
+		float: right;
+		padding-right: 5px;
+	}
+	.form{
+	 display: flex;
+	}
+	.p{
+		font-size: 13px;
 	}
 </style>
 </head>
@@ -413,6 +444,13 @@ html>body {
 			            </li>
 		       	 	</ul>
 	    		</div>
+	    		<form action="/reportCount.do" method="post">
+	    			<fieldset>
+			    		<input type="hidden" name="storeNo" value="${s.storeNo }">
+			    		<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
+			    		<p class="p">프로젝트 및 게시글에 부적절한 내용이 있나요? <input class="reportCount" type="submit" value="신고하기"></p>
+		    		</fieldset>
+	    		</form>
             </div>
             <div class="tabcontent" id="star">
             	<div class="starstar">
@@ -432,73 +470,38 @@ html>body {
                 </div>
                 </div>
                 <hr>
-                <c:choose>
-					<c:when test="${empty sessionScope.m }">
-						<div class="content-list">
-					        <c:forEach items="${list }" var="ss" varStatus="i">
-					        	<div class="who">
-						        	<div class="allcomment-wrap"><span class="material-symbols-outlined">account_circle</span></div>
-								    <div class="membername">${ss.memberId }</div>
-							    </div>
-					        	<div class="comment-wrap">
-						            <div class="starcomment-wrap">
-						            <div class="star-Box2">
-							            	<div class="star-box2">
-							            		<c:forEach begin='1' end='5' varStatus="j">
-							            			<c:choose>
-							            				<c:when test="${ss.starScore ge j.count}">
-							            					<span class="material-symbols-outlined" style="color:#00b2b2;">star</span>
-							            				</c:when>
-							            				<c:otherwise>
-							            					<span class="material-symbols-outlined">star</span>
-							            				</c:otherwise>
-							            				
-							            			</c:choose>                        					
-		                        				</c:forEach>
-									        	
-									        </div>
-								            <div class="starScore">${ss.starScore }&nbsp;점	</div>
-							            </div>
-						            </div>
-						            <div class="starcontent">${ss.starContent }</div>
-					            </div>
-					            <button id="report-button">신고</button>
-					        </c:forEach>
-						</div>
-					</c:when>
-					<c:otherwise>			
-		                <div class="starCommentBox"> 
-					    	<form action="/insertStar.do" method="post">
-								<ul>
-							    	<li><span class="material-symbols-outlined">account_circle</span></li>
-								    <li class="score"><span>${s.storeProduct }&nbsp;의 평점</span><br>
-								    <div class="star-Box">
-								    	<div class="star-box">
-								        	<span class="material-symbols-outlined">star</span>
-								            <span class="material-symbols-outlined">star</span>
-								            <span class="material-symbols-outlined">star</span>
-								            <span class="material-symbols-outlined">star</span>
-								            <span class="material-symbols-outlined">star</span>
-								        </div>
-								        <span class="num"></span>
-								        <input type="hidden" name="starScore" value="0"> 점
-								    </div>                           
-								    </li>
-								    <li>
-									    <input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
-									    <input type="hidden" name="storeNo" value="${s.storeNo }">
-									    <input type="hidden" name="storeProduct" value="${s.storeProduct }">
-						            	<input type="hidden" name="storepayNo" value="${storepayNo }">
-									    <textarea class="input-form" name="starContent"></textarea>
-									 </li>
-									 <li>
-									    <button type="submit" class="btn">등록</button>
-									 </li>
-								</ul>
-							</form>
-						</div>
-					</c:otherwise>
-				</c:choose>
+                <c:if test="${not empty sessionScope.m && storepayNo!=0}">
+				<div class="starCommentBox"> 
+					<form action="/insertStar.do" method="post">
+						<ul>
+							<li><span class="material-symbols-outlined">account_circle</span></li>
+							<li class="score"><span>${s.storeProduct }&nbsp;의 평점</span><br>
+								<div class="star-Box">
+								   <div class="star-box">
+								        <span class="material-symbols-outlined">star</span>
+								        <span class="material-symbols-outlined">star</span>
+								        <span class="material-symbols-outlined">star</span>
+								        <span class="material-symbols-outlined">star</span>
+								        <span class="material-symbols-outlined">star</span>
+								   </div>
+								   <span class="num"></span>
+								   <input type="hidden" name="starScore" value="0"> 점
+								</div>                           
+							</li>
+							<li>
+			    				<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
+								<input type="hidden" name="storeNo" value="${s.storeNo }">
+								<input type="hidden" name="storeProduct" value="${s.storeProduct }">
+						        <input type="hidden" name="storepayNo" value="${storepayNo }">
+								<textarea class="input-form" name="starContent"></textarea>
+							</li>
+							<li>
+								<button type="submit" class="btn">등록</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+				</c:if>
 			    <div class="content-list">
 			        <c:forEach items="${list }" var="ss" varStatus="i">
 			        	<div class="who">
@@ -506,6 +509,7 @@ html>body {
 						    <div class="membername">${ss.memberId }</div>
 					    </div>
 			        	<div class="comment-wrap">
+			        		<form action="/reportCountMember.do" class="form">
 				            <div class="starcomment-wrap">
 				            <div class="star-Box2">
 					            	<div class="star-box2">
@@ -525,11 +529,26 @@ html>body {
 						            <div class="starScore2">${ss.starScore }&nbsp;점	</div>
 					            </div>
 				            </div>
-				            <div class="starcontent">${ss.starContent }</div>
+				            <div class="starcontent">
+					            <div class="commentupdate">
+					            	<p>${ss.starContent }</p>
+						            <textarea name="starContent" style="display:none; min-width: 100%;">${ss.starContent }</textarea>
+						            <c:if test="${sessionScope.m.memberId eq ss.memberId }">
+						            <div class="modify">
+								    	<a class="commentUpdate"  onclick="deleteComment(this,'${ss.starNo }','${s.storeNo }')">삭제</a>
+								        <a class="commentUpdate" onclick="modifyComment(this,'${ss.starNo }','${s.storeNo }')">수정</a>
+					           		 </div>
+					           		 </c:if>
+				           		 </div>
+			           	 	</div>
+			           	 	<input type="hidden" name="memberNo" value="${m.memberNo }">
+			           	 	<input type="hidden" name="storeNo" value="${s.storeNo }">
+			           	 	<input type="hidden" name="starNo" value="${ss.starNo }">
+			            	<button id="report-button">신고</button>
+			            </form>
 			            </div>
-			            <button id="report-button">신고</button>
-			            <a href=></a>
 			        </c:forEach>
+			       
 				</div>
 				
 	
@@ -635,11 +654,12 @@ html>body {
 		  allPrice.innerText = priceno;
 		  resultElement.innerText = number;
 		}
-	
-	
-	
-	
-	
+	$(".reportCount").on("click",function(){
+		alert("신고가 완료되었습니다.");
+	});
+	$("#report-button").on("click",function(){
+		alert("신고가 완료되었습니다.");
+	});
 	//number
 	$("#buy-button").on("click",function(){
 		const resultElement = document.getElementById('result');
@@ -682,7 +702,7 @@ html>body {
         
         const content = $(".tapContent");
         
-       tabs.eq(1).click();
+       tabs.eq(0).click();
 	});
 	//내용 더보기
 	$(".sub-menu").prev().append("<span class='more'>↓</span>");
@@ -724,7 +744,45 @@ html>body {
     	        }); 
 
     	});
-    
+    function modifyComment(obj,starNo,storeNo){
+		$(obj).prev().prev().show();	//textarea를 화면에 보여줌
+		$(obj).prev().prev().prev().hide();	//기존 댓글은 화면에서 숨김
+		//수정 -> 수정완료
+		$(obj).text("수정완료");
+		$(obj).attr("onclick","modifyComplete(this,'"+starNo+"','"+storeNo+"')");
+		//삭제 -> 수정취소
+		$(obj).prev().text("수정취소");
+		$(obj).prev().attr("onclick","modifyCancel(this,'"+starNo+"','"+storeNo+"')");
+	}
+    function modifyCancel(obj,starNo,storeNo){
+		$(obj).prev().hide();	//textarea를 숨김
+		$(obj).prev().prev().show();//기존 댓글 보여줌
+		//수정완료 -> 삭제
+		$(obj).text("삭제");
+		$(obj).prev().attr("onclick","deleteComment(this,'"+starNo+"','"+storeNo+"')");
+		//수정취소-> 수정
+		$(obj).next().text("수정");
+		$(obj).attr("onclick","modifyComment(this,'"+starNo+"','"+storeNo+"')");
+	}
+    function modifyComplete(obj,starNo,storeNo){
+		//form태그 생성
+		const form = $("<form action='/storeCommentUpdate.do' method='post'></form>");
+		//form태그 자식으로 input태그 추가(starNo)
+		form.append($("<input type='text' name='starNo' value='"+starNo+"'>"));	
+		//form태그 자식으로 input태그 추가(storeNo)
+		form.append($("<input type='text' name='storeNo' value='"+storeNo+"'>"));
+		//form태그 자식으로 수정한 댓글 내용이 들어있는 textarea를 추가
+		form.append($(obj).prev().prev());
+		//생성된 form태그를 html본문으로 삽입
+		$("body").append(form);
+		//form태그 submit
+		form.submit();
+	}
+	function deleteComment(obj,starNo,storeNo){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/deleteComment.do?starNo="+starNo+"&storeNo="+storeNo;
+		}
+	}
 	</script>
 </body>
 </html>
