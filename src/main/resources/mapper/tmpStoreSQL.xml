@@ -52,5 +52,26 @@
 			st_img5 as stImg5
 	from store_tmp where st_no = #{stNo}
 	</select>
-	
+	<update id="updateStore3" parameterType="ts">
+	  	update store_tmp
+	  	set 
+	  		st_title = #{stTitle}, 
+	  		st_category = #{stCategory},
+	  		st_img1 = #{stImg1},
+	  		st_img2 = #{stImg2},
+	  		st_img3 = #{stImg3},
+	  		st_img4 = #{stImg4},
+	  		st_img5 = #{stImg5}
+	  	where st_no = #{stNo}
+	 </update>
+	 <update id="udpateStore4" parameterType="ts">
+		 update store_tmp
+		  	set 
+		  		st_Delivery = #{stDelivery}, 
+		  		st_Product = #{stProduct},
+		  		st_Productcontent = #{stProductcontent},
+		  		st_Price = #{stPrice},
+		  		st_Content = #{stContent}
+		  	where st_no = #{stNo}
+	 </update> 
 </mapper>

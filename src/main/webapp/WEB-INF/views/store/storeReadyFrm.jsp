@@ -59,8 +59,8 @@
 </style>
 <body>
 	<%@include file="/WEB-INF/views/store/storeHeader.jsp" %>
-	<div class="creFund-wrap">
-		<div class="crefund-nav">
+	<div class="creStore-wrap">
+		<div class="crestore-nav">
 			<%@include file="/WEB-INF/views/store/storeNav.jsp" %>
 			<script>
 				$(".nav-top>li").addClass("select");
@@ -83,7 +83,7 @@
 						<h6>상품 정보</h6>
 						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick=" ">작성하기</button>
+						<button onclick="location.href='/storeCreate4.do?stNo=${tmp.stNo }'">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
