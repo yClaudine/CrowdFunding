@@ -23,4 +23,50 @@
   		fund_filepath5 as fundFilepath5
   	from fund
   </select>
+  <select id="selectOneFund" parameterType="f" resultType="f">
+  	select
+  		fund_no as fundNo,
+  		member_id as memberId,
+  		fund_name as fundName,
+  		fund_amount as fundAmount,
+  		fund_fees as fundFees,
+  		fund_category as fundCategory,
+  		fund_start as fundStart,
+  		fund_end as fundEnd,
+  		fund_intro as fundIntro,
+  		fund_as as fundAs,
+  		fund_like as fundLike,
+  		fund_reportcount as fundReportcount,
+  		fund_warning as fundWarning,
+  		fund_filepath1 as fundFilepath1,
+  		fund_filepath2 as fundFilepath2,
+  		fund_filepath3 as fundFilepath3,
+  		fund_filepath4 as fundFilepath4,
+  		fund_filepath5 as fundFilepath5
+  	from fund where fund_no = #{fundNo}
+  </select>
+  <update id="updateFundStory" parameterType="f">
+  	update fund
+  	set 
+  		fund_intro = #{fundIntro}, 
+  		fund_filepath1 = #{fundFilepath1},
+  		fund_filepath2 = #{fundFilepath2},
+  		fund_filepath3 = #{fundFilepath3},
+  		fund_filepath4 = #{fundFilepath4},
+  		fund_filepath5 = #{fundFilepath5}
+  	where fund_no = #{fundNo}
+  </update>
+  <select id="selectReward" parameterType="f" resultType="r">
+  	select
+  		reward_no as rewardNo,
+  		reward_no as rewardNo,
+  		reward_name as rewardName,
+  		reward_intro as rewardIntro,
+  		reward_price as rewardPrice,
+  		reward_count as rewardCount,
+  		reward_option as rewardOption,
+  		reward_send as rewardSend,
+  		reward_deliveryfee as rewardDeliveryfee
+  	from reward where fund_no = ${fundNo} order by 1
+  </select>
 </mapper>

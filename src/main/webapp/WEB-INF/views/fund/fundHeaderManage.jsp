@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
     html>body {
@@ -19,13 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <style>
-   
-<style>
-	 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-    html>body {
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-	.header-wrap{
+    	.header-wrap{
     		width: 100%;
     		height: 60px;
     		display: flex;
@@ -67,32 +56,32 @@
     	.header-right>a{
     		color: #aaa;
     	}
-    	.creStore-wrap{
+    	.creFund-wrap{
     		display: flex;
     	}
-    	.creStore-nav{
+    	.crefund-nav{
     		width: 220px;
     	}
-    	crestore-content{
+    	crefund-content{
     		width:980px;
     	}
-    	.crestore-content{
+    	.crefund-content{
     		padding-top: 60px;
     		padding-left: 75px;
     		position: relative;
     	}
-    	.crestore-content>h6{
+    	.crefund-content>h6{
     		font-weight: 400;
     		color: #777;
     		padding-top: 10px;
     		padding-bottom: 30px;
     	}
-    	.crestore-content>.category{
+    	.crefund-content>.category{
     		position: absolute;
     		top: 15px;
     		font-size: 12px;
     	}
-    	.crestore-content>.category>b{
+    	.crefund-content>.category>b{
     		padding-left: 5px;
     		font-size: 13px;
     	}
@@ -105,31 +94,22 @@
     		background-color: rgb(0, 178, 178);
     		border: none;
     	}
-</style>
-</head>
-<body>
-	<div class="header-wrap" id="header">
+    </style>
+	<div class=header-wrap>
 		<div class="header-left">
 			<img src="/resources/image/파이널로고1.png">
 			<h4>FUNFUNFUN</h4>
 		</div>
 		<div class="header-center">
-			<span class="material-symbols-outlined">shopping_bag</span>
-			<span>나의 FUN(뻔)한</span>
-			<h4>${tmp.memberId }</h4>
-			<span>의&nbsp;Store</span>
+			<span class="material-symbols-outlined">apartment</span>
+			<h4>${fund.fundName }</h4>
 		</div>
 		<div class="header-right">
 			<a href="/">나가기</a>
 		</div>
 	</div>
-	
 	<script>
-	$(".header-left").click(function(){
-		location.href='/storeReadyFrm.do?stNo='+${tmp.stNo};
-	})
+		$(".header-left").on("click",function(){
+			location.href="/manageFundingFrm.do?fundNo=${fund.fundNo }"
+		});
 	</script>
-	
-
-</body>
-</html>

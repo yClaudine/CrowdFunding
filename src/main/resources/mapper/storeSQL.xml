@@ -94,4 +94,7 @@
 	  		store_img5 as storeImg5
 	  	from store where store_category=#{storeCategory}
 	</select>
+	<update id="updateReport" parameterType="int">
+		update store set store_reportcount=store_reportcount+1 where store_no=#{storeNo}
+	</update>
 </mapper>

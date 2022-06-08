@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.fund.model.dao.FundDao;
 import kr.or.fund.model.vo.Fund;
+import kr.or.fund.model.vo.Reward;
 
 @Service
 public class FundService {
@@ -16,6 +17,21 @@ public class FundService {
 	public ArrayList<Fund> selectAllFund() {
 		// TODO Auto-generated method stub
 		return dao.selectAllFund();
+	}
+
+	public Fund selectOneFund(Fund f) {
+		// TODO Auto-generated method stub
+		return dao.selectOneFund(f);
+	}
+
+	public int updateFundStory(Fund fund) {
+		// TODO Auto-generated method stub
+		return dao.updateFundStory(fund);
+	}
+
+	public ArrayList<Reward> selectReward(Fund f) {
+		// TODO Auto-generated method stub
+		return dao.selectReward(f);
 	}
 
 }

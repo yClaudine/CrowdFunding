@@ -112,11 +112,27 @@ public class StoreService {
         return dao.selectOneCoupon(map);
 	}
 
-	public ArrayList<Integer> selectStorepayNo(int memberNo,int storeNo) {
+	public int selectStorepayNo(int memberNo,int storeNo, String memberId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("storeNo", storeNo);
-		return dao.selectStorepayNo(map);
+		map.put("memberId", memberId);
+		//구매를 했는 지 안했는지 알 수 있는 list
+		ArrayList<Integer> list = dao.selectStorepayNo(map);
+		if(list.size()>0) {
+			//구매했을 때(후기여부조회)
+			int result = dao.selectStoreStar(map);
+			if(result>0) {
+				//후기 있으면 return 0
+				return 0;
+			}else {
+				//없으면 return->list의 0번째 값 돌려주기
+				return list.get(0);
+			}
+		}else {
+			//구매 안했을 때
+			return 0;
+		}
 	}
 
 	public int insertPay(int memberNo, int couponNo, int storeNo, int number, int storeDelivery, int storePrice,
@@ -129,7 +145,39 @@ public class StoreService {
 		map.put("storeDelivery", storeDelivery);
 		map.put("storePrice", storePrice);
 		map.put("storepayAllprice", storepayAllprice);
-		return dao.insertPay(map);
+		int result = dao.insertPay(map);
+		int result2 = 0;
+		if(result>0){
+			result2 = dao.updateMemberCoupon(map);
+		}else{
+			result2 = -1;
+		}
+		return result2;
+	}
+
+	public int updateReport(int storeNo) {
+		return dao.updateReport(storeNo);
+	}
+
+
+
+	public int storeCommentDelete(int starNo) {
+		// TODO Auto-generated method stub
+		return dao.storeCommentDelete(starNo);
+	}
+
+	public int updateStoreComment(int starNo, int storeNo, String starContent) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("starNo", starNo);
+		map.put("storeNo", storeNo);
+		map.put("starContent", starContent);
+		return dao.updateStoreComment(map);
+	}
+
+	public int updateReportMem(int starNo, int memberNo) {
+		int result1 = dao.updateReportstar(starNo);
+		int result2 = dao.updateReportMem(memberNo);
+		return result1+result2;
 	}
 
 	

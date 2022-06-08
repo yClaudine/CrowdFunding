@@ -56,8 +56,8 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/views/store/storeHeader.jsp" %>
-	<div class="creFund-wrap">
-		<div class="crefund-nav">
+	<div class="creStore-wrap">
+		<div class="crestore-nav">
 			<%@include file="/WEB-INF/views/store/storeNav.jsp" %>
 			<script>
 				$(".nav-top>li").addClass("select");
@@ -69,9 +69,10 @@
 			<h6>FUNFUNFUN을 통해 간단하고 쉽게 스토어를 만들어서 상품을 등록해 보세요.</h6>
 			
 			
+		<form action="/updateStore3.do" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 					<label class="form-label mt-4" for="stTitle">스토어 제목</label>
-					<input type="text" name="stTitle" class="form-control" id="stTitle" placeholder="20자 이내로 입력해 주세요." >
+					<input type="text" name="stTitle" class="form-control" id="stTitle" maxlength="20" placeholder="20자 이내로 입력해 주세요." >
 			</div>
 			
 			<div class="form-group">
@@ -86,46 +87,48 @@
 				</div>
 		<br>
 		
-		<div class="save-img">
+		
 			<h6 style="font-weight: normal;">대표 사진 등록</h6>
 				<p style="font-size: 12px;">첫번째 이미지는 해당 펀딩의 대표 이미지로 사용됩니다.</p>
-				<form action="/SaveTmpImg.do" method="post" enctype="multipart/form-data">
+				
+				
 					<input type="hidden" name="stNo" value=${tmp.stNo }>
+					
 					<div class="upload-wrap">
 						<input class="form-control" id="stImg1" type="text" placeholder="No Image" disabled="">
 						<label class="form-label1" for="image1">
 							<span class="material-symbols-outlined">file_upload</span>
 						</label>
-						<input type="file" name="upfile" id="image1" class="upflie" style="display: none;">
+						<input type="file" name="upfile" id="image1" class="upfile" style="display: none;">
 						<span id="cancel1" class="material-symbols-outlined cancel" style="display: none;">close</span>
 						<input type="hidden" name="status" value="none">
 					</div>
 					<div class="upload-wrap">
 						<input class="form-control" id="stImg2" type="text" placeholder="No Image" disabled="">
-						<label class="form-label2" for="image2">
+						<label class="form-labe2" for="image2">
 							<span class="material-symbols-outlined">file_upload</span>
 						</label>
-						<input type="file" name="upfile" id="image2" class="upflie" style="display: none;">
-						<span id="cancel2" class="material-symbols-outlined cancel" style="display: none;">close</span>
-						<input type="hidden" name="status" value="none">
+							<input type="file" name="upfile" id="image2" class="upfile" style="display: none;">
+							<span id="cancel2" class="material-symbols-outlined cancel" style="display: none;">close</span>
+							<input type="hidden" name="status" value="none">
 					</div>
 					<div class="upload-wrap">
 						<input class="form-control" id="stImg3" type="text" placeholder="No Image" disabled="">
 						<label class="form-label3" for="image3">
 							<span class="material-symbols-outlined">file_upload</span>
 						</label>
-						<input type="file" name="upfile" id="image3" class="upflie" style="display: none;">
-						<span id="cancel3" class="material-symbols-outlined cancel" style="display: none;">close</span>
-						<input type="hidden" name="status" value="none">
+						<input type="file" name="upfile" id="image3" class="upfile" style="display: none;">
+							<span id="cancel3" class="material-symbols-outlined cancel" style="display: none;">close</span>
+							<input type="hidden" name="status" value="none">
 					</div>
 					<div class="upload-wrap">
 						<input class="form-control" id="stImg4" type="text" placeholder="No Image" disabled="">
 						<label class="form-label4" for="image4">
 							<span class="material-symbols-outlined">file_upload</span>
 						</label>
-						<input type="file" name="upfile" id="image4" class="upflie" style="display: none;">
-						<span id="cancel4" class="material-symbols-outlined cancel" style="display: none;">close</span>
-						<input type="hidden" name="status" value="none">
+						<input type="file" name="upfile" id="image4" class="upfile" style="display: none;">
+							<span id="cancel4" class="material-symbols-outlined cancel" style="display: none;">close</span>
+							<input type="hidden" name="status" value="none">
 					</div>
 					<div class="upload-wrap">
 						<input class="form-control" id="stImg5" type="text" placeholder="No Image" disabled="">
@@ -133,15 +136,18 @@
 							<span class="material-symbols-outlined">file_upload</span>
 						</label>
 						<input type="file" name="upfile" id="image5" class="upflie" style="display: none;">
-						<span id="cancel5" class="material-symbols-outlined cancel" style="display: none;">close</span>
-						<input type="hidden" name="status" value="none">
+							<span id="cancel5" class="material-symbols-outlined cancel" style="display: none;">close</span>
+							<input type="hidden" name="status" value="none">
 					</div>
+					
+					<br><br>
+					<input type="submit" class="save-btn btn-info" value="저장하기">
 				</form>
-			</div>
+					
+				
+	
 			
 			
-			<br><br>
-			<button class="save-btn btn-info">저장하기</button>
 			<br>
 			<br>
 		</div> <!-- content 끝 -->
@@ -156,10 +162,50 @@
 		//스토어 제목
 		
 		//스토어 카테고리
+		$("#stTitle").val("${tmp.stTitle}");
+		$("#stTitle").change();
 		$("#stCategory").val("${tmp.stCategory}");
 		$("#stCategory").change();
+		
+	
 	});
 	
+	$(document).ready(function(){
+		<c:if test="${tmp.stImg1 ne null}">
+			$("#stImg1").val("image1");
+			$(".form-label1>span").css("display","none");
+			$("#cancel1").css("display","block");
+			$("#cancel1").next().val("upload");
+		</c:if>
+		<c:if test="${tmp.stImg2 ne null}">
+			$("#stImg2").val("image2");
+			$(".form-label2>span").css("display","none");
+			$("#cancel2").css("display","block");
+			$("#cancel2").next().val("upload");
+		</c:if>
+		<c:if test="${tmp.stImg3 ne null}">
+			$("#stImg3").val("image3");
+			$(".form-label3>span").css("display","none");
+			$("#cancel3").css("display","block");
+			$("#cancel3").next().val("upload");
+		</c:if>
+		<c:if test="${tmp.stImg4 ne null}">
+			$("#stImg4").val("image4");
+			$(".form-label4>span").css("display","none");
+			$("#cancel4").css("display","block");
+			$("#cancel4").next().val("upload");
+		</c:if>
+		<c:if test="${tmp.stImg5 ne null}">
+			$("#stImg5").val("image5");
+			$(".form-label5>span").css("display","none");
+			$("#cancel5").css("display","block");
+			$("#cancel5").next().val("upload");
+		</c:if>
+	});
+	
+	
+
+	/*
 	//저장하기 버튼
 	$(".save-btn").on("click",function(){
 		if(confirm("입력하신 정보를 저장하시겠습니까?")){
@@ -185,6 +231,34 @@
 			}
 		}
 	})
+	*/
+	
+	//업로드 파일 정했을 때 이미지 칸 변화
+		$(".upfile").on("change",function(){
+			if($(this).val() == ""){
+				$(this).prev().prev().val("");
+			}else{
+				const id = $(this).attr("id");
+				$(this).prev().prev().val(id);
+				$(this).prev().children().css("display","none");
+				$(this).next().css("display","block");				
+			}
+		});
+		
+		//이미지 취소 버튼 클릭시 작동
+		$(".cancel").on("click",function(){
+			$(this).css("display","none");
+			$(this).prev().prev().children().css("display","block");
+			$(this).prev().prev().prev().val("");
+			$(this).prev().val("");
+			const status = $(this).next().val();
+			if(status=="upload"){
+				$(this).next().val("remove");	
+			}
+		})
+	
+
+	
 	</script>
 </body>
 </html>
