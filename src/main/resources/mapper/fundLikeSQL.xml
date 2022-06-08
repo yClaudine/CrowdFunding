@@ -2,35 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="fundLike">
 
-<!-- 해당 펀딩 좋아요 총 개수 -->
+<!-- 해당 펀딩 좋아요 총 개수
 	<select id="selectFundTotal" parameterType="int" resultType="fl"> 
  	select
 		count(*) as total
 	from fund_like
 	where fund_no=#{fundNo}
 	</select>
-	
+	 -->
 	
 <!-- 좋아요 클릭 인서트-->
-	<insert id="insertFundlike" parameterType="fl">
-	insert into fund_like(
-		fl_seq.nextval,
-		#{fundNo},
-		#{memberId}
+	<insert id="insertFundlike" parameterType="map">
+	insert into fund_like values(
+		fl_seq.nextval,	#{fundNo},#{memberId}
 	)
 	</insert>
 	
 <!-- 좋아요 취소 -->
-	<delete id="deleteFundlike" parameterType="int">
+	<delete id="deleteFundlike" parameterType="map">
 	delete from fund_like
-	where fund_no = #{fundNo} and memberId = #{memberId}
+	where fund_no = #{fundNo} and member_id = #{memberId}
 	</delete>
 	
 <!-- 좋아요 체크-->
-	<select id="fundCheck" parameterType="map" resultType="fl">
+	<select id="selectLikeCheck" parameterType="map" resultType="fl">
 	select 
 		count(*) as likeCheck 
 	from fund_like 
 	where fund_no =#{fundNo} and member_id=#{memberId}
 	</select>	 
+	
+<!-- total +1 -->	
+	<update id="updateLikeUp" parameterType="int">
+	update fund set 
+		fund_like = fund_like+1 
+	where fund_no=#{fundNo}
+	</update>
+	
+<!-- total -1 -->	
+	<update id="updateLikeDown" parameterType="int">
+	update fund set 
+		fund_like = fund_like-1 
+	where fund_no=#{fundNo}
+	</update>	
 </mapper>

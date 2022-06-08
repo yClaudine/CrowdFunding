@@ -1570,8 +1570,7 @@ label span{
 			$(".final-pay2").text(fundingSum+maxFee);			
 		}
 	
-		//최대 배송비 구하기
-		//배송비 array
+		//최대 배송비 구하기 array
 		const fee = new Map();
 		fee.set(0,0);
 		$('.reward-check').on("change",function(){
