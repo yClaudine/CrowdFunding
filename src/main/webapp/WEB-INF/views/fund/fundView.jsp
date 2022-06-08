@@ -565,10 +565,11 @@ justify-content: right;
                 <br>
                 <div class="btn-box">
                     <button class="like-btn">
-                        <span class="material-icons likes">favorite_border</span>
+                        <span class="material-icons" id="likes">favorite_border</span>
                         <!-- <span class="material-icons likes">favorite</span>  -->
-                        <span class="btn-value">${fl.total}</span>
-                        <span class="btn-value">${fl.likeCheck}</span>
+                        <span class="btn-value" id="likeSum">${f.fundLike }</span><!--  -->
+                        <input type="hidden" id="fundLike" value="${f.fundLike }">
+                        <input type="hidden" id="likeCheck" value="${fl.likeCheck}">
                     </button>
                     <button class="report-btn" type="submit">
                         <span class="material-icons">report</span>                
@@ -747,23 +748,44 @@ $(function(){
 	});
 
 //좋아요 
+//체크여부
+$(document).ready(function () {
+	let likeCheck = $("#likeCheck").val();
+	if(likeCheck==0){ //로그인 안함, 좋아요 안함
+		$("#likes").text("favorite_border");
+	}else{			//좋아요 함
+		$("#likes").text("favorite");
+	}
+});
+
 $(".like-btn").click(function(){
 	const login = $(".login").val();
 	let fundNo = $(".fundNo").val();
 	let memberId = $(".memberId").val();
-	//let likeCheck = $().val();
+
 	if(login){
+		//likeCheck
 		$.ajax({
-			url : "/fundCheck.do",
+			url : "/likeCheck.do",
+			data:{fundNo:fundNo,memberId:memberId},
 			success : function(data){
-				
+				if(data != -1){
+					const likes = $("#likes").text();					
+					if(likes == 'favorite'){
+						$("#likes").text("favorite_border");	
+					}else{
+						$("#likes").text("favorite");
+					}
+				}//if
+				$("#likeSum").text(data);
 			}
-		})
+		});
+
 	}else{
 		alert("로그인이 필요합니다.");
 	}
-
 });
+
 </script>
                 
 </body>

@@ -42,9 +42,9 @@ public class FundListDao {
  		Seller s = sqlSession.selectOne("fundSeller.selectOneSeller",fundNo);
 		return s;
 	}
-	//펀딩 상세 - 해당 펀딩 좋아요 total
-	public FundLike selectFundTotal(int fundNo) {
-		FundLike fl = sqlSession.selectOne("fundLike.selectFundTotal",fundNo);
+	//펀딩 상세 - 해당 펀딩 좋아요 체크
+	public FundLike selectLikeCheck(HashMap<String, Object> map) {
+		FundLike fl = sqlSession.selectOne("fundLike.selectLikeCheck",map);
 		return fl;
 	}
 //-------------------------------------
@@ -53,29 +53,32 @@ public class FundListDao {
 		int result = sqlSession.update("fundList.updateReportCount",fundNo);
 		return result;
 	}
-	/* 좋아요 ajax
-	public FundLike selectOneFundlike(HashMap<String, Object> map) {
-		FundLike fl = sqlSession.selectOne("fundLike.selectOneFundlike",map);
-		return fl;
-	}
-	
-	*/
+
+
 	//좋아요 insert
-	public int insertFundlike(FundLike fl) {
-		int result = sqlSession.update("fundLike.insertFundlike",fl);
+	public int insertFundlike(HashMap<String, Object> map) {
+		int result = sqlSession.update("fundLike.insertFundlike",map);
 		return result;
 	}
 	//좋아요 delete
-	public int deleteFundlike(int fundNo) {
-		int result = sqlSession.delete("fundLike.deleteFundlike",fundNo);
+	public int deleteFundlike(HashMap<String, Object> map) {
+		int result = sqlSession.delete("fundLike.deleteFundlike",map);
 		return result;
 	}
-	//좋아요 체크
-	public FundLike fundCheck(HashMap<String, Object> map) {
-		FundLike fc = sqlSession.selectOne("fundLike.fundCheck",map);
-		return fc;
+
+	//좋아요 +1
+	public int updateLikeUp(int fundNo) {
+		int result = sqlSession.update("fundLike.updateLikeUp",fundNo);
+		return result;
+	}
+	//좋아요-1
+	public int updateLikeDown(int fundNo) {
+		int result = sqlSession.update("fundLike.updateLikeDown",fundNo);
+		return result;
 	}
 
+	
+	//---------------------------
 
 	//조건별 쿠폰 리스트 최종쿼리
 	public ArrayList<Coupon> selectCouponList(HashMap<String, Object> map) {
@@ -104,6 +107,14 @@ public class FundListDao {
 		List plist = sqlSession.selectList("fundPay.selectPayList",fundNo);
 		return (ArrayList<FundPay>)plist;
 	}
+	//결제 성공시 사용한 쿠폰 삭제
+	public int updateMemberCoupon(HashMap<String, Object> map) {
+		int result = sqlSession.update("fundPay.updateMemberCoupon",map);
+		return result;
+	}
+
+
+
 
 
 	

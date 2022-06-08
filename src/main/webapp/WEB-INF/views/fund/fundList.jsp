@@ -416,7 +416,7 @@ li {
         <div class="project-container" id="project-container">           
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
-                <a href="/fundView.do?fundNo=${f.fundNo }" class="project-wrap">
+                <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }" class="project-wrap">
                     <img src="resources/image/fund/living.jpg">
                     <div class="project-card">
                         <div class="project-title">
@@ -440,7 +440,7 @@ li {
         </div><!--grid container-->
        </div>
     </div><!--content-->
-    
+    <input type="hidden" value="${sessionScope.m.memberId }">
     <script>
     //onclick="location.href='/fund.do?category=BEST'"
     //const category = $(this).children().children().eq(1).text();
