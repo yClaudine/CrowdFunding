@@ -444,6 +444,7 @@ html>body {
 			            </li>
 		       	 	</ul>
 	    		</div>
+	    		<c:if test="${not empty sessionScope.m}">
 	    		<form action="/reportCount.do" method="post">
 	    			<fieldset>
 			    		<input type="hidden" name="storeNo" value="${s.storeNo }">
@@ -451,6 +452,7 @@ html>body {
 			    		<p class="p">프로젝트 및 게시글에 부적절한 내용이 있나요? <input class="reportCount" type="submit" value="신고하기"></p>
 		    		</fieldset>
 	    		</form>
+	    		</c:if>
             </div>
             <div class="tabcontent" id="star">
             	<div class="starstar">
@@ -534,24 +536,22 @@ html>body {
 					            	<p>${ss.starContent }</p>
 						            <textarea name="starContent" style="display:none; min-width: 100%;">${ss.starContent }</textarea>
 						            <c:if test="${sessionScope.m.memberId eq ss.memberId }">
-						            <div class="modify">
 								    	<a class="commentUpdate"  onclick="deleteComment(this,'${ss.starNo }','${s.storeNo }')">삭제</a>
 								        <a class="commentUpdate" onclick="modifyComment(this,'${ss.starNo }','${s.storeNo }')">수정</a>
-					           		 </div>
 					           		 </c:if>
 				           		 </div>
 			           	 	</div>
 			           	 	<input type="hidden" name="memberNo" value="${m.memberNo }">
 			           	 	<input type="hidden" name="storeNo" value="${s.storeNo }">
 			           	 	<input type="hidden" name="starNo" value="${ss.starNo }">
+			           	 	<c:if test="${not empty sessionScope.m}">
 			            	<button id="report-button">신고</button>
+			            	</c:if>
 			            </form>
 			            </div>
 			        </c:forEach>
-			       
 				</div>
 				
-	
             </div>
             <div class="tabcontent" id="change">
                 <h3 class="menu-color">반품/교환</h3>
