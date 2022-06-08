@@ -1206,7 +1206,7 @@ label span{
                         <div class="coupon-wrap">
                             <div class="coupon">사용 가능 쿠폰</div>
                             <select id="coupon-type2" class="coupon-type2">
-                                <option>사용 가능한 쿠폰이 없습니다.</option>
+                                <option name="-1">사용 가능한 쿠폰이 없습니다.</option>
                             </select>
                         </div>
                     </div>
@@ -1393,11 +1393,11 @@ label span{
 			success : function(data){
 				const select = $("#coupon-type2");
 				select.empty();
-				select.append("<option value=-1>[다음 쿠폰 중 하나만 선택 가능합니다.]</option>")
+				select.append("<option value=-1 name=-1 >[다음 쿠폰 중 하나만 선택 가능합니다.]</option>")
 				for(let i=0; i<data.length; i++){
-					select.append("<option value="+data[i].discount+">"+data[i].couponName+"</option>");
-				}//for문		
-				$("#payPage2").show();
+					select.append("<option value="+data[i].discount+" name="+data[i].couponNo+">"+data[i].couponName+"</option>");
+				}//for문		<opion value=10 name=26>이름</>
+				$("#payPage2").show(); 
 				$("#payPage1").hide();
 			}//success
 		});//ajax
@@ -1710,7 +1710,15 @@ label span{
 			let nameShow = $("#name-show").val();
 			let fundingShow = $("#fund-show").val();
 			let payMethod = $("input[name='payMethod']:checked").val();
-			console.log(memberId+","+memberName+","+fundNo+","+fpaySupport+","+fpayDeliveryfee+","+fpayRewardTotal+","+fpayFunding+","+fpayFinalpay+","+nameShow+","+fundingShow+","+payMethod);
+
+			//선택한 쿠폰 - 업데이트할 쿠폰 번호
+			let couponNo = $("#coupon-type2 option:selected").attr('name');	
+						
+			console.log(memberId+","+memberName+","+fundNo+","+fpaySupport+","+fpayDeliveryfee+","
+					+fpayRewardTotal+","+fpayFunding+","+fpayFinalpay+","+nameShow+","+fundingShow
+					+","+payMethod+","+couponNo);
+			
+
 			
 			//배송지 변수 저장
 			let	fdeliveryName = $(".d-name").val();
@@ -1751,7 +1759,8 @@ label span{
 							data : {
 								memberId:memberId,memberName:memberName,fundNo:fundNo,fpayDeliveryfee:fpayDeliveryfee,
 								fpaySupport:fpaySupport,fpayRewardTotal:fpayRewardTotal,fpayFunding:fpayFunding,
-								fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod
+								fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod,
+								couponNo:couponNo
 							},
 							success : function(data){
 								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;

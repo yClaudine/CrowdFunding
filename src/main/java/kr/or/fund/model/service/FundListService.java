@@ -124,7 +124,7 @@ public class FundListService {
 
 	//최종 결제 정보
 	public int insertPay(String memberId, String memberName, int fundNo, int fpayDeliveryfee, int fpaySupport,
-			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod) {
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId",memberId);
 		map.put("memberName",memberName);
@@ -137,6 +137,19 @@ public class FundListService {
 		map.put("nameShow",nameShow);
 		map.put("fundingShow",fundingShow);
 		map.put("payMethod",payMethod);
+		map.put("couponNo",couponNo);
+		
+		//쿠폰 상태 업데이트
+		int result = dao.insertPay(map);
+		if(result == 0) {
+			return -1;
+		}else {
+			if(couponNo == -1) {
+				return dao.insertPay(map);
+			}else {
+				dao.updateMemberCoupon(map);								
+			}
+		}
 		return dao.insertPay(map);
 
 	}

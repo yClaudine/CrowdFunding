@@ -107,6 +107,11 @@ public class FundListDao {
 		List plist = sqlSession.selectList("fundPay.selectPayList",fundNo);
 		return (ArrayList<FundPay>)plist;
 	}
+	//결제 성공시 사용한 쿠폰 삭제
+	public int updateMemberCoupon(HashMap<String, Object> map) {
+		int result = sqlSession.update("fundPay.updateMemberCoupon",map);
+		return result;
+	}
 
 
 

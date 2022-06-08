@@ -145,8 +145,8 @@ public class FundListController {
 	@ResponseBody
 	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
 	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
-			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod) {
-		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod);
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo) {
+		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo);
 		return new Gson().toJson(result);
 	}
 	
