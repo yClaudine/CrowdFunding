@@ -69,4 +69,39 @@
   		reward_deliveryfee as rewardDeliveryfee
   	from reward where fund_no = ${fundNo} order by 1
   </select>
+  <insert id="createReward" parameterType="r">
+  	insert into reward 
+  	values (reward_seq.nextval, #{fundNo}, #{rewardName}, #{rewardIntro}, #{rewardPrice}, #{rewardCount}, #{rewardOption}, #{rewardSend}, #{rewardDeliveryfee})
+  </insert>
+  <update id="updateReward" parameterType="r">
+  	update reward
+  	set
+  		reward_name = #{rewardName},
+  		reward_intro = #{rewardIntro},
+  		reward_price = #{rewardPrice},
+  		reward_count = #{rewardCount},
+  		reward_option = #{rewardOption},
+  		reward_send = #{rewardSend},
+  		reward_deliveryfee = #{rewardDeliveryfee}
+  	where reward_no = #{rewardNo}
+  </update>
+  <delete id="deleteReward" parameterType="r">
+  	delete from reward where reward_no = #{rewardNo}
+  </delete>
+  <select id="selectFundCalculate" parameterType="f" resultType="fc">
+  	select
+  		fc_no as fcNo,
+  		fund_no as fundNo,
+  		fc_rep_category as fcRepCategory,
+  		fc_rep_name as fcRepName,
+  		fc_rep_email as fcRepEmail,
+  		fc_rep_filepath as fcRepFilepath,
+  		fc_rep_birth as fcRepBirth,
+  		fc_mail as fcMail,
+  		fc_bank_name as fcBankName,
+  		fc_bank_no as fcBankNo,
+  		fc_bank_account as fcBankAccount,
+  		fc_bank_filepath as fcBankFilepath
+  	from fund_calculate where fund_no = ${fundNo}
+  </select>
 </mapper>

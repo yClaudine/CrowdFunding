@@ -560,10 +560,14 @@
 			if(conf && chkCnt == 6){
 				//수정해야할 개체 찾기
 				$(".reward-modal-back").css("display","none");
-				const searchNo = ".reward-no:contains("+trNo+")"
+				const searchNo = $(".reward-no").filter(function(){
+					return $(this).text() == trNo;
+				});
 				const modifyWrap = $(searchNo).parent();
 				//수정해야할 개체에 값 입력
-				modifyWrap.children().eq(0).text("update");
+				if(modifyWrap.children().eq(0).text() == "upload"){
+					modifyWrap.children().eq(0).text("update");	
+				}
 				modifyWrap.children().eq(1).text(trOption);
 				const commaPrice = trPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				modifyWrap.children().eq(2).children().eq(0).children().text(commaPrice);

@@ -86,7 +86,7 @@
 					<div>
 						<h6>정산정보 수정</h6>
 					</div>
-						<button onclick="#">수정하기</button>
+						<button onclick="location.href='/fundCalculateManageFrm.do?fundNo=${fund.fundNo}'">수정하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>

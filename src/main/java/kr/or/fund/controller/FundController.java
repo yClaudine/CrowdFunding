@@ -13,10 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import kr.or.fund.model.service.FundService;
 import kr.or.fund.model.vo.Fund;
+import kr.or.fund.model.vo.FundCalculate;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
 import kr.or.fund.model.vo.TmpReward;
@@ -193,6 +198,77 @@ public class FundController {
 		ArrayList<Reward> tr = service.selectReward(f);
 		model.addAttribute("fundReward",tr);
 		return "fund/fundRewardManageFrm";
+	}
+	
+	//리워드 추가 저장하기
+	@ResponseBody
+	@RequestMapping(value="/saveReward.do", produces="application/json;charset=utf-8")
+	public int saveReward(String data) {
+		//받아온 String을 jsonObject화
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObj = (JsonObject)jsonParser.parse(data);
+		
+		//DB 처리가 잘 되었는지 반환 할 변수
+		int result = 1;
+		
+		//각 jsonObject별로 명령을 수행한다.
+		for(int i=0;i<jsonObj.size();i++) {
+			//각 reward가 어떤 상태인지 status 부터 추출
+			String cnt = ""+i;
+			JsonObject reward = (JsonObject)jsonObj.get(cnt);
+			String status = reward.get("rewardStatus").toString().replaceAll("\"", "");
+			
+			//reward 값을 reward VO에 넣음
+			Reward r = new Reward();
+			int rewardNo = Integer.parseInt(reward.get("rewardNo").toString().replaceAll("\"", ""));
+			r.setRewardNo(rewardNo);
+			int tfNo = Integer.parseInt(reward.get("tfNo").toString().replaceAll("\"", ""));
+			r.setFundNo(tfNo);
+			r.setRewardName(reward.get("rewardName").toString().replaceAll("\"", ""));
+			r.setRewardIntro(reward.get("rewardIntro").toString().replaceAll("\"", ""));
+			int price = Integer.parseInt(reward.get("rewardPrice").toString().replaceAll("\"", ""));
+			r.setRewardPrice(price);
+			int count = Integer.parseInt(reward.get("rewardCount").toString().replaceAll("\"", ""));
+			r.setRewardCount(count);
+			String option = reward.get("rewardOption").toString().replaceAll("\"", "");
+			//option = option.replace("\r\n","<br>"); 줄바꿈 치환용인데 안바뀜
+			r.setRewardOption(option);
+			r.setRewardSend(reward.get("rewardSend").toString().replaceAll("\"", ""));
+			int deliveryfee = Integer.parseInt(reward.get("rewardDeliveryFee").toString().replaceAll("\"", "")); 
+			r.setRewardDeliveryfee(deliveryfee);
+			//System.out.println(tr); 값들 잘 들어갔는지 확인용
+			
+			//각 status별로 명령 수행
+			switch(status) {
+			case "new":
+				int createResult = service.createReward(r);
+				result *= createResult;
+				break;
+			case "upload":
+				//upload는 변경 사항이 없기 때문에 바꿀 필요 없음
+				break;
+			case "update":
+				int updateResult = service.updateReward(r);
+				result *= updateResult;
+				break;
+			case "delete":
+				int deleteResult = service.deleteReward(r);
+				result *= deleteResult;
+				break;
+			default:
+				break;
+			}//switch
+		}//for
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/fundCalculateManageFrm.do")
+	public String fundCalculateManageFrm(Fund f, Model model) {
+		pageMove(f, model);
+		FundCalculate fc = service.selectFundCalculate(f);
+		model.addAttribute("fc",fc);
+		return "fund/fundCalculateManageFrm";
 	}
 	
 }

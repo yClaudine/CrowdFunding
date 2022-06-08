@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.fund.model.vo.Fund;
+import kr.or.fund.model.vo.FundCalculate;
 import kr.or.fund.model.vo.Reward;
 
 @Repository
@@ -34,6 +35,26 @@ public class FundDao {
 		// TODO Auto-generated method stub
 		List list = sqlSession.selectList("fund.selectReward",f);
 		return (ArrayList<Reward>)list;
+	}
+
+	public int createReward(Reward r) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("fund.createReward",r);
+	}
+
+	public int updateReward(Reward r) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("fund.updateReward",r);
+	}
+
+	public int deleteReward(Reward r) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("fund.deleteReward",r);
+	}
+
+	public FundCalculate selectFundCalculate(Fund f) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("fund.selectFundCalculate",f);
 	}
 	
 

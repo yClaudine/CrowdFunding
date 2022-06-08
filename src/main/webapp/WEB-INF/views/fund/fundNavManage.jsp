@@ -74,7 +74,7 @@
 		<ul class="nav-sub">
 			<li><a href="/fundStoryManageFrm.do?fundNo=${fund.fundNo}">스토리 수정</a></li>
 			<li><a href="/fundRewardManageFrm.do?fundNo=${fund.fundNo}">리워드 추가</a></li>
-			<li><a href="#">정산정보 수정</a></li>
+			<li><a href="/fundCalculateManageFrm.do?fundNo=${fund.fundNo}">정산정보 수정</a></li>
 			<li><a href="#">펀딩 현황</a></li>
 		</ul>
 </ul>
