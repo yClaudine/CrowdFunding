@@ -55,4 +55,14 @@ public class FundService {
 		return dao.selectFundCalculate(f);
 	}
 
+	public int createFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return dao.createFundCalculate(fc);
+	}
+
+	public int updateFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return dao.updateFundCalculate(fc);
+	}
+
 }

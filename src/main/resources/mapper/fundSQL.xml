@@ -104,4 +104,18 @@
   		fc_bank_filepath as fcBankFilepath
   	from fund_calculate where fund_no = ${fundNo}
   </select>
+  <insert id="createFundCalculate" parameterType="fc">
+  	insert into fund_calculate
+  	values (fc_seq.nextval, #{fundNo}, #{fcRepCategory}, #{fcRepName}, #{fcRepEmail}, #{fcRepFilepath}, #{fcRepBirth}, #{fcMail}, #{fcBankName}, #{fcBankNo}, #{fcBankAccount}, #{fcBankFilepath})
+  </insert>
+  <update id="updateFundCalculate" parameterType="fc">
+	update fund_calculate 
+  	set 
+  		fc_mail = #{fcMail},
+  		fc_bank_name = #{fcBankName},
+  		fc_bank_no = #{fcBankNo},
+  		fc_bank_account = #{fcBankAccount},
+  		fc_bank_filepath = #{fcBankFilepath}
+  	where fund_no = #{fundNo}
+  </update>
 </mapper>
