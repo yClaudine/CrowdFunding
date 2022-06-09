@@ -767,14 +767,16 @@
 			const receiver = $("[name=recvMemId]").val();
 			const dmContent = $("[name=mContent]").val();
 			const mTitle = $("[name=mTitle]").val();
-
+			let categoryNo =0;
 			//소켓으로 데이터를 보내줄 것임
 			const data = {
+				
 				type : "dmSend",
 				sendMemId : memberId,
 				recvMemId : receiver,
 				mContent : dmContent,
 				category : category,
+				categoryNo : categoryNo,
 				mTitle : mTitle
 
 			}

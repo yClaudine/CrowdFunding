@@ -52,15 +52,15 @@
                 <div class="profile">
                 	<c:if test="${sessionScope.m.gender==0 }">	
                     <span class="material-symbols-outlined" id="myp">
-                        account_circle_full
+                        account_circle
                         </span>
                     </c:if>
                     <c:if test="${sessionScope.m.gender==1 }">	
                     <span class="material-symbols-outlined" id="mypg">
-                        account_circle_full
+                        account_circle
                         </span>
                     </c:if>
-                    <a href="" class="Bupdate">-<span>${sessionScope.m.memberName}</span>님</a>
+                    <a href="myProfile.do?memberId=${sessionScope.m.memberId }" class="Bupdate">-<span>${sessionScope.m.memberName}</span>님</a>
                         
                     <div class="int">서포터 * 개인화면</div>
                 </div>
@@ -73,7 +73,9 @@
                     </c:if>
                 </div>
                 <div class="logout onload">
+                	<c:if test="${sessionScope.m.categoryNo!=2 }">
                 	<a href="onLoadFrm.do" class="aout"><button class="btn btn-outline-success" id="outBtn">신청 현황</button></a>
+                	</c:if>
                 </div>
                 <div class="setting">
                     <a href="setting.do" class="mUS"><span class="material-symbols-outlined" id="sett">
@@ -88,11 +90,11 @@
                 <ul class="count">
                     <li class="fundCount">
                         <span>0</span>
-                        <a href="mypageFund.do">펀딩</a>
+                        <a href="fundingFrm.do">펀딩</a>
                     </li>
                     <li class="buyCount">
-                        <span>0</span>
-                        <a href="mypageBuy.do">구매</a>
+                        <span class="storeCount">0</span>
+                        <a href="mystoreFrm.do">구매</a>
                     </li>
                 </ul>
                 <div class="myCoupon">
@@ -104,7 +106,7 @@
                             <sup id="text1">메시지</sup>
                             <sup id="text2">></sup>
                         </a>
-                        <a href="mycoupon.do" class="cou" >
+                        <a href="mycouponFrm.do" class="cou" >
                             <span class="material-symbols-outlined symbols" id="symbols">
                                 redeem
                                 </span>
@@ -117,14 +119,14 @@
                 <div class="myCommunity">
                     
                     <div class="comm">
-                        <a href="myfollower.do">
+                        <a href="myfollowerFrm.do">
                             <span class="material-symbols-outlined" id="symbols">
                                 group
                                 </span>
                             <sup id="text3">나의 팔로워</sup>
                             <sup id="text2">></sup>
                         </a>
-                        <a href="myfollowing.do" class="cou" >
+                        <a href="myfollowingFrm.do" class="cou" >
                             <span class="material-symbols-outlined" id="symbols">
                                 group_add
                                 </span>
@@ -174,7 +176,7 @@
             <div class="three">
                 <div class="profile2">
                     <span class="material-symbols-outlined" id="myp">
-                        account_circle_full
+                        account_circle
                         </span>
                     <a href="" class="Bupdate1">-<span>와디즈 메이커</span>님</a>
                     <a href="" class="Bupdate1">-<span>프로필 편집하기</span> ></a>
@@ -321,7 +323,9 @@
         </div>
         </div>
     </div>
+    <input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
     <script>
+    	
     	$(function(){
     		const onload =$(".onload");
     		const memberId = $("[name=memberId]").val();
@@ -345,6 +349,21 @@
     				contsole.log("프로그램 데이터 에러");
     			}
     		});
+    		const memberNo = $("[name=memberNo]").val();
+    		const req =1;
+			$.ajax({
+        		
+        		url:	"mystore.do",
+        		type:	 "post",
+        		data : {memberNo:memberNo, req:req},
+        		success : function(data){
+        			console.log(data);
+        			//가져와야하는 데이터  상품이름 store_product
+        			$(".storeCount").text(data.storeCount);
+        			
+        		}//success
+        		
+        	});//ajax종료 
     	});
     
     </script>
