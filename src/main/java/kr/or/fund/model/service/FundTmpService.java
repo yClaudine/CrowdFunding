@@ -80,4 +80,25 @@ public class FundTmpService {
 		return dao.updateTmpFundCalculate(tfc);
 	}
 
+	public int createFund(TmpFund tmpF) {
+		// TODO Auto-generated method stub
+		return dao.createFund(tmpF);
+	}
+
+	public int createReward(TmpReward tr) {
+		// TODO Auto-generated method stub
+		return dao.createReward(tr);
+	}
+	
+	public int createFundCalculate(TmpFundCalculate tfc) {
+		// TODO Auto-generated method stub
+		return dao.createFundCalculate(tfc);
+	}
+
+	public int deleteTmpFund(TmpFund tf) {
+		// TODO Auto-generated method stub
+		return dao.deleteTmpFund(tf);
+	}
+	
+
 }

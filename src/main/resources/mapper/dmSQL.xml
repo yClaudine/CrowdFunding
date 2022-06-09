@@ -20,7 +20,7 @@
  		#{category},#{categoryNo} )
  	</insert>
  	<select id="selectDmList" parameterType="map" resultType="d">
- 		select 
+ 		select * from(select rownum as rnum, p.* from (select 
  			dm_no as dmNo,
  			send_mem_id as sendMemId,
  			recv_mem_id as recvMemId,
@@ -41,7 +41,7 @@
  					send_mem_id =#{memberId}
  				</when>
  			</choose>
- 			order by read_ck desc, dm_no desc 
+ 			order by read_ck desc, dm_no desc)p) where rnum between #{start} and #{last} 
  			
  	</select>
  	
@@ -66,6 +66,25 @@
  		update message set read_ck=0,m_Rectime=to_char(sysdate,'yyyy-mi-dd hh:mm:ss') where dm_no = #{dmNo}
 	</update>
 	
+
+	<select id="totalCount" parameterType="map" resultType="int">
+	 	select count(*) from message where 
+	 	<choose>
+	 		<when test="check==0">
+	 			recv_mem_id =#{memberId}
+	 		</when>
+	 		 
+	 		<when test="check==1">
+	 			send_mem_id =#{memberId}
+	 		</when>
+	 	
+	 	</choose>
+	
+	</select>
+	<delete id="deleteMessage" parameterType="int">
+		delete from message where dm_no = #{dmNo}
+	</delete>
+
 	<update id="reportCount" parameterType="map">
 		<choose>
 			<when test="category == 1">

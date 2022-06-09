@@ -40,8 +40,8 @@ public class StoreDao {
 		return totalCount;
 	}
 
-	public int insertComment(Store s) {
-		int result = sqlSession.insert("storeStar.insertComment",s);
+	public int insertComment(StoreStar ss) {
+		int result = sqlSession.insert("storeStar.insertComment",ss);
 		return result;
 	}
 
@@ -65,6 +65,59 @@ public class StoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("storepay.selectOneCoupon",map);
 	}
+
+
+	public ArrayList<Integer> selectStorepayNo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub sqlSession.selectList("storepay.selectStorepayNo",map);
+		List list = sqlSession.selectList("storepay.selectStorepayNo",map);
+		
+		return (ArrayList<Integer>)list;
+	}
+
+
+	public int insertPay(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("storepay.insertPay",map);
+	}
+
+	public int updateReport(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("store.updateReport",storeNo);
+	}
+
+
+	public int selectStoreStar(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("storeStar.selectStoreStar",map);
+	}
+
+
+	public int storeCommentDelete(int starNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("storeStar.storeCommentDelete",starNo);
+	}
+
+	public int updateStoreComment(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("storeStar.updateStoreComment",map);
+	}
+
+	public int updateReportstar(int starNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("storeStar.updateReportstar",starNo);
+	}
+
+	public int updateReportMem(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("storeStar.updateReportMem",memberNo);
+	}
+
+	public int updateMemberCoupon(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("storepay.updateMemberCoupon",map);
+	}
+
+
 
 
 

@@ -12,7 +12,7 @@ public class StoreTmpDao {
 	private SqlSessionTemplate sqlSession;
 
 	public int createTmpStore(TmpStore t) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated zdmethod stub
 		sqlSession.insert("tmpStore.createTmpStore",t);
 		int result = t.getStNo();
 		return result;
@@ -21,5 +21,15 @@ public class StoreTmpDao {
 	public TmpStore selectOneTmpStore(TmpStore ts) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("tmpStore.selectOneTmpStore",ts);
+	}
+
+	public int updateStore3(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpStore.updateStore3",ts);
+	}
+
+	public int updateStore4(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpStore.udpateStore4",ts);
 	}
 }

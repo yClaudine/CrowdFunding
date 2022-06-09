@@ -291,121 +291,125 @@
 		
 		//서브밋 활성화
 		$("[type=submit]").on("click",function(e){
-			//saveChk 값이 다 1이지 확인할 변수
-			let chk = 0
-			
-			//0. 약관 동의 체크
-			const checkBox = $("[type=checkbox]").is(':checked');
-			if (checkBox){
-				saveChk[0] = 1; 
-			}else{
-				saveChk[0] = 0;
-			}
-			
-			//1. 대표자명 체크
-			const nameReg = /^[가-힣]{2,10}$/;
-			const trName = $("#tfcRepName").val();
-			if(trName.match(nameReg) == null){
-				saveChk[1] = 0;
-			}else{
-				saveChk[1] = 1;
-			}
-			
-			//2. 대표자 이메일 체크
-			const mailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-			const trEmail = $("#tfcRepEmail").val();
-			if(trEmail.match(mailReg) == null ){
-				saveChk[2] = 0;
-			}else{
-				saveChk[2] = 1;
-			}
-			
-			//3. 대표자 신분증 체크
-			const trFilepath = $(".upfile").eq(0).val();
-			const imageStatus1 = $("[name=imageStatus]").eq(0).val();
-			if(trFilepath == "" && imageStatus1 != "already"){
-				saveChk[3] = 0;
-			}else{
-				saveChk[3] = 1;
-			}
-			
-			//4. 대표자 주민번호 체크
-			const birthReg = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-8][0-9]{6}$/;
-			const trBirth = $("#tfcRepBirth").val();
-			if(trBirth.match(birthReg) == null ){
-				saveChk[4] = 0;
-			}else{
-				saveChk[4] = 1;
-			}
-			
-			//5. 세금계산서 발행 이메일 체크
-			const tEmail = $("#tfcMail").val();
-			if(tEmail.match(mailReg) == null ){
-				saveChk[5] = 0;
-			}else{
-				saveChk[5] = 1;
-			}
-			
-			//6. 계좌 번호 체크
-			const tbNo = $("#tfcBankNo").val();
-			if(tbNo == ""){
-				saveChk[6] = 0;
-			}else{
-				saveChk[6] = 1;
-			}
-			
-			//7. 예금주명 체크
-			const tbAccount = $("#tfcBankAccount").val();
-			if(tbAccount.match(nameReg) == null){
-				saveChk[7] = 0;
-			}else{
-				saveChk[7] = 1;
-			}
-			
-			//8. 통장사본 체크
-			const tbFilepath = $(".upfile").eq(1).val();
-			const imageStatus2 = $("[name=imageStatus]").eq(1).val();
-			if(tbFilepath == "" && imageStatus2 != "already"){
-				saveChk[8] = 0;
-			}else{
-				saveChk[8] = 1;
-			}
-			
-			//9. saveChk 갯수 확인
-			$.each(saveChk,function(index,item){
-				if(item == 1){
-					chk++;
+			if(confirm("변경 내용을 저장하시겠습니까 ? ")){
+				//saveChk 값이 다 1이지 확인할 변수
+				let chk = 0
+				
+				//0. 약관 동의 체크
+				const checkBox = $("[type=checkbox]").is(':checked');
+				if (checkBox){
+					saveChk[0] = 1; 
+				}else{
+					saveChk[0] = 0;
 				}
-			});
-			
-			//검사에 걸린 부분에 따른 경고 메시지 담을 배열
-			const alertArr = [
-				"정산 정책을 확인하고 약관에 동의하여 주세요.",
-				"대표자명은 10자 이하의 한글만 가능합니다.",
-				"대표자 이메일 형식을 확인하여 주세요.",
-				"대표자 신분증을 올려주세요.",
-				"올바른 주민등록번호를 입력하여 주세요.",
-				"세금계산서 발행 이메일 형식을 확인하여 주세요.",
-				"계좌번호를 입력하여주세요.",
-				"예금주명은 10자 이하의 한글만 가능합니다.",
-				"통장 사본을 올려주세요."
-			];
-			
-			//모든 조건 만족하지 않으면 버튼 비활성화
-			if(chk != 9){
-				let breakChk = 0;
-				e.preventDefault();
+				
+				//1. 대표자명 체크
+				const nameReg = /^[가-힣]{2,10}$/;
+				const trName = $("#tfcRepName").val();
+				if(trName.match(nameReg) == null){
+					saveChk[1] = 0;
+				}else{
+					saveChk[1] = 1;
+				}
+				
+				//2. 대표자 이메일 체크
+				const mailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+				const trEmail = $("#tfcRepEmail").val();
+				if(trEmail.match(mailReg) == null ){
+					saveChk[2] = 0;
+				}else{
+					saveChk[2] = 1;
+				}
+				
+				//3. 대표자 신분증 체크
+				const trFilepath = $(".upfile").eq(0).val();
+				const imageStatus1 = $("[name=imageStatus]").eq(0).val();
+				if(trFilepath == "" && imageStatus1 != "already"){
+					saveChk[3] = 0;
+				}else{
+					saveChk[3] = 1;
+				}
+				
+				//4. 대표자 주민번호 체크
+				const birthReg = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-8][0-9]{6}$/;
+				const trBirth = $("#tfcRepBirth").val();
+				if(trBirth.match(birthReg) == null ){
+					saveChk[4] = 0;
+				}else{
+					saveChk[4] = 1;
+				}
+				
+				//5. 세금계산서 발행 이메일 체크
+				const tEmail = $("#tfcMail").val();
+				if(tEmail.match(mailReg) == null ){
+					saveChk[5] = 0;
+				}else{
+					saveChk[5] = 1;
+				}
+				
+				//6. 계좌 번호 체크
+				const tbNo = $("#tfcBankNo").val();
+				if(tbNo == ""){
+					saveChk[6] = 0;
+				}else{
+					saveChk[6] = 1;
+				}
+				
+				//7. 예금주명 체크
+				const tbAccount = $("#tfcBankAccount").val();
+				if(tbAccount.match(nameReg) == null){
+					saveChk[7] = 0;
+				}else{
+					saveChk[7] = 1;
+				}
+				
+				//8. 통장사본 체크
+				const tbFilepath = $(".upfile").eq(1).val();
+				const imageStatus2 = $("[name=imageStatus]").eq(1).val();
+				if(tbFilepath == "" && imageStatus2 != "already"){
+					saveChk[8] = 0;
+				}else{
+					saveChk[8] = 1;
+				}
+				
+				//9. saveChk 갯수 확인
 				$.each(saveChk,function(index,item){
-					if(item == 0){
-						alert(alertArr[index]);
-						breakChk++;
-					}
-					if(breakChk == 1){
-						return false;
+					if(item == 1){
+						chk++;
 					}
 				});
+				
+				//검사에 걸린 부분에 따른 경고 메시지 담을 배열
+				const alertArr = [
+					"정산 정책을 확인하고 약관에 동의하여 주세요.",
+					"대표자명은 10자 이하의 한글만 가능합니다.",
+					"대표자 이메일 형식을 확인하여 주세요.",
+					"대표자 신분증을 올려주세요.",
+					"올바른 주민등록번호를 입력하여 주세요.",
+					"세금계산서 발행 이메일 형식을 확인하여 주세요.",
+					"계좌번호를 입력하여주세요.",
+					"예금주명은 10자 이하의 한글만 가능합니다.",
+					"통장 사본을 올려주세요."
+				];
+				
+				//모든 조건 만족하지 않으면 버튼 비활성화
+				if(chk != 9){
+					let breakChk = 0;
+					e.preventDefault();
+					$.each(saveChk,function(index,item){
+						if(item == 0){
+							alert(alertArr[index]);
+							breakChk++;
+						}
+						if(breakChk == 1){
+							return false;
+						}
+					});
+				}	
+			}else{
+				e.preventDefault();
 			}
-		});
+		});//submit
 		
 		//기존에 입력사항 체크
 		$(document).ready(function(){

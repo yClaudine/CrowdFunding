@@ -18,14 +18,14 @@ public class TmpStore {
 	private String stContent;
 	private String stProduct;
 	private String stProductcontent;
-	private int stprice;
-	private int stcount;
-	private int stdelivery;
-	private String streturn;
-	private String stchange;
-	private String stimg1;
-	private String stimg2;
-	private String stimg3;
-	private String stimg4;
-	private String stimg5;
+	private int stPrice;
+	private int stCount;
+	private int stDelivery;
+	private String stReturn;
+	private String stChange;
+	private String stImg1;
+	private String stImg2;
+	private String stImg3;
+	private String stImg4;
+	private String stImg5;
 }

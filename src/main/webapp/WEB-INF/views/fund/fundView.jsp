@@ -559,15 +559,17 @@ justify-content: right;
                 <span class="total-supporter">
                     <strong>499</strong> 명의 서포터
                 </span><br>
-                <a href="#" class="funding-linkwrap">
-                    <div class="funding-link">펀딩하기</div>
-                </a>
+                <div class="funding-linkwrap">
+                    <button class="funding-link" id="pay" style="border:none;">펀딩하기</button>
+                </div>
                 <br>
                 <div class="btn-box">
                     <button class="like-btn">
-                        <span class="material-icons likes">favorite_border</span>
+                        <span class="material-icons" id="likes">favorite_border</span>
                         <!-- <span class="material-icons likes">favorite</span>  -->
-                        <span class="btn-value">0</sp>
+                        <span class="btn-value" id="likeSum">${f.fundLike }</span><!--  -->
+                        <input type="hidden" id="fundLike" value="${f.fundLike }">
+                        <input type="hidden" id="likeCheck" value="${fl.likeCheck}">
                     </button>
                     <button class="report-btn" type="submit">
                         <span class="material-icons">report</span>                
@@ -681,8 +683,18 @@ justify-content: right;
     <input type="hidden" class="fundNo" value="${f.fundNo }">
     <input type="hidden" class="login" value="${not empty sessionScope.m}">
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
+    <!-- <input type="hidden" class="likeCheck" value=""> -->
 
 <script>
+$("#pay").click(function(){
+	const login = $(".login").val();
+	if (login){
+		location.href="/payFunding.do?fundNo=${f.fundNo }";
+	}else{
+		alert("로그인을 먼저 진행해주세요");
+	}
+});
+
 //펀딩 설명 모달
 $(function(){
     $("#confirm").click(function(){
@@ -736,33 +748,44 @@ $(function(){
 	});
 
 //좋아요 
+//체크여부
+$(document).ready(function () {
+	let likeCheck = $("#likeCheck").val();
+	if(likeCheck==0){ //로그인 안함, 좋아요 안함
+		$("#likes").text("favorite_border");
+	}else{			//좋아요 함
+		$("#likes").text("favorite");
+	}
+});
+
 $(".like-btn").click(function(){
 	const login = $(".login").val();
 	let fundNo = $(".fundNo").val();
 	let memberId = $(".memberId").val();
-	
-	if(login){	
-		
-		$.ajax({ //검증을 두번한 상태가 됨 -> 그냥 좋아요 자체를 ajax로 처리
-			url : "/fundLike.do",
-			data : {fundNo : fundNo, memberId : memberId},
+
+	if(login){
+		//likeCheck
+		$.ajax({
+			url : "/likeCheck.do",
+			data:{fundNo:fundNo,memberId:memberId},
 			success : function(data){
-				
-				if(data==0){	//좋아요 0이면 안누른 상태 -> 좋아요 처리
-					$(".like-btn .likes").text("favorite_border");
-					location.href="/fundView.do?fundNo="+fundNo; //좋아요만 처리 
-					
-				}else{			//좋아요 1이면 클릭된 상태 -> 좋아요 취소 
-					$(".like-btn .likes").text("favorite");
-					location.href="/fundView.do?fundNo="+fundNo;
-				}
+				if(data != -1){
+					const likes = $("#likes").text();					
+					if(likes == 'favorite'){
+						$("#likes").text("favorite_border");	
+					}else{
+						$("#likes").text("favorite");
+					}
+				}//if
+				$("#likeSum").text(data);
 			}
 		});
+
 	}else{
-		alert("로그인을 진행해주세요.")
+		alert("로그인이 필요합니다.");
 	}
-	
 });
+
 </script>
                 
 </body>

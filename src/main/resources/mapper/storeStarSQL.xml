@@ -34,12 +34,28 @@
 	<!-- storepay가 꼭 있어야 함 -->
 	<insert id="insertComment" parameterType="ss">	
 		INSERT INTO store_star VALUES
-		(STORE_STAR_SEQ.nextval,#{storeNo},#{storepayNo},#{storeProduct},#{memberId},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},#{storeReportcount})
+		(STORE_STAR_SEQ.nextval,#{storepayNo},#{storeNo},#{memberId},#{storeProduct},to_char(sysdate,'yyyy-mm-dd'),#{starScore},#{starContent},0)
 	</insert>
 	<!-- 평점 -->
 	<select id="selectStarAvg" parameterType="int" resultType="double">
-		select avg(star_score)
+		select nvl(avg(star_score),0)
   		from store_star
   		WHERE store_no=#{storeNo}
 	</select>
+	<update id="updateStoreComment" parameterType="map">
+		update store_star set star_content=#{starContent} where star_no = #{starNo}
+	</update>
+	<select id="selectStoreStar" parameterType="map" resultType="int">
+		select count(*) from store_star
+		where member_id = #{memberId} and store_no = #{storeNo}
+	</select>
+	<delete id="storeCommentDelete" parameterType="int">
+		delete from store_star where star_no=#{starNo}
+	</delete>
+	<update id="updateReportstar" parameterType="int">
+		update store_star set store_reportcount=store_reportcount+1 where star_no=#{starNo}
+	</update>
+	<update id="updateReportMem" parameterType="int">
+		update member_tbl set member_warning=member_warning+1 where member_no=#{memberNo}
+	</update>
 </mapper>

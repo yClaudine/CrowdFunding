@@ -235,7 +235,8 @@
 					$(".cal-start").text(mm);
 					chkIntro[2] = 1;
 				}			
-			})
+			});
+			$("[type=date]").change();
 		});
 	</script>
 </body>

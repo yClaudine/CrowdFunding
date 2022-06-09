@@ -11,6 +11,8 @@ import kr.or.member.dao.Dmdao;
 import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 
+import kr.or.member.vo.pagiDm;
+
 @Service
 public class DmService {
 
@@ -36,12 +38,99 @@ public class DmService {
 		return result;
 	}
 
-	public ArrayList<Dm> selectDmList(String memberId, int check) {
+	public pagiDm selectDmList(String memberId, int check, int req) {
+		
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("memberId",memberId);
 		map.put("check", check);
-		return dao.selectDmList(map);
+	
+		int numPerPage =7; 
+		 
+		int last =numPerPage *req; 
+		int start = last -numPerPage +1;
+		map.put("start",start);
+		map.put("last",last);
+		
+		ArrayList<Dm> list = dao.selectDmList(map);
+		HashMap<String,Object> count = new HashMap<String,Object>();
+		count.put("memberId", memberId);
+		count.put("check", check);
+		int totalCount = dao.TotalCount(count);
+			int totalPage;
+		if(totalCount % numPerPage ==0) {
+			 totalPage =  totalCount / numPerPage; 
+		}else {
+			 totalPage = totalCount / numPerPage+1 ;
+		}
+		
+		//페이지 길이
+		int pageNaviSize =5; 
+		//페이지 시작 번호 
+		int pageNo =1; 
+		if(req>3) {
+			pageNo = req -2;
+		}
+		
+		String pageNavi = "";
+		pageNavi ="<div class='btn-group me-2' id='pagi' role='group' aria-label='First group'>";
+		if (check==0) {
+			if(pageNo !=1) {
+				int p = req-1;
+				pageNavi += "<div class='btn btn-secondary' onclick='recvMemId("+p+")'>«</div>";
+			}
+			
+			//페이지 숫자 생성 
+			for(int i=0; i<pageNaviSize; i++) {
+		
+				if(pageNo==req) {
+					pageNavi +="<div class='btn btn-info' onclick='recvMemId("+pageNo+")'>"+pageNo+"</div>";
+				}else {
+					pageNavi +="<div class='btn btn-secondary' onclick='recvMemId("+pageNo+")'>"+pageNo+"</div>";
+				}
+				pageNo++;
+				if(pageNo>totalPage) {
+					break;
+				}
+			}
+			if(pageNo<=totalPage) {
+				int p1 = req+1;
+				pageNavi += "<div class='btn btn-secondary' onclick='recvMemId("+p1+")'>»</div>";
+			}
+
+			
+		}else if (check==1){
+			
+			//이전버튼 
+			
+				if(pageNo !=1) {
+					int p = pageNo-1;
+					pageNavi += "<div class='btn btn-secondary' onclick='sendMemId("+p+")'>«</div>";
+				}
+				
+				//페이지 숫자 생성 
+				for(int i=0; i<pageNaviSize; i++) {
+					if(pageNo==req) {
+						pageNavi +="<div class='btn btn-info' onclick='sendMemId("+pageNo+")'>"+pageNo+"</div>";
+					}else {
+						pageNavi +="<div class='btn btn-secondary' onclick='sendMemId("+pageNo+")'>"+pageNo+"</div>";
+					}
+				
+					pageNo++;
+					if(pageNo>totalPage) {
+						break;
+					}
+					
+				}
+				if(pageNo<=totalPage) {
+					int p1 = pageNo+1;
+					pageNavi += "<div class='btn btn-secondary' onclick='sendMemId("+p1+")'>»</div>";
+				}
+		}
+		pagiDm dm = new pagiDm();
+		dm.setList(list);
+		dm.setPagination(pageNavi);
+		return dm;
 	}
 	
 	
@@ -67,6 +156,12 @@ public class DmService {
 		map.put("categoryNo", categoryNo);
 		map.put("recvMemId", recvMemId);
 		return dao.reportCount(map);
+	}
+
+	public int deleteMessage(int dmNo) {
+		
+		
+		return dao.deleteMessage(dmNo);
 	}
 
 }

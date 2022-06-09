@@ -82,7 +82,7 @@ html>body {
 	.pageNavi-content>span,.pageNavi-content>a{
 		background-color: #00b2b2;
 		text-decoration: none;
-		font-size: 20px;
+		font-size: 22px;
 		padding: 0px 10px 0px;
 		border-radius: 50%;
 		font-weight: bold;
@@ -90,6 +90,9 @@ html>body {
 
 	.material-symbols-outlined:focus{
 		border: 2px solid #00b2b2;
+	}
+	.pageNavi-wrap{
+		margin: 40px 0px 0px;
 	}
 </style>
 </head>

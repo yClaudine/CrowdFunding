@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,32 +67,32 @@
     	.header-right>a{
     		color: #aaa;
     	}
-    	.creFund-wrap{
+    	.creStore-wrap{
     		display: flex;
     	}
-    	.crefund-nav{
+    	.creStore-nav{
     		width: 220px;
     	}
-    	crefund-content{
+    	crestore-content{
     		width:980px;
     	}
-    	.crefund-content{
+    	.crestore-content{
     		padding-top: 60px;
     		padding-left: 75px;
     		position: relative;
     	}
-    	.crefund-content>h6{
+    	.crestore-content>h6{
     		font-weight: 400;
     		color: #777;
     		padding-top: 10px;
     		padding-bottom: 30px;
     	}
-    	.crefund-content>.category{
+    	.crestore-content>.category{
     		position: absolute;
     		top: 15px;
     		font-size: 12px;
     	}
-    	.crefund-content>.category>b{
+    	.crestore-content>.category>b{
     		padding-left: 5px;
     		font-size: 13px;
     	}
@@ -125,7 +126,7 @@
 	
 	<script>
 	$(".header-left").click(function(){
-		location.href='/storeCreate3.do?stNo='+${tmp.stNo};
+		location.href='/storeReadyFrm.do?stNo='+${tmp.stNo};
 	})
 	</script>
 	

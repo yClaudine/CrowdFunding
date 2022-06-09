@@ -134,12 +134,12 @@ html>body {
 						<div>
 							<c:if test="${sessionScope.m.gender==0}">
 								<a href="myPageFrm.do" class="access"> 
-									<span class="material-symbols-outlined" style="color:#00b2b2; width:40px; height:40px; font-size:40px;"> account_circle_full </span>
+									<span class="material-symbols-outlined" style="color:#00b2b2; width:40px; height:40px; font-size:40px;"> account_circle </span>
 								</a>
 							</c:if>
 							<c:if test="${sessionScope.m.gender==1}">
 								<a href="myPageFrm.do" class="access"> 
-									<span class="material-symbols-outlined" style="color:#FFC4DD; width:40px; height:40px; font-size:40px;"> account_circle_full </span>
+									<span class="material-symbols-outlined" style="color:#FFC4DD; width:40px; height:40px; font-size:40px;"> account_circle</span>
 								</a>
 							</c:if>
 							
