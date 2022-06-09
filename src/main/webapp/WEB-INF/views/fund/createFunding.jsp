@@ -7,20 +7,22 @@
 <title>FunFunFun</title>
 <style>
 	.content-wrap{
-		width: 1100px;
+		width: 1000px;
 		margin: 0 auto;
 		margin-top: 50px;
 		display: flex;
 	}
 	.content-left{
 		width: 450px;
+		height: 700px;
 		padding-right: 50px;
 	}
 	.content-right{
 		width: 550px;
 	}
 	.content-right>img{
-		width: 100%;
+		width: 550px;
+		height: 700px;
 	}
 	.content-left>h2{
 		padding-top: 35px;
@@ -46,6 +48,7 @@
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="content-wrap">
 		<div class="content-left">
+			<br><br><br>
 			<h2>
 				비즈니스의<br>
 				새로운 가능성을<br>
@@ -63,12 +66,31 @@
 			</form>
 		</div>
 		<div class="content-right">
-			<img src="resources/image/fund/fundCre.png">
+			<img src="resources/image/createFund1.jpg" style="display:none;">
+			<img src="resources/image/createFund2.jpg" style="display:none;">
+			<img src="resources/image/createFund3.jpg" style="display:none;">
+			<img src="resources/image/createFund4.jpg" style="display:none;">
 		</div>
 	</div>
-	
+
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
+	//이미지 담을 변수
+	const image = $(".content-right>img");
+	//보여주는 이미지 변수
+	let cnt = 0;
+	
+	//이미지 사라지는 함수
+	function imageHide(cnt){
+		$(image).eq(cnt).fadeOut(1000);	
+	}
+	
+	//이미지 나타나는 함수
+	function imageShow(cnt){
+		$(image).eq(cnt).fadeIn(1000);	
+	}
+	
+	
 	$("[type=submit]").on("click",function(e){
 		//펀딩 제목과 memberId를 체크할 변수
 		const chk = [0,0];
@@ -91,6 +113,24 @@
 			alert("로그인을 하시고 펀딩 제목을 입력하여 주세요.");
 			e.preventDefault();
 		}
+	});
+	
+	//페이지 로드 끝나면 이미지 효과 반복 작동
+	$(document).ready(function(){
+		//첫번째 이미지 바로 나타나도록
+		imageShow(cnt);
+		//4초마다 효과 반복
+		setInterval(function(){
+			imageHide(cnt);
+			cnt++;
+			//한바퀴 분기점
+			if(cnt == 4){
+				cnt = 0
+				setTimeout("imageShow(cnt)", 1000);
+			}else{
+				setTimeout("imageShow(cnt)", 1000);	
+			}
+		},4000);
 	});
 	</script>
 </body>
