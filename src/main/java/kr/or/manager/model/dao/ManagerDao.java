@@ -103,5 +103,40 @@ public class ManagerDao {
 		return (ArrayList<Dm>)list;
 	}
 
+	public int updateMemberAuth(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.updateMemberAuth", map);
+	}
+
+	public int cancelStorePay(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cancelStorePay", storeNo);
+	}
+
+	public int updateCouponUse(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.updateCouponUse", storeNo);
+	}
+
+	public int deleteStore(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("manager.deleteStore", storeNo);
+	}
+
+	public int cancelFundPay(int fundNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cancelFundPay", fundNo);
+	}
+
+	public int updateFundCouponUse(int fundNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.updateFundCouponUse", fundNo);
+	}
+
+	public int deleteFund(int fundNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("manager.deleteFund", fundNo);
+	}
+
 	
 }

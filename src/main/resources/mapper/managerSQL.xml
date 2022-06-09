@@ -424,6 +424,30 @@
  			order by read_ck desc, dm_no desc 
 
 </select>
+<update id="updateMemberAuth" parameterType="map">
+	update member_tbl set auth_re=#{auth} where member_id=#{memberId}
+
+</update>
+<!--스토어 삭제(스토어페이 상태 결제취소/쿠폰상태 사용전으로) -->
+<update id="cancelStorePay" parameterType="int">
+	update storePay set storepay_check=1 where store_no=#{storeNo}
+</update>
+<update id="updateCouponUse" parameterType="int">
+	update member_coupon set coupon_use=0, use_date=null where mem_coupon_no in (select mem_coupon_no from storePay where store_no=#{storeNo})
+</update>
+<delete id="deleteStore" parameterType="int">
+	delete from store where store_no=#{storeNo}
+</delete>
+<!-- 펀드 삭제 -->
+<update id="cancelFundPay" parameterType="int">
+	update fund_pay set fpay_status=1 where fund_no=#{fundNo}
+</update>
+<update id="updateFundCouponUse" parameterType="int">
+	update member_coupon set coupon_use=0, use_date=null where mem_coupon_no in (select mem_coupon_no from fund_pay where fund_no=#{fundNo})
+</update>
+<delete id="deleteFund" parameterType="int">
+	delete from fund where fund_no=#{fundNo}
+</delete>
 
 
 

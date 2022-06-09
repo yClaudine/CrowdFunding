@@ -75,7 +75,7 @@
     border: 1px solid #02c9c9;
     margin: 0;
     margin-bottom: 5px;
-    width: 60px;
+    width: 90px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -341,8 +341,7 @@ select{
 										</td>
 										<td>${f.fundWarning }</td>
 			                            <td>
-			                                <button type="button" class="btn btn-primary delete">삭제</button>
-			                                <button type="button" class="btn btn-primary detail">경고</button>
+			                                <button type="button" class="btn btn-primary detail">경고 상세</button>
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
@@ -391,13 +390,13 @@ changeType.val(type);
 //검색버튼 클릭시
 $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
-	location.href="/fundManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+	location.href="/fundManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
 
 //옵션 변경시 적용(전체, 신고)
 changeType.on("change",function(){
 	const change = $(this).val();
-	location.href="/fundManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+	location.href="/fundManage.do?reqPage=1&keyword="+keyword+"&type="+change;
 });
 
 //경고버튼

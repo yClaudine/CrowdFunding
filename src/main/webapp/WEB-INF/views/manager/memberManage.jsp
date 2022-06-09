@@ -238,6 +238,7 @@ select{
 }
 .modal-top h3{
 	margin: 0;
+	text-align:center;
 }
 .detail-btn:hover{
 	cursor: pointer;
@@ -352,16 +353,29 @@ select{
 										<td>${mem.memberWarning }</td>
 			                            <td>
 			                            	<input type="hidden" class="authRe" value=${mem.authRe }>
-			                                <select name="authChange" id="authChange">
-			                                	<option value="0">정상</option>
-			                                    <option value="1">로그인불가</option>
-			                                </select>
+			                                <c:choose>
+			                                	<c:when test="${mem.authRe eq 0}">
+			                                		 <select name="authChange" id="authChange">
+					                                	<option value="0" selected>정상</option>
+					                                    <option value="1">로그인불가</option>
+					                                 </select>
+			                                	</c:when>
+			                                	<c:otherwise>
+			                                		 <select name="authChange" id="authChange">
+					                                	<option value="0">정상</option>
+					                                    <option value="1" selected>로그인불가</option>
+					                                 </select>
+			                                	</c:otherwise>
+			                                </c:choose>
+			                                
+			                               
 			                            </td>
 			                            <td>
 			                                <button type="button" class="btn btn-primary authChange">권한수정</button>
+			                                <input type="hidden" value="${mem.authRe }">
 			                                <button type="button" class="btn btn-primary detail">경고관리</button>
 			                                <input type="hidden" value="${mem.memberId }" >
-			                                <input type="hidden" >
+			                                
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
@@ -383,7 +397,7 @@ select{
 	<div class="modal-wrap">
         <div class="detail-modal">
             <div class="modal-top">
-                <h3>스토어 상세정보</h3>
+                <h3>회원 상세정보</h3>
             </div>
             <div class="modal-content">
                 <table border="1" class="detail-table">
@@ -412,13 +426,13 @@ changeType.val(type);
 //검색버튼 클릭시
 $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
-	location.href="/memberManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+	location.href="/memberManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
 
 //옵션 변경시 적용(전체,미승인,승인,심사전)
 changeType.on("change",function(){
 	const change = $(this).val();
-	location.href="/memberManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+	location.href="/memberManage.do?reqPage=1&keyword="+keyword+"&type="+change;
 });
 
 //상세보기버튼
@@ -468,6 +482,21 @@ $(".detail-btn").on("click",function(){
 $(".modal-close").on("click",function(){
        $(".modal-wrap").css("display","none");
    });
+ 
+ //권한수정 버튼
+ $(".authChange").on("click",function(){
+	 const oldAuth = $(this).next().val();
+	 const newAuth = $(this).parent().prev().children().eq(1).val();
+	 const memberId = $(this).next().next().next().val();
+	 if(oldAuth == newAuth){
+		 alert("변경된 값이 없습니다.");
+	 }else{
+		 location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
+	 }
+ });
+   
+   
+   
 </script>
 
 </body>
