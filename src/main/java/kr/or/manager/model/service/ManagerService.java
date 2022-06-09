@@ -238,6 +238,55 @@ public class ManagerService {
 		return dao.selectReportList(map);
 	}
 
+	//회원 권한 변경
+	public int updateMemberAuth(String memberId, int auth) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auth", auth);
+		return dao.updateMemberAuth(map);
+	}
+
+	public int deleteStore(int storeNo) {
+		//결제취소 상태로 변경
+		int result=0;
+		int result1 = dao.cancelStorePay(storeNo);
+		if(result1>0) {
+			//쿠폰 사용전 상태로 변경
+			result = dao.updateCouponUse(storeNo);
+			/*
+			if(result2>0) {
+				//result = dao.deleteStore(storeNo);
+				result = 1;
+			}else {
+				result = -1;
+			}
+			*/
+		}else {
+			result = -1;
+		}
+		
+		return result;
+	}
+
+	public int deleteFund(int fundNo) {
+		//결제취소 상태로 변경
+		int result=0;
+		int result1 = dao.cancelFundPay(fundNo);
+		if(result1>0) {
+			//쿠폰 사용전 상태로 변경
+			int result2 = dao.updateFundCouponUse(fundNo);
+			if(result2>0) {
+				//펀드 삭제
+				result = dao.deleteFund(fundNo);
+			}else {
+				result = -1;
+			}
+		}else {
+			result = -1;
+		}
+		return result;
+	}
+
 	
 	
 

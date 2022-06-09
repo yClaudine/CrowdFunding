@@ -50,8 +50,8 @@ public class FundListController {
 	
 	//펀딩 상세 메인페이지-story
 	@RequestMapping(value="/fundView.do")
-	public String FundView(int fundNo,Model model)	{
-		FundViewData fvd = service.selectOneFundView(fundNo);
+	public String FundView(int fundNo, String memberId, Model model)	{
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
@@ -88,36 +88,13 @@ public class FundListController {
 		return "fund/fundViewSupporter";	
 	}
 	
-
-	
-	//좋아요  --------------------------------------
+*/
+	//로그인 시 좋아요
 	@ResponseBody
-	@RequestMapping(value="/fundLikeUp.do",produces="application/json;charset=utf-8")
-	public String fundLikeUp(FundLike fl) {
-		int result = service.insertFundlike(fl);
-		return new Gson().toJson(result);
-	}
-	//좋아요 취소
-	@ResponseBody
-	@RequestMapping(value="/fundLikeDown.do",produces="application/json;charset=utf-8")
-	public String fundLikeDown(int fundNo, String memberId) {
-		int result = service.deleteFundlike(fundNo);
-		return new Gson().toJson(result);
-	}
-	*/
-	//좋아요 체크여부
-	@ResponseBody
-	@RequestMapping(value="/fundCheck.do",produces="application/json;charset=utf-8")
+	@RequestMapping(value="/likeCheck.do",produces="application/json;charset=utf-8")
 	public String fundCheck(int fundNo, String memberId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("fundNo",fundNo);
-		map.put("memberId",memberId);
-		FundLike fc = service.fundCheck(map);
-		if(fc==null) {	//좋아요 안했을 때 -> insert
-			
-		}
-		
-		return "";
+		int result = service.likeCheck(fundNo,memberId);
+		return String.valueOf(result);		
 	}
 	
 
@@ -168,8 +145,8 @@ public class FundListController {
 	@ResponseBody
 	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
 	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
-			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod) {
-		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod);
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo) {
+		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo);
 		return new Gson().toJson(result);
 	}
 	
@@ -195,7 +172,7 @@ public class FundListController {
 	public String insertReward(String reward){
 		//JsonArray array = JsonArray.fromObject(reward.get("reward"));
 		System.out.println(reward);
-		//변환, 꺼내쓰는 작업 중요 (특히 검색엔진쪽, 데이터 편집)
+		//변환, 꺼내쓰는 작업 중요
 		JsonParser parser = new JsonParser();
 		JsonArray jsonarray = parser.parse(reward).getAsJsonArray();
 		ArrayList<RewardCart> result = new ArrayList<RewardCart>();

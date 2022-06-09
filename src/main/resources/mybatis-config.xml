@@ -43,6 +43,7 @@
 		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpReward" alias="tr"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFundCalculate" alias="tfc"/>
+		<typeAlias type="kr.or.fund.model.vo.FundCalculate" alias="fc"/>
 		
 		<typeAlias type="kr.or.store.model.vo.StoreDelivery" alias="sd"/>
 		<typeAlias type="kr.or.store.model.vo.Storepay" alias="sp"/>

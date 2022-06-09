@@ -388,13 +388,13 @@ changeType.val(type);
 //검색버튼 클릭시
 $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
-	location.href="/storeManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+	location.href="/storeManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
 
 //옵션 변경시 적용(전체,미승인,승인,심사전)
 changeType.on("change",function(){
 	const change = $(this).val();
-	location.href="/storeManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+	location.href="/storeManage.do?reqPage=1&keyword="+keyword+"&type="+change;
 });
 
 //상세보기버튼

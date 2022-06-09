@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>FunFunFun</title>
-</head>
 <style>
 	.rewardIntro-wrap{
 		width: 730px;
@@ -221,18 +220,19 @@
 		border-radius: 3px;
 	}
 </style>
+</head>
 <body>
-	<%@include file="/WEB-INF/views/fund/fundHeader.jsp" %>
+	<%@include file="/WEB-INF/views/fund/fundHeaderManage.jsp" %>
 	<div class="creFund-wrap">
 		<div class="crefund-nav">
-			<%@include file="/WEB-INF/views/fund/fundNav.jsp" %>
+			<%@include file="/WEB-INF/views/fund/fundNavManage.jsp" %>
 			<script>
 				$(".nav-top>li").addClass("select");
-				$(".nav-sub>li:nth-child(4)").addClass("select");
+				$(".nav-sub>li:nth-child(2)").addClass("select");
 			</script>
 		</div>
 		<div class="crefund-content">
-			<span class="category">펀딩준비 > <b>리워드 설계</b></span>
+			<span class="category">펀딩관리 > <b>리워드 추가</b></span>
 			<h2>리워드 설계</h2>
 			<h6>서포터에게 제공할 리워드 내용을 입력하세요. 서포터가 쉽게 펀딩할 수 있는 저렴한 리워드부터 서포터의<br>
 				보다 빠른 펀딩을 유도할 수 있는 얼리버드 리워드까지 다양한 리워드를 구성하세요.</h6>
@@ -468,7 +468,7 @@
 			trStatus = "new";
 			tmpTrNo++;
 			trNo = tmpTrNo;
-			tfNo = ${tmpF.tfNo};
+			tfNo = ${fund.fundNo};
 			trName = $(".modal-name>td>input").val();
 			trIntro = $(".modal-intro>td>textarea").val();
 			trPrice = $(".modal-price>td>input").val();
@@ -610,7 +610,7 @@
 				//reward 하나하나를 json화
 				$(".reward-wrap").each(function(index,item){
 					const reward = {
-							"tfNo" : ${tmpF.tfNo},
+							"tfNo" : ${fund.fundNo},
 							"rewardNo" : $(item).children().eq(7).text(),
 							"rewardStatus" : $(item).children().eq(0).text(),
 							"rewardName" : $(item).children().eq(3).text(),
@@ -627,7 +627,7 @@
 				//controller로 json string 파일 전송
 				$.ajax({
 					method: 'post',
-					url: '/SaveTmpReward.do',
+					url: '/saveReward.do',
 					traditional: true,
 					data: {
 						data: JSON.stringify(data)
@@ -635,7 +635,7 @@
 					dataType: 'json',
 					success: function(res){
 						if(res > 0){
-							location.href="fundReadyFrm.do?tfNo=${tmpF.tfNo}"	
+							location.href="manageFundingFrm.do?fundNo=${fund.fundNo}"	
 						}
 					}
 				});//ajax	
@@ -697,7 +697,7 @@
 			rewardUpdate.on("click",function(){
 				//모달 띄우기 전 변수 저장
 				const updateWrap = $(this).parent().parent();
-				tfNo = ${tmpF.tfNo};
+				tfNo = ${fund.fundNo};
 				trNo = updateWrap.children().eq(7).text();
 				trStatus = updateWrap.children().eq(0).text();
 				trName = updateWrap.children().eq(3).text();
@@ -736,21 +736,28 @@
 		//사전에 입력된 값 있는지 체크
 		$(document).ready(function(){
 			//각 리워드 로드
-			<c:forEach var="reward" items="${tmpRewardList}">
+			<c:forEach var="reward" items="${fundReward}">
 				trStatus = "upload";
-				trNo = ${reward.trNo};
-				tfNo = ${reward.tfNo};
-				trName = "${reward.trName}";
-				trIntro = "${reward.trIntro}";
-				trPrice = ${reward.trPrice};
-				trCount = ${reward.trCount};
-				trOption = "${reward.trOption}";
-				trSend = "${reward.trSend}";
-				trDeliveryfee = ${reward.trDeliveryfee};
+				trNo = ${reward.rewardNo};
+				tfNo = ${reward.rewardNo};
+				trName = "${reward.rewardName}";
+				trIntro = "${reward.rewardIntro}";
+				trPrice = ${reward.rewardPrice};
+				trCount = ${reward.rewardCount};
+				trOption = "${reward.rewardOption}";
+				trSend = "${reward.rewardSend}";
+				trDeliveryfee = ${reward.rewardDeliveryfee};
 				rewardAppend();
 			</c:forEach>
+			//console.log($(".btn-outline-dark.btn"));
+			//$(".btn-outline-dark.btn").attr('disabled', true);
+			$(".btn-outline-dark.btn").off("click");
+			$(".btn-outline-dark.btn").on("click",function(){
+				alert("기존에 공개한 리워드는 수정/삭제 할 수 없습니다.");
+				$(this).attr('disabled', true);
+			})
 		});
 	</script>
-	<!--  ${tmpF.tfNo },${tmpF.tfName },${tmpF.memberId }-->
+	<!--  ${fund.fundNo },${fund.fundName },${fund.memberId }-->
 </body>
 </html>

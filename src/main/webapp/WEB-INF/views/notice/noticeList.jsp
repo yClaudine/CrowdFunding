@@ -99,11 +99,11 @@ input[name='keyword'] {
 
 .main-content .table {
 	margin: 0 auto;
-	width: 80%;
+	width: 70%;
 }
 
 .main-content .table tr>th:nth-child(2) {
-	width: 20%;
+	width: 110px;
 }
 
 .main-content .table th {

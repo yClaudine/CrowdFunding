@@ -54,6 +54,12 @@
  		#{payMethod}
  	)
 	</insert>
+	<!-- 결제된 쿠폰 업데이트 -->
+	<update id="updateMemberCoupon" parameterType="map">
+		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') where member_no=#{memberNo} and mem_coupon_no=#{couponNo}
+	</update>
+	
+	
 	<!-- 결제 정보 한 개 조회 -->
 	<select id="selectOnePay" parameterType="map" resultType="fp">
 		select 
