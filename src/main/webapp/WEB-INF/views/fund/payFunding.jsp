@@ -1013,6 +1013,10 @@ label span{
 .button-wrap3{
     margin-bottom: 100px;
 }
+.src{
+	width:620px;
+	height:110px;
+}
 </style>
 </head>
 <body>
@@ -1072,7 +1076,7 @@ label span{
                             <input type="text" class="amount-input" value="0" name="${r.rewardNo }" readonly></input>
                             <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up')" value="${r.rewardNo }">add</button> 
                             <input type="hidden" class="rewardPrice" value="${r.rewardPrice}" >
-                            <input type="text" class="reward-total" value="0">                           
+                            <input type="hidden" class="reward-total" value="0">                           
                         </div>                             
                     </div><!--리워드박스-->
                 </c:forEach>
@@ -1109,14 +1113,15 @@ label span{
                     </label>
                 </div>     
             </div>
+            
         </div>
         <div class="reward-confirm">
             <div class="funding-name">
         		${f.fundName}에
                 <span class="funding-sum">0</span>원을 펀딩합니다.	<!-- 리워드+후원금 -->
-                <input type="text" class="reward-sum">	<!-- 순수 리워드 합계 -->
-                <input type="text" class="max-fee">	<!-- 최종 배송비 -->
-                <input type="text" class="final-pay">	<!-- 최종 결제비용 -->
+                <input type="hidden" class="reward-sum">	<!-- 순수 리워드 합계 -->
+                <input type="hidden" class="max-fee">	<!-- 최종 배송비 -->
+                <input type="hidden" class="final-pay">	<!-- 최종 결제비용 -->
            
             </div>
             <div class="funding-link" id="modal-open">다음단계로 ></div>
@@ -1386,10 +1391,13 @@ label span{
 		//카테고리명
 		const fundCategory = $(".fundCategory").val();
 		//선택한 리워드 총금액
-		let rewardSum = Number($(".reward-sum").val()); 	
+		let rewardSum = Number($(".reward-sum").val()); 
+		//배송비 조건
+		let maxFee = Number($(".max-fee").val()); 
+		console.log(maxFee);
 		$.ajax({
 			url : "/selectCouponList.do",
-			data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum},
+			data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum, maxFee:maxFee}, 
 			success : function(data){
 				const select = $("#coupon-type2");
 				select.empty();
@@ -1427,7 +1435,6 @@ label span{
 			type:"post",
 			traditional:true,
 			data : {reward:jsonData},
-			//{memberNo:memberNo,rewardNo:rewardNo,rewardAmount:rewardAmount,fundNo:fundNo},
 			success : function(data){
 				alert("성공");
 			}
@@ -1699,6 +1706,7 @@ label span{
 			}
 
 			//결제 변수 저장
+			let memberNo = $(".memberNo").val();
 			let memberId = $(".memberId").val();
 			let memberName = $(".memberName").val();
 			let fundNo = $(".fundNo").val();
@@ -1718,7 +1726,6 @@ label span{
 					+fpayRewardTotal+","+fpayFunding+","+fpayFinalpay+","+nameShow+","+fundingShow
 					+","+payMethod+","+couponNo);
 			
-
 			
 			//배송지 변수 저장
 			let	fdeliveryName = $(".d-name").val();
@@ -1760,7 +1767,7 @@ label span{
 								memberId:memberId,memberName:memberName,fundNo:fundNo,fpayDeliveryfee:fpayDeliveryfee,
 								fpaySupport:fpaySupport,fpayRewardTotal:fpayRewardTotal,fpayFunding:fpayFunding,
 								fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod,
-								couponNo:couponNo
+								couponNo:couponNo,memberNo:memberNo
 							},
 							success : function(data){
 								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
@@ -1783,7 +1790,8 @@ label span{
 						data : {
 							memberId:memberId,memberName:memberName,fundNo:fundNo,fpayDeliveryfee:fpayDeliveryfee,
 							fpaySupport:fpaySupport,fpayRewardTotal:fpayRewardTotal,fpayFunding:fpayFunding,
-							fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod
+							fpayFinalpay:fpayFinalpay,nameShow:nameShow,fundingShow:fundingShow,payMethod:payMethod,
+							couponNo:couponNo,memberNo:memberNo
 						},
 						success : function(data){
 							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;

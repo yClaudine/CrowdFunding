@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class FundViewData {
+public class FundNoticeViewData {
 	private Fund f;
 	private ArrayList<Reward> rewardList;
 	private Seller s;
 	private FundLike fl;
 	private FundPay p;
 	private ArrayList<FundPay> payList;
+	
+	//새소식 관련
+	private ArrayList<FundNotice> fnList;
+	private String pageNavi;
 }

@@ -16,5 +16,6 @@ public class FundNotice {
 	private int fnCount;
 	private String fnDate;
 	private int fnCategory;
+	private int fnFix;
 	
 }
