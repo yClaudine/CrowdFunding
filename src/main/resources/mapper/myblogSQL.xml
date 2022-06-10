@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mb">
+   <insert id="insertMyblog" parameterType="mb">
+		insert into myblog values(blog_sql.nextval,0,#{memberId},#{visitor},#{memComment},to_char(sysdate,'yy-mm-dd'))
+		
+	</insert>
+	<select id="selectCount" parameterType="mb" resultType="int">
+			select count(*) from myblog where member_Id =#{memberId}
+	</select>
+	<select id="selectMyblog" parameterType="map" resultType="mb">
+	select * from(select rownum as rnum,p.* from(select 
+			blog_no as blogNo,
+			level_mem as levelMem,
+			member_id as memberId,
+			visitor,
+			memComment,
+			co_date as coDate
+		from myblog where member_Id=#{memberId} order by blogNo desc)p)where rnum between #{first} and #{last}
+	</select>
+	<update id="updateMyblog" parameterType="mb">
+		update myblog set memComment = #{memComment}, co_date =to_char(sysdate,'yy-mm-dd') where blog_No=#{blogNo}
+	</update>
+	<delete id="deleteMyblog" parameterType="int">
+		delete from myblog where blog_no=#{blogNo}
+	</delete>
+</mapper>

@@ -144,7 +144,7 @@ html>body {
 							</c:if>
 							
 						</div>
-						<a href=""><div class="openReq">상품등록</div></a>
+						<a href="/createProduct.do"><div class="openReq">상품등록</div></a>
 					</c:when>
 
 					<c:when test="${empty memberScope.m.memberId }">
@@ -188,7 +188,7 @@ html>body {
 							<a href="signUpFrm.do" class="access">회원가입</a>
 						</div>
 						<div class="openReq">
-							<a href="/CreateFunding.do">프로젝트 오픈신청 </a>
+							<a href="/createFunding.do">프로젝트 오픈신청 </a>
 						</div>
 					</c:when>
 				</c:choose>

@@ -27,7 +27,7 @@
 	</select>
 	
 	<insert id="signUpMember" parameterType="m">
-		insert into member_tbl values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memPhone},#{memEmail},#{gender},#{categoryNo},#{report},#{authRe},#{memComment})
+		insert into member_tbl values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memPhone},#{memEmail},#{gender},#{categoryNo},#{report},#{authRe},#{memComment},0)
 	</insert>
 	<delete id="deleteMember" parameterType="m">
 		delete from member_tbl where member_id=#{memberId} and member_pw=#{memberPw}
@@ -56,5 +56,277 @@
 			mem_comment as memComment
 			
 			from member_tbl
+	</select>
+	<select id="selectMCoupon" parameterType="map" resultType="mc">
+		select
+  		mem_coupon_no as memCouponNo,
+  		member_no as memberNo,
+  		use_date as useDate,
+  		coupon_use as couponUse,
+  		coupon_status as couponStatus,
+  		coupon_no as couponNo,
+  		valid_end as validEnd
+	  	from member_coupon where 
+	  	<!-- 0이 사용전 1이 사용완료 -->
+	  			member_no = #{memberNo} and coupon_status=#{status}
+	  		
+	  	
+		
+	</select>
+	<select id="selectCoupon" parameterType="int" resultType="coupon">
+		select
+	  		coupon_no as couponNo,
+	  		coupon_name as couponName,
+	  		coupon_type as couponType,
+	  		discount,
+	  		main_target as mainTarget,
+	  		sub_target as subTarget,
+	  		valid_start as validStart,
+	  		valid_end as validEnd,
+	  		min_price as minPrice,
+	  		coupon_status as couponStatus
+  		from coupon where coupon_no=#{couponNo}
+	</select>
+	<select id="selectNotice" parameterType="int" resultType="notice">
+		select 
+	 		notice_no as noticeNo,
+		  	notice_type as noticeType,
+		  	notice_writer as noticeWriter,
+		  	notice_title as noticeTitle,
+		  	notice_filepath as noticeFilepath,
+		  	notice_content as noticeContent,
+		  	date_start as dateStart,
+		  	date_end as dateEnd,
+		  	reg_date as regDate,
+		  	important,
+		  	coupon_no as couponNo
+	  	from notice 
+	  	where coupon_no=#{couponNo}
+	</select>
+	<select id="selectCZone" parameterType="map" resultType="coupon">
+		 select * from(select  rownum as rnum , p.* from(select
+	  		coupon_no as couponNo,
+	  		coupon_name as couponName,
+	  		coupon_type as couponType,
+	  		discount,
+	  		main_target as mainTarget,
+	  		sub_target as subTarget,
+	  		valid_start as validStart,
+	  		valid_end as validEnd,
+	  		min_price as minPrice,
+	  		coupon_status as couponStatus
+  		from coupon where main_target=#{mainTarget})p)where rnum between #{first} and #{last}
+		
+	</select>
+	
+	<select id="selectCCount" parameterType="String" resultType="int">
+		select count(*) from coupon where main_target=#{mainTarget}
+	
+	</select>
+	<select id="selectFund" parameterType="map" resultType="f">
+		select * from 
+		(select rownum as rnum,n.* from
+		(select 
+	  		fund_no as fundNo,
+	  		member_id as memberId,
+	  		fund_name as fundName,
+	  		fund_amount as fundAmount,
+	  		fund_fees as fundFees,
+	  		fund_category as fundCategory,
+	  		fund_start as fundStart,
+	  		fund_end as fundEnd,
+	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+	  		fund_intro as fundIntro,
+	  		fund_as as fundAs,
+	  		fund_like as fundLike,
+	  		fund_reportcount as fundReportcount,
+	  		fund_warning as fundWarning,
+	  		fund_filepath1 as fundFilepath1,
+	  		fund_filepath2 as fundFilepath2,
+	  		fund_filepath3 as fundFilepath3,
+	  		fund_filepath4 as fundFilepath4,
+	  		fund_filepath5 as fundFilepath5
+	from fund)n)where rnum between #{first} and #{last}  
+	</select>
+	
+	<select id="selectFcount" resultType="int">
+		select count(*) from fund_pay where member_id=#{memberId} and fpay_status=#{fpayStatus}
+	</select>
+	
+	<select id="getStorepay" parameterType="map" resultType="sp">
+		select * from(select rownum as rnum, p.*from (select
+	  		storepay_no as storepayNo,
+	  		mem_coupon_no as memCouponNo,
+	  		store_no as storeNo,
+	  		member_no as memberNo,
+	  		store_delivery as storeDelivery,
+	  		store_price as storePrice,
+	  		storepay_check as storepayCheck,
+	  		storepay_date as storepayDate,
+	  		storepay_allprice as storepayAllPrice from storepay
+		where member_no=#{memberNo})p) where rnum between #{first} and #{last}
+	</select>
+	
+	<select id="getStore" parameterType="int" resultType="s">
+		 select
+	  		store_no as storeNo,
+	  		member_id as memberId,
+	  		store_title as storeTitle,
+	  		store_category as storeCategory,
+	  		store_content as storeContent,
+	  		store_product as storeProduct,
+	  		store_productcontent as storeProductcontent,
+	  		store_price as storePrice,
+	  		store_count as storeCount,
+	  		store_delivery as storeDelivery,
+	  		store_return as storeReturn,
+	  		store_change as storeChange,
+	  		store_reportcount as storeReportcount,
+	  		store_warning as storeWarning,
+	  		store_img1 as storeImg1,
+	  		store_img2 as storeImg2,
+	  		store_img3 as storeImg3,
+	  		store_img4 as storeImg4,
+	  		store_img5 as storeImg5
+	  	from store where store_no = #{storeNo}
+	</select>
+	<select id="getScount" parameterType="int" resultType="int">
+		select count(*) from storepay where member_no = #{memberNo}
+	</select>
+	
+	<select id="selectAllMemberL"  parameterType="map" resultType="m">
+		select * from(select rownum as rnum,p.* from(select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			
+			from member_tbl)p)where rnum between #{first} and #{last} 
+	
+	</select>
+	<select id="mCount" resultType="int">
+		select count(*) from member_tbl
+	</select>
+	
+	<select id="selectMemberName" parameterType="string" resultType="m">
+		select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			from member_Tbl where member_name like '%'||#{memberName}||'%'
+	</select>
+	<insert id="insertFollow" parameterType="fol">
+		insert into follow values(follow_seq.nextval,#{followerId},#{targetId},#{followerId},to_char(sysdate,'yy-mm-dd'))
+	</insert>
+	<delete id="deleteFollow" parameterType="fol">
+		delete from follow where target_id =#{targetId} and follower_id = #{followerId}
+	</delete>
+	<select id="findFollow" parameterType="fol" resultType="int">
+		select count(*) from follow where target_id =#{targetId} and follower_id = #{followerId}
+	</select>
+	<select id="selectFollower" parameterType="string" resultType="fol">
+		select 
+			follow_no as followNo,
+			target_id as targetId,
+			follower_id as followerId
+			from follow where target_id=#{memberId}
+		
+	
+	</select>
+	<select id="selectTargetM" parameterType="string" resultType="m">
+		select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			from member_Tbl where member_Id = #{followerId}
+	</select>
+	<select id="selectFollowing" parameterType="string" resultType="fol">
+			select 
+			follow_no as followNo,
+			target_id as targetId,
+			follower_id as followerId
+			from follow where follower_Id=#{memberId}
+	</select>
+	<select id="selectFollowingM" parameterType="string" resultType="m">
+		select 
+			member_id as memberId,
+			member_pw as memberPw,
+			member_Name as memberName,
+			member_no as memberNo,
+			mem_phone as memPhone,
+			mem_email as memEmail,
+			gender,
+			category_no as categoryNo,
+			report,
+			auth_re as authRe,
+			mem_comment as memComment
+			from member_Tbl where member_Id = #{targetId}
+	</select>
+	<select id="selectFundPay" parameterType="map" resultType="fp">
+	
+	select* from(select rownum as rnum, p.* from(select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where member_Id = #{memberId} and  fpay_status =#{fpayStatus} order by fpay_no desc)p)where rnum between #{first} and #{last}
+	</select><!-- 여기도 수정 -->
+	<select id="selectOneFund" parameterType="int" resultType="f">
+		select 
+	  		fund_no as fundNo,
+	  		member_id as memberId,
+	  		fund_name as fundName,
+	  		fund_amount as fundAmount,
+	  		fund_fees as fundFees,
+	  		fund_category as fundCategory,
+	  		fund_start as fundStart,
+	  		fund_end as fundEnd,
+	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+	  		fund_intro as fundIntro,
+	  		fund_as as fundAs,
+	  		fund_like as fundLike,
+	  		fund_reportcount as fundReportcount,
+	  		fund_warning as fundWarning,
+	  		fund_filepath1 as fundFilepath1,
+	  		fund_filepath2 as fundFilepath2,
+	  		fund_filepath3 as fundFilepath3,
+	  		fund_filepath4 as fundFilepath4,
+	  		fund_filepath5 as fundFilepath5
+	from fund where fund_no = #{fundNo}
+	
 	</select>
 </mapper>

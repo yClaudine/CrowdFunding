@@ -506,10 +506,10 @@ justify-content: right;
         <div class="title">${f.fundName }</div>
     </div>
     <div class="funding-navi">
-        <a href="/fundView.do?fundNo=${f.fundNo }"><span class="1">스토리</span></a>
-        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }"><span class="2">반환 ∙ 정책</span></a>
-        <a href="/fundViewNotice.do?fundNo=${f.fundNo }"><span class="3">새소식</span></a>
-        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }"><span class="4">서포터</span></a>
+        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="1">스토리</span></a>
+        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="2">반환 ∙ 정책</span></a>
+        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all"><span class="3">새소식</span></a>
+        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
     <div class="detail-container">
@@ -551,14 +551,17 @@ justify-content: right;
                 <div class="remaining-day">${f.dateGap}일 남음</div><br>
                 <div class="rate-bar"></div>
                 <span class="achievement-rate">
-                    <strong>1993</strong> % 달성
+                    <strong class="achieve">d</strong> % 달성
                 </span><br>
                 <span class="total-amount">
-                    <strong>1,999,333</strong> 원 펀딩
+                    <strong>${p.fundingSum }</strong> 원 펀딩
                 </span><br>
                 <span class="total-supporter">
-                    <strong>499</strong> 명의 서포터
+                    <strong>${p.supporterSum }</strong> 명의 서포터
                 </span><br>
+                <input type="hidden" class="fundingSum" value="${p.fundingSum}">
+                <input type="hidden" class="fundAmount" value="${f.fundAmount}">
+                <input type="hidden" class="supporterSum" value="${p.supporterSum}">
                 <div class="funding-linkwrap">
                     <button class="funding-link" id="pay" style="border:none;">펀딩하기</button>
                 </div>
@@ -567,7 +570,7 @@ justify-content: right;
                     <button class="like-btn">
                         <span class="material-icons" id="likes">favorite_border</span>
                         <!-- <span class="material-icons likes">favorite</span>  -->
-                        <span class="btn-value" id="likeSum">${f.fundLike }</span><!--  -->
+                        <span class="btn-value" id="likeSum">${f.fundLike }</span>
                         <input type="hidden" id="fundLike" value="${f.fundLike }">
                         <input type="hidden" id="likeCheck" value="${fl.likeCheck}">
                     </button>
@@ -694,23 +697,11 @@ $("#pay").click(function(){
 		alert("로그인을 먼저 진행해주세요");
 	}
 });
+//펀딩률
+let fundingSum = $(".fundingSum").val();
+let fundAmount = $(".fundAmount").val();
+$(".achieve").text(Math.floor(fundingSum / fundAmount *100));
 
-//펀딩 설명 모달
-$(function(){
-    $("#confirm").click(function(){
-        modalClose();
-        //컨펌 이벤트 처리
-    });
-    $("#modal-open").click(function(){        
-    	$("#popup").css('display','flex').hide().fadeIn();
-    });
-    $("#close").click(function(){
-        modalClose();
-    });
-    function modalClose(){
-        $("#popup").fadeOut();
-    }
-});
 
 //프로젝트 신고하기 모달
 $(function(){
@@ -784,6 +775,25 @@ $(".like-btn").click(function(){
 	}else{
 		alert("로그인이 필요합니다.");
 	}
+});
+
+
+
+//펀딩 설명 모달
+$(function(){
+    $("#confirm").click(function(){
+        modalClose();
+        //컨펌 이벤트 처리
+    });
+    $("#modal-open").click(function(){        
+    	$("#popup").css('display','flex').hide().fadeIn();
+    });
+    $("#close").click(function(){
+        modalClose();
+    });
+    function modalClose(){
+        $("#popup").fadeOut();
+    }
 });
 
 </script>

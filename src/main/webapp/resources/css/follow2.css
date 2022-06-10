@@ -1,0 +1,149 @@
+.title{
+    margin:20px 200px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.subtitle{
+    margin:30.5px 230px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.foC{
+    display:flex;
+    width:1300px;
+    gap:40px;
+    padding-left:180px ;
+    font-size : 20px;
+    border-bottom: 1px solid #ededed;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold
+}
+.f1{
+    width:60px;
+    border-bottom: 2px solid #00c2c2; 
+    cursor: pointer;
+}
+.f2{
+    cursor: pointer;
+}
+
+.followMember{
+    margin: 70px auto;
+    width:1000px;
+    height:300px;
+    display:grid;
+    grid-template-columns: repeat(2,510px);
+   
+    grid-template-rows: repeat(3,100px);
+    grid-row-gap:30px;
+    
+}
+
+.myProfile{
+    display:flex;
+    height:100px
+}
+
+.imgwrap{
+    width:100px;
+    height:100px;
+    border-radius: 100px;
+    overflow: hidden;
+    display: block;
+    border: 1px solid #ededed;
+}
+.myP{
+    
+    width:100px;
+    height:100px;
+    
+}
+.profileBox{
+    width:320px;
+    height:80px;
+    margin-top:10px;
+    margin-left: 10px;
+    box-shadow: 1px 1px 4px #444;
+    border-radius: 5px;
+}
+
+.intro{
+    width:200px;
+    padding-left: 10px;
+    height:80px;
+    display: inline-block;
+}
+
+.intro>div:first-child{
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Noto sans kr;
+}
+.intro>div:nth-child(2){
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width:140px;
+    overflow: hidden;
+    font-size: 12px;
+    color: rgb(158, 158, 158);
+}
+.introBo{
+    display: inline-block;
+    float: right;
+    line-height: 80px;
+    padding-right: 10px;
+    
+}
+.btn-success.bg{
+    border-radius: 5px;
+    background-color: #00c4c4;
+}
+.btn-success.bg:hover{
+    border-radius: 5px;
+    background-color: #00c4c4;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+.search{
+    width:300px;
+    margin:30px 600px;
+    
+}
+[name=memberId]{
+    padding-left: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: 1.5px solid rgb(158, 158, 158,0.6);
+}
+[name=memberId]:focus{
+    outline: none;
+    border: 2px solid #00c4c4;
+}
+#syse{
+    display: inline-block;
+    
+    height:50px;
+    text-align: center;
+    
+}
+.btn-info.bgm{
+    border-radius: 4px;
+    width:200px;
+    font-size: 17px;
+    line-height: 10px;
+
+}
+.btn-info.bgm:focus{
+    
+    box-shadow: none;
+
+}
+.pagination{
+    margin: 100px auto;
+    height:40px;
+    
+    margin-bottom: 30px;
+    justify-content: center;
+}

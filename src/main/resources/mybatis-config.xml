@@ -23,7 +23,7 @@
 		
 		
 
-
+		<typeAlias type="kr.or.member.vo.Myblog" alias="mb"/>
 		<typeAlias type="kr.or.member.vo.Seller" alias="sel"/>
 		<typeAlias type="kr.or.member.vo.Follow" alias="fol"/>
 		<typeAlias type="kr.or.member.vo.FundReq" alias="fr"/>
@@ -36,6 +36,7 @@
 		<typeAlias type="kr.or.notice.model.vo.Notice" alias="notice"/>	
 		
 		<typeAlias type="kr.or.fund.model.vo.Fund" alias="f"/>
+		<typeAlias type="kr.or.fund.model.vo.FundNotice" alias="fn"/>		
 		<typeAlias type="kr.or.fund.model.vo.FundLike" alias="fl"/>
 		<typeAlias type="kr.or.fund.model.vo.RewardCart" alias="rc"/>		
 		<typeAlias type="kr.or.fund.model.vo.FundPay" alias="fp"/>
