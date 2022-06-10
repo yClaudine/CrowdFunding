@@ -130,7 +130,7 @@
 						let cal =0;
 						if(list.fund[i].fundNo==list.fpay[i].fundNo){
 							
-							 cal += list.fpay[i].fpayFunding//이상하게 안돼
+							 cal += list.fpay[i].fpayFunding
 						}
 						let statusM = Math.round((cal/(list.fund[i].fundAmount))*100);
 						const div4=$("<div>");

@@ -304,7 +304,7 @@
 			pay_method as payMethod
 		from fund_pay
 		where member_Id = #{memberId} and  fpay_status =#{fpayStatus} order by fpay_no desc)p)where rnum between #{first} and #{last}
-	</select>
+	</select><!-- 여기도 수정 -->
 	<select id="selectOneFund" parameterType="int" resultType="f">
 		select 
 	  		fund_no as fundNo,
