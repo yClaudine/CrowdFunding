@@ -288,6 +288,10 @@ li {
 .pageBtWrap li .pageBt.addPageBt {
     background-color: #00c4c4;
 }
+.search-submit{
+border : none;
+background-color:white;
+}
 </style>
 
 </head>
@@ -391,21 +395,22 @@ li {
     <!--검색 옵션들-->
         <div class="search-filter">
             <div class="search-funding">
-                <form action="/fundSearch.do" method="post">
-                    <input type="text" class="list-search" placeholder="궁금한 펀딩을 검색해보세요">
-                    <span class="material-symbols-outlined searchI">search</span>
+                <form action="/fundSearch.do">
+                    <input type="text" class="list-search" id="keyword" name="keyword" value="${keyword }" placeholder="궁금한 펀딩을 검색해보세요">
+                    <button type="submit" class="search-submit"><span class="material-symbols-outlined searchI">search</span></button>
                     
             <!--필터링1 - 진행중/종료된-->
-                    <select name="searchType">
-                        <option ${(param.searchType=="ongoing")?"selected":""} value="ongoing"><span>진행순</span></option>
-                        <option ${(param.searchType=="end")?"selected":""} value="end">종료된</option>
+                    <select name="fstatus">
+                        <option value="ongoing"<c:if test="${fstatus eq 'onging' }">selected</c:if>>진행순</option>
+                        <option value="end"<c:if test="${fstatus eq 'end' }">selected</c:if>>종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
-                    <select name="searchType">
-                        <option ${(param.searchType=="current")?"selected":""} value="current"><span>최신순</span></option>
-                        <option ${(param.searchType=="popular")?"selected":""} value="popular">인기순</option>
-                        <option ${(param.searchType=="total")?"selected":""} value="total">펀딩액순</option>
+                    <select name="searchType" class="searchType">
+                        <option value="current" <c:if test="${searchType eq 'current' }">selected</c:if>>최신순</option>
+                        <option value="popular" <c:if test="${searchType eq 'popular' }">selected</c:if>>인기순</option>
+                        <option value="total" <c:if test="${searchType eq 'total' }">selected</c:if>>펀딩액순</option>
                     </select>
+                    
                 </form>
             </div>
         </div>
@@ -413,7 +418,12 @@ li {
 
 <!--펀딩 리스트-->
 	<div class="ajax-container" >
-        <div class="project-container" id="project-container">           
+        <div class="project-container" id="project-container"> 
+        <c:choose>
+        	<c:when test="${empty list }">
+            	<div class="no-search"><h6>다른 펀딩을 검색해보세요.</h6></div>
+            </c:when>
+           <c:otherwise>          
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
                 <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }" class="project-wrap">
@@ -425,45 +435,57 @@ li {
                         <div class="project-info">
                             <span class="project-category">${f.fundCategory }</span>
                             <span class="divide">|</span>
-                            <span class="project-seller">주식회사 노멀리스트</span>
+                            <span class="project-seller">${f.owner }</span>
                         </div>
                     </div>
                 </a>
                 <div class="line"></div>
                 <div class="project-progress">
-                    <span class="project-percent">1687%</span>
+                
+                    <span class="project-percent achieve">${f.rate }%</span>                
                     <span class="project-amount">∙${f.fundAmount }원</span>
                     <span class="project-dayleft">${f.dateGap }일 남음</span>
                 </div>
             </div><!--grid 1개--> 
-           </c:forEach>
+            
+            
+    		<input type="hidden" class="fundingSum" value="${f.fundingSum}">
+    		<input type="hidden" class="fundAmount" value="${f.fundAmount}">
+            </c:forEach>
+           </c:otherwise>
+         </c:choose>
+           
         </div><!--grid container-->
        </div>
     </div><!--content-->
     <input type="hidden" value="${sessionScope.m.memberId }">
-    <script>
+
+
+    
+<script>
+   
     //onclick="location.href='/fund.do?category=BEST'"
     //const category = $(this).children().children().eq(1).text();
-	/*
+	
     $(".category-list").on("click",function(){
-    	let category = $(this).val(); //개별버튼값
+        const category = $(this).children().children().eq(1).text();
+
+    	//let category = $(this).val(); //개별버튼값
     	$.ajax({
     		url : "/fund.do",
     		data : {
     			"category":category //버튼 value값 따라 작동하게
     		},
     		success : function(data){
-    			console.log(data);
+    			//console.log(data);
 		    	//$("#ajax-container").load(location.href+' #ajax-container');
+    			location.href="/fund.do?category="+category;
     			
     		}
 		})
     });  
-    */
-    $(".category-list").on("click",function(){
-		const category = $(this).children().children().eq(1).text();
-		location.href="/fund.do?category="+category;
-		});
+    
+  
     
     //이미지 슬라이드(수정 필요)
     $(function () {

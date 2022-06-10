@@ -220,4 +220,11 @@ public class StoreTmpController {
 			int result = service.updateStore4(ts);
 			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
 		}
+		
+	//스토어 반품/교환 화면 구동
+		@RequestMapping(value="/storeCreate5.do")
+		public String storeCreate5(int stNo, Model model) {
+			pageMove(stNo, model);
+			return "store/storeCreate5";
+		}
 }

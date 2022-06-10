@@ -32,7 +32,17 @@
 					</when>
 				</choose>                                       
 	                and #{rewardSum} <![CDATA[>]]> min_price)
-	                and member_no=#{memberNo} and coupon_use=0 and coupon_status=0)
+	                and member_no=#{memberNo} and coupon_use=0 and coupon_status=0 and
+	            <choose>
+	                <when test="maxFee==0">
+	                coupon_type in(1,2)
+	                </when>
+	                <otherwise>
+	                coupon_type in(0,1,2)
+	                </otherwise>
+	            </choose>
+	      			)
+	                
 	</select>
 	
 	<!-- 결제정보 인서트-->
@@ -51,12 +61,14 @@
  		to_char(sysdate,'yyyy-mm-dd'),
  		#{nameShow},
  		#{fundingShow},
- 		#{payMethod}
+ 		#{payMethod},
+ 		#{couponNo}
  	)
 	</insert>
 	<!-- 결제된 쿠폰 업데이트 -->
 	<update id="updateMemberCoupon" parameterType="map">
-		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') where member_no=#{memberNo} and mem_coupon_no=#{couponNo}
+		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') 
+		where member_no=#{memberNo} and coupon_no=#{couponNo}
 	</update>
 	
 	
@@ -82,7 +94,9 @@
 	</select>
 	<!-- 펀딩 결제 정보 리스트 -->
 	<select id="selectPayList" parameterType="int" resultType="fp">
-		select 
+	  	select * from 
+  		(select rownum as rnum, p.* from 	
+		(select 
 			fpay_no as fpayNo,
 			member_id as memberId,
 			member_name as memberName,
@@ -99,10 +113,24 @@
 			pay_method as payMethod
 		from fund_pay
 		where fund_no=#{fundNo}
+		  	order by fpay_no desc)p) 
+		
 	</select>
 	
+	<!-- 펀딩 상세용 결제 정보 하나 -->
+	<select id="selectViewPay" parameterType="int" resultType="fp">
+		select
+			(select sum(fpay_funding) from fund_pay where fund_no=#{fundNo})as fundingSum,     
+    		(select count(*) from fund_pay where fund_no=#{fundNo}) as supporterSum
+		from fund_pay where fund_no=#{fundNo}
+		group by #{fundNo}
+	</select>
+	
+	
+	
+	
 	<!-- 리워트 카트 -->
-	<insert id="insertCart" parameterType="map">
+	<insert id="insertReward" parameterType="map">
 	insert into reward_cart values(
 		rc_seq.nextval,
 		#{memberNo},
@@ -110,8 +138,10 @@
 		#{rewardNo},
 		#{rewardAmount}
 	)
+	
 	</insert>
 	<!-- 리워트 카트 삭제 -->
+	
 	<insert id="deleteCart" parameterType="map">
 	delete reward_cart 
 	where member_no=#{memberNo} and fund_no=#{fundNo} and reward_no=#{rewardNo}

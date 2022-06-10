@@ -56,6 +56,16 @@ public class FundDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("fund.selectFundCalculate",f);
 	}
+
+	public int createFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("fund.createFundCalculate",fc);
+	}
+
+	public int updateFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("fund.updateFundCalculate",fc);
+	}
 	
 
 }
