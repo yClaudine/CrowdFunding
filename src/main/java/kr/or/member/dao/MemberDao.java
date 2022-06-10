@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
+import kr.or.fund.model.vo.FundPay;
 import kr.or.member.vo.Follow;
 import kr.or.member.vo.Member;
 import kr.or.notice.model.vo.Notice;
@@ -93,10 +94,7 @@ public class MemberDao {
 		return (ArrayList<Fund>)list;
 	}
 
-	public int fTotalCount() {
-		int count = sqlSession.selectOne("member.selectFcount");
-		return count;
-	}
+	
 
 	public ArrayList<Storepay> selectStorepay(HashMap<String, Object> map) {
 		
@@ -167,5 +165,21 @@ public class MemberDao {
 		Member m = sqlSession.selectOne("member.selectFollowingM",targetId);
 		return m;
 	}
+
+	public ArrayList<FundPay> selectFundpay(HashMap<String, Object> map1) {
+		
+		List list = sqlSession.selectList("member.selectFundPay",map1);
+		return (ArrayList<FundPay>)list;
+	}
+
+	public Fund selectOneFund(int fundNo) {
+		Fund f = sqlSession.selectOne("member.selectOneFund",fundNo);
+		return f;
+	}
+	public int fTotalCount(HashMap<String, Object> map) {
+		int count = sqlSession.selectOne("member.selectFcount",map);
+		return count;
+	}
+	
 
 }

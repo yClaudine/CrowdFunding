@@ -150,7 +150,7 @@
 	</select>
 	
 	<select id="selectFcount" resultType="int">
-		select count(*) from fund
+		select count(*) from fund_pay where member_id=#{memberId} and fpay_status=#{fpayStatus}
 	</select>
 	
 	<select id="getStorepay" parameterType="map" resultType="sp">
@@ -284,5 +284,49 @@
 			auth_re as authRe,
 			mem_comment as memComment
 			from member_Tbl where member_Id = #{targetId}
+	</select>
+	<select id="selectFundPay" parameterType="map" resultType="fp">
+	
+	select* from(select rownum as rnum, p.* from(select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where member_Id = #{memberId} and  fpay_status =#{fpayStatus} order by fpay_no desc)p)where rnum between #{first} and #{last}
+	</select><!-- 여기도 수정 -->
+	<select id="selectOneFund" parameterType="int" resultType="f">
+		select 
+	  		fund_no as fundNo,
+	  		member_id as memberId,
+	  		fund_name as fundName,
+	  		fund_amount as fundAmount,
+	  		fund_fees as fundFees,
+	  		fund_category as fundCategory,
+	  		fund_start as fundStart,
+	  		fund_end as fundEnd,
+	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+	  		fund_intro as fundIntro,
+	  		fund_as as fundAs,
+	  		fund_like as fundLike,
+	  		fund_reportcount as fundReportcount,
+	  		fund_warning as fundWarning,
+	  		fund_filepath1 as fundFilepath1,
+	  		fund_filepath2 as fundFilepath2,
+	  		fund_filepath3 as fundFilepath3,
+	  		fund_filepath4 as fundFilepath4,
+	  		fund_filepath5 as fundFilepath5
+	from fund where fund_no = #{fundNo}
+	
 	</select>
 </mapper>

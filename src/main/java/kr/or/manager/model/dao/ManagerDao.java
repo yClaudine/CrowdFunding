@@ -138,5 +138,27 @@ public class ManagerDao {
 		return sqlSession.delete("manager.deleteFund", fundNo);
 	}
 
+	public int cancelReviewReport(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cancelReviewReport", memberId);
+	}
+
+	public int cancelMemberReport(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cacelMemberReport", memberId);
+	}
+
+	public int cancelFundReport(int fundNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cancelFundReport",fundNo);
+	}
+
+	public int cancelStoreReport(int storeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("manager.cancelStoreReport", storeNo);
+	}
+
+	
+
 	
 }

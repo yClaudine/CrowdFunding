@@ -62,27 +62,30 @@
     </div>
     <input type="hidden" value="${sessionScope.m.memberId}" name="memberId">
     <script>
+    let fpayStatus=0;
     $(function(){
 		        //시작했을 땐 나의 펀드가 나오도록 설정 
 		
 		const req =1; 
-		const fpayStatus = 0;		      
+		      
 		        
 		  $("[name=fpaySatus").on("change",function(){
-		      console.log($(this).val());
+		      fpayStatus = $(this).val();
+		      fundlist(1);
 		   })
 		   
 		   //보내줘야하는 데이터 회원 아이디
-		  fundlist(1);
+		   fundlist(1);
 		  
 	 });
     
     function fundlist(req){
     	const memberId = $("[name=memberId]").val();
+    	
     	 $.ajax({
     		 
 			  url : "/myfund.do",
-			  data : {memberId:memberId,req:req},
+			  data : {memberId:memberId,req:req,fpayStatus:fpayStatus},
 			  type:"post",
 			  success : function(list){
 				 
@@ -123,8 +126,13 @@
 						span1.text("~"+list.fund[i].fundEnd);
 						div3.append(span1);
 						div.append(div3);
-						//현재 진행단계 넣어주기 
-						let statusM = (list.fund[i].fundAmount)/10;
+						//현재 진행단계 넣어주기
+						let cal =0;
+						if(list.fund[i].fundNo==list.fpay[i].fundNo){
+							
+							 cal += list.fpay[i].fpayFunding
+						}
+						let statusM = Math.round((cal/(list.fund[i].fundAmount))*100);
 						const div4=$("<div>");
 						div4.addClass("bs-component");
 						const div4s=$("<div>");
@@ -136,7 +144,7 @@
                         	"width": statusM
                         });
                        	const span3 =$("<span>");
-                       	span3.text(statusM+"% reach");
+                       	span3.text(statusM+"% 달성");
 						div4ss.append(span3);
 						div4s.append(div4ss);
 						div.append(div4);

@@ -133,5 +133,6 @@ public class CouponService {
 		return dao.updateCouponStatus(couponNo);
 	}
 
+
 	
 }

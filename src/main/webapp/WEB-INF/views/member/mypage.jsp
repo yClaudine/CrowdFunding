@@ -20,14 +20,25 @@
 		}
 		#mypg{
 	    color: #FFC4DD;
-	    font-size: 60px;
-	    background-color:#e7f9f9 ;
-	    border-radius: 30px;
-	    display: block;
-	    width:60px;
-	    height:60px;
-	    margin:30px auto;
 	    
+	    
+	    border-radius: 50px;
+	    display: block;
+	    width:80px;
+	    height:80px;
+	 
+	    
+		}
+		.mImgBox{
+		   margin:30px auto;
+		   display: block;
+			width:80px;
+			height:80px;
+			border-radius:50px;
+			overflow:hidden;
+		}
+		#mypg:hover{
+			transform : none;
 		}
 		.Bupdate{
 			font-size :15px;
@@ -72,11 +83,13 @@
                     	<a href="logout.do" class="aout"><button class="btn btn-outline-success" id="outBtn">로그아웃</button></a>
                     </c:if>
                 </div>
-                <div class="logout onload">
-                	<c:if test="${sessionScope.m.categoryNo!=2 }">
-                	<a href="onLoadFrm.do" class="aout"><button class="btn btn-outline-success" id="outBtn">신청 현황</button></a>
-                	</c:if>
-                </div>
+                <c:if test="${sessionScope.m.categoryNo!=2 }">
+	                <div class="logout onload">
+	                	
+	                	<a href="onLoadFrm.do" class="aout"><button class="btn btn-outline-success" id="outBtn">신청 현황</button></a>
+	                	
+	                </div>
+                </c:if>
                 <div class="setting">
                     <a href="setting.do" class="mUS"><span class="material-symbols-outlined" id="sett">
                         settings
@@ -89,7 +102,7 @@
             <div class="four">
                 <ul class="count">
                     <li class="fundCount">
-                        <span>0</span>
+                        <span class="fleftCount">0</span>
                         <a href="fundingFrm.do">펀딩</a>
                     </li>
                     <li class="buyCount">
@@ -135,19 +148,7 @@
                         </a>
                     </div>
                 </div>
-                <span id="h5">Activity</span>
-                <div class="mycomment">
-                    <div class="comm">
-                        <a href="mycomment.do">
-                            <span class="material-symbols-outlined" id="symbols">
-                                mark_chat_unread
-                                </span>
-                            <sup id="text3">나의 댓글</sup>
-                            <sup id="text2">></sup>
-                        </a>
-                        
-                    </div>
-                </div>
+                
             </div>
             
             <div class="five">
@@ -175,11 +176,9 @@
             <div class="one"></div>
             <div class="three">
                 <div class="profile2">
-                    <span class="material-symbols-outlined" id="myp">
-                        account_circle
-                        </span>
-                    <a href="" class="Bupdate1">-<span>와디즈 메이커</span>님</a>
-                    <a href="" class="Bupdate1">-<span>프로필 편집하기</span> ></a>
+                    <div class="mImgBox"><img src="resources/image/notice/main/02_truck.png" id="mypg"></div>
+                    <div class="Bupdate1">-<span class="sellerName">와디즈 메이커</span>님</div>
+                    <a href="updateSellerFrm.do" class="Bupdate1">-<span>프로필 편집하기</span> ></a>
                     <div class="int">판매자 * 서포터</div>
                     
                 </div>
@@ -246,7 +245,7 @@
                                 <span class="material-symbols-outlined" id="symbols">
                                     mark_chat_unread
                                     </span>
-                                <sup id="text3">나의 댓글</sup>
+                                <sup id="text3">나의 펀딩</sup>
                                 <sup id="text2">></sup>
                             </a>
                             
@@ -304,6 +303,7 @@
                 
                 <a href="storeProject.do" class="fundopen"><button class="btn btn-primary btnf">스토어 프로젝트 시작하기</button></a>
             </div>
+            
             <div class="five">
                 <div class="mypage mypage1">
                     <span >서포터</span>
@@ -334,8 +334,17 @@
     			data : {memberId:memberId},
     			type : "get",
     			success: function(s){
+    				//이미지 변경하기 
+    				$(".mImgBox").empty();
+    				$(".mImgBox").append("<img src='resources/image/member/"+s.enPath+"' id=mypg>");
+    				//이름 변경하기 
+    				$(".sellerName").text("");
+    				$(".sellerName").text(s.owner);
+    				$(".sellerName").css({
+    					"font-size" : "12px"
+    				});
     				if(s!=null&&s.authSeller==0||s.authSeller==1){
-    					console.log(s.authMessage);
+    					
     					onload.show();
     				}else{
     					onload.hide();
@@ -349,6 +358,7 @@
     				contsole.log("프로그램 데이터 에러");
     			}
     		});
+    		//스토어 카운트 가져오기 
     		const memberNo = $("[name=memberNo]").val();
     		const req =1;
 			$.ajax({
@@ -357,13 +367,28 @@
         		type:	 "post",
         		data : {memberNo:memberNo, req:req},
         		success : function(data){
-        			console.log(data);
+        			;
         			//가져와야하는 데이터  상품이름 store_product
         			$(".storeCount").text(data.storeCount);
         			
         		}//success
         		
-        	});//ajax종료 
+        	});//ajax종료
+        	//결제한 카운트 구하기
+			 
+			    //펀딩카운트 가져오기
+			    	const fpayStatus=0;
+			    	 $.ajax({
+			    		 
+						  url : "/myfund.do",
+						  data : {memberId:memberId,req:req,fpayStatus:fpayStatus},
+						  type:"post",
+						  success : function(list){
+							 
+							$(".fleftCount").text(list.fpayCount);
+					   }//success종료 
+			    	});//ajax종료 
+			 
     	});
     
     </script>

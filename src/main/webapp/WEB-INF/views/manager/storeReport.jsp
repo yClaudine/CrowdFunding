@@ -219,6 +219,9 @@ select{
 	margin: 5px;
 	border-radius: 5px;
 }
+.mini-title{
+	margin-top: 70px;
+}
 </style>
 </head>
 <body>
@@ -237,11 +240,12 @@ select{
             </div>
         </div>
         <div class="main-content">
+        	<button type="button" class="btn btn-primary" onclick="sendDmModal();" >경고 하기</button>
+        	<button type="button" class="btn btn-primary cancel" >신고 해제</button>
             <div class="mini-title"><h4>신고 스토어 상세</h4></div>
             <!-- 
 	        <button type="button" class="btn btn-primary delete">스토어삭제</button>
 	         -->
-	        
             <div class="box">
            		<div class="tables">
 	            	<table class="table table-hover fund-tbl" >
@@ -297,7 +301,7 @@ select{
           	 		</div>
             </div>
             <div class="mini-title"><h4>경고 관리</h4></div>
-            <button type="button" class="btn btn-primary" onclick="sendDmModal();" >쪽지 보내기</button>
+           
             <div class="box report">
             	<c:choose>
 	            	<c:when test="1=2">
@@ -442,13 +446,19 @@ select{
 			}
 		});
 	}
- //스토어 삭제
+ /*스토어 삭제
  $(".delete").on("click",function(){
 	if(confirm("삭제 하시겠습니까?")){
 		location.href="/deleteStore.do?storeNo="+storeNo;
 	} 
  });
-	
+ */
+//스토어 신고 해제
+ $(".cancel").on("click",function(){
+ 	if(confirm("스토어의 신고를 해제하시겠습니까?")){
+ 		location.href="/cancelStoreReport.do?storeNo="+storeNo;
+ 	}
+ });
 	
   </script>
 
