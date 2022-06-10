@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
+import kr.or.fund.model.vo.FundPay;
 import kr.or.member.dao.MemberDao;
 import kr.or.member.vo.CCB;
 import kr.or.member.vo.FFP;
@@ -162,25 +163,35 @@ public class MemberService {
 	
 	
 	//펀드요소 구하기
-	public FFP selectFundList(int req, String memberId) {
+	public FFP selectFundList(int req, String memberId, int fpayStatus) {
 		FFP list = new FFP();
-		HashMap<String,Object> map =new HashMap<String,Object>();
 		int numPerPage = 4; 
 		int last =	numPerPage*req;
 		int first = last - numPerPage + 1;
-		//쿠폰의 갯수 종류를 넣어서 진행하기 
+		
+		HashMap<String,Object> map =new HashMap<String,Object>();
+		map.put("memberId", memberId);
+		map.put("fpayStatus",fpayStatus);
 		map.put("first", first);
 		map.put("last", last);
 		
+		ArrayList<FundPay> fp = dao.selectFundpay(map); 
+		//쿠폰의 갯수 종류를 넣어서 진행하기 
+		
+		ArrayList<Fund> fund  = new ArrayList<Fund>();
+		for(FundPay f : fp) {
+			Fund fd = dao.selectOneFund(f.getFundNo());
+			fund.add(fd);
+		}
 		
 		//쿠폰을 먼저 값을 넘겨줘서 구해줌 
-		ArrayList<Fund> fund = dao.selectFund(map);
+		
 		
 		
 		
 		
 		//totalCount 구하기 
-		int totalCount = dao.fTotalCount();
+		int totalCount = dao.fTotalCount(map);
 		//전역변수 선언 
 		int totalPage=0; 
 		if(totalCount%numPerPage==0) {
@@ -217,6 +228,8 @@ public class MemberService {
 		}//페이지 요소 끝 
 		
 		pageNavi+="</div>";
+		list.setFpayCount(totalCount);
+		list.setFpay(fp);
 		list.setFund(fund);
 		list.setPagenation(pageNavi);
 		return list;

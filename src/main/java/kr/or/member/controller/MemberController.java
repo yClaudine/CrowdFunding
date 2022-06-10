@@ -178,10 +178,10 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="/myfund.do",produces="application/json;charset=utf-8")
-	public String myfund(int req,String memberId) {
+	public String myfund(int req,String memberId,int fpayStatus) {
 		//데이터를 가져와야하는 테이블 fund_pay 결제한 최종금액 
 		//fund 목표금액, 펀드제목, 시작일 종료일 
-		FFP list = service.selectFundList(req,memberId);
+		FFP list = service.selectFundList(req,memberId,fpayStatus);
 		return new Gson().toJson(list);
 	}
 	
