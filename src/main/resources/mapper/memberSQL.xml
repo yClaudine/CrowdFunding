@@ -27,7 +27,7 @@
 	</select>
 	
 	<insert id="signUpMember" parameterType="m">
-		insert into member_tbl values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memPhone},#{memEmail},#{gender},#{categoryNo},#{report},#{authRe},#{memComment})
+		insert into member_tbl values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{memPhone},#{memEmail},#{gender},#{categoryNo},#{report},#{authRe},#{memComment},0)
 	</insert>
 	<delete id="deleteMember" parameterType="m">
 		delete from member_tbl where member_id=#{memberId} and member_pw=#{memberPw}
