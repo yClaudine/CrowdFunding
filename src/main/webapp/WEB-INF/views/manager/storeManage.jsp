@@ -74,7 +74,7 @@
     border: 1px solid #02c9c9;
     margin: 0;
     margin-bottom: 5px;
-    width: 60px;
+    width: 95px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -132,6 +132,9 @@ input[name='keyword']{
 .table select{
 	 font-size: 13px;
 	 padding: 3px;
+}
+.table tr{
+	vertical-align: middle;
 }
 .main-content .table td:last-child{
 	width: 150px;
@@ -313,7 +316,7 @@ select{
 		                            <th>스토어번호</th>
 		                            <th>스토어명</th>
 		                            <th>판매자</th>
-		                            <th>상태</th>
+		                            <th>상태<br>(정상/신고)</th>
 		                            <th>경고수</th>
 		                            <th colspan="2"></th>
 		                        </tr>
@@ -341,8 +344,7 @@ select{
 										</td>
 										<td>${s.storeWarning }</td>
 			                            <td>
-			                            	<button type="button" class="btn btn-primary delete">삭제</button>
-			                                <button type="button" class="btn btn-primary detail">경고</button>
+			                                <button type="button" class="btn btn-primary detail">신고 관리</button>
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
@@ -417,8 +419,8 @@ $(".detail-btn").on("click",function(){
        		const table = $(".detail-table");
        		let content = "<tr><th>스토어번호</th><td>"+s.storeNo+"</td></tr><tr><th>스토어제목</th><td>"+s.storeTitle+"</td></tr><tr><th>판매자아이디</th><td>"+s.memberId+"</td></tr>";
        		content += "<tr><th>카테고리</th><td>"+s.storeCategory+"</td></tr><tr><th>내용</th><td>"+s.storeContent+"</td></tr>";
-       		content += "<tr><th>상품이름</th><td>"+s.storeProduct+"</td></tr><tr><th>상품설명</th><td>"+s.storeProductcontent+"</td></tr><tr><th>상품가격</th><td>"+s.storePrice+"</td></tr>";
-       		content += "<tr><th>제한수량</th><td>"+s.storeCount+"</td></tr><tr><th>배송비</th><td>"+s.storeDelivery+"</td></tr>";
+       		content += "<tr><th>상품이름</th><td>"+s.storeProduct+"</td></tr><tr><th>상품설명</th><td>"+s.storeProductcontent+"</td></tr><tr><th>상품가격</th><td>"+s.storePrice.toLocaleString('ko-KR')+"</td></tr>";
+       		content += "<tr><th>제한수량</th><td>"+s.storeCount.toLocaleString('ko-KR')+"</td></tr><tr><th>배송비</th><td>"+s.storeDelivery.toLocaleString('ko-KR')+"</td></tr>";
        		content += "<tr><th>반품정책</th><td>"+s.storeReturn+"</td></tr><tr><th>교환정책</th><td>"+s.storeChange+"</td></tr>";
        		table.empty();
        		table.append(content);
