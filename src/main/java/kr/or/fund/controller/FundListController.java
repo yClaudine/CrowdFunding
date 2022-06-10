@@ -24,6 +24,7 @@ import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.service.FundListService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
+import kr.or.fund.model.vo.FundNoticeViewData;
 import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.FundViewData;
 import kr.or.fund.model.vo.PayRewardViewData;
@@ -48,6 +49,17 @@ public class FundListController {
 		return "fund/fundList";
 	}
 	
+	//펀딩 리스트 검색 필터링
+	@RequestMapping(value="/fundSearch.do")
+	public String FundList(Model model, String keyword, String searchType, String fstatus) {
+		ArrayList<Fund> list = service.searchFundList(keyword,searchType,fstatus);
+		model.addAttribute("list",list);
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("fstatus",fstatus);
+		model.addAttribute("searchType",searchType);
+		return "fund/fundList";
+	}
+	
 	//펀딩 상세 메인페이지-story
 	@RequestMapping(value="/fundView.do")
 	public String FundView(int fundNo, String memberId, Model model)	{
@@ -56,10 +68,37 @@ public class FundListController {
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
 		model.addAttribute("list",fvd.getRewardList());
+		model.addAttribute("p", fvd.getP());
 		model.addAttribute("plist",fvd.getPayList());
 		return "fund/fundView";	
 	}
 	
+	//펀딩 상세2 - 반환정책
+	@RequestMapping(value="/fundViewReturnInfo.do")
+	public String FundViewReturnInfo(int fundNo, String memberId, Model model) {
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+		model.addAttribute("s",fvd.getS());
+		model.addAttribute("f",fvd.getF());
+		model.addAttribute("fl",fvd.getFl());
+		model.addAttribute("list",fvd.getRewardList());
+		model.addAttribute("p", fvd.getP());
+		model.addAttribute("plist",fvd.getPayList());
+		return "fund/fundViewReturnInfo";	
+	}
+	
+	//펀딩 상세4 - 서포터
+	@RequestMapping(value="/fundViewSupporter.do")
+	public String FundViewSupporter(int fundNo, String memberId, Model model) {
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+		model.addAttribute("s",fvd.getS());
+		model.addAttribute("f",fvd.getF());
+		model.addAttribute("fl",fvd.getFl());
+		model.addAttribute("list",fvd.getRewardList());
+		model.addAttribute("p", fvd.getP());
+		model.addAttribute("plist",fvd.getPayList());
+		return "fund/fundViewSupporter";	
+	}
+
 	//펀딩 신고
 	@RequestMapping(value="/reportFund.do")
 	public String reportFund(int fundNo) {
@@ -69,26 +108,7 @@ public class FundListController {
 		//location.href="/fundView.do?fundNo=${f.fundNo }";
 	}
 	
-	/*펀딩 상세2 - 반환정책
-	@RequestMapping(value="/fundViewReturnInfo.do")
-	public String FundViewReturnInfo(int fundNo, Model model) {
 
-		return "fund/fundViewReturnInfo";	
-	}
-	//펀딩 상세3 - 새소식 게시판
-	@RequestMapping(value="/fundViewNotice.do")
-	public String FundViewNotice(int fundNo, Model model) {
-
-		return "fund/fundViewNotice";	
-	}
-	//펀딩 상세4 - 서포터
-	@RequestMapping(value="/fundViewSupporter.do")
-	public String FundViewSupporter(int fundNo, Model model) {
-
-		return "fund/fundViewSupporter";	
-	}
-	
-*/
 	//로그인 시 좋아요
 	@ResponseBody
 	@RequestMapping(value="/likeCheck.do",produces="application/json;charset=utf-8")
@@ -96,8 +116,6 @@ public class FundListController {
 		int result = service.likeCheck(fundNo,memberId);
 		return String.valueOf(result);		
 	}
-	
-
 	
 	//결제 상세---------------------------------------------------
 	//리워드, 결제 페이지로 이동
@@ -127,17 +145,13 @@ public class FundListController {
 		model.addAttribute("fp",pvd.getFp());
 		return "fund/payConfirm2";
 	}
-	
-
-	
-	
 
 	
 	//쿠폰 리스트 ajax 버전
 	@ResponseBody
 	@RequestMapping(value="/selectCouponList.do",produces="application/json;charset=utf-8")
-	public String CouponList(String fundCategory, int memberNo, int rewardSum) {
-		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum);
+	public String CouponList(String fundCategory, int memberNo, int rewardSum, int maxFee) {
+		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum,maxFee);
 		return new Gson().toJson(clist);
 	}
 
@@ -145,8 +159,8 @@ public class FundListController {
 	@ResponseBody
 	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
 	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
-			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo) {
-		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo);
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo, int memberNo) {
+		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo,memberNo);
 		return new Gson().toJson(result);
 	}
 	
@@ -170,12 +184,10 @@ public class FundListController {
 	@ResponseBody
 	@RequestMapping(value="/insertReward.do",produces="application/json;charset=utf-8")
 	public String insertReward(String reward){
-		//JsonArray array = JsonArray.fromObject(reward.get("reward"));
-		System.out.println(reward);
-		//변환, 꺼내쓰는 작업 중요
+		//변환, 꺼내쓰는 작업
 		JsonParser parser = new JsonParser();
 		JsonArray jsonarray = parser.parse(reward).getAsJsonArray();
-		ArrayList<RewardCart> result = new ArrayList<RewardCart>();
+		ArrayList<RewardCart> cart = new ArrayList<RewardCart>();
 		for(int i=0; i<jsonarray.size(); i++) {
 			//json객체 배열 유연해서 확실히 타입 지정
 			JsonObject object = jsonarray.get(0).getAsJsonObject();
@@ -185,30 +197,41 @@ public class FundListController {
 			r.setRewardNo(object.get("rewardNo").getAsInt());
 			r.setFundNo(object.get("fundNo").getAsInt());
 			r.setRewardAmount(object.get("rewardAmount").getAsInt());
-			result.add(r);
+			cart.add(r);
 		}
 		//for문 끝나고 result에 add해주면 됨
+		int result = service.insertReward(cart);
 		
+		
+		System.out.println(cart);
 		return new Gson().toJson(reward);
 	}
 	
 
+	
+//-----------------------------------------------------------
+	//펀딩 상세3 - 새소식 게시판----------------------------------
+	@RequestMapping(value="/fundViewNotice.do")
+	public String FundViewNotice(int fundNo, String memberId, int reqPage, String type, Model model) {
+		FundNoticeViewData fnvd = service.selectFundNoticeView(fundNo,memberId,reqPage,type);
+		model.addAttribute("s",fnvd.getS());
+		model.addAttribute("f",fnvd.getF());
+		model.addAttribute("fl",fnvd.getFl());
+		model.addAttribute("list",fnvd.getRewardList());
+		model.addAttribute("p", fnvd.getP());
+		model.addAttribute("plist",fnvd.getPayList());	
+		//새소식
+		model.addAttribute("fnList", fnvd.getFnList());
+		model.addAttribute("pageNavi", fnvd.getPageNavi());
+		model.addAttribute("reqPage", reqPage);
+		model.addAttribute("type", type);
+		return "fund/fundViewNotice";	
+	}
+	
+	
+	
 
 	
 }//class
-
-
-
-
-
-	
-	/*펀딩 리스트 검색 필터링
-	@RequestMapping(value="/fundSearch.do")
-	public String FundList(Model model) {
-		ArrayList<Fund> list = service.searchFundList();
-		model.addAttribute("list",list);
-		return "fund/fundList";
-	}*/
-	
 	
 

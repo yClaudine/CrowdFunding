@@ -29,5 +29,8 @@ public class Fund {
 	
 	//추가 조회 컬럼
 	private int dateGap;
+	private int fundingSum;
+	private String owner;
+	private int rate;
 	
 }

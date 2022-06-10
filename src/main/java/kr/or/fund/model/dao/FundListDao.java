@@ -12,9 +12,11 @@ import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
+import kr.or.fund.model.vo.FundNotice;
 import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
 import kr.or.member.vo.Seller;
+import kr.or.notice.model.vo.Notice;
 
 @Repository
 public class FundListDao {
@@ -26,7 +28,13 @@ public class FundListDao {
 		List list = sqlSession.selectList("fundList.selectFundList",map);
 		return (ArrayList<Fund>)list;
 	}
-	
+	//펀딩 리스트 필터링
+	public ArrayList<Fund> searchFundList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("fundList.searchFundList",map);
+		return (ArrayList<Fund>)list;
+	}
+
+
 	//펀딩 상세 - 프로젝트 조회
 	public Fund selectOneFund(int fundNo) {
 		Fund f = sqlSession.selectOne("fundList.selectOneFund",fundNo);
@@ -46,6 +54,11 @@ public class FundListDao {
 	public FundLike selectLikeCheck(HashMap<String, Object> map) {
 		FundLike fl = sqlSession.selectOne("fundLike.selectLikeCheck",map);
 		return fl;
+	}
+	//펀딩 상세 - 사용할 결제정보
+	public FundPay selectViewPay(int fundNo) {
+		FundPay p = sqlSession.selectOne("fundPay.selectViewPay",fundNo);
+		return p;
 	}
 //-------------------------------------
 	//펀딩 신고
@@ -112,6 +125,29 @@ public class FundListDao {
 		int result = sqlSession.update("fundPay.updateMemberCoupon",map);
 		return result;
 	}
+	
+	//카트 인서트
+	public int insertReward(HashMap<String, Object> map) {
+		int result = sqlSession.insert("fundPay.insertReward",map);	
+		return result;
+	}
+	
+
+	//---------------------------------------------
+
+	//새소식 리스트
+	public ArrayList<FundNotice> selectFundNoticeList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("fundList.selectFundNoticeList",map);
+		return (ArrayList<FundNotice>)list;
+	}
+	//새소식 개수
+	public int selectFundNoticeCount(HashMap<String, Object> countMap) {
+		int totalCount = sqlSession.selectOne("fundList.selectFundTotalCount",countMap);
+		return totalCount;
+	}
+	
+	
+
 
 
 

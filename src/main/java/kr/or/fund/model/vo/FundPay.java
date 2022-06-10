@@ -23,4 +23,8 @@ public class FundPay {
 	private int fundingShow;		//0:공개 1:비공개
 	private int payMethod;			//0:무통장입금/1:카드결제
 	private int memCouponNo;
+	
+	//추가 컬럼
+	private int fundingSum;
+	private int supporterSum;
 }
