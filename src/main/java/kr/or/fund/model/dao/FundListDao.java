@@ -15,6 +15,7 @@ import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundNotice;
 import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
+import kr.or.fund.model.vo.RewardCart;
 import kr.or.member.vo.Seller;
 import kr.or.notice.model.vo.Notice;
 
@@ -126,9 +127,9 @@ public class FundListDao {
 		return result;
 	}
 	
-	//카트 인서트
-	public int insertReward(HashMap<String, Object> map) {
-		int result = sqlSession.insert("fundPay.insertReward",map);	
+	//array 카트 인서트
+	public int insertReward(RewardCart cart) {
+		int result = sqlSession.insert("fundPay.insertReward",cart);	
 		return result;
 	}
 	
@@ -165,11 +166,6 @@ public class FundListDao {
 		return result;
 	}*/
 
-	/*array 리워드 카트 인서트
-	public int insertReward(HashMap<String, Object> map) {
-		int result = sqlSession.insert("fundPay.insertReward",map);
-		return result;
-	}*/
 	
 
 

@@ -45,8 +45,7 @@ public class FundListService {
 		return dao.searchFundList(map);
 	}
 
-	
-	
+
 	//펀딩 상세 페이지 데이터
 	public FundViewData selectOneFundView(int fundNo, String memberId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -177,42 +176,17 @@ public class FundListService {
 		return pvd;
 	}
 
-	//카트 인서트
-	public int insertReward(ArrayList<RewardCart> cart) {
-		HashMap<String, Object> map =  new HashMap<String, Object>();
-		map.put("cart",cart);
-		return dao.insertReward(map);
-	}
- 
+
 	
-	/*리워드 카트 인서트
-	public int insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		map.put("memberNo",memberNo);
-		map.put("rewardAmount",rewardAmount);
-		map.put("fundNo",fundNo);
-		return dao.insertCart(map);
+	//array 리워드
+	public int insertReward(List<RewardCart> reward) {
+		int result=0;
+		for(RewardCart cart : reward) {			
+			result += dao.insertReward(cart);
+		}
+		
+		return result;
 	}
-	//리워드 카트 삭제
-	public int deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		map.put("memberNo",memberNo);
-		map.put("rewardAmount",rewardAmount);
-		map.put("fundNo",fundNo);
-		return dao.deleteCart(map);
-	}*/
-	
-	/*array
-	public int insertReward(List<RewardCart> rewardNo) {//,int memberNo, int rewardAmount, int fundNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		//map.put("memberNo",memberNo);
-		//map.put("rewardAmount",rewardAmount);
-		//map.put("fundNo",fundNo);
-		return dao.insertReward(map);
-	}*/
 
 	//---------------------------------------------------
 	//펀딩 상세 - 새소식 페이지 데이터관리
@@ -252,7 +226,7 @@ public class FundListService {
 		
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		
-		String pageNavi="<div><ul class='pagination'>";
+		String pageNavi="<ul class='pagination'>";
 		if(pageNo !=1) {  
 			pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+(pageNo-1)+"&type="+type+"'>[이전]</a></li>";
 		}
@@ -269,12 +243,31 @@ public class FundListService {
 			}
 		}
 		if(pageNo<=totalPage) {
-			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul></div>";
+			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul>";
 		}
 		FundNoticeViewData fnvd = new FundNoticeViewData(f, list, s, fl, p, plist, fnList, pageNavi);
 		return fnvd;
 	}
 	
+	
+	/*리워드 카트 인서트
+	public int insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rewardNo",rewardNo);
+		map.put("memberNo",memberNo);
+		map.put("rewardAmount",rewardAmount);
+		map.put("fundNo",fundNo);
+		return dao.insertCart(map);
+	}
+	//리워드 카트 삭제
+	public int deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rewardNo",rewardNo);
+		map.put("memberNo",memberNo);
+		map.put("rewardAmount",rewardAmount);
+		map.put("fundNo",fundNo);
+		return dao.deleteCart(map);
+	}*/
 	
 	
 }

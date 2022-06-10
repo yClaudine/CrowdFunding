@@ -164,45 +164,27 @@ public class FundListController {
 		return new Gson().toJson(result);
 	}
 	
-	//사용여부 X -----------------------------------------------------------------------
-	/*카트 insert
-	@ResponseBody
-	@RequestMapping(value="/insertCart.do",produces="application/json;charset=utf-8")
-	public String insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		int result = service.insertCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
-		return new Gson().toJson(result);
-	}
-	//카트 삭제
-	@ResponseBody
-	@RequestMapping(value="/deleteCart.do",produces="application/json;charset=utf-8")
-	public String deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		int result = service.deleteCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
-		return new Gson().toJson(result);
-	}*/
-	
-	//리워드 카트 array insert
+
+	//리워드 카트 insert
 	@ResponseBody
 	@RequestMapping(value="/insertReward.do",produces="application/json;charset=utf-8")
 	public String insertReward(String reward){
-		//변환, 꺼내쓰는 작업
 		JsonParser parser = new JsonParser();
 		JsonArray jsonarray = parser.parse(reward).getAsJsonArray();
 		ArrayList<RewardCart> cart = new ArrayList<RewardCart>();
 		for(int i=0; i<jsonarray.size(); i++) {
-			//json객체 배열 유연해서 확실히 타입 지정
-			JsonObject object = jsonarray.get(0).getAsJsonObject();
+			JsonObject object = jsonarray.get(i).getAsJsonObject();
 			RewardCart r = new RewardCart();
-			//소켓에서 json으로 꺼내는 방식 참고해야 함 -> ()에 키값
 			r.setMemberNo(object.get("memberNo").getAsInt());
-			r.setRewardNo(object.get("rewardNo").getAsInt());
 			r.setFundNo(object.get("fundNo").getAsInt());
-			r.setRewardAmount(object.get("rewardAmount").getAsInt());
+			r.setRewardNo(object.get("rewardNo").getAsInt());
+			r.setAvailable(object.get("available").getAsInt());
+			r.setSelected(object.get("selected").getAsInt());
+			r.setRemain(object.get("remain").getAsInt());
 			cart.add(r);
 		}
-		//for문 끝나고 result에 add해주면 됨
-		int result = service.insertReward(cart);
 		
-		
+		int result = service.insertReward(cart);	
 		System.out.println(cart);
 		return new Gson().toJson(reward);
 	}
@@ -210,7 +192,7 @@ public class FundListController {
 
 	
 //-----------------------------------------------------------
-	//펀딩 상세3 - 새소식 게시판----------------------------------
+	//펀딩 상세3 - 새소식 게시판 + 페이징처리
 	@RequestMapping(value="/fundViewNotice.do")
 	public String FundViewNotice(int fundNo, String memberId, int reqPage, String type, Model model) {
 		FundNoticeViewData fnvd = service.selectFundNoticeView(fundNo,memberId,reqPage,type);
@@ -229,6 +211,21 @@ public class FundListController {
 	}
 	
 	
+	//사용여부 X -----------------------------------------------------------------------
+	/*카트 insert
+	@ResponseBody
+	@RequestMapping(value="/insertCart.do",produces="application/json;charset=utf-8")
+	public String insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		int result = service.insertCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
+		return new Gson().toJson(result);
+	}
+	//카트 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteCart.do",produces="application/json;charset=utf-8")
+	public String deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		int result = service.deleteCart(memberNo,rewardAmount,fundNo,rewardNo);//, memberNo, rewardAmount, fundNo);
+		return new Gson().toJson(result);
+	}*/
 	
 
 	

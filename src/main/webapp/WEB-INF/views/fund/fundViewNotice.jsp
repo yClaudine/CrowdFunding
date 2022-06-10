@@ -508,7 +508,7 @@ justify-content: right;
 
 
 #test{
-width:100%
+width:100%;
 	height:100px;
 	background-color:gray;
 	box-sizing:border-box;
@@ -559,10 +559,8 @@ width:100%
                 <div class="fn-date">${fn.fnDate }</div>
             </a><!--새소식 1개 -->
             </c:forEach>
-            
-            <div id="test">
-            	<!-- ${pageNavi }  -->
-            </div>  
+            ${pageNavi }
+
 
           	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
             <button class="fn-writeFrm" id="write">새소식 작성</button>
@@ -683,7 +681,7 @@ width:100%
     <input type="hidden" class="login" value="${not empty sessionScope.m}">
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
     <!-- <input type="hidden" class="likeCheck" value=""> -->
-
+	
 <script>
 $("#pay").click(function(){
 	const login = $(".login").val();

@@ -1076,7 +1076,9 @@ label span{
                             <input type="text" class="amount-input" value="0" name="${r.rewardNo }" readonly></input>
                             <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up')" value="${r.rewardNo }">add</button> 
                             <input type="hidden" class="rewardPrice" value="${r.rewardPrice}" >
-                            <input type="hidden" class="reward-total" value="0">                           
+                            <input type="hidden" class="reward-total" value="0">      
+                            <!-- 제한수량 관련 -->                     
+                            <input type="hidden" class="available" value="${r.rewardCount }">                           
                         </div>                             
                     </div><!--리워드박스-->
                 </c:forEach>
@@ -1373,6 +1375,7 @@ label span{
 	<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">  
 </div>
  
+ 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
   
     
 <script>
@@ -1410,36 +1413,8 @@ label span{
 			}//success
 		});//ajax
 		
-		/*
-		let reward = [];
-		let obj = {};
-		$("input[name='reward-check']:checked").each(function(i){
-			//let index = $("reward-check").index(this);
-			let memberNo = $(".memberNo").val();
-			let fundNo = $(".fundNo").val();
-			let rewardNo = ($(this).val());
-			let rewardAmount = ($(this).parents(".one-reward").find(".amount-input").val());
-			obj.memberNo = memberNo;
-			obj.fundNo = fundNo;
-			obj.rewardNo = rewardNo;
-			obj.rewardAmount = rewardAmount;
-			reward.push(obj);
-			obj={};
-		});
-		console.log(reward);
-		let jsonData = JSON.stringify(reward);
-		//js를 하나의 긴 문자로 만들어줌 -> 지금은 reward 키값을 긴 문자열 하나로 전송함(json parser로 처리필요)
-		
-		$.ajax({
-			url : "/insertReward.do",
-			type:"post",
-			traditional:true,
-			data : {reward:jsonData},
-			success : function(data){
-				alert("성공");
-			}
-			
-		})*/
+		//
+
 	});
 		
 
@@ -1803,8 +1778,47 @@ label span{
 					});	//ajax			
 				}//confirm if
 			}//else if
-		});	
-	//payment2 버튼	
+			
+			//결제 성공카트
+			let reward = [];
+			let obj = {};
+			$("input[name='reward-check']:checked").each(function(i){
+				//let index = $("reward-check").index(this);
+				let memberNo = $(".memberNo").val();
+				let fundNo = $(".fundNo").val();
+				let rewardNo = ($(this).val());
+				//제한 수량
+				let available = ($(this).parents(".one-reward").find(".available").val());
+				//선택한 수량
+				let selected = ($(this).parents(".one-reward").find(".amount-input").val());
+				//잔여수량
+				let remain = available-selected;
+				
+				obj.memberNo = memberNo;
+				obj.fundNo = fundNo;
+				obj.rewardNo = rewardNo;
+				obj.available = available;
+				obj.selected = selected;
+				obj.remain = remain;
+				reward.push(obj);
+				obj={};
+			});
+			console.log(reward);
+			let jsonData = JSON.stringify(reward);
+			
+			$.ajax({
+				url : "/insertReward.do",
+				type:"post",
+				traditional:true,
+				data : {reward:jsonData},
+				success : function(data){
+					alert("성공");
+				}
+				
+			});
+			
+			
+		});	//payment2 버튼	
 	
 </script>
     

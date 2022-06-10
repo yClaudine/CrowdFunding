@@ -130,13 +130,15 @@
 	
 	
 	<!-- 리워트 카트 -->
-	<insert id="insertReward" parameterType="map">
+	<insert id="insertReward" parameterType="rc">
 	insert into reward_cart values(
 		rc_seq.nextval,
 		#{memberNo},
 		#{fundNo},
 		#{rewardNo},
-		#{rewardAmount}
+		#{available},
+		#{selected},
+		#{remain}
 	)
 	
 	</insert>

@@ -460,6 +460,7 @@ background-color:white;
     </div><!--content-->
     <input type="hidden" value="${sessionScope.m.memberId }">
 
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
     
 <script>
