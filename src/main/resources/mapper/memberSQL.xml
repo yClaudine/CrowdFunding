@@ -329,4 +329,114 @@
 	from fund where fund_no = #{fundNo}
 	
 	</select>
+	<select id="selectSfund" parameterType="map" resultType="f">
+		select * from(select rownum as rnum, p.* from(select 
+	  		fund_no as fundNo,
+	  		member_id as memberId,
+	  		fund_name as fundName,
+	  		fund_amount as fundAmount,
+	  		fund_fees as fundFees,
+	  		fund_category as fundCategory,
+	  		fund_start as fundStart,
+	  		fund_end as fundEnd,
+	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+	  		fund_intro as fundIntro,
+	  		fund_as as fundAs,
+	  		fund_like as fundLike,
+	  		fund_reportcount as fundReportcount,
+	  		fund_warning as fundWarning,
+	  		fund_filepath1 as fundFilepath1,
+	  		fund_filepath2 as fundFilepath2,
+	  		fund_filepath3 as fundFilepath3,
+	  		fund_filepath4 as fundFilepath4,
+	  		fund_filepath5 as fundFilepath5
+	from fund where member_id = #{memberId} order by fund_no desc)p)where rnum between #{first} and #{last}
+	
+	</select>
+	<select id="selectSstore" parameterType="map" resultType="s">
+		 select * from(select rownum as rnum, p.* from(select
+	  		store_no as storeNo,
+	  		member_id as memberId,
+	  		store_title as storeTitle,
+	  		store_category as storeCategory,
+	  		store_content as storeContent,
+	  		store_product as storeProduct,
+	  		store_productcontent as storeProductcontent,
+	  		store_price as storePrice,
+	  		store_count as storeCount,
+	  		store_delivery as storeDelivery,
+	  		store_return as storeReturn,
+	  		store_change as storeChange,
+	  		store_reportcount as storeReportcount,
+	  		store_warning as storeWarning,
+	  		store_img1 as storeImg1,
+	  		store_img2 as storeImg2,
+	  		store_img3 as storeImg3,
+	  		store_img4 as storeImg4,
+	  		store_img5 as storeImg5
+	  	from store where member_Id=#{memberId} order by store_no desc)p)where rnum between #{first} and #{last} 
+			
+	
+	</select>
+	<select id="selectSFCount" parameterType="string" resultType="int">
+		select count(*) from fund where member_id =#{memberId}
+	
+	
+	</select>
+	
+	
+	<select id="selectSSCount" parameterType="string" resultType="int">
+		select count(*) from store where member_id =#{memberId}
+	</select>
+	<select id="selectFP" parameterType="int" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay where fund_no =#{fundNo}
+		
+	</select>
+	<select id="totalpay" parameterType="int" resultType="int">
+		select 
+		 fpay_finalpay as totalpay
+		from fund_pay where fpay_no = #{fpayNo}
+	
+	</select>
+		<select id="totalpay1" parameterType="int" resultType="int">
+		select 
+		 fpay_support as totalpay
+		from fund_pay where fpay_no = #{fpayNo}
+	
+	</select>
+	<select id="selectSP" parameterType="int" resultType="sp">
+		select
+	  		storepay_no as storepayNo,
+	  		mem_coupon_no as memCouponNo,
+	  		store_no as storeNo,
+	  		member_no as memberNo,
+	  		store_delivery as storeDelivery,
+	  		store_price as storePrice,
+	  		storepay_check as storepayCheck,
+	  		storepay_date as storepayDate,
+	  		storepay_allprice as storepayAllPrice 
+	  	from storepay where store_No = #{storeNo}
+	</select>
+	
+		<select id="totalpay2" parameterType="int" resultType="int">
+		select 
+		 storepay_allprice as storepayAllPrice 
+		from storepay where storepay_No = #{storepayNo}
+	
+	</select>
 </mapper>

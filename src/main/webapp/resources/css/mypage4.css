@@ -1,5 +1,5 @@
 
-.content{
+.content1{
     min-width:1300px;
     min-height:600px;
     margin-top: 20px;
@@ -408,7 +408,7 @@
     overflow: hidden;
 
 }
-.fund>div:first-child{
+.fund>div>div:first-child{
     margin-top: 30px;
     margin-left: 30px;
     font-size: 16px;
@@ -435,7 +435,7 @@
     padding-top: 5px;
     
 }
-img:hover{
+.fundImg:hover{
     transform:scale(1.05);
 }
 
@@ -460,11 +460,7 @@ img:hover{
     background-color: #2be6e6;
 
 }
-.pagination{
-    
-    margin-top:60px;
-    margin-left: 250px;
-}
+
 .mycomment1{
     width:650px;
     margin: 30px auto;
@@ -474,7 +470,7 @@ img:hover{
     padding-left: 40px;
 }
 
-.storeCt>div:first-child{
+.storeCt>div>div:first-child{
     font-size: 16px;
     margin-top: 30px;
     margin-left: 30px;

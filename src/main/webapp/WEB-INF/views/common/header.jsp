@@ -75,6 +75,7 @@ html>body {
 .loginSc {
 	margin-left: 10px;
 }
+
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -100,10 +101,11 @@ html>body {
 		<div>
 			<a href="/Store.do"><h6>스토어</h6></a>
 		</div>
+		
 		<div>
 			<a href="/notice.do?reqPage=1&type=all"><h6>공지사항</h6></a>
 		</div>
-
+		
 		<div class="log">
 
 			<div>

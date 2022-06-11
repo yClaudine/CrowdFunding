@@ -34,7 +34,7 @@
 		height:350px;
 	}
 	.pagination{
-		width:1300px;
+		margin : 0 auto;
 		margin-bottom:30px;
 	}
 	#active{

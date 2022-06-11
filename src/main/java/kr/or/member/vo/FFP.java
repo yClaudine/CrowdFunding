@@ -16,4 +16,5 @@ public class FFP {
 	private ArrayList<FundPay> fpay;
 	private ArrayList<Fund> fund;
 	private String pagenation;
+	private ArrayList<TotalPay> tlist;
 }
