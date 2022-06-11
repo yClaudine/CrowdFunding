@@ -113,7 +113,7 @@ public class ManagerService {
 	
 	//펀드관리
 	public FundPageData selectAllFund(int reqPage, String type, String keyword) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
@@ -165,7 +165,7 @@ public class ManagerService {
 
 	//스토어관리
 	public StoreAllPageData selectAllStore(int reqPage, String type, String keyword) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
@@ -286,6 +286,29 @@ public class ManagerService {
 		}
 		return result;
 	}
+
+	public int cancelReviewReport(String memberId) {
+		//리뷰 신고 해제
+		int result1 = dao.cancelReviewReport(memberId);
+		if(result1>0) {
+			//회원 신고 해제
+			return dao.cancelMemberReport(memberId);
+		}else {
+			return -1;
+		}
+	}
+
+	public int cancelFundReport(int fundNo) {
+		// TODO Auto-generated method stub
+		return dao.cancelFundReport(fundNo);
+	}
+
+	public int cancelStoreReport(int storeNo) {
+		// TODO Auto-generated method stub
+		return dao.cancelStoreReport(storeNo);
+	}
+
+	
 
 	
 	

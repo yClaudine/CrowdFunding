@@ -70,6 +70,11 @@
 	<!--  웹소켓 mapping -->
 	
 	
+	<!-- 챗봇용 웹 소켓 객체/매핑 -->
+	<beans:bean id="chatBot" class="kr.or.manager.model.service.ChatBotHandler"/>
+	<websocket:handlers>
+		<websocket:mapping handler="chatBot" path="/chatBot.do"/>
+	</websocket:handlers>
 	
 	
 	<context:component-scan base-package="kr.or.fund" />

@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.or.coupon.model.service.CouponService;
 import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.CouponPageData;
 import kr.or.coupon.model.vo.MemberCoupon;
+import kr.or.fund.model.vo.Fund;
 import kr.or.store.model.vo.StoreAllPageData;
 
 @Controller
@@ -99,6 +103,14 @@ public class CouponController {
 		return "manager/msg";
 		
 	}
+	//쿠폰 상세 ajax
+		@ResponseBody
+		@RequestMapping(value="/couponDetail.do",produces="application/json;charset=utf-8")
+		public String couponDetail(int couponNo) {
+			Coupon c = service.selectOneCoupon(couponNo);
+			System.out.println(c);
+			return new Gson().toJson(c);
+		}
 	
 }
 

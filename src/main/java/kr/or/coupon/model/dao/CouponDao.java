@@ -69,6 +69,7 @@ public class CouponDao {
 		return (ArrayList<Coupon>)list;
 	}
 	
+	
 //멤버쿠폰
 	public MemberCoupon searchOneMemberCoupon(HashMap<String, Object> map) {
 		MemberCoupon mc = sqlSession.selectOne("coupon.searchOneMemberCoupon", map);
@@ -84,6 +85,8 @@ public class CouponDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("coupon.updateCouponStatus", couponNo);
 	}
+
+
 
 	
 	

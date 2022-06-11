@@ -31,39 +31,39 @@
     font-size: 30px;
     padding: 20px;
 }
-   .manager-menu{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        border: 1px solid lightgray;
-    }
-    .manager-menu>li{
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-        color: gray;
-        
-    }
-    .manager-menu>li>a{
-        display: block;
-        text-decoration: none;
-        color: #212529;
-        background-color:#f2f4f6;
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-    }
-    .manager-menu>li>a:hover{
-        color: #e7f9f9;
-        cursor: pointer;
-        background-color: #00b2b2;
-    }
-    .manager-menu .active-menu{
-        color: #00b2b2;
-        font-weight: bold;
-    }
+.manager-menu{
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     border: 1px solid lightgray;
+ }
+ .manager-menu>li{
+     text-align: center;
+     height: 50px;
+     line-height: 50px;
+     font-size: 15px;
+     color: gray;
+     
+ }
+ .manager-menu>li>a{
+     display: block;
+     text-decoration: none;
+     color: #212529;
+     background-color:#f2f4f6;
+     text-align: center;
+     height: 50px;
+     line-height: 50px;
+     font-size: 15px;
+ }
+ .manager-menu>li>a:hover{
+     color: #e7f9f9;
+     cursor: pointer;
+     background-color: #00b2b2;
+ }
+ .manager-menu .active-menu{
+     color: #00b2b2;
+     font-weight: bold;
+ }
 .content-wrap .btn{
     font-size: 13px;
     margin: 5px;
@@ -74,8 +74,8 @@
     background-color: #02c9c9;
     border: 1px solid #02c9c9;
     margin: 0;
-    margin-bottom: 5px;
-    width: 85px;
+    margin-top:5px;
+    width: 100px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -148,12 +148,14 @@ input[name='keyword']{
 	 font-size: 13px;
 	 padding: 3px;
 }
-.main-content .table td:last-child{
-	width: 200px;
+.table td, .table th{
+	vertical-align: middle;
 }
-.main-content .table td{
-    line-height: 30px;
-    height: 30px;
+.main-content .table td:nth-child(5){
+	width: 140px;
+}
+.main-content .table td:last-child, .main-content .table th:last-child{
+	width: 240px;
 }
 #reportManage{
 	background-color: #e7f9f9;
@@ -253,7 +255,6 @@ select{
 .detail-table th{
 	border: 1px solid #bfbfbf;
 	width: 17%;
-	vertical-align: middle;
 	text-align:center;
 }
 .detail-table td{
@@ -269,6 +270,24 @@ select{
 	border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+.main-content .btn-outline {
+    line-height: 13px;
+    background-color: white;
+	color:#00b2b2;
+    border: 1px solid #00b2b2;
+	display: block;
+	width: 80px;
+	margin-right:20px;
+	margin-left: 0;
+	float:left;
+}
+.main-content .btn-outline:hover {
+	 background-color: #00b2b2;
+     border: 1px solid #d1e2e2;;
+     color:white;
+     cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -323,10 +342,10 @@ select{
 		                        <tr>
 		                            <th>아이디</th>
 		                            <th>이름</th>
-		                            <th>신고상태</th>
+		                            <th>상태<br>(정상/신고)</th>
 		                            <th>경고수</th>
-		                            <th>권한</th>
-		                            <th colspan="2"></th>
+		                            <th>권한<br> (정상/로그인불가)</th>
+		                            <th></th>
 		                        </tr>
 		                    </thead>
 		                    
@@ -371,9 +390,9 @@ select{
 			                               
 			                            </td>
 			                            <td>
-			                                <button type="button" class="btn btn-primary authChange">권한수정</button>
+			                                <button type="button" class="btn btn-outline authChange">저장</button>
 			                                <input type="hidden" value="${mem.authRe }">
-			                                <button type="button" class="btn btn-primary detail">경고관리</button>
+			                                <button type="button" class="btn btn-primary detail">신고 관리</button>
 			                                <input type="hidden" value="${mem.memberId }" >
 			                                
 			                            </td>

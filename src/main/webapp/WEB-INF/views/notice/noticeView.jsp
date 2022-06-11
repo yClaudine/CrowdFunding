@@ -12,7 +12,7 @@
     width: 1200px;
     margin: 0 auto;  
     border-top: 1px solid #bfbfbf;
-    
+    font-family: ns-medium;
 }
 .content-top *{
 	font-family: ns-medium;
@@ -29,7 +29,7 @@
     padding: 10px;
     border: 1px solid #bfbfbf;
     border-radius: 5px;
-   
+ 
 }
 .content-top{
     border-bottom: 1px solid #868e96;
@@ -68,44 +68,53 @@
 	margin-left: 130px;
 	margin-right: 130px;
 	padding: 30px;
-	border: 1px solid #00b2b2;
-	background-color: #e7f9f9;
-
+	border-radius: 3px;
+	background-color: #f2f4f6;
+	box-shadow: 3px 3px 3px 2px #bfbfbf;
 }
 .couponDetail>p{
  	margin: 30px;
 }
+.couponDetail>p{
+	color:#60656a;
+	font-weight: bolder;
+	font-size: 20px;
+}
 .couponDetail>p:nth-of-type(3){
 	font-size: 20px;
-	color: #00b2b2;
+	color: #00c4c4;
 }
 .btns{
-    width: 300px;
-    height: 50px;
+    width: 500px;
+    height: 100px;
 }
 .downloadBtn{
     background-color:#ffffff;
     color: #00c4c4;
-    border: 2px solid #00c4c4;
+    border: none;
     font-weight: 500;
+    font-size: 25px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 2px #00c4c4;
 }
 .downloadBtn:hover{
     cursor: pointer;
-    background-color: #00c4c4;
-    color: #e7f9f9;
 }
 .goShopping{
 	padding-bottom: 30px;
 }
 .shoppingBtn{
-    background-color: #A29584;
-    color: #f2f4f6;
+    background-color: #00c4c4;
+    color:#ffffff;
     border: none;
     font-weight: 500;
+    border-radius: 5px;
+    font-size: 30px;
+    box-shadow: 3px 3px 3px 2px #bfbfbf;
 }
 .shoppingBtn:hover{
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 35px;
 }
 .img{
 	padding:30px;
@@ -245,7 +254,7 @@
 	               
             	</div>
             	 <div class="goShopping">
-	                    <button class="btns shoppingBtn"> 쇼핑하기 > </button>
+	                    <button class="btns shoppingBtn"> GO SHOPPING > </button>
 	             </div>
 	             <input type="hidden" class="mainTarget" value="${coupon.mainTarget }">
 	             <input type="hidden" class="subTarget" value="${coupon.subTarget }">
@@ -329,6 +338,6 @@ $(".modify").on("click",function(){
 
 </script>
 
-
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

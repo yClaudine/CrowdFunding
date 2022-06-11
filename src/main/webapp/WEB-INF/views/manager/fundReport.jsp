@@ -219,6 +219,9 @@ select{
 	margin: 5px;
 	border-radius: 5px;
 }
+.mini-title{
+	margin-top: 70px;
+}
 </style>
 </head>
 <body>
@@ -237,6 +240,8 @@ select{
             </div>
         </div>
         <div class="main-content">
+        	<button type="button" class="btn btn-primary" onclick="sendDmModal();" >경고 하기</button>
+        	<button type="button" class="btn btn-primary cancel" >신고 해제</button>
             <div class="mini-title"><h4>신고 펀드 상세</h4></div>
             <!--  
 	        <button type="button" class="btn btn-primary delete" value="${f.fundEnd }">펀드삭제</button>
@@ -287,14 +292,10 @@ select{
 	                </table> 
           	 		</div>
             </div>
-            <div class="mini-title"><h4>경고 관리</h4></div>
-            <button type="button" class="btn btn-primary" onclick="sendDmModal();" >쪽지 보내기</button>
+            <div class="mini-title"><h4>경고 내역</h4></div>
+          
             <div class="box report">
-            	<c:choose>
-	            	<c:when test="1=2">
-	            		 <div class="nodata"><h6>조회 결과가 없습니다.</h6></div>
-	            	</c:when>
-	            	<c:otherwise>
+            	
 	            		<div class="tables">
 			            	<table class="table table-hover report-tbl">
 			                    <thead>
@@ -311,11 +312,8 @@ select{
 			                    </tbody>
 			                </table> 
 	           	 		</div>
-	            	</c:otherwise>
-           	 	</c:choose>
-            
+	            	
            </div>
-           
         </div>
     </div>
     <!-- 쪽지 보내기 모달 -->
@@ -415,7 +413,7 @@ select{
 				tr.empty();
 				let code;
 				if(list.length == 0){
-					code = "<tr><td colspan='5'>쪽지가 없습니다.</td></tr>";
+					code = "<tr><td colspan='5'>보낸 경고쪽지가 없습니다.</td></tr>";
 				}else{
 					for(let i=0; i<list.length;i++){
 						if(list[i].readCk == 0){
@@ -460,12 +458,15 @@ function formatDate(){
 	 }else{
 		 alert("종료된 펀드는 삭제할 수 없습니다.");
 	 }
-	 
-	
  });
+ 
+//펀드 신고 해제
+$(".cancel").on("click",function(){
+	if(confirm("해당 펀드의 신고를 해제하시겠습니까?")){
+		location.href="/cancelFundReport.do?fundNo="+fundNo;
+	}
+});
 	
-	
-  </script>
-
+</script>
 </body>
 </html>

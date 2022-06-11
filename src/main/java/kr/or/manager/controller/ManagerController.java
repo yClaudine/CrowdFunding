@@ -28,6 +28,7 @@ import kr.or.manager.model.vo.MemberPageData;
 import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
+import kr.or.store.model.service.StoreService;
 import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
 import kr.or.store.model.vo.StoreStar;
@@ -37,6 +38,10 @@ public class ManagerController {
 		
 	@Autowired
 	private ManagerService service;
+	
+	//스토어 만족도 삭제 위한 스토어서비스
+	@Autowired
+	private StoreService storeService;
 	
 	//판매자 승인페이지
 	@RequestMapping(value="/sellerManage.do")
@@ -190,6 +195,20 @@ public class ManagerController {
 		return "manager/memberReport";
 	}
 	
+	//회원 리뷰신고 해제
+	@RequestMapping(value="/cancelReviewReport.do")
+	public String cancelReviewReport(String memberId) {
+		int result = service.cancelReviewReport(memberId);
+		return "redirect:/memberReportDetail.do?memberId="+memberId;
+	}
+	//회원 리뷰 삭제
+	@RequestMapping(value="/deleteReview.do")
+	public String deleteReview(int starNo, String memberId) {
+		int result = storeService.storeCommentDelete(starNo);
+		return "redirect:/memberReportDetail.do?memberId="+memberId;
+	}
+	
+	
 	//펀드 관리
 	@RequestMapping(value="/fundManage.do")
 	public String fundManage(int reqPage, String type, String keyword, Model model) {
@@ -219,7 +238,24 @@ public class ManagerController {
 		model.addAttribute("memberId", memberId);
 		return "manager/fundReport";
 	}
-	//펀드 삭제
+	//펀드 신고해제
+	@RequestMapping(value="/cancelFundReport.do")
+	public String cancelFundReport(int fundNo, Model model) {
+		int result = service.cancelFundReport(fundNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "해제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "해제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/fundManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
+	
+	/*펀드 삭제
 	@RequestMapping(value="/deleteFund.do")
 	public String deleteFund(int fundNo, Model model) {
 		int result = service.deleteFund(fundNo);
@@ -235,7 +271,7 @@ public class ManagerController {
 		model.addAttribute("loc", "/fundManage.do?reqPage=1&keyword=&type=all");
 		return "manager/msg";
 	}
-	
+	*/
 	//스토어 관리
 	@RequestMapping(value="/storeManage.do")
 	public String storeManage(int reqPage, String type, String keyword, Model model) {
@@ -263,7 +299,7 @@ public class ManagerController {
 		model.addAttribute("memberId", memberId);
 		return "manager/storeReport";
 	}
-	//스토어 삭제
+	/*스토어 삭제
 	@RequestMapping(value="/deleteStore.do")
 	public String deleteStore(int storeNo, Model model) {
 		int result = service.deleteStore(storeNo);
@@ -279,6 +315,23 @@ public class ManagerController {
 		model.addAttribute("loc", "/storeManage.do?reqPage=1&keyword=&type=all");
 		return "manager/msg";
 	}
+	*/
+	//스토어 신고해제
+	@RequestMapping(value="/cancelStoreReport.do")
+	public String cancelStoreReport(int storeNo, Model model) {
+		int result = service.cancelStoreReport(storeNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "해제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "해제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/storeManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
 	
 	//경고 보낸메세지 불러오기(ajax)
 	@RequestMapping(value="/getReportList.do",produces ="application/json;charset=utf-8")
@@ -289,6 +342,7 @@ public class ManagerController {
 		
 		return new Gson().toJson(list);
 	}
+	
 	
 }
 

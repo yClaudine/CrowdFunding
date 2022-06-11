@@ -316,7 +316,7 @@ select{
     </div>
   	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" >
 
-
+	
 <script>
 
 //더보기 버튼
@@ -457,7 +457,7 @@ $(".change").on("click",function(){
 
 </script>
    	
-	
-	
+<%@include file="/WEB-INF/views/common/footer.jsp"%>	
+
 </body>
 </html>
