@@ -18,4 +18,6 @@ public class FundNotice {
 	private String fnFix;
 	private String fnFilepath;
 	
+	//추가
+	private String count;
 }

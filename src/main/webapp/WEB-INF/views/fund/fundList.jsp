@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 HOME</title>
 	<!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -441,10 +441,10 @@ background-color:white;
            
         </div><!--grid container-->
        </div>
+       <div style="height:200px;"></div>
     </div><!--content-->
     <input type="hidden" value="${sessionScope.m.memberId }">
 
-	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
     
 <script>

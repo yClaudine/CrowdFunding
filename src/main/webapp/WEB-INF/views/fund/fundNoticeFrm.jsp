@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 새소식</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -566,7 +566,7 @@ td{
                         <tr>
                             <th colspan="1" style="width:150px;">제목</th>
                             <td colspan="3">
-                                <input type="text" name="fnTitle" class="fnTitle" style="width:500px;">
+                                <input type="text" name="fnTitle" class="fnTitle" id="fnTitle" style="width:500px;">
                             </td>
                         </tr>
                         <tr>
@@ -579,7 +579,7 @@ td{
                             </td>
                             <th style="width:120px;">공지사항 여부</th>
                             <td>
-                            	<input type="checkbox" value="0" name="fnFix" class="fnFix">
+                            	<input type="checkbox" value="0" name="fnFix" class="fnFix" id="fnFix">
                             </td> 
                         </tr>
                         <tr>
@@ -751,7 +751,7 @@ td{
  
       //등록 조건
         $("input[type='submit']").on("click",function(){
-            if($(".fnFix").is(":checked")){
+            if($("#fnFix").is(":checked")){
            		$("input[name='fnFix']").val(1);
           	}else{
            		$("input[name='fnFix']").val(0);

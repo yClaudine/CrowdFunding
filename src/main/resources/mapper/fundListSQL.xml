@@ -129,18 +129,10 @@
 	  	fn_date as fnDate,
 	  	fn_category as fnCategory,
 	  	fn_fix as fnFix,
-	  	fn_filepath as fnFilepath
+	  	fn_filepath as fnFilepath	  	
   	from fund_notice where
-	  	<choose>
-		  	<when test="type.equals('event')">
-		  	fn_category=0 and
-		  	</when>
-		  	<when test="type.equals('reward')">
-		  	fn_category=1 and
-		  	</when>
-	  	</choose>
-	fund_no=#{fundNo}	
-  	order by fn_fix desc, fn_no desc)f) 
+	fund_no=#{fundNo}
+  	order by fn_fix, fn_no desc)f) 
 	where (rnum between #{start} and #{end})
 
   </select>

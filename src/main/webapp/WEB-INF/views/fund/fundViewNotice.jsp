@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 새소식</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -140,7 +140,7 @@
 .fn-title{
     color: #4a4a4a;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 19px;
 }
 .fn-date{
     padding-top: 15px;
@@ -529,7 +529,8 @@ justify-content: right;
         <div class="detail-view">
             <div class="funding-notice">
                 <span class="fn-new">새소식</span>
-                <span class="fn-newNum">4</span>
+                <span class="fn-newNum"></span>
+                <!--  
                 <span class="fn-search">
                     <form action="#" method="post">
                         <select name="searchType">
@@ -538,7 +539,7 @@ justify-content: right;
                             <option value="content">리워드 안내</option>
                         </select>
                     </form>
-                </span>
+                </span>-->
                 <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
             	<button class="fn-writeFrm" id="write">새소식 작성</button>
             	</c:if>
@@ -546,8 +547,21 @@ justify-content: right;
             <!--새소식 1개 -->
            
            <c:forEach items="${fnList }" var="fn">  
-            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo=${fn.fnNo }" class="fn-view">
-                <div class="fn-category">카테고리명</div>
+            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo=${fn.fnNo }" class="fn-view">               
+               <c:if test="${fn.fnFix eq 1}"> 	
+                 	<span class="fn-category" style="color:#00b2b2; font-weigh:bold;">공지사항</span>
+              </c:if>
+               <c:choose>
+		        	<c:when test="${fn.fnCategory eq 0}">
+                		<span class="fn-category">이벤트</span>
+                	</c:when>
+                	<c:when test="${fn.fnCategory eq 1}">
+                		<span class="fn-category">리워드 안내</span>
+                	</c:when>
+                	<c:when test="${fn.fnCategory == null}">
+                		<span class="fn-category">전체</span>
+                	</c:when>
+                </c:choose>
                 <div class="fn-title">${fn.fnTitle }</div>
                 <div class="fn-date">${fn.fnDate }</div>
             </a><!--새소식 1개 -->
@@ -638,6 +652,8 @@ justify-content: right;
                 </div>
             </a><!--리워드 1개 생성-->
           </c:forEach>
+                 <div style="height:200px;"></div>
+          
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
     <!--신고하기 모달-->

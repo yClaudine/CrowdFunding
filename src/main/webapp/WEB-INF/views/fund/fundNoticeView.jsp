@@ -590,9 +590,10 @@ td{
                 <span class="fn-newNum">4</span>
             	<button class="fn-writeFrm" id="write" onclick="location.href='/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all;'">목록으로 가기</button>
 
+                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
 	            	<button class="fn-writeFrm" id="delete">삭제</button>
 	            	<button class="fn-writeFrm" id="modify">수정</button>
-
+				</c:if>
             </div>
 
         

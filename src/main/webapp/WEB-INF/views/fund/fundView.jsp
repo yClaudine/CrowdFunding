@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 스토리</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -623,7 +623,9 @@ justify-content: right;
                 </div>
             </a><!--리워드 1개 생성-->
           </c:forEach>
+              <div style="height:200px;"></div>
         </div><!--오른쪽 콘텐츠 끝-->
+        
     </div>
 
 
