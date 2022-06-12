@@ -239,4 +239,26 @@ public class StoreTmpController {
 			int result = service.updateStore5(ts);
 			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
 		}
+		
+		//Store 신청하기 추가하는 메서드
+		@RequestMapping(value="/CreateStore.do")
+		public String CreateStore(int stNo) {
+			TmpStore ts = new TmpStore();
+			ts.setStNo(stNo);
+			TmpStore tmp = service.selectOneTmpStore(ts);
+			
+			int result = 1;
+			
+			int storeResult = service.createStore(tmp);
+			result *= storeResult;
+			int deleteResult = 0;
+			/*
+			if(result >0) {
+				deleteResult = service.deleteTmpStore(ts);
+			}else {
+				System.out.println("오류");
+			}*/
+			
+			return "redirect:/";
+		}
 }

@@ -81,4 +81,12 @@
 		  		st_Change = #{stChange}
 		  	where st_no = #{stNo}
 	 </update>
+	 
+	 <insert id="createStore" parameterType="ts">
+	 insert into Store
+	 values (store_seq.nextval, #{memberId}, #{stTitle}, #{stCategory}, #{stContent}, #{stProduct}, #{stProductcontent}, #{stPrice}, #{stCount}, #{stDelivery}, #{stReturn}, #{stChange}, 0, 0, #{stImg1}, #{stImg2}, #{stImg3}, #{stImg4}, #{stImg5}) 	
+	 <selectKey resultType="int" order="AFTER" keyProperty="stNo">	
+	 	select max(store_no) from store
+	 </selectKey>
+	 </insert>
 </mapper>

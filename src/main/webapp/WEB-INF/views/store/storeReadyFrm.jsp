@@ -143,7 +143,7 @@
 						}
 					});
 					if(count == 3){
-						location.href="/storeReadyFrm.do?stNo=${tmp.stNo}";
+						location.href="/CreateStore.do?stNo=${tmp.stNo}";
 					}else{
 						alert("필수 항목들을 모두 작성해주세요.");
 					}	
