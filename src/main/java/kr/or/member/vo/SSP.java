@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class SSP {
 	private ArrayList<Store> store;
 	private ArrayList<Storepay> storePay;
+	private ArrayList<TotalPay> tlist;
 	private String pagenation;
 	private int storeCount;
 }

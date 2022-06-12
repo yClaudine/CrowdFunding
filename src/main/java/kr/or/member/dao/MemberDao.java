@@ -180,6 +180,52 @@ public class MemberDao {
 		int count = sqlSession.selectOne("member.selectFcount",map);
 		return count;
 	}
+
+	public ArrayList<Fund> selectSfund(HashMap<String, Object> map) {
+		List list =sqlSession.selectList("member.selectSfund",map);
+		return (ArrayList<Fund>)list;
+	}
+
+	public int fCount(String memberId) {
+		int count = sqlSession.selectOne("member.selectSFCount",memberId);
+		return count;
+	}
+
+	public ArrayList<Store> selectSstore(HashMap<String, Object> map) {
+		List list =sqlSession.selectList("member.selectSstore",map);
+		return (ArrayList<Store>)list;
+		
+	}
+
+	public int sCount(String memberId) {
+		int count = sqlSession.selectOne("member.selectSSCount",memberId);
+		return count;
+	}
+
+	public ArrayList<FundPay> selectFundpay(int fundNo) {
+		List list = sqlSession.selectList("member.selectFP",fundNo);
+		return (ArrayList<FundPay>)list;
+	}
+
+	public int getFinalPay(int fpayNo) {
+		int totalpay = sqlSession.selectOne("member.totalpay",fpayNo);
+		return totalpay;
+	}
+
+	public int getFpaySupport(int fpayNo) {
+		int totalpay = sqlSession.selectOne("member.totalpay1",fpayNo);
+		return totalpay;
+	}
+
+	public ArrayList<Storepay> selectStorepay(int storeNo) {
+		List list = sqlSession.selectList("member.selectSP",storeNo);
+		return (ArrayList<Storepay>)list;
+	}
+
+	public int getFinalPay2(int storepayNo) {
+		int totalpay = sqlSession.selectOne("member.totalpay2",storepayNo);
+		return totalpay;
+	}
 	
 
 }
