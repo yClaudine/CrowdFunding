@@ -227,4 +227,16 @@ public class StoreTmpController {
 			pageMove(stNo, model);
 			return "store/storeCreate5";
 		}
+		
+	//스토어 반품/교환 등록
+		@RequestMapping(value="/updateStore5.do")
+		public String updateStore5(int stNo, Model model, String stReturn, String stChange) {
+			TmpStore tmp = new TmpStore();
+			tmp.setStNo(stNo);
+			TmpStore ts = service.selectOneTmpStore(tmp);
+			ts.setStReturn(stReturn);
+			ts.setStChange(stChange);
+			int result = service.updateStore5(ts);
+			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
+		}
 }

@@ -90,14 +90,14 @@
 						<h6>반품/교환</h6>
 						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='' ">작성하기</button>
+						<button onclick="location.href='/storeCreate5.do?stNo=${tmp.stNo }'">작성하기</button>
 				</div>
 				<div class="ready-menu">
 					<div>
 						<h6>대표자 및 정산 정보</h6>
 						<span class="check-store">작성 전</span>
 					</div>
-						<button onclick="location.href='' ">작성하기</button>
+						<button onclick="location.href='/storeCreate6.do?stNo=${tmp.stNo }'">작성하기</button>
 				</div>
 
 				<button class="btn-info submit-btn">제출하기</button>
@@ -112,30 +112,24 @@
 			//각 항목별 작성 체크
 			//보고 변경하기
 			const checkStore = $(".check-store");
-			const check = [0,0,0,0,0,0];
-			<c:if test="${tmpF.tfFees ne 0}">
+			const check = [0,0,0,0];
+			<c:if test="${tmp.stTitle ne null && tmp.stCategory ne null && tmp.stImg1 ne null}">
 			check[0] = 1;
 			</c:if>
-			<c:if test="${tmpF.tfAmount ne 0 && tmpF.tfCategory ne null && tmpF.tfStart ne null && tmpF.tfEnd ne null}">
+			<c:if test="${tmp.stDelivery ne null && tmp.stProduct ne null && tmp.stProductcontent ne null && tmp.stPrice ne null && tmp.stCount ne null && tmp.stContent ne null}">
 			check[1] = 1;
 			</c:if>
-			<c:if test="${tmpF.tfFilepath1 ne null && tmpF.tfIntro ne null}">
+			<c:if test="${tmp.stReturn ne null && tmp.stChange ne null}">
 			check[2] = 1;
 			</c:if>
-			<c:if test="${tRList[0].trNo ne null}">
-			check[3] = 1;
-			</c:if>
-			<c:if test="${tmpF.tfAs ne null}">
-			check[4] = 1;
-			</c:if>
-			<c:if test="${tfc.tfcNo ne null}">
-			check[5] = 1;
-			</c:if>
+			//<c:if test="${tRList[0].trNo ne null}">
+			//check[3] = 1;
+			//</c:if>
 			
 			//작성 완료 된 항목 메시지 수정
 			checkStore.each(function(index,item){
 				if(check[index] == 1){
-					$(checkFund[index]).text("작성완료");		
+					$(checkStore[index]).text("작성완료");		
 				}
 			});
 			
@@ -148,7 +142,7 @@
 							count++;		
 						}
 					});
-					if(count == 6){
+					if(count == 3){
 						location.href="/storeReadyFrm.do?stNo=${tmp.stNo}";
 					}else{
 						alert("필수 항목들을 모두 작성해주세요.");

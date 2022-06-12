@@ -30,4 +30,9 @@ public class StoreTmpService {
 		// TODO Auto-generated method stub
 		return dao.updateStore4(ts);
 	}
+
+	public int updateStore5(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return dao.updateStore5(ts);
+	}
 }
