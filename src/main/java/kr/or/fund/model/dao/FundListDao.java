@@ -13,11 +13,11 @@ import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundNotice;
+import kr.or.fund.model.vo.FundNoticeViewData;
 import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.RewardCart;
 import kr.or.member.vo.Seller;
-import kr.or.notice.model.vo.Notice;
 
 @Repository
 public class FundListDao {
@@ -145,6 +145,30 @@ public class FundListDao {
 	public int selectFundNoticeCount(HashMap<String, Object> countMap) {
 		int totalCount = sqlSession.selectOne("fundList.selectFundTotalCount",countMap);
 		return totalCount;
+	}
+	//파일포함 새소식 인서트
+	public int insertFundNotice(FundNotice fn) {
+		int result = sqlSession.insert("fundList.insertFundNotice",fn);
+		return result;
+	}
+	
+	//새소식 보기
+	public FundNotice selectOneNotice(int fundNo, String fnNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("fnNo",fnNo);
+		FundNotice fn = sqlSession.selectOne("fundList.selectOneNotice",map);
+		return fn;
+	}
+	//새소식 최종수정
+	public int updateFundNotice(FundNotice fn) {
+		int result = sqlSession.insert("fundList.updatetFundNotice",fn);
+		return result;
+	}
+	//새소식 삭제
+	public int deleteFundNotice(HashMap<String, Object> map) {
+		int result = sqlSession.delete("fundList.deleteFundNotice",map);
+		return result;
 	}
 	
 	

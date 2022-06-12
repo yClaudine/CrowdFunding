@@ -483,16 +483,7 @@ justify-content: right;
 .pagination{
 	justify-content:center;
 	margin: 0 auto;
-	padding-top: 50px;
-	box-sizing:border-box;
-	
-	
-}
-
-.pagination>ul{
-		box-sizing:border-box;
-		display:inline-block;
-	
+	padding-top: 50px;	
 }
 
 .pagination>.page-item>a {
@@ -503,16 +494,15 @@ justify-content: right;
 	background-color: #00b2b2;
 	border: 1px solid #00b2b2;
 }
-
-
-
-
-#test{
-width:100%;
-	height:100px;
-	background-color:gray;
-	box-sizing:border-box;
-
+#write{
+	margin:0px;
+	margin-left:10px;
+	height:40px;
+	background-color: #A29584;
+}
+#write:hover{
+	color:#fff;
+	background-color:#89827a;
 }
 
 </style>
@@ -549,11 +539,14 @@ width:100%;
                         </select>
                     </form>
                 </span>
+                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
+            	<button class="fn-writeFrm" id="write">새소식 작성</button>
+            	</c:if>
             </div>
             <!--새소식 1개 -->
            
            <c:forEach items="${fnList }" var="fn">  
-            <a href="#" class="fn-view">
+            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo=${fn.fnNo }" class="fn-view">
                 <div class="fn-category">카테고리명</div>
                 <div class="fn-title">${fn.fnTitle }</div>
                 <div class="fn-date">${fn.fnDate }</div>
@@ -561,10 +554,6 @@ width:100%;
             </c:forEach>
             ${pageNavi }
 
-
-          	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
-            <button class="fn-writeFrm" id="write">새소식 작성</button>
-            </c:if>
 
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
@@ -698,8 +687,8 @@ $(".achieve").text(Math.floor(fundingSum / fundAmount *100));
 
 //글작성
 $("#write").click(function(){
-	let seller=(".seller-id").val();
-	location.href = "/fnWrite.do?fundNo=${f.fundNo }&sellerId="+seller;
+	//let sellerId=$(".seller-id").val();			
+	location.href = "/fundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }";
 });
 
 

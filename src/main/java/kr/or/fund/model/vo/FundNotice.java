@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class FundNotice {
-	private int fnNo;
-	private int fundNo;
+	private String fnNo;
+	private String fundNo;
 	private String memberId;
 	private String fnTitle;
 	private String fnContent;
-	private int fnCount;
 	private String fnDate;
-	private int fnCategory;
-	private int fnFix;
+	private String fnCategory;
+	private String fnFix;
+	private String fnFilepath;
 	
 }

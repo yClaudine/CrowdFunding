@@ -1679,6 +1679,10 @@ label span{
 				$(".d-message").focus();
 				return;
 			}
+			if(!$("input[name='payMethod']:checked").val()){
+				alert("결제수단을 선택해주세요.");
+				return;
+			}
 
 			//결제 변수 저장
 			let memberNo = $(".memberNo").val();
