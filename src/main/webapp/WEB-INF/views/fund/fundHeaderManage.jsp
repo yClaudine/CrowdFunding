@@ -62,8 +62,8 @@
     	.crefund-nav{
     		width: 220px;
     	}
-    	crefund-content{
-    		width:980px;
+    	.crefund-content{
+    		width:850px;
     	}
     	.crefund-content{
     		padding-top: 60px;

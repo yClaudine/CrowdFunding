@@ -1,0 +1,105 @@
+.content{
+    min-width:1300px;
+    min-height:500px;
+    margin-top: 20px;
+    
+    padding:0;
+    
+}
+
+.content>h5{
+    padding-bottom: 50px;
+    padding-left:200px;
+    margin:0;
+    width:1300px;
+    height: 60px;
+    
+    font-size: 30px;
+}
+#setting{
+    
+    font-size: 25px;
+    
+    color:#60656a;
+    ;
+}
+.fundC{
+    display:flex;
+    height:40px;
+    padding-left:200px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+    gap: 30px;
+
+    height:30px;
+}
+.fundC>div:first-child{
+
+    height:30px;
+    width:80px;
+}
+.c2{
+    height:30px;
+    width:60px;
+}
+.fundC>div:hover{
+    border-bottom: 3px solid #00c4c4;
+     cursor: pointer;
+}
+.form-select{
+    width:200px;
+    height:40px;
+    margin-left: 500px;
+    
+}
+.fm{
+    
+    margin-left: 800px;
+}
+
+.moneyE{
+    font-size: 15px;
+    color: purple;
+}
+
+
+
+.ft{
+    margin-top:20px;
+    width:900px;
+    margin-left:200px;
+    text-align:center;
+}
+.ft>tbody{
+    text-align:center;
+}
+
+
+
+
+
+.fts{
+    line-height: 50px;
+}
+
+
+
+
+
+
+
+
+
+.btn-secondary.btns:focus{
+    background-color: orangered;
+    box-shadow: none;
+
+}
+.f1Zone{
+    height:300px
+}
+.pagination{
+    
+    margin: 40px auto;
+    height:50px;
+    justify-content: center;
+}
