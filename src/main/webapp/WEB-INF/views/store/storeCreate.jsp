@@ -99,7 +99,7 @@
 	</div>
 	
 	<script>
-	$("[type=submit]").on("click",function(){
+	$("[type=submit]").on("click",function(e){
 		//카테고리와 memberId를 체크할 변수
 		const chk = [0,0];
 		const stCategory = $("[name=stCategory]").val();
