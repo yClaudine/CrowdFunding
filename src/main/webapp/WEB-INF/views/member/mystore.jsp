@@ -25,6 +25,11 @@
         #active{
         	background-color : orangered;
         }
+        .pagination{
+        	width:auto;
+        	margin:0 auto;	
+        }
+        
     </style>
 </head>
 <body>

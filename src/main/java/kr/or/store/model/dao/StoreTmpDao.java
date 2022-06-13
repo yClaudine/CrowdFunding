@@ -30,6 +30,18 @@ public class StoreTmpDao {
 
 	public int updateStore4(TmpStore ts) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("tmpStore.udpateStore4",ts);
+		return sqlSession.update("tmpStore.updateStore4",ts);
+	}
+
+	public int updateStore5(TmpStore ts) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("tmpStore.updateStore5",ts);
+	}
+
+	public int createStore(TmpStore tmp) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("tmpStore.createStore",tmp);
+		int result = tmp.getStNo();
+		return result;
 	}
 }

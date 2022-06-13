@@ -126,21 +126,13 @@
 	  	member_id as memberId,
 	  	fn_title as fnTitle,
 	  	fn_content as fnContent,
-	  	fn_count as fnCount,
 	  	fn_date as fnDate,
 	  	fn_category as fnCategory,
-	  	fn_fix as fnFix
+	  	fn_fix as fnFix,
+	  	fn_filepath as fnFilepath	  	
   	from fund_notice where
-	  	<choose>
-		  	<when test="type.equals('event')">
-		  	fn_category=0 and
-		  	</when>
-		  	<when test="type.equals('reward')">
-		  	fn_category=1 and
-		  	</when>
-	  	</choose>
-	fund_no=#{fundNo}	
-  	order by fn_fix desc, fn_no desc)f) 
+	fund_no=#{fundNo}
+  	order by fn_fix, fn_no desc)f) 
 	where (rnum between #{start} and #{end})
 
   </select>
@@ -156,5 +148,50 @@
 	  	</when>
   	</choose>
  </select>	
+	
+<!-- 새소식 인서트-->
+ <insert id="insertFundNotice" parameterType="fn">
+ 	insert into fund_notice values(
+ 		fn_seq.nextval,
+ 		#{fundNo},
+ 		#{memberId},
+ 		#{fnTitle},
+ 		#{fnContent},
+ 		to_char(sysdate,'yyyy-mm-dd'),
+ 		#{fnCategory},
+ 		#{fnFix},
+ 		#{fnFilepath}
+ 	)
+ </insert>	
+	
+<!-- 새소식 조회 -->
+<select id="selectOneNotice" parameterType="map" resultType="fn">
+	select
+	  	fn_no as fnNo,
+	  	fund_no as fundNo,
+	  	member_id as memberId,
+	  	fn_title as fnTitle,
+	  	fn_content as fnContent,
+	  	fn_date as fnDate,
+	  	fn_category as fnCategory,
+	  	fn_fix as fnFix,
+	  	fn_filepath as fnFilepath
+  	from fund_notice 
+  	where fund_no=#{fundNo} and fn_no=#{fnNo}	
+</select>
+
+ <update id="updatetFundNotice" parameterType="fn">
+ 	update fund_notice set
+ 		fn_title = #{fnTitle},
+ 		fn_content = #{fnContent},
+ 		fn_category = #{fnCategory},
+ 		fn_fix = #{fnFix},
+ 		fn_filepath = #{fnFilepath}
+  	where fund_no=#{fundNo} and fn_no=#{fnNo}	
+ 	
+ </update>		
+ <delete id="deleteFundNotice" parameterType="map">
+ 	delete from fund_notice where fund_no=#{fundNo} and fn_no=#{fnNo}
+ </delete>
 	
 </mapper>

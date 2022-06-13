@@ -54,6 +54,10 @@
 						<input type="text"  name="stPrice" class="form-control" id="stPrice" placeholder="10원 이상으로 작성해 주세요." value="${tmp.stPrice}">
 			 	</div>
 			 	<div class="form-group">
+						<label class="form-label mt-4" for="stCount">제한 수량</label>
+						<input type="text"  name="stCount" class="form-control" id="stCount" placeholder="제한 수량을 작성해 주세요." value="${tmp.stCount}">
+			 	</div>
+			 	<div class="form-group">
 						<label class="form-label mt-4" for="stTitle">상품 설명</label>
 						<br>
 						<textarea class="stContent" name="stContent" id="stContent">${tmp.stContent}</textarea>
@@ -62,6 +66,7 @@
 			 	<br><br>
 			 	<input type="submit" class="save-btn btn-info" value="저장하기">
 			</form>
+			<br><br>
 		</div>
 	</div>
 	<script>

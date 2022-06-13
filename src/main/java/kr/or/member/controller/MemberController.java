@@ -14,7 +14,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.google.gson.Gson;
 
-
+import kr.or.fund.model.vo.Fund;
 import kr.or.member.service.MemberService;
 import kr.or.member.vo.CCB;
 import kr.or.member.vo.FFP;
@@ -277,6 +277,48 @@ public class MemberController {
 		
 		model.addAttribute("m", m);
 		return "member/myProfile";
+	}
+	@ResponseBody
+	@RequestMapping(value="selectSFund.do",produces="application/json;charset=utf-8")
+	public String selectSfund(String memberId, int req) {
+		FFP fp = new FFP();
+		 fp = service.selectSfund(memberId,req);
+		
+		return new Gson().toJson(fp);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectSStore.do",produces="application/json;charset=utf-8")
+	public String selecSStore(String memberId, int req) {
+		SSP sp = new SSP();
+		sp = service.getSstore(memberId,req);
+		return new Gson().toJson(sp);
+	}
+	
+	@RequestMapping(value="fundUpdateFrm.do")
+	public String fundUpdateFrm() {
+		
+		return "member/fundUpdate";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectUFund.do",produces="application/json;charset=utf-8")
+	public String selectUFund(String memberId, int req) {
+		FFP fp = new FFP();
+		fp = service.selectUF(memberId,req);
+		return new Gson().toJson(fp);
+	}
+	@RequestMapping(value="storeUpdateFrm.do")
+	public String storeUpdateFrm() {
+		
+		return "member/storeUpdate";
+	}
+	@ResponseBody
+	@RequestMapping(value="selectUStore.do",produces="application/json;charset=utf-8")
+	public String selectUStore(String memberId, int req) {
+		SSP sp = new SSP();
+		sp = service.selectUS(memberId,req);
+		return new Gson().toJson(sp);
 	}
 	
 	
