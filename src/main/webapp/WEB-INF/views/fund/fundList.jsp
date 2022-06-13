@@ -430,8 +430,10 @@ background-color:white;
                     <span class="project-amount">∙${f.fundAmount }원</span>
                     <span class="project-dayleft">${f.dateGap }일 남음</span>
                 </div>
+
             </div><!--grid 1개--> 
             
+            <input type="hidden" value="${f.memberId }"> <!-- sellerId -->
             
     		<input type="hidden" class="fundingSum" value="${f.fundingSum}">
     		<input type="hidden" class="fundAmount" value="${f.fundAmount}">
