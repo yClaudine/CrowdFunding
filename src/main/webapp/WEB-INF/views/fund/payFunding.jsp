@@ -1052,7 +1052,7 @@ label span{
 	                        <div class="reward-wrap">
 	                            <div class="reward-price">${r.rewardPrice}원 펀딩</div>
 	                            <span class="reward-name">${r.rewardName}</span>
-	                            <span class="reward-remaining">(675개 남음)</span>
+	                            <span class="reward-remaining">(제한수량 ${r.rewardCount}개)</span>
 	                            <div class="reward-intro">${r.rewardIntro}</div>
 	                            <div class="reward-intro option">*옵션*<br>
 	                            ${r.rewardOption}
@@ -1671,7 +1671,7 @@ label span{
 			//유효성 검사
 			let dName=/^[a-zA-z가-힣]{2,8}$/;
 			let dPhone=/-/;
-			let dAddr3 = /^[a-zA-z가-힣]{5,40}$/;
+			//let dAddr3 = /^[a-zA-z가-힣]{5,40}$/;
 			let dMsg = /^[a-zA-z가-힣]{0,40}$/;
 			
 			if(!dName.test($(".d-name").val())){
@@ -1684,8 +1684,8 @@ label span{
 				$(".d-phone").focus();
 				return;
 			}
-			if(!dAddr3.test($(".d-addr3").val())){
-				alert("배송지를 확인해주세요.(5~40글자 내)");
+			if(!$(".d-addr3").val()){
+				alert("배송지를 확인해주세요.");
 				$(".d-addr3").focus();
 				return;
 			}
