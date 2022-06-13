@@ -513,7 +513,7 @@ justify-content: right;
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="banner bgBlur">
         <div class="banner-img">
-            <img src="resources/image/fund/food.jpg">
+            <img src="/resources/image/fund/upload/${f.fundFilepath1}">
         </div>
         <h6 class="title-category">${f.fundCategory }</h6>
         <div class="title">${f.fundName }</div>
