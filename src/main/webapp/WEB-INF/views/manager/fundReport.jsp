@@ -242,7 +242,7 @@ select{
         <div class="main-content">
         	<button type="button" class="btn btn-primary" onclick="sendDmModal();" >경고 하기</button>
         	<button type="button" class="btn btn-primary cancel" >신고 해제</button>
-            <div class="mini-title"><h4>신고 펀드 상세</h4></div>
+            <div class="mini-title"><h4>펀드 상세</h4></div>
             <!--  
 	        <button type="button" class="btn btn-primary delete" value="${f.fundEnd }">펀드삭제</button>
 	        -->

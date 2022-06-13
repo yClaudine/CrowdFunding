@@ -425,7 +425,7 @@
 
 </select>
 <update id="updateMemberAuth" parameterType="map">
-	update member_tbl set auth_re=#{auth} where member_id=#{memberId}
+	update member_tbl set auth_re=#{auth}, report=0 where member_id=#{memberId}
 </update>
 
 <!--스토어 삭제(스토어페이 상태 결제취소/쿠폰상태 사용전으로) -->
