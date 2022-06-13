@@ -592,11 +592,31 @@ justify-content: right;
             </div>
             <div class="story">프로젝트 스토리</div>
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath1}">
             </span>
+          <c:if test="${not empty f.fundFilepath2}">
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath2}">
             </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath3}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath3}">
+            </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath4}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath4}">
+            </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath5}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath5}">
+            </span>
+           </c:if>
+            
+           <div style="height:200px;"></div>
+           
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
         <!--오른쪽 콘텐츠-->
