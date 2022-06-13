@@ -251,7 +251,7 @@ select{
 	            	<table class="table table-hover fund-tbl" >
 	                    <tr>
 	                    	<th>펀드번호</th>
-	                    	<td class="storeNo">${s.storeNo }</td>
+	                    	<td class="storeNo"><a href="/storeView.do?storeNo=${s.storeNo}">${s.storeNo }</td>
 	                    </tr>
 	                    <tr>
 	                    	<th>스토어제목</th>
