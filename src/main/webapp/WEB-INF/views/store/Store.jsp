@@ -16,8 +16,7 @@ html>body {
 }
 
 .eventimg1 {
-	background-color: blue;
-}
+		}
 .eventimg2 {
 	background-color: aqua;
 }
@@ -208,8 +207,8 @@ html>body {
 	        <span class="next2">&rang;</span>
     	</p>
     	<div class="events autoplay">
-    		<div class="eventimg1"></div>
-    		<div class="eventimg2"></div>
+    		<div class="eventimg1"><img src="/resources/image/notice/main/${n.noticeFilepath}"></div>
+    		<div class="eventimg2"><img src="/resources/image/store/upload/${s.storeImg1}"></div>
     		<div class="eventimg3"></div>
     		<div class="eventimg4"></div>
     		<div class="eventimg5"></div>
