@@ -16,18 +16,19 @@ html>body {
 }
 
 .eventimg1 {
-		}
+	background-image:  url(/resources/image/notice/main/15_fruit.jpg);
+}
 .eventimg2 {
-	background-color: aqua;
+	background-image:  url(/resources/image/notice/main/11_house.jpg);
 }
 .eventimg3 {
-	background-color: green;
+	background-image:  url(/resources/image/notice/main/13_beauty.jpg);
 }
 .eventimg4 {
-	background-color: lime;
+	background-image:  url(/resources/image/notice/main/12_tomato.jpg);
 }
 .eventimg5 {
-	background-color: fuchsia;
+	background-image:  url(/resources/image/notice/main/16_flowers-gec9380e71_1920.jpg);
 }
 .sellerstore>a{
 	font-size: 20px;
@@ -207,11 +208,11 @@ html>body {
 	        <span class="next2">&rang;</span>
     	</p>
     	<div class="events autoplay">
-    		<div class="eventimg1"><img src="/resources/image/notice/main/${n.noticeFilepath}"></div>
-    		<div class="eventimg2"><img src="/resources/image/store/upload/${s.storeImg1}"></div>
-    		<div class="eventimg3"></div>
-    		<div class="eventimg4"></div>
-    		<div class="eventimg5"></div>
+    		<div class="eventimg1" style="background-size: 330px;"></div>
+    		<div class="eventimg2" style="background-size: 330px;"></div>
+    		<div class="eventimg3" style="background-size: 330px;"></div>
+    		<div class="eventimg4" style="background-size: 330px;"></div>
+    		<div class="eventimg5" style="background-size: 330px;"></div>
     	</div>
     </div>
 		
