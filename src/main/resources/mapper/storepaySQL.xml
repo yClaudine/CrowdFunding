@@ -49,4 +49,7 @@
 	<update id="updateMemberCoupon" parameterType="map">
 		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') where member_no=#{memberNo} and coupon_no=#{couponNo}
 	</update>
+	<select id="selectPayno" resultType="int">
+		select max(storepay_no) from storepay
+	</select>
 </mapper>

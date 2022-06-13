@@ -58,7 +58,7 @@
 			    store_product as storeProduct,
 			    store_productcontent as storeProductcontent,
 			    store_category as storeCategory
-			from store
+			from store where store_warning <![CDATA[<]]> 3
 	  	<if test="!storeCategory.equals('all')">
 	 	where store_category=#{storeCategory}
 	 	</if>

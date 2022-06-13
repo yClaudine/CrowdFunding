@@ -13,6 +13,7 @@ import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.member.vo.Member;
 import kr.or.store.model.vo.Store;
+import kr.or.store.model.vo.StoreDelivery;
 import kr.or.store.model.vo.StoreStar;
 
 @Repository
@@ -117,7 +118,14 @@ public class StoreDao {
 		return sqlSession.update("storepay.updateMemberCoupon",map);
 	}
 
+	public int selectPayno() {
+		return sqlSession.selectOne("storepay.selectPayno");
+	}
 
+	public int insertDelivery(StoreDelivery sd) {
+		int result = sqlSession.insert("storeDelivery.insertDelivery",sd);
+		return result;
+	}
 
 
 

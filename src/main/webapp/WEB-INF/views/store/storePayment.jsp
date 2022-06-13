@@ -150,7 +150,9 @@ html>body {
 		padding-right: 20px;
 		font-size: 15px;
 	}
-
+	#submitBtn:hover{
+		cursor: none;
+	}
 </style>
 </head>
 <body>
@@ -196,11 +198,11 @@ html>body {
 							</div>
 							<div class="delivery">	
 								<h5 style="padding-bottom: 20px;">배송 메세지</h5>
-								<select name="select-dMSG" name="deliveryMsg">
-									<option value="" selected disabled>배송메세지를 선택하세요.</option> 
-								    <option value="1">직접 수령하겠습니다.</option>
-								    <option value="2">문 앞에 놓아주세요.</option>
-								    <option value="3">배송 전 연락바랍니다.</option>
+								<select id="select-dMSG" name="deliveryMsg">
+									<option value="배송메세지 선택안함" selected disabled>배송메세지를 선택하세요.</option> 
+								    <option value="직접 수령하겠습니다.">직접 수령하겠습니다.</option>
+								    <option value="문 앞에 놓아주세요.">문 앞에 놓아주세요.</option>
+								    <option value="배송 전 연락바랍니다.">배송 전 연락바랍니다.</option>
 								</select>
 							</div>
 						</div>
@@ -233,7 +235,7 @@ html>body {
 						<div class="final-payinfo">
 							<h5 style="background-color:#e7f9f9;">결제금액</h5>
 							<div class="product-price">
-								<div>상품금액</div><div class="right">${totalprice} 원</div>
+								<div>상품금액</div><div class="right">${s.storePrice} 원</div>
 							</div><div class="product-price">
 								<div>쿠폰할인금액</div><div class="right" id="couponDiscount">0</div>
 							</div>
@@ -242,6 +244,8 @@ html>body {
 							</div><hr>
 							<div class="product-price">
 								<input type="hidden" name="storeNo" value="${s.storeNo }">
+								<input type="hidden" name="storeProduct" value="${s.storeProduct }">
+								<input type="hidden" name="storeProductnum" value="${number }">
 								<input type="hidden" name="memberNo" value="${m.memberNo }">
 								<input type="hidden" name="storeDelivery" value="${s.storeDelivery }">
 								<input type="hidden" name="storePrice" value="${s.storePrice }">
@@ -253,12 +257,13 @@ html>body {
 						</div><br>
 							
 						<div class="submit-btn"><button id="submit" type="button" disabled onclick="requestPay()">결제하기</button></div>
-						<input type="submit" id="submitBtn">
+						<input type="submit" id="submitBtn" style="border: none; color: #fff; background-color: #fff">
 					</div>
-					</form>
-				</div>
-			</div>
+					
+			</form>
 		</div>
+	</div>
+</div>
 
 <%@include file="/WEB-INF/views/common/footer.jsp" %>
 <script>
