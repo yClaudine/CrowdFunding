@@ -30,6 +30,7 @@ import kr.or.fund.model.vo.TmpFund;
 import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
 import kr.or.member.vo.Member;
+import kr.or.member.vo.Seller;
 
 @Controller
 public class FundController {
@@ -110,10 +111,16 @@ public class FundController {
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("m");
 		if(m != null) {
+			int seller = 0;
+			Seller s = service.selectOneSeller(m);
+			if(s != null) {
+				seller = 1;
+			}
 			ArrayList<Fund> fl = service.selectMemberFund(m);
 			ArrayList<TmpFund> tfl = service.selectMemberTmpFund(m);
 			model.addAttribute("fl",fl);
 			model.addAttribute("tfl",tfl);
+			model.addAttribute("seller",seller);
 		}
 		return "fund/createFunding";
 	}
