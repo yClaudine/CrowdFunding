@@ -15,14 +15,15 @@ import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
 import kr.or.fund.model.vo.FundNotice;
 import kr.or.fund.model.vo.FundNoticeViewData;
+import kr.or.fund.model.vo.FundOneNoticeViewData;
 import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.FundUpdateNoticeViewData;
 import kr.or.fund.model.vo.FundViewData;
 import kr.or.fund.model.vo.PayRewardViewData;
 import kr.or.fund.model.vo.PayViewData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.RewardCart;
 import kr.or.member.vo.Seller;
-import kr.or.notice.model.vo.Notice;
 
 @Service
 public class FundListService {
@@ -45,8 +46,7 @@ public class FundListService {
 		return dao.searchFundList(map);
 	}
 
-	
-	
+
 	//펀딩 상세 페이지 데이터
 	public FundViewData selectOneFundView(int fundNo, String memberId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -162,13 +162,27 @@ public class FundListService {
 		if(result == 0) {
 			return -1;
 		}else {
+			//쿠폰 업데이트
 			dao.updateMemberCoupon(map);
+			//최근 인서트된 결제번호
+			int payNo = dao.selectPayNo();
+			return payNo;
 		}
-		return result;
+		//return result;
 	}
-		
-		
-	//결제 확인 조회
+	
+	//방금 결제된 정보 조회
+	public PayViewData payConfirm(int fundNo, int fpayNo, String memberId) {
+		Fund f = dao.selectOneFund(fundNo);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		FundPay fp = dao.selectOnePay(fundNo,fpayNo,memberId);
+		PayViewData pvd= new PayViewData(f,list,fp);
+		return pvd;
+	}
+	
+	
+	
+	/*결제 확인 조회------------------기존--------------
 	public PayViewData payConfirm(int fundNo, String memberId, int fpayFinalpay) {
 		Fund f = dao.selectOneFund(fundNo);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
@@ -176,43 +190,18 @@ public class FundListService {
 		PayViewData pvd= new PayViewData(f,list,fp);
 		return pvd;
 	}
+*/
 
-	//카트 인서트
-	public int insertReward(ArrayList<RewardCart> cart) {
-		HashMap<String, Object> map =  new HashMap<String, Object>();
-		map.put("cart",cart);
-		return dao.insertReward(map);
-	}
- 
 	
-	/*리워드 카트 인서트
-	public int insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		map.put("memberNo",memberNo);
-		map.put("rewardAmount",rewardAmount);
-		map.put("fundNo",fundNo);
-		return dao.insertCart(map);
+	//array 리워드
+	public int insertReward(List<RewardCart> reward) {
+		int result=0;
+		for(RewardCart cart : reward) {			
+			result += dao.insertReward(cart);
+		}
+		
+		return result;
 	}
-	//리워드 카트 삭제
-	public int deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		map.put("memberNo",memberNo);
-		map.put("rewardAmount",rewardAmount);
-		map.put("fundNo",fundNo);
-		return dao.deleteCart(map);
-	}*/
-	
-	/*array
-	public int insertReward(List<RewardCart> rewardNo) {//,int memberNo, int rewardAmount, int fundNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rewardNo",rewardNo);
-		//map.put("memberNo",memberNo);
-		//map.put("rewardAmount",rewardAmount);
-		//map.put("fundNo",fundNo);
-		return dao.insertReward(map);
-	}*/
 
 	//---------------------------------------------------
 	//펀딩 상세 - 새소식 페이지 데이터관리
@@ -227,8 +216,7 @@ public class FundListService {
 		FundPay p = dao.selectViewPay(fundNo);
 		ArrayList<FundPay> plist = dao.selectPayList(fundNo);
 		
-		
-		int numPerPage = 7;
+		int numPerPage = 10;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
@@ -252,7 +240,7 @@ public class FundListService {
 		
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		
-		String pageNavi="<div><ul class='pagination'>";
+		String pageNavi="<ul class='pagination'>";
 		if(pageNo !=1) {  
 			pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+(pageNo-1)+"&type="+type+"'>[이전]</a></li>";
 		}
@@ -269,12 +257,87 @@ public class FundListService {
 			}
 		}
 		if(pageNo<=totalPage) {
-			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul></div>";
+			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul>";
 		}
 		FundNoticeViewData fnvd = new FundNoticeViewData(f, list, s, fl, p, plist, fnList, pageNavi);
 		return fnvd;
 	}
+
+	//파일 포함 인서트
+	public int insertFundNotice (FundNotice fn) {
+		return dao.insertFundNotice(fn);
+	}
 	
+	//새소식 보기
+	public FundOneNoticeViewData selectOneNotice(int fundNo, String memberId, String fnNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("memberId",memberId);
+		Fund f = dao.selectOneFund(fundNo);
+		Seller s = dao.selectOneSeller(fundNo);
+		FundLike fl = dao.selectLikeCheck(map);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		FundPay p = dao.selectViewPay(fundNo);
+		ArrayList<FundPay> plist = dao.selectPayList(fundNo);
+		//새소식
+		FundNotice fn = dao.selectOneNotice(fundNo,fnNo);
+		
+		FundOneNoticeViewData fod = new FundOneNoticeViewData(f, list, s, fl, p, plist, fn);
+		return fod;
+	}
+
+	//새소식 수정 페이지
+	public FundUpdateNoticeViewData updateNoticeFrm(int fundNo, String memberId, String fnNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("memberId",memberId);
+		Fund f = dao.selectOneFund(fundNo);
+		Seller s = dao.selectOneSeller(fundNo);
+		FundLike fl = dao.selectLikeCheck(map);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		FundPay p = dao.selectViewPay(fundNo);
+		ArrayList<FundPay> plist = dao.selectPayList(fundNo);
+		//새소식
+		FundNotice fn = dao.selectOneNotice(fundNo,fnNo);
+		
+		FundUpdateNoticeViewData fud = new FundUpdateNoticeViewData(f, list, s, fl, p, plist, fn);
+		return fud;
+	}
+
+	//새소식 최종수정
+	public int updateFundNotice(FundNotice fn) {
+		return dao.updateFundNotice(fn);
+	}
+
+	//새소식 삭제
+	public int deleteFundNotice(String fnNo, int fundNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fnNo",fnNo);
+		map.put("fundNo",fundNo);
+		return dao.deleteFundNotice(map);
+	}
+
+
+	
+	
+	/*리워드 카트 인서트
+	public int insertCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rewardNo",rewardNo);
+		map.put("memberNo",memberNo);
+		map.put("rewardAmount",rewardAmount);
+		map.put("fundNo",fundNo);
+		return dao.insertCart(map);
+	}
+	//리워드 카트 삭제
+	public int deleteCart(int memberNo, int rewardAmount, int fundNo, int rewardNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rewardNo",rewardNo);
+		map.put("memberNo",memberNo);
+		map.put("rewardAmount",rewardAmount);
+		map.put("fundNo",fundNo);
+		return dao.deleteCart(map);
+	}*/
 	
 	
 }
