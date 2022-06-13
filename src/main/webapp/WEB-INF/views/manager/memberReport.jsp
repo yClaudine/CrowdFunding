@@ -169,6 +169,9 @@ select{
 	border-radius: 5px;
 	min-height: 300px;
 }
+.review-tbl tr{
+	vertical-align: middle;
+}
 .review-tbl tr>*:last-child{
 	width: 60%;
 }

@@ -127,17 +127,8 @@ html>body {
 							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access admin"><span class="material-symbols-outlined" style="color:#00b2b2; width:40px; height:40px; font-size:40px;"> account_circle </span></a>
 						</div>
 						<div>
-
-							<a href="myPageFrm.do" class="access">프로필</a>
-
 							<a href="logout.do" class="access">LOGOUT</a>
-
 						</div>
-
-						<div>
-							<a href="logout.do" class="access">로그아웃</a>
-						</div>
-
 
 					</c:when>
 					<c:when test="${sessionScope.m.categoryNo>=1 }">
