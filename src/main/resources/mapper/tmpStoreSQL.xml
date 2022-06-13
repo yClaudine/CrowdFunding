@@ -71,6 +71,7 @@
 		  		st_Product = #{stProduct},
 		  		st_Productcontent = #{stProductcontent},
 		  		st_Price = #{stPrice},
+		  		st_Count= #{stCount},
 		  		st_Content = #{stContent}
 		  	where st_no = #{stNo}
 	 </update> 

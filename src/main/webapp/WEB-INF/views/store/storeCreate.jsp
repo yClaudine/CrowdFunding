@@ -88,7 +88,7 @@
 			</p>
 			<p style="font-size:15px; font-weight:normal;">추후 변경 가능합니다.
 			<form action="/storeCreate.do" method="post">
-				<input type="hidden" name="memberId" value="test1">
+				<input type="hidden" name="memberId" value="${sessionScope.m.memberId }">
 				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="리빙" name="stCategory">
 				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="뷰티" name="stCategory">
 				<input type="submit" class="btn btn-outline-primary" id="stCategory" value="반려동물" name="stCategory">
@@ -98,5 +98,30 @@
 		</div>
 	</div>
 	
+	<script>
+	$("[type=submit]").on("click",function(){
+		//카테고리와 memberId를 체크할 변수
+		const chk = [0,0];
+		const stCategory = $("[name=stCategory]").val();
+		const memberId = $("[name=memberId]").val();
+		//카테고리 체크
+		if(stCategory == ""){
+			chk[0] = 0;
+		}else{
+			chk[0] = 1;
+		}
+		//로그인 상태 체크
+		if(memberId == ""){
+			chk[1] = 0;
+		}else{
+			chk[1] = 1;
+		}
+		//둘다 정상이 아니면 서브밋 비활성화
+		if(chk[0] == 0 || chk[1] == 0 ){
+			alert("로그인 후 카테고리 선택하여 주세요.");
+			e.preventDefault();
+		}
+	});
+	</script>
 </body>
 </html>
