@@ -14,6 +14,7 @@ import kr.or.fund.model.vo.PayBoardPageData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
 import kr.or.member.vo.Member;
+import kr.or.member.vo.Seller;
 
 @Service
 public class FundService {
@@ -154,6 +155,11 @@ public class FundService {
 		
 		PayBoardPageData pbpd = new PayBoardPageData(list, pageNavi);
 		return pbpd;
+	}
+
+	public Seller selectOneSeller(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectOneSeller(m);
 	}
 
 }

@@ -216,6 +216,8 @@
 	const image = $(".content-right>img");
 	//보여주는 이미지 변수
 	let cnt = 0;
+	//seller 인지 체크하는 변수
+	let seller = 0;
 	
 	//이미지 사라지는 함수
 	function imageHide(cnt){
@@ -246,8 +248,8 @@
 			chk[1] = 1;
 		}
 		//둘다 정상이 아니면 서브밋 비활성화
-		if(chk[0] == 0 || chk[1] == 0){
-			alert("로그인을 하시고 펀딩 제목을 입력하여 주세요.");
+		if(chk[0] == 0 || chk[1] == 0 || seller == 0){
+			alert("판매자 등록을 하신 후 펀딩 제목을 입력하여 주세요.");
 			e.preventDefault();
 		}
 	});
@@ -295,6 +297,10 @@
 	
 	//페이지 로드 끝나면 이미지 효과 반복 작동
 	$(document).ready(function(){
+		<c:if test="${seller eq 1}">
+			seller = ${seller};
+		</c:if>
+		console.log(seller);
 		//첫번째 이미지 바로 나타나도록
 		imageShow(cnt);
 		//4초마다 효과 반복

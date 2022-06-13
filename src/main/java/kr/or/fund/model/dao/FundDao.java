@@ -14,6 +14,7 @@ import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
 import kr.or.member.vo.Member;
+import kr.or.member.vo.Seller;
 
 @Repository
 public class FundDao {
@@ -103,6 +104,11 @@ public class FundDao {
 	public int selectPayBoardCount(Fund f) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("fund.selectPayBoardCount",f);
+	}
+
+	public Seller selectOneSeller(Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("fund.selectOneSeller",m);
 	}
 	
 

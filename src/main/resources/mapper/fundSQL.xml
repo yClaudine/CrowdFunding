@@ -221,4 +221,20 @@
   <select id="selectPayBoardCount" parameterType="f" resultType="int">
   	select count(fpay_no) from fund_pay where fund_no = #{fundNo}
   </select>
+  <select id="selectOneSeller" parameterType="m" resultType="sel">
+  	select 
+  		seller_no as sellerNo,
+  		Member_id as memberId,
+  		en_no as enNo,
+  		en_path as enPath,
+  		en_type as enType,
+  		en_intro as enIntro,
+  		owner,
+  		photopath,
+  		position,
+  		address,
+  		auth_seller as authSeller,
+  		auth_massage as authMessage
+  	from seller where member_id=#{memberId}
+  </select>
 </mapper>
