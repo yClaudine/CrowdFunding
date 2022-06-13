@@ -84,7 +84,7 @@
                         $(".secondB").show();
                         $(".threeB").hide();
                         $("#three").css("background-color","#00b2b2");
-        			}else if(data.authSller==2){
+        			}else if(data.authSeller==2){
         				$("#one").css("background-color","rgb(190, 190, 190)");
                         $("#three").css("background-color","rgb(190, 190, 190)");
                         $("#four").css("background-color","rgb(190, 190, 190)");

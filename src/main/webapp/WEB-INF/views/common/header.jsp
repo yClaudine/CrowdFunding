@@ -125,9 +125,11 @@ html>body {
 							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access">관리자페이지</a>
 						</div>
 						<div>
-							<a href="" class="access">프로필</a>
+							<a href="myPageFrm.do" class="access">프로필</a>
 						</div>
-						<a href=""><div class="openReq">프로젝트 오픈신청</div></a>
+						<div>
+							<a href="logout.do" class="access">로그아웃</a>
+						</div>
 					</c:when>
 					<c:when test="${sessionScope.m.categoryNo>=1 }">
 						<div>
