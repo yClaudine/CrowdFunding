@@ -34,18 +34,8 @@ html>body {
 	<h1><a href="/couponManage.do">임시관리자</a></h1>
  	<div class="content1">
  		
- 		<c:choose>
- 			<c:when test="${not empty sessionScope.m.memberId }">
- 					<%@include file="/WEB-INF/views/member/dmMain.jsp" %>
-					
-					
- 			</c:when>
- 			<c:otherwise>
- 				
- 						
- 			</c:otherwise>
+ 		
 
- 		</c:choose>
  		
  	</div>
 

@@ -60,10 +60,9 @@
 			    store_category as storeCategory
 			from store where store_warning <![CDATA[<]]> 3
 	  	<if test="!storeCategory.equals('all')">
-	 	where store_category=#{storeCategory}
+	 	and store_category=#{storeCategory}
 	 	</if>
-	 	 order by store_no desc
-	 	 )s)where rnum between #{start} and #{end}
+	 	 order by store_no desc)s) where rnum between #{start} and #{end}
 	</select>
 	<select id="selectTotalCount" parameterType="map" resultType="int">
 		select count(*) from store

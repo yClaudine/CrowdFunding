@@ -228,9 +228,9 @@ html>body {
   
     
     <div class="category-title">
-			<h5>상품 카테고리
+			<h5>상품 카테고리 <a href="/storeList.do?reqPage=1&storeCategory=all" style="font-weight: normal; font-size: 18px; padding-left: 15px;">전체 보기</a>
 			</h5>
-				<a href="/storeList.do?reqPage=1&storeCategory=all">전체 보기</a>
+				
 			<div class="content-category">
 				<div class="content-categorylist">
 					<a href="/home.do"><span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>

@@ -552,7 +552,7 @@ html>body {
 			           	 	<input type="hidden" name="memberNo" value="${m.memberNo }">
 			           	 	<input type="hidden" name="storeNo" value="${s.storeNo }">
 			           	 	<input type="hidden" name="starNo" value="${ss.starNo }">
-			           	 	<c:if test="${not empty sessionScope.m}">
+			           	 	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId != ss.memberId}">
 			            	<button id="report-button">신고</button>
 			            	</c:if>
 			            </form>

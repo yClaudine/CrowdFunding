@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <link rel="stylesheet" href="resources/css/bootstrap.css">
-    <link rel="stylesheet" href="resources/css/fundUpdate.css">
+    <link rel="stylesheet" href="resources/css/fundUpdate1.css">
     <script src="resources/js/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
@@ -40,7 +40,8 @@
 	 		 width:100px;
 	 		 text-overflow : ellipsis;
 	 		 overflow:hidden;						
- 		);
+ 		}
+ 		
     </style>
 </head>
 <body>

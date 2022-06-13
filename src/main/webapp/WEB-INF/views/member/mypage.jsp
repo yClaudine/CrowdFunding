@@ -77,6 +77,16 @@
 		.fund-wrap{
 			margin:0px;
 		}
+		.exp{
+		}
+		.fundtitle{
+			padding-left:10px;
+			
+		}
+		.exp{
+			padding-left:10px;
+		}
+		
 	</style>
 </head>
 <body>
@@ -111,13 +121,13 @@
                     	<a href="logout.do" class="aout"><button class="btn btn-outline-success" id="outBtn">로그아웃</button></a>
                     </c:if>
                 </div>
-                <c:if test="${sessionScope.m.categoryNo!=2 }">
+                
 	                <div class="logout onload">
 	                	
 	                	<a href="onLoadFrm.do" class="aout"><button class="btn btn-outline-success" id="outBtn">신청 현황</button></a>
 	                	
 	                </div>
-                </c:if>
+                
                 <div class="setting">
                     <a href="setting.do" class="mUS"><span class="material-symbols-outlined" id="sett">
                         settings
@@ -233,16 +243,7 @@
                 	<div class="fund-wrap">
 	                    <div>만든펀딩</div>
 	                    <ul class="Info">
-	                        <li>
-	                            <a href=""><div class="imgbox"><img src="/img/00.png" alt=""></div></a>
-	                            <div class="fundtitle">제목</div>
-	                            <div class="exp">설명</div>
-	                        </li>
-	                        <li>
-	                            <a href=""><div class="imgbox"><img src="/img/00.png" alt=""></div></a>
-	                            <div class="fundtitle">황재를 위한 안마배개</div>
-	                            <div class="exp">이벤트로 굉장히 파격적인 세일중 지금 아니면 어떤때 기회가 올지모름</div>
-	                        </li>
+	                       
 	                    </ul>
 	                    <ul class="pagination pagination-sm">
 	                       
@@ -261,7 +262,9 @@
                         </div>
                     </div>
 	                </div>
-		            <div class="notthingF">
+
+                </div>
+                <div class="notthingF">
 		                <div class="msgI">
 		                    <span class="material-symbols-outlined" class="idea">
 		                        light
@@ -270,9 +273,7 @@
 		                </div>
 		                
 		                <a href="createFunding.do" class="fundopen"><button class="btn btn-info btnf">펀딩 프로젝트 시작하기</button></a>
-	            	</div>
-                    
-                </div>
+	            </div>
                 <!-- 스토어 페이지 시작  -->
                 <div class="storeCt">
                 	<div class="store-wrap">
@@ -336,6 +337,26 @@
     <script>
    		 const memberId = $("[name=memberId]").val();
     	$(function(){
+    		$(".aout").eq(0).show();
+    		$.ajax({
+        		url: "/selectSeller.do",
+        		data:{memberId:memberId},
+        		type:"get",
+        		success:function(data){
+        			console.log(data)
+        			if(data.authSeller==0){
+        							//권한이 0일때 
+        				$(".aout").eq(0).hide();
+        			}else if(data.authSeller==2){
+        				$(".aout").eq(0).hide();
+        				$(".logout").show();
+        			}
+        		},
+        		error:function(){
+        			console.log("에러처리");
+        		}
+        		
+        	});
     		const onload =$(".onload");
     		
     		$.ajax({
@@ -345,22 +366,16 @@
     			success: function(s){
     				//이미지 변경하기 
     				$(".mImgBox").empty();
-    				$(".mImgBox").append("<img src='resources/image/member/"+s.enPath+"' id=mypgI>");
+    				$(".mImgBox").append("<img src='resources/image/member/"+s.enPath+"' id='mypgI'>");
     				//이름 변경하기 
     				$(".sellerName").text("");
     				$(".sellerName").text(s.owner);
     				$(".sellerName").css({
     					"font-size" : "12px"
     				});
-    				if(s!=null&&s.authSeller==0||s.authSeller==1){
+    				if(s!=null&&s.authSeller==0||s.authSeller==1||s.authSeller==2){
     					
     					onload.show();
-    				}else{
-    					onload.hide();
-    					
-    						
-    					
-    					
     				}
     			},
     			error: function(){
@@ -415,6 +430,7 @@
     				$(".fund-wrap").hide();
     				$(".notthingF").eq(0).show();
     			}else{
+    				
     				$(".fund-wrap").show();
     				$(".notthingF").eq(0).hide();
     				  $(".Info").empty();
@@ -449,7 +465,8 @@
     	//스토어를 클릭했을 때 
     	$(".store").on("click",function(){
     		store(1);
-    		$(".notthingF").eq(1).hide();
+    		$(".notthingF").eq(0).hide();
+    		
     	})
     	function store(req){
     		$.ajax({
@@ -467,7 +484,7 @@
     					for(let i=0; i<store.store.length; i++){
     						const li =$("<li>");
     	                	//이미지 만들기
-    	                  	const a =$("<a href='storeView.do?No="+store.store[i].storeNo+"'>");
+    	                  	const a =$("<a href='storeView.do?storeNo="+store.store[i].storeNo+"'>");
     	                	const div = $("<div class='imgbox'>");
     	                	const img = $("<img src='resources/image/store/upload/"+store.store[i].storeImg1+"' class='fundImg'>");
     	                	div.append(img);
@@ -479,7 +496,7 @@
     	                	li.append(div1);
     	                	//스토어내용
     	                	const div2 = $("<div class='exp'>");
-    	                	div2.append(store.store[i].storeContent);
+    	                	div2.append(store.store[i].storeProductcontent);
     	                	li.append(div2);
     	                	$(".Info").append(li);
     	              	}

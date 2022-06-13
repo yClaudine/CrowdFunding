@@ -110,31 +110,31 @@ html>body {
 				<div class="content-categorylist">
 					<span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">home</span>
+	                	<span class="store-content">리빙</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
 					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">beauty</span>
+	                	<span class="store-content">뷰티</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
 					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">pet</span>
+	                	<span class="store-content">반려동물</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
 					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">travel</span>
+	                	<span class="store-content">여행</span>
 	                </div>
 				</div>
 				<div class="content-categorylist">
 					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
 					<div class="content-categoryname">
-	                	<span class="store-content">food</span>
+	                	<span class="store-content">푸드</span>
 	                </div>
 				</div>
 			</div>

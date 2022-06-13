@@ -101,7 +101,7 @@
 						div.addClass("item");
 					
 						const a =$("<a href='/fundView.do?fundNo="+list.fund[i].fundNo+"'>");
-						let img = $("<img src='resources/image/fund/beauty.jpg' class='fundingImg'>");
+						let img = $("<img src='resources/image/fund/upload/"+list.fund[i].fundFilepath1+"' class='fundingImg'>");
 						a.append(img);
 						div.append(a);
 						//펀드 이름 넣어주기 

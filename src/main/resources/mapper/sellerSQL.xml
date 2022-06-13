@@ -27,7 +27,7 @@
   	<update id="updateSeller" parameterType="sel">
   		update seller set en_no=#{enNo},en_path=#{enPath},en_type=#{enType},
   		en_intro=#{enIntro},owner=#{owner},photopath=#{photopath},position=#{position},
-  		address=#{address} where member_id=#{memberId}
+  		address=#{address},auth_seller=0 where member_id=#{memberId}
   		
   	</update>
   	
