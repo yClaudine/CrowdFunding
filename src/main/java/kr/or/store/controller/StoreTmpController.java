@@ -208,7 +208,7 @@ public class StoreTmpController {
 		
 	//스토어 상품 정보 등록 insert
 		@RequestMapping(value="/updateStore4.do")
-		public String updateStore4(int stNo, Model model, int stDelivery, String stProduct, String stProductcontent, int stPrice, String stContent) {
+		public String updateStore4(int stNo, Model model, int stDelivery, String stProduct, int stCount, String stProductcontent, int stPrice, String stContent) {
 			TmpStore tmp = new TmpStore();
 			tmp.setStNo(stNo);
 			TmpStore ts = service.selectOneTmpStore(tmp);
@@ -216,6 +216,7 @@ public class StoreTmpController {
 			ts.setStProduct(stProduct);
 			ts.setStProductcontent(stProductcontent);
 			ts.setStPrice(stPrice);
+			ts.setStCount(stCount);
 			ts.setStContent(stContent);
 			int result = service.updateStore4(ts);
 			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
