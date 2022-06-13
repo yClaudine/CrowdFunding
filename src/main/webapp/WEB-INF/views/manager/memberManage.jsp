@@ -516,10 +516,6 @@ $(".modal-close").on("click",function(){
 	 const oldAuth = $(this).next().val();
 	 const newAuth = $(this).parent().prev().children().eq(1).val();
 	 const memberId = $(this).next().next().next().val();
-	 console.log(oldAuth);
-	 console.log(newAuth);
-	 console.log(memberId);
-	 
 	 if(oldAuth == newAuth){
 		 alert("변경된 값이 없습니다.");
 	 }else{
