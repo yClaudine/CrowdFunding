@@ -393,7 +393,7 @@ html>body {
         </ul>
         <div class="content-wrap2">
             <div class="tabcontent" id="story">
-            	<h3>스토리</h3>
+            	<h3 style="padding-bottom:20px; border-bottom: 3px solid #00c4c4;">스토리</h3>
             	<span>${s.storeImg2 }</span>
 	            <span>${s.storeImg3 }</span>
 	            <span>${s.storeImg4 }</span>
