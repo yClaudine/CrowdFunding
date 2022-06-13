@@ -154,12 +154,13 @@
 		$("[type=date]").attr("min",sysdate);
 		
 		//저장하기 버튼
-		$(".save-btn").on("click",function(){
+		$(".save-btn").on("click",function(e){
 			if(confirm("입력하신 정보를 저장하시겠습니까?")){
 				//validation 체크값 초기화
 				let count = 0;
 				//값 추출
-				const tfName = $("#tfName").val();
+				const tfNameBefore = $("#tfName").val();
+				const tfName = encodeURI(tfNameBefore);
 				const tfAmount = $("#tfAmount").val();
 				const tfCategory = $("#tfCategory").val();
 				const tfStart = $("#tfStart").val();

@@ -191,6 +191,7 @@ public class FundTmpController {
 	//기본 정보 업데이트
 	@RequestMapping(value="/SaveTmpBasic.do")
 	public String SaveTmpBasic(TmpFund tf, Model model) {
+		System.out.println(tf);
 		int result = service.updateTmpBasic(tf);
 		return "redirect:/fundReadyFrm.do?tfNo="+tf.getTfNo();
 	}
