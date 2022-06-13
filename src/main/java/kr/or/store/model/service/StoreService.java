@@ -72,7 +72,7 @@ public class StoreService {
 		String pageNavi = "";
 		//이전버튼
 		if(pageNo != 1) {
-			pageNavi += "<a href='/storeList.do?reqPage="+(reqPage-1)+"&storeCategory="+storeCategory+"'>[이전]</a>";
+			pageNavi += "<a href='/storeList.do?reqPage="+(reqPage-1)+"&storeCategory="+storeCategory+"'><</a>";
 		}
 		//페이지숫자생성
 		for(int i=0;i<pageNaviSize;i++) {
@@ -88,7 +88,7 @@ public class StoreService {
 		}
 		//다음버튼
 		if(pageNo<=totalPage) {
-			pageNavi += "<a href='/storeList.do?reqPage="+(reqPage+1)+"&storeCategory="+storeCategory+"'>[다음]</a>";
+			pageNavi += "<a href='/storeList.do?reqPage="+(reqPage+1)+"&storeCategory="+storeCategory+"'>></a>";
 		}
 		StoreAllPageData spd = new StoreAllPageData(list, pageNavi);
 		return spd;

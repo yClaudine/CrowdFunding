@@ -393,6 +393,13 @@ html>body {
         </ul>
         <div class="content-wrap2">
             <div class="tabcontent" id="story">
+            	<h3>스토리</h3>
+            	<span>${s.storeImg2 }</span>
+	            <span>${s.storeImg3 }</span>
+	            <span>${s.storeImg4 }</span>
+	            <span>${s.storeImg5 }</span>
+	            <span>${s.storeContent }</span>
+	            <hr>
                 <h3 class="menu-color">배송안내</h3>
                 <hr>
                 <div class="story">
