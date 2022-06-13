@@ -56,6 +56,6 @@
 		update store_star set store_reportcount=store_reportcount+1 where star_no=#{starNo}
 	</update>
 	<update id="updateReportMem" parameterType="int">
-		update member_tbl set member_warning=member_warning+1 where member_no=#{memberNo}
+		update member_tbl set report=report+1 where member_no=#{memberNo}
 	</update>
 </mapper>
