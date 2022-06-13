@@ -151,7 +151,7 @@ html>body {
 	        		<div class="content">
 	        			<div class="allcontent-wrap1">${(reqPage-1) *8 + i.count}</div>
 	        			<div class="content-wrap1">
-			            	<div class="allcontent-wrap1">${s.storeImg1 }
+			            	<div class="allcontent-wrap1"><img src="/resources/image/store/upload/${s.storeImg1}">
 			                	<div class="allcontent-list">
 			                		<a href="/storeView.do?storeNo=${s.storeNo }">${s.storeTitle }</a>
 			                	</div>

@@ -105,7 +105,6 @@
 		</div>
 	</div>
 	<br><br><br><br><br>
-	${tmpF.tfCategory}
 	<script>
 		$(document).ready(function(){
 			
