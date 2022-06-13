@@ -108,7 +108,6 @@ public class CouponController {
 		@RequestMapping(value="/couponDetail.do",produces="application/json;charset=utf-8")
 		public String couponDetail(int couponNo) {
 			Coupon c = service.selectOneCoupon(couponNo);
-			System.out.println(c);
 			return new Gson().toJson(c);
 		}
 	

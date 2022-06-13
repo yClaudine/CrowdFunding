@@ -288,7 +288,7 @@ select{
                         <span class="material-icons" style="font-size: 30px; height: 20px;" >search</span>
                     </li>
                     <li>
-                        <input type="text" name="keyword" id="keyword" placeholder="아이디를 입력해주세요">
+                        <input type="text" name="keyword" id="keyword" placeholder="펀딩명을 입력해주세요">
                     </li>
                     <li>
                         <input type="submit" class="search-btn" value="검색"></input>
@@ -399,6 +399,12 @@ $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
 	location.href="/fundManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
+$("#keyword").on("keyup",function(e){  
+    if(e.keyCode == 13){
+    	$(".search-btn").click();
+    }
+});
+
 
 //옵션 변경시 적용(전체, 신고)
 changeType.on("change",function(){

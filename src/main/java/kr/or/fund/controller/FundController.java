@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,14 @@ import com.google.gson.JsonParser;
 import kr.or.fund.model.service.FundService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
+import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.PayBoardPageData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
 import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
+import kr.or.member.vo.Member;
+import kr.or.member.vo.Seller;
 
 @Controller
 public class FundController {
@@ -102,7 +107,21 @@ public class FundController {
 	
 	//펀드 생성하기 페이지로
 	@RequestMapping(value="/createFunding.do")
-	public String createFunding() {
+	public String createFunding(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("m");
+		if(m != null) {
+			int seller = 0;
+			Seller s = service.selectOneSeller(m);
+			if(s != null) {
+				seller = 1;
+			}
+			ArrayList<Fund> fl = service.selectMemberFund(m);
+			ArrayList<TmpFund> tfl = service.selectMemberTmpFund(m);
+			model.addAttribute("fl",fl);
+			model.addAttribute("tfl",tfl);
+			model.addAttribute("seller",seller);
+		}
 		return "fund/createFunding";
 	}
 	
@@ -324,6 +343,19 @@ public class FundController {
 			}
 			
 			return "redirect:/manageFundingFrm.do?fundNo="+fc.getFundNo();
+		}
+		
+		//펀드 현황 페이지로
+		@RequestMapping(value="/fundStatusManageFrm.do")
+		public String fundStatusManageFrm(Fund f, Model model, int reqPage){
+			pageMove(f, model);
+			PayBoardPageData pbpd = service.selectPayBoardList(reqPage,f);
+			//ArrayList<FundPay> fpl = service.selectFundPay(f);
+			int totalPay = service.selectTotalFund(f);
+			model.addAttribute("fpl",pbpd.getList());
+			model.addAttribute("pageNavi",pbpd.getPageNavi());
+			model.addAttribute("totalPay",totalPay);
+			return "fund/fundStatusManageFrm";
 		}
 	
 }

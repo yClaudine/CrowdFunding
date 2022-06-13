@@ -415,6 +415,11 @@ $(".search-btn").on("click",function(){
 	}
 	*/
 });
+$("#keyword").on("keyup",function(e){  
+    if(e.keyCode == 13){
+    	$(".search-btn").click();
+    }
+});
 
 
 //옵션 변경시 적용(전체,미승인,승인,심사전)

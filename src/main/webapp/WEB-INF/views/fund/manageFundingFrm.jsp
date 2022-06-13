@@ -92,7 +92,7 @@
 					<div>
 						<h6>펀딩 현황</h6>
 					</div>
-						<button onclick="#">살펴보기</button>
+						<button onclick="location.href='/fundStatusManageFrm.do?fundNo=${fund.fundNo}&reqPage=1'">살펴보기</button>
 				</div>
 				<button class="btn-info submit-btn">나가기</button>
 			</div>

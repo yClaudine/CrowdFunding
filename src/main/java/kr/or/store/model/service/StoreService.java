@@ -12,6 +12,7 @@ import kr.or.member.vo.Member;
 import kr.or.store.model.dao.StoreDao;
 import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
+import kr.or.store.model.vo.StoreDelivery;
 import kr.or.store.model.vo.StoreStar;
 import kr.or.store.model.vo.StoreViewData;
 
@@ -136,7 +137,7 @@ public class StoreService {
 	}
 
 	public int insertPay(int memberNo, int couponNo, int storeNo, int number, int storeDelivery, int storePrice,
-			int storepayAllprice) {
+			int storepayAllprice, StoreDelivery sd) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("couponNo", couponNo);
@@ -146,14 +147,25 @@ public class StoreService {
 		map.put("storePrice", storePrice);
 		map.put("storepayAllprice", storepayAllprice);
 		int result = dao.insertPay(map);
+		//가장 최근의 결제번호 가져오기
+		int storepayNo = dao.selectPayno();
+		//storepay값 넣어주기
+		sd.setStorepayNo(storepayNo);
+		//쿠폰 사용 유무를 알기 위한 변수
 		int result2 = 0;
+		int result3 = 0;
 		if(result>0){
+			//쿠폰을 썼을 경우
 			result2 = dao.updateMemberCoupon(map);
+			//delivery insert
+			result3 = dao.insertDelivery(sd);
 		}else{
+			//쿠폰을 사용하지 않았을 경우
 			result2 = -1;
 		}
 		return result2;
 	}
+	
 
 	public int updateReport(int storeNo) {
 		return dao.updateReport(storeNo);
@@ -179,6 +191,12 @@ public class StoreService {
 		int result2 = dao.updateReportMem(memberNo);
 		return result1+result2;
 	}
+
+	public int insertDelivery(StoreDelivery sd) {
+		return dao.insertDelivery(sd);
+	}
+
+
 
 	
 

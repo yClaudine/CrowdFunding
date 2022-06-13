@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 스토리</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -170,11 +170,9 @@
 }
 .detail-img{
     width: 630px;
-    height: 400px;
 }
 .detail-img>img{
     width: 100%;
-    height: 400px;
     margin-bottom: 5px;
 }
 .remaining-day{
@@ -298,12 +296,14 @@
     justify-content: center;
     border: 1px solid #dadce0;
     color: #60656a;
+    font-size:15px;
 }
+/*
 .seller-dm:hover{
     background-color: #dadce0;
     border: 1px solid #ffffff;
     transition: 0.5s;
-}
+}*/
 .reward-info{
     margin-top: 30px;
     margin-bottom: 5px;
@@ -365,9 +365,6 @@
     margin-left: 10px;
     background-color: #d4f8f8;
 }
-
-
-
 
 
 
@@ -494,6 +491,62 @@ justify-content: right;
     cursor: not-allowed;
 }
 
+
+
+/*문의하기 쪽지*/
+.modal-wrap{
+    width: 100vw;
+    height: 130vh;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.detail-modal{
+    background-color: #e7f9f9;
+    min-width: 600px;
+    min-height: 500px;
+    border-radius: 5px;
+}
+.modal-header{
+	width: 190px;
+	margin: 0 auto;
+	padding: 10px;
+}
+.modal-top h3{
+	margin: 0;
+}
+.detail-table{
+	margin: 5px auto;
+	min-height: 300px;
+	width: 100%;
+}
+.detail-table tr{
+	border: 1px solid #bfbfbf;
+}
+.detail-table th{
+	border: 1px solid #bfbfbf;
+	width: 17%;
+	vertical-align: middle;
+	text-align:center;
+}
+.detail-table td{
+	vertical-align: middle;
+	padding: 5px;
+}
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -516,7 +569,7 @@ justify-content: right;
         <!--왼쪽 콘텐츠-->
         <div class="detail-view">
             <span class="main-img">
-                <img src="resources/image/fund/travel.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath1}">
             </span>
             <div class="detail-content">
                 ${f.fundIntro }
@@ -536,12 +589,29 @@ justify-content: right;
                 <span href="#" class="guide-modal" id="modal-open">자세히 알아보기</span>            
             </div>
             <div class="story">프로젝트 스토리</div>
+          <c:if test="${not empty f.fundFilepath2}">
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath2}">
             </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath3}">
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath3}">
             </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath4}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath4}">
+            </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath5}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath5}">
+            </span>
+           </c:if>
+            
+           <div style="height:200px;"></div>
+           
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
         <!--오른쪽 콘텐츠-->
@@ -594,10 +664,10 @@ justify-content: right;
                 <div class="seller-intro">
                    		${s.enIntro } 
                 </div> 
-                <button class="seller-dm">
+                <button type="button" class="seller-dm">
                     <span class="material-symbols-outlined">
                         contact_support</span>
-                    <span class="dm">문의하기</span>
+                    <span class="dm">문의하기는 챗봇 이용</span>
                 </button>               
             </div>
             <!--리워드 정보-->
@@ -617,13 +687,15 @@ justify-content: right;
                     <div class="reward-send reward-active">${r.rewardSend}</div>
                     <div class="reward-count">
                         <span class="reward-fixcount">제한수량 ${r.rewardCount}개</span>
-                        <span class="reward-remaining">현재 (데이터)개 남음!</span>
+                        <!-- <span class="reward-remaining">현재 (데이터)개 남음!</span> -->
                     </div>
-                    <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div>
+                    <!--<div class="reward-status reward-active">총 (데이터)개 펀딩완료</div>-->
                 </div>
             </a><!--리워드 1개 생성-->
           </c:forEach>
+              <div style="height:200px;"></div>
         </div><!--오른쪽 콘텐츠 끝-->
+        
     </div>
 
 
@@ -688,6 +760,34 @@ justify-content: right;
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
     <!-- <input type="hidden" class="likeCheck" value=""> -->
 
+	<!-- 문의하기 모달 -->
+  <div id="sendDm-modal" class="modal-wrap">
+		<div class="detail-modal">
+			<div class="modal-header"><h3>쪽지보내기</h3></div>
+			<hr>
+			<div >
+				<table class="sendDmFrm detail-table">
+					<tr>
+						<th>수신자 : </th>
+						<td><input  id="memberId" name="memberId" value="${s.memberId }" readonly></td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td><input type="text" name="mTitle"></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td><textarea cols="60" rows="10" name="dmContent"></textarea></td>
+					</tr>
+				</table>
+				<button class="btns" onclick="dmSend();">쪽지보내기</button>
+				<button class="btns modal-close" onclick="dmClose();">닫기</button>
+			</div>
+		</div>
+	</div>
+
+
+
 <script>
 $("#pay").click(function(){
 	const login = $(".login").val();
@@ -697,105 +797,163 @@ $("#pay").click(function(){
 		alert("로그인을 먼저 진행해주세요");
 	}
 });
-//펀딩률
-let fundingSum = $(".fundingSum").val();
-let fundAmount = $(".fundAmount").val();
-$(".achieve").text(Math.floor(fundingSum / fundAmount *100));
 
+/*문의하기 모달--------------------------------
+	const fundNo = $(".fundNo").text();
+	let memberId;
+	let ws;
+	$(function() {
+		memberId = $("#memberId").val();
+		ws = new WebSocket("ws://localhost/dm.do");
+		ws.onopen = onOpen;
+		ws.onmessage = receiveMsg;
+		ws.onclose = onClose;
+	});
+	function onOpen() {
+		//소켓연결이 되면 자동으로 실행되는 메서드
+		const data = {
+			type : "enter",
+			memberId : memberId
+		};
+		ws.send(JSON.stringify(data));
+	}
+	function receiveMsg(param) {
+		getSendDm();
+	}
+	function onClose() {
 
-//프로젝트 신고하기 모달
-$(function(){
-    $("#confirm").click(function(){
-        modalClose();
-        //컨펌 이벤트 처리
-    });
-    $("#report-open").click(function(){        
-        $("#report-modal").css('display','flex').hide().fadeIn();
-    });
-    $("#exit").click(function(){
-        modalClose();
-    });
-    function modalClose(){
-        $("#report-modal").fadeOut();
-    }
-});
-//신고하기 확인여부
-$(function(){
-	const login = $(".login").val();
-	const fundNo = $(".fundNo").val();
-	$("#report").click(function(){
-		if(login){
-			let result = confirm("정말 신고하시겠습니까?");
-			if(result==true){
-				location.href="/reportFund.do?fundNo="+fundNo;
-				//$("#report").attr('disabled', true);
-			}else{
-				$("#report-modal").fadeOut();
-			}				
-		}else{
-			alert("로그인을 진행해주세요.")
+	}
+
+	//쪽지보내기 클릭시 모달띄우기
+	function sendDmModal() {
+		$("#sendDm-modal").css("display", "flex");
+	}
+	function dmClose() {
+		$("#sendDm-modal").css("display", "none");
+		$("[name=dmContent]").val("");
+		$("[name=mTitle]").val("");
+	}
+
+	//쪽지보내기 버튼
+	function dmSend() {
+		const dmContent = $("[name=dmContent]").val();
+		const mTitle = $("[name=mTitle]").val();
+		const data = {
+			type : "dmSend",
+			sendMemId : "admin",
+			recvMemId : memberId,
+			mContent : dmContent,
+			mTitle : mTitle,
+			category : 1,
+			categoryNo : fundNo
 		}
+		//data를 json객체로 만들어 넘겨주기
+		ws.send(JSON.stringify(data));
+		//getSendDm(); //보낸메세지함 업데이트
+		dmClose(); //모달닫기
+
+	}
+*/
+	//----------------------------------------------------------------
+
+	//펀딩률
+	let fundingSum = $(".fundingSum").val();
+	let fundAmount = $(".fundAmount").val();
+	$(".achieve").text(Math.floor(fundingSum / fundAmount * 100));
+
+	//프로젝트 신고하기 모달
+	$(function() {
+		$("#confirm").click(function() {
+			modalClose();
+			//컨펌 이벤트 처리
+		});
+		$("#report-open").click(function() {
+			$("#report-modal").css('display', 'flex').hide().fadeIn();
+		});
+		$("#exit").click(function() {
+			modalClose();
+		});
+		function modalClose() {
+			$("#report-modal").fadeOut();
+		}
+	});
+	//신고하기 확인여부
+	$(function() {
+		const login = $(".login").val();
+		const fundNo = $(".fundNo").val();
+		$("#report").click(function() {
+			if (login) {
+				let result = confirm("정말 신고하시겠습니까?");
+				if (result == true) {
+					location.href = "/reportFund.do?fundNo=" + fundNo;
+					//$("#report").attr('disabled', true);
+				} else {
+					$("#report-modal").fadeOut();
+				}
+			} else {
+				alert("로그인을 진행해주세요.")
+			}
 		});
 	});
 
-//좋아요 
-//체크여부
-$(document).ready(function () {
-	let likeCheck = $("#likeCheck").val();
-	if(likeCheck==0){ //로그인 안함, 좋아요 안함
-		$("#likes").text("favorite_border");
-	}else{			//좋아요 함
-		$("#likes").text("favorite");
-	}
-});
+	//좋아요 
+	//체크여부
+	$(document).ready(function() {
+		let likeCheck = $("#likeCheck").val();
+		if (likeCheck == 0) { //로그인 안함, 좋아요 안함
+			$("#likes").text("favorite_border");
+		} else { //좋아요 함
+			$("#likes").text("favorite");
+		}
+	});
 
-$(".like-btn").click(function(){
-	const login = $(".login").val();
-	let fundNo = $(".fundNo").val();
-	let memberId = $(".memberId").val();
+	$(".like-btn").click(function() {
+		const login = $(".login").val();
+		let fundNo = $(".fundNo").val();
+		let memberId = $(".memberId").val();
 
-	if(login){
-		//likeCheck
-		$.ajax({
-			url : "/likeCheck.do",
-			data:{fundNo:fundNo,memberId:memberId},
-			success : function(data){
-				if(data != -1){
-					const likes = $("#likes").text();					
-					if(likes == 'favorite'){
-						$("#likes").text("favorite_border");	
-					}else{
-						$("#likes").text("favorite");
-					}
-				}//if
-				$("#likeSum").text(data);
-			}
+		if (login) {
+			//likeCheck
+			$.ajax({
+				url : "/likeCheck.do",
+				data : {
+					fundNo : fundNo,
+					memberId : memberId
+				},
+				success : function(data) {
+					if (data != -1) {
+						const likes = $("#likes").text();
+						if (likes == 'favorite') {
+							$("#likes").text("favorite_border");
+						} else {
+							$("#likes").text("favorite");
+						}
+					}//if
+					$("#likeSum").text(data);
+				}
+			});
+
+		} else {
+			alert("로그인이 필요합니다.");
+		}
+	});
+
+	//펀딩 설명 모달
+	$(function() {
+		$("#confirm").click(function() {
+			modalClose();
+			//컨펌 이벤트 처리
 		});
-
-	}else{
-		alert("로그인이 필요합니다.");
-	}
-});
-
-
-
-//펀딩 설명 모달
-$(function(){
-    $("#confirm").click(function(){
-        modalClose();
-        //컨펌 이벤트 처리
-    });
-    $("#modal-open").click(function(){        
-    	$("#popup").css('display','flex').hide().fadeIn();
-    });
-    $("#close").click(function(){
-        modalClose();
-    });
-    function modalClose(){
-        $("#popup").fadeOut();
-    }
-});
-
+		$("#modal-open").click(function() {
+			$("#popup").css('display', 'flex').hide().fadeIn();
+		});
+		$("#close").click(function() {
+			modalClose();
+		});
+		function modalClose() {
+			$("#popup").fadeOut();
+		}
+	});
 </script>
                 
 </body>

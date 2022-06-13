@@ -14,7 +14,7 @@ public class StoreDelivery {
 	private int storepayNo;
 	private int storeDelivery;
 	private String storeProduct;
-	private int storeProductNum;
+	private int storeProductnum;
 	private String deliveryName;
 	private String deliveryPhone;
 	private String deliveryAddress;

@@ -21,6 +21,7 @@ import kr.or.member.vo.Member;
 import kr.or.store.model.service.StoreService;
 import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
+import kr.or.store.model.vo.StoreDelivery;
 import kr.or.store.model.vo.StoreStar;
 import kr.or.store.model.vo.StoreViewData;
 
@@ -99,14 +100,15 @@ public class StoreController {
 	}
 	//결제완료화면구현
 	@RequestMapping(value="/pay.do")
-	public String pay(Model model, @SessionAttribute (required = false)Member m, int storeNo,int number,int couponNo,int storeDelivery,int storePrice, int storepayAllprice) {
+	public String pay(Model model, @SessionAttribute (required = false)Member m, int storeNo,int number,int couponNo,int storeDelivery,int storePrice, int storepayAllprice,StoreDelivery sd) {
 		StoreViewData sv = service.selectOneStore(storeNo);
-		int insertPay = service.insertPay(m.getMemberNo(),couponNo,storeNo,number,storeDelivery,storePrice,storepayAllprice);
+		int insertPay = service.insertPay(m.getMemberNo(),couponNo,storeNo,number,storeDelivery,storePrice,storepayAllprice,sd);
 		System.out.println(storeNo);
 		System.out.println(couponNo);
 		model.addAttribute("totalprice", storepayAllprice);
 		model.addAttribute("number", number);
 		model.addAttribute("s", sv.getS());
+		model.addAttribute("sd",sd);
 		return "store/pay";
 	}
 	//스토어 신고

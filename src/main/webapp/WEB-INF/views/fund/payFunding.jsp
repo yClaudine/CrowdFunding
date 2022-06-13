@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 결제하기</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -1050,12 +1050,9 @@ label span{
 	                            <input type="checkbox" class="reward-check" name="reward-check" id="reward-check" value="${r.rewardNo }">
 	                        </div>
 	                        <div class="reward-wrap">
-	                            <input type="hidden" id="amountReward" value="전체수량">
-	                            <input type="hidden" id="remainCnt"value="남은수량">
-	                            <input type="hidden" id="limitCnt" value="제한수량">
 	                            <div class="reward-price">${r.rewardPrice}원 펀딩</div>
 	                            <span class="reward-name">${r.rewardName}</span>
-	                            <span class="reward-remaining">(675개 남음)</span>
+	                            <span class="reward-remaining">(제한수량 ${r.rewardCount}개)</span>
 	                            <div class="reward-intro">${r.rewardIntro}</div>
 	                            <div class="reward-intro option">*옵션*<br>
 	                            ${r.rewardOption}
@@ -1076,7 +1073,9 @@ label span{
                             <input type="text" class="amount-input" value="0" name="${r.rewardNo }" readonly></input>
                             <button type="button" class="material-icons amount-btn" name="${r.rewardNo }up" id="down" onclick="changeQty(this,'up')" value="${r.rewardNo }">add</button> 
                             <input type="hidden" class="rewardPrice" value="${r.rewardPrice}" >
-                            <input type="hidden" class="reward-total" value="0">                           
+                            <input type="hidden" class="reward-total" value="0">      
+                            <!-- 제한수량 관련 -->                     
+                            <input type="hidden" class="available" value="${r.rewardCount }">                           
                         </div>                             
                     </div><!--리워드박스-->
                 </c:forEach>
@@ -1140,18 +1139,19 @@ label span{
                                 <div class="body-contentbox">
                                     <div class="modal-flex">
                                         <div>
-                                            <label id="modal-label">
-                                            <input type="checkbox" id="modal-label" class="confirm-check">
-                                            <span>펀딩 종료 날짜를 확인하세요.</span>
-                                            </label>
+                                            <!-- <label id="modal-label"> 
+                                            <input type="text" id="modal-label" class="confirm-check" name="next-step">-->
+                                            <span>결제취소 시 펀딩금은 반환됩니다.</span>
+                                            <!--</label>-->
                                         </div>
                                     </div>
                                     <div class="modal-flex">
                                         <div>
-                                            <label id="modal-label">
-                                            <input type="checkbox" id="modal-label" class="confirm-check">
-                                            <span>결제 취소 시 펀딩금을 돌려받을 수 있어요.</span>
-                                            </label>
+                                            <!-- <label id="modal-label"> 
+                                            <input type="text" id="modal-label" class="confirm-check" name="next-step">-->
+                                            <span>프로젝트의 펀딩 종료일을 다시 확인하세요.</span><br>
+                                            <span style="float:left; color:#A29584;">(종료일 : ${f.fundEnd})</span>
+                                            <!--</label>-->
                                         </div>
                                     </div>
                                     <div class="accordion">
@@ -1163,7 +1163,8 @@ label span{
                             </div>
                         </div>
                         <div class="popup-foot">
-                        <button class="pop-btn confirm" id="confirm">계속해서 펀딩하기</button>
+                        <button class="pop-btn confirm semi-confirm" disabled style="pointer-events:none; background-color:lightgray; display:none;">계속해서 펀딩하기</button>
+                        <button class="pop-btn confirm final-confirm" id="confirm" >계속해서 펀딩하기</button>
                         </div>
                     </div>
                 </div>
@@ -1284,7 +1285,7 @@ label span{
                         <div>이름</div>
                         <input class="delivery-active2 d-name">
                         <div>휴대폰 번호</div>
-                        <input class="delivery-active2 d-phone">
+                        <input class="delivery-active2 d-phone" placeholder="010-0000-0000">
                         <div>주소</div>                                   
                         <!--주소 API-->
                     	<div class="address-wrap">
@@ -1373,9 +1374,21 @@ label span{
 	<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">  
 </div>
  
+ 	<%@include file="/WEB-INF/views/common/footer.jsp" %>
   
     
 <script>
+	//메모 - input 해킹 방지?? : on("propertychange change keyup paste input",
+
+	//리워드 선택 모달 검증
+	$("#modal-open").click(function(){       
+		if($("input:checkbox[name='reward-check']").is(":checked")==false){
+			alert("하나 이상의 리워드를 선택해 주세요.");
+		}else{
+			$("#popup").css('display','flex').hide().fadeIn();	
+		}
+	});
+
 	//페이지 컨트롤
 	$(document).ready(function(){	
 		$("#payPage1").show();
@@ -1383,63 +1396,50 @@ label span{
 		$("#payPage3").hide();
 	});
 
-	//결제 페이지 쿠폰리스트
+	//다음단계 검증
 	$("#confirm").on("click",function(){
-		//<쿠폰용>
-		//결제할 멤버 번호
-		const memberNo = $(".memberNo").val();
-		//카테고리명
-		const fundCategory = $(".fundCategory").val();
-		//선택한 리워드 총금액
-		let rewardSum = Number($(".reward-sum").val()); 
-		//배송비 조건
-		let maxFee = Number($(".max-fee").val()); 
-		console.log(maxFee);
-		$.ajax({
-			url : "/selectCouponList.do",
-			data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum, maxFee:maxFee}, 
-			success : function(data){
-				const select = $("#coupon-type2");
-				select.empty();
-				select.append("<option value=-1 name=-1 >[다음 쿠폰 중 하나만 선택 가능합니다.]</option>")
-				for(let i=0; i<data.length; i++){
-					select.append("<option value="+data[i].discount+" name="+data[i].couponNo+">"+data[i].couponName+"</option>");
-				}//for문		<opion value=10 name=26>이름</>
-				$("#payPage2").show(); 
-				$("#payPage1").hide();
-			}//success
-		});//ajax
+		const chk1 = $("input:checkbox[name='next-step']").eq(0).prop("checked",true);
+		const chk2 = $("input:checkbox[name='next-step']").eq(1).prop("checked",true);
+
+		if(chk1 && chk2){
+			$(".final-confirm").show();
+			$(".semi-confirm").hide();			
+		}else{
+			$(".final-confirm").hide();
+			$(".semi-confirm").show();
+		}
+	});
+	
+	
+	//모달 검증 -> 결제 페이지 쿠폰리스트
+	$("#confirm").on("click",function(){
 		
-		/*
-		let reward = [];
-		let obj = {};
-		$("input[name='reward-check']:checked").each(function(i){
-			//let index = $("reward-check").index(this);
-			let memberNo = $(".memberNo").val();
-			let fundNo = $(".fundNo").val();
-			let rewardNo = ($(this).val());
-			let rewardAmount = ($(this).parents(".one-reward").find(".amount-input").val());
-			obj.memberNo = memberNo;
-			obj.fundNo = fundNo;
-			obj.rewardNo = rewardNo;
-			obj.rewardAmount = rewardAmount;
-			reward.push(obj);
-			obj={};
-		});
-		console.log(reward);
-		let jsonData = JSON.stringify(reward);
-		//js를 하나의 긴 문자로 만들어줌 -> 지금은 reward 키값을 긴 문자열 하나로 전송함(json parser로 처리필요)
+			//<쿠폰용>
+			//결제할 멤버 번호
+			const memberNo = $(".memberNo").val();
+			//카테고리명
+			const fundCategory = $(".fundCategory").val();
+			//선택한 리워드 총금액
+			let rewardSum = Number($(".reward-sum").val()); 
+			//배송비 조건
+			let maxFee = Number($(".max-fee").val()); 
+			console.log(maxFee);
+			$.ajax({
+				url : "/selectCouponList.do",
+				data : {memberNo:memberNo, fundCategory:fundCategory, rewardSum:rewardSum, maxFee:maxFee}, 
+				success : function(data){
+					const select = $("#coupon-type2");
+					select.empty();
+					select.append("<option value=-1 name=-1 >[다음 쿠폰 중 하나만 선택 가능합니다.]</option>")
+					for(let i=0; i<data.length; i++){
+						select.append("<option value="+data[i].discount+" name="+data[i].couponNo+">"+data[i].couponName+"</option>");
+					}//for문		<opion value=10 name=26>이름</>
+					$("#payPage2").show(); 
+					$("#payPage1").hide();
+				}//success
+			});//ajax
 		
-		$.ajax({
-			url : "/insertReward.do",
-			type:"post",
-			traditional:true,
-			data : {reward:jsonData},
-			success : function(data){
-				alert("성공");
-			}
-			
-		})*/
+		//}//else
 	});
 		
 
@@ -1505,6 +1505,9 @@ label span{
 			//console.log(index+"인덱스");
 			amountBox.css('display','block');
 			//console.log($(".amount-btn").length);
+			//박스 색상
+			$(this).parents(".one-reward").css('background-color','#e7f9f9');
+			
 			$(".amount-btn").eq(2*index+1).click();			
 			$(".reward-wrap2").eq(index).show();
 			$(".pay-wrap3").eq(index).show();
@@ -1517,6 +1520,8 @@ label span{
 			$(".max-fee").val(0);
 			$(".reward-wrap2").eq(index).hide();
 			$(".pay-wrap3").eq(index).hide();
+			//박스 색상
+			$(this).parents(".one-reward").css('background-color','#f9f9f9');
 			
 			//$(".selected-input").eq(index).val(0);
 		}
@@ -1621,32 +1626,11 @@ label span{
 	    }
 	});
 	
-	//메모 - input 해킹 방지?? : on("propertychange change keyup paste input",
-
-		/*다음단계 체크박스 확인
-		$(".confirm-check").change(function(){
-		    if($(".confirm-check").length == $(".confirm-check").length){
-		        alert("확인");
-		    }
-		});
-		
-		$("input:checkbox[id='confirm-check']").prop("checked", true);
-		$("#confirm-check").prop("checked", true);
-		
-		
-		$(function(){
-		    if($(".confirm-check").is(":checked")==true){
-		        console.log("체크된 상태");
-		    }
-		})*/
 		
 	//다음단계 모달
 	$(function(){
 	    $("#confirm").click(function(){
 	        location.href="#";
-	    });
-	    $("#modal-open").click(function(){       
-	    	$("#popup").css('display','flex').hide().fadeIn();
 	    });
 	    $("#close").click(function(){
 	        modalClose();
@@ -1684,13 +1668,19 @@ label span{
 	
 	//결제 API=====================================================
 		$("#payment2").on("click",function(){
-			if(!$(".d-name").val()){
-				alert("수령인을 확인해주세요.");
+			//유효성 검사
+			let dName=/^[a-zA-z가-힣]{2,8}$/;
+			let dPhone=/-/;
+			//let dAddr3 = /^[a-zA-z가-힣]{5,40}$/;
+			let dMsg = /^[a-zA-z가-힣]{0,40}$/;
+			
+			if(!dName.test($(".d-name").val())){
+				alert("수령인을 확인해주세요.(한글,영문 2~8글자)");
 				$(".d-name").focus();
 				return;
 			}
-			if(!$(".d-phone").val()){
-				alert("전화번호를 확인해주세요.");
+			if(!dPhone.test($(".d-phone").val())){
+				alert("전화번호를 확인해주세요.(010-0000-0000 형식으로 입력)");
 				$(".d-phone").focus();
 				return;
 			}
@@ -1699,11 +1689,17 @@ label span{
 				$(".d-addr3").focus();
 				return;
 			}
-			if(!$(".d-message").val()){
+			/*
+			if(!dMsg.test($(".d-message").val())){
 				alert("배송메시지를 확인해주세요.");
 				$(".d-message").focus();
 				return;
+			}*/
+			if(!$("input[name='payMethod']:checked").val()){
+				alert("결제수단을 선택해주세요.");
+				return;
 			}
+			
 
 			//결제 변수 저장
 			let memberNo = $(".memberNo").val();
@@ -1770,7 +1766,10 @@ label span{
 								couponNo:couponNo,memberNo:memberNo
 							},
 							success : function(data){
-								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+								//결제 성공 시 방금 인서트 된 결제번호
+								console.log(data);
+								//해당하는 결제번호로 조회한 후 jsp
+								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayNo="+data;
 
 							},
 							error : function(){
@@ -1794,7 +1793,12 @@ label span{
 							couponNo:couponNo,memberNo:memberNo
 						},
 						success : function(data){
-							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+							//결제 성공 시 방금 인서트 된 결제번호
+							console.log(data);
+							//해당하는 결제번호로 조회한 후 jsp
+							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayNo="+data;
+							
+							//location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
 						},
 						error : function(){
 							console.log("실패");
@@ -1803,8 +1807,47 @@ label span{
 					});	//ajax			
 				}//confirm if
 			}//else if
-		});	
-	//payment2 버튼	
+			
+			//결제 성공카트
+			let reward = [];
+			let obj = {};
+			$("input[name='reward-check']:checked").each(function(i){
+				//let index = $("reward-check").index(this);
+				let memberNo = $(".memberNo").val();
+				let fundNo = $(".fundNo").val();
+				let rewardNo = ($(this).val());
+				//제한 수량
+				let available = ($(this).parents(".one-reward").find(".available").val());
+				//선택한 수량
+				let selected = ($(this).parents(".one-reward").find(".amount-input").val());
+				//잔여수량
+				let remain = available-selected;
+				
+				obj.memberNo = memberNo;
+				obj.fundNo = fundNo;
+				obj.rewardNo = rewardNo;
+				obj.available = available;
+				obj.selected = selected;
+				obj.remain = remain;
+				reward.push(obj);
+				obj={};
+			});
+			console.log(reward);
+			let jsonData = JSON.stringify(reward);
+			
+			$.ajax({
+				url : "/insertReward.do",
+				type:"post",
+				traditional:true,
+				data : {reward:jsonData},
+				success : function(data){
+					//alert("성공");
+				}
+				
+			});
+			
+			
+		});	//payment2 버튼	
 	
 </script>
     

@@ -16,8 +16,7 @@ html>body {
 }
 
 .eventimg1 {
-	background-color: blue;
-}
+		}
 .eventimg2 {
 	background-color: aqua;
 }
@@ -208,8 +207,8 @@ html>body {
 	        <span class="next2">&rang;</span>
     	</p>
     	<div class="events autoplay">
-    		<div class="eventimg1"></div>
-    		<div class="eventimg2"></div>
+    		<div class="eventimg1"><img src="/resources/image/notice/main/${n.noticeFilepath}"></div>
+    		<div class="eventimg2"><img src="/resources/image/store/upload/${s.storeImg1}"></div>
     		<div class="eventimg3"></div>
     		<div class="eventimg4"></div>
     		<div class="eventimg5"></div>
@@ -228,9 +227,9 @@ html>body {
   
     
     <div class="category-title">
-			<h5>상품 카테고리
+			<h5>상품 카테고리 <a href="/storeList.do?reqPage=1&storeCategory=all" style="font-weight: normal; font-size: 18px; padding-left: 15px;">전체 보기</a>
 			</h5>
-				<a href="#">전체 보기</a>
+				
 			<div class="content-category">
 				<div class="content-categorylist">
 					<a href="/home.do"><span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>

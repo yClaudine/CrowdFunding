@@ -251,7 +251,7 @@ select{
 	            	<table class="table table-hover fund-tbl" >
 	                    <tr>
 	                    	<th>펀드번호</th>
-	                    	<td class="fundNo">${f.fundNo }</td>
+	                    	<td class="fundNo"><a href="http://localhost/fundView.do?memberId=admin2&fundNo=${f.fundNo}">${f.fundNo }</td>
 	                    </tr>
 	                    <tr>
 	                    	<th>펀드제목</th>

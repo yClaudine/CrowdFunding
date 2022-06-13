@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 반환정책</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -259,12 +259,14 @@
     justify-content: center;
     border: 1px solid #dadce0;
     color: #60656a;
+    font-size:15px;
 }
+/*
 .seller-dm:hover{
     background-color: #dadce0;
     border: 1px solid #ffffff;
     transition: 0.5s;
-}
+}*/
 .reward-info{
     margin-top: 30px;
     margin-bottom: 5px;
@@ -553,7 +555,7 @@ justify-content: right;
                 <button class="seller-dm">
                     <span class="material-symbols-outlined">
                         contact_support</span>
-                    <span class="dm">문의하기</span>
+                    <span class="dm">문의하기는 챗봇 이용</span>
                 </button>               
             </div>
             <!--리워드 정보-->
@@ -573,12 +575,14 @@ justify-content: right;
                     <div class="reward-send reward-active">${r.rewardSend}</div>
                     <div class="reward-count">
                         <span class="reward-fixcount">제한수량 ${r.rewardCount}개</span>
-                        <span class="reward-remaining">현재 (데이터)개 남음!</span>
+                        <!-- <span class="reward-remaining">현재 (데이터)개 남음!</span>  -->
                     </div>
-                    <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div>
+                    <!-- <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div> -->
                 </div>
             </a><!--리워드 1개 생성-->
           </c:forEach>
+                 <div style="height:200px;"></div>
+          
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
     

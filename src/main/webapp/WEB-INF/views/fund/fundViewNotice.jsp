@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 새소식</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -140,7 +140,7 @@
 .fn-title{
     color: #4a4a4a;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 19px;
 }
 .fn-date{
     padding-top: 15px;
@@ -289,12 +289,14 @@
     justify-content: center;
     border: 1px solid #dadce0;
     color: #60656a;
+    font-size:15px;
 }
+/*
 .seller-dm:hover{
     background-color: #dadce0;
     border: 1px solid #ffffff;
     transition: 0.5s;
-}
+}*/
 .reward-info{
     margin-top: 30px;
     margin-bottom: 5px;
@@ -483,16 +485,7 @@ justify-content: right;
 .pagination{
 	justify-content:center;
 	margin: 0 auto;
-	padding-top: 50px;
-	box-sizing:border-box;
-	
-	
-}
-
-.pagination>ul{
-		box-sizing:border-box;
-		display:inline-block;
-	
+	padding-top: 50px;	
 }
 
 .pagination>.page-item>a {
@@ -503,16 +496,15 @@ justify-content: right;
 	background-color: #00b2b2;
 	border: 1px solid #00b2b2;
 }
-
-
-
-
-#test{
-width:100%
-	height:100px;
-	background-color:gray;
-	box-sizing:border-box;
-
+#write{
+	margin:0px;
+	margin-left:10px;
+	height:40px;
+	background-color: #A29584;
+}
+#write:hover{
+	color:#fff;
+	background-color:#89827a;
 }
 
 </style>
@@ -539,7 +531,8 @@ width:100%
         <div class="detail-view">
             <div class="funding-notice">
                 <span class="fn-new">새소식</span>
-                <span class="fn-newNum">4</span>
+                <span class="fn-newNum"></span>
+                <!--  
                 <span class="fn-search">
                     <form action="#" method="post">
                         <select name="searchType">
@@ -548,25 +541,35 @@ width:100%
                             <option value="content">리워드 안내</option>
                         </select>
                     </form>
-                </span>
+                </span>-->
+                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
+            	<button class="fn-writeFrm" id="write">새소식 작성</button>
+            	</c:if>
             </div>
             <!--새소식 1개 -->
            
            <c:forEach items="${fnList }" var="fn">  
-            <a href="#" class="fn-view">
-                <div class="fn-category">카테고리명</div>
+            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo=${fn.fnNo }" class="fn-view">               
+               <c:if test="${fn.fnFix eq 1}"> 	
+                 	<span class="fn-category" style="color:#00b2b2; font-weigh:bold;">공지사항</span>
+              </c:if>
+               <c:choose>
+		        	<c:when test="${fn.fnCategory eq 0}">
+                		<span class="fn-category">이벤트</span>
+                	</c:when>
+                	<c:when test="${fn.fnCategory eq 1}">
+                		<span class="fn-category">리워드 안내</span>
+                	</c:when>
+                	<c:when test="${fn.fnCategory == null}">
+                		<span class="fn-category">전체</span>
+                	</c:when>
+                </c:choose>
                 <div class="fn-title">${fn.fnTitle }</div>
                 <div class="fn-date">${fn.fnDate }</div>
             </a><!--새소식 1개 -->
             </c:forEach>
-            
-            <div id="test">
-            	<!-- ${pageNavi }  -->
-            </div>  
+            ${pageNavi }
 
-          	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
-            <button class="fn-writeFrm" id="write">새소식 작성</button>
-            </c:if>
 
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
@@ -624,7 +627,7 @@ width:100%
                 <button class="seller-dm">
                     <span class="material-symbols-outlined">
                         contact_support</span>
-                    <span class="dm">문의하기</span>
+                    <span class="dm">문의하기는 챗봇 이용</span>
                 </button>
                 <input type="hidden" class="seller-id" value="${s.memberId }">               
             </div>
@@ -645,12 +648,14 @@ width:100%
                     <div class="reward-send reward-active">${r.rewardSend}</div>
                     <div class="reward-count">
                         <span class="reward-fixcount">제한수량 ${r.rewardCount}개</span>
-                        <span class="reward-remaining">현재 (데이터)개 남음!</span>
+                        <!-- <span class="reward-remaining">현재 (데이터)개 남음!</span> -->
                     </div>
-                    <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div>
+                    <!-- <div class="reward-status reward-active">총 (데이터)개 펀딩완료</div> -->
                 </div>
             </a><!--리워드 1개 생성-->
           </c:forEach>
+                 <div style="height:200px;"></div>
+          
         </div><!--오른쪽 콘텐츠 끝-->
     </div>
     <!--신고하기 모달-->
@@ -683,7 +688,7 @@ width:100%
     <input type="hidden" class="login" value="${not empty sessionScope.m}">
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
     <!-- <input type="hidden" class="likeCheck" value=""> -->
-
+	
 <script>
 $("#pay").click(function(){
 	const login = $(".login").val();
@@ -700,8 +705,8 @@ $(".achieve").text(Math.floor(fundingSum / fundAmount *100));
 
 //글작성
 $("#write").click(function(){
-	let seller=(".seller-id").val();
-	location.href = "/fnWrite.do?fundNo=${f.fundNo }&sellerId="+seller;
+	//let sellerId=$(".seller-id").val();			
+	location.href = "/fundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }";
 });
 
 

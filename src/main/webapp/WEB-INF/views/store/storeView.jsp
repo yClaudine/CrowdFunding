@@ -28,10 +28,12 @@ html>body {
 		padding-top: 50px;
 	}
 	.img-box{
+		min-width: 492px;
 		width: 50%;
 		border: 1px solid black;
 		padding: 20px 20px;
 		margin-left: 50px;
+		max-width: 492px;
 	}
 	.content-detail{
 		margin: 20px auto;
@@ -347,12 +349,18 @@ html>body {
 	.p{
 		font-size: 13px;
 	}
+	.img{
+		width: 450px;
+		height: 300px;
+		text-align: center;
+		
+	}
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="content-wrap">
-		<div class="img-box">${s.storeImg1 }</div>
+		<div class="img-box"><img src="/resources/image/store/upload/${s.storeImg1}" class="img"></div>
 			<div class="content-detail">
 				<div class="wrap">
 				<div class="store-category" id="category">${s.storeCategory }</div><div class="priceno1" id="priceno">${s.storeTitle }</div></div>
@@ -544,7 +552,7 @@ html>body {
 			           	 	<input type="hidden" name="memberNo" value="${m.memberNo }">
 			           	 	<input type="hidden" name="storeNo" value="${s.storeNo }">
 			           	 	<input type="hidden" name="starNo" value="${ss.starNo }">
-			           	 	<c:if test="${not empty sessionScope.m}">
+			           	 	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId != ss.memberId}">
 			            	<button id="report-button">신고</button>
 			            	</c:if>
 			            </form>
@@ -632,7 +640,7 @@ html>body {
 		  let number = resultElement.innerText;
 		  // 더하기/빼기누를때
 		  if(type == 'plus') {
-			  if(number>=1&&number<${s.storeCount }){
+			  if(number>=1 && number<${s.storeCount }){
 				  number = parseInt(number) + 1;
 			  }else{
 				  confirm("1개 이상 ${s.storeCount }개 이하로 선택해주세요.");

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 새소식</title>
     <!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -20,6 +20,11 @@
     <!--구글 아이콘-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- 써머노트 -->
+    <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 <style>
 .banner{
     height: 200px;
@@ -479,13 +484,16 @@ justify-content: right;
     cursor: not-allowed;
 }
 
-
 .pagination{
 	justify-content:center;
 	margin: 0 auto;
 	padding-top: 50px;
 	box-sizing:border-box;
-	
+}
+
+.pagination>ul{
+		box-sizing:border-box;
+		display:inline-block;
 }
 
 .pagination>.page-item>a {
@@ -497,24 +505,36 @@ justify-content: right;
 	border: 1px solid #00b2b2;
 }
 
-#test>ul{
-		box-sizing:border-box;
-		display:inline-block;
-	
+th{
+	width:90px;
+	background-color:#d4f8f8;
+	text-align:center;
 }
-
-
-#test{
-	height:100px;
-	background-color:gray;
-	box-sizing:border-box;
-
+td{
+	height:50px;
+}
+#submit{
+	width:620px;
+	height:50px;
+	justify-content:center;
+	background-color:#A29584;
+	border:none;
+	color:#fff;
+	font-size:large;
+	border-radius:7px;
+}
+#submit:hover{
+	background-color:#80786d;
+	
 }
 
 </style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
+	<script src="/resources/js/summernote/summernote-lite.js"></script>
+	<script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+    
     <div class="banner bgBlur">
         <div class="banner-img">
             <img src="resources/image/fund/food.jpg">
@@ -533,38 +553,57 @@ justify-content: right;
     <div class="detail-container">
         <!--왼쪽 콘텐츠-->
         <div class="detail-view">
-            <div class="funding-notice">
+        	<div class="funding-notice">
                 <span class="fn-new">새소식</span>
                 <span class="fn-newNum">4</span>
-                <span class="fn-search">
-                    <form action="#" method="post">
-                        <select name="searchType">
-                            <option value="title"><span>전체</span></option>
-                            <option value="title"><span>이벤트</span></option>
-                            <option value="content">리워드 안내</option>
-                        </select>
-                    </form>
-                </span>
             </div>
-            <!--새소식 1개 -->
-           
-           <c:forEach items="${fnList }" var="fn">  
-            <a href="#" class="fn-view">
-                <div class="fn-category">카테고리명</div>
-                <div class="fn-title">${fn.fnTitle }</div>
-                <div class="fn-date">${fn.fnDate }</div>
-            </a><!--새소식 1개 -->
-            </c:forEach>
-            
-            <!-- <div id="test">
-            	${pageNavi }
-            </div> -->
 
-          	<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
-            <button class="fn-writeFrm" id="write">새소식 작성</button>
-            </c:if>
-
+        
+		<div class="notice-wrap">
+            <div class="notice">  
+                <form class="form" action="/insertFundNotice.do" method="post" enctype="multipart/form-data" >
+                    <table class="table">
+                        <tr>
+                            <th colspan="1" style="width:150px;">제목</th>
+                            <td colspan="3">
+                                <input type="text" name="fnTitle" class="fnTitle" id="fnTitle" style="width:500px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>카테고리</th>
+                            <td>
+                                <input type="radio" name="fnCategory" value="0" id="event" class="fnCategory">
+                                <label for="event">이벤트</label>
+                                <input type="radio" name="fnCategory" value="1" id="reward" class="fnCategory">
+                                <label for="reward">리워드 안내</label>
+                            </td>
+                            <th style="width:120px;">공지사항 여부</th>
+                            <td>
+                            	<input type="checkbox" value="0" name="fnFix" class="fnFix" id="fnFix">
+                            </td> 
+                        </tr>
+                        <tr>
+                            <th>파일</th>
+                            <td colspan="3">
+                                <input type="file" name="file">
+                            </td>
+                        <tr>
+                            <td colspan="4">
+                                <textarea name="fnContent" id="fnContent" class="fnContent"></textarea>
+                            </td>
+                        </tr>
+                    </table>            
+                    <input type="hidden" name="memberId" value="${f.memberId }" >
+                    <input type="hidden" name="fundNo" value="${f.fundNo }" >
+                    <input type="submit" id="submit" class="btn btn-outline-primary" value="새소식 등록">
+                </form>
+                
+            </div>
+        </div><!-- 새소식 -->
+        
         </div><!--왼쪽 콘텐츠 끝-->
+    
+    
         <div class="space"></div>
         
         <!--오른쪽 콘텐츠-->
@@ -679,8 +718,48 @@ justify-content: right;
     <input type="hidden" class="login" value="${not empty sessionScope.m}">
     <input type="hidden" class="memberId" value="${sessionScope.m.memberId }">
     <!-- <input type="hidden" class="likeCheck" value=""> -->
-
+	
 <script>
+//써머노트
+ 	  //섬머노트
+ 	 $("#fnContent").summernote({
+			height:550,
+			lang : "ko-KR",
+			callbacks:{
+				onImageUpload : function(files){
+					uploadImage(files[0],this);
+				}
+			}
+		});
+		function uploadImage(file,editor){
+			//ajax통해 서버에 이미지를 업로드하고 업로드 경로를 받아옴
+			//form태그와 동일한 효과를 내는 FormData객체 생성
+			const form = new FormData();
+			form.append("file",file);
+			$.ajax({
+				url : "/uploadImage2.do",
+				type : "post",
+				data : form,
+				processData : false,
+				contentType : false,
+				success : function(data){
+					//결과로 받은 이미지파일 경로를 에디터에 추가
+					$(editor).summernote("insertImage",data);
+				}
+			});
+		}
+ 
+      //등록 조건
+        $("input[type='submit']").on("click",function(){
+            if($("#fnFix").is(":checked")){
+           		$("input[name='fnFix']").val(1);
+          	}else{
+           		$("input[name='fnFix']").val(0);
+          	}
+        });
+		
+
+
 $("#pay").click(function(){
 	const login = $(".login").val();
 	if (login){
@@ -693,12 +772,6 @@ $("#pay").click(function(){
 let fundingSum = $(".fundingSum").val();
 let fundAmount = $(".fundAmount").val();
 $(".achieve").text(Math.floor(fundingSum / fundAmount *100));
-
-//글작성
-$("#write").click(function(){
-	let seller=(".seller-id").val();
-	location.href = "/fnWrite.do?fundNo=${f.fundNo }&sellerId="+seller;
-});
 
 
 //프로젝트 신고하기 모달
