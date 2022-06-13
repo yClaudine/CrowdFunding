@@ -106,6 +106,23 @@ public class FundListDao {
 		return result;
 	}
 	
+	//최근 인서트된 결제번호!!!!!!!===============================================!!!!!!!!!!!!!!!!!!
+	public int selectPayNo() {
+		int payNo = sqlSession.selectOne("fundPay.selectPayNo");
+		return payNo;
+	}
+	
+	//인서트된 결제번호 조회
+	public FundPay selectOnePay(int fundNo, int fpayNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("fpayNo",fpayNo);
+		map.put("memberId",memberId);
+		FundPay fp = sqlSession.selectOne("fundPay.selectOnePay",map);
+		return fp;
+	}
+	
+	/*
 	//결제 정보 하나 조회
 	public FundPay selectOnePay(int fundNo, String memberId, int fpayFinalpay) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -114,7 +131,10 @@ public class FundListDao {
 		map.put("fpayFinalpay",fpayFinalpay);
 		FundPay fp = sqlSession.selectOne("fundPay.selectOnePay",map);
 		return fp;
-	}
+	}*/
+	
+	
+	
 
 	//모든 결제 정보 조회
 	public ArrayList<FundPay> selectPayList(int fundNo) {
@@ -170,7 +190,9 @@ public class FundListDao {
 		int result = sqlSession.delete("fundList.deleteFundNotice",map);
 		return result;
 	}
+
 	
+
 	
 
 

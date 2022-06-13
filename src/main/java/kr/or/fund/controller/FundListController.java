@@ -136,17 +136,37 @@ public class FundListController {
 		model.addAttribute("list",prvd.getRewardList());
 		return "fund/payFunding";	
 	}
-	//결제 확인 페이지 이동 - 카드결제
+
+	
+	//최종 결제 정보 인서트
+	@ResponseBody
+	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
+	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
+			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo, int memberNo) {
+		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo,memberNo);
+		return new Gson().toJson(result);
+		//return new Gson().toJson(String.valueOf(result));
+	}
+
+	//결제 확인 페이지 이동 - 무통장입금
+	@RequestMapping(value="/payConfirm2.do")
+	public String payConfirm2(int fpayNo, int fundNo, String memberId, Model model) {
+		PayViewData pvd = service.payConfirm(fundNo,fpayNo,memberId);
+		model.addAttribute("f",pvd.getF());
+		model.addAttribute("list",pvd.getRewardList());
+		model.addAttribute("fp",pvd.getFp());
+		return "fund/payConfirm2";
+	}
 	@RequestMapping(value="/payConfirm.do")
-	public String payConfirm(int fundNo, String memberId, int fpayFinalpay, Model model) {
-		PayViewData pvd = service.payConfirm(fundNo,memberId,fpayFinalpay);
+	public String payConfirm(int fpayNo, int fundNo, String memberId, Model model) {
+		PayViewData pvd = service.payConfirm(fundNo,fpayNo,memberId);
 		model.addAttribute("f",pvd.getF());
 		model.addAttribute("list",pvd.getRewardList());
 		model.addAttribute("fp",pvd.getFp());
 		return "fund/payConfirm";
 	}
 	
-	//결제 확인 페이지 이동 - 무통장입금
+	/*결제 확인 페이지 이동 - 무통장입금
 	@RequestMapping(value="/payConfirm2.do")
 	public String payConfirm2(int fundNo, String memberId, int fpayFinalpay, Model model) {
 		PayViewData pvd = service.payConfirm(fundNo,memberId,fpayFinalpay);
@@ -156,6 +176,12 @@ public class FundListController {
 		return "fund/payConfirm2";
 	}
 
+	*/
+	
+	//결제 확인 페이지 이동 - 카드결제
+	
+
+	
 	
 	//쿠폰 리스트 ajax 버전
 	@ResponseBody
@@ -164,16 +190,6 @@ public class FundListController {
 		ArrayList<Coupon> clist = service.selectCouponList(memberNo,fundCategory,rewardSum,maxFee);
 		return new Gson().toJson(clist);
 	}
-
-	//최종 결제 정보 인서트
-	@ResponseBody
-	@RequestMapping(value="/PayInfo.do", produces="application/json;charset=utf-8")
-	public String insertPay(String memberId,String memberName,int fundNo, int fpayDeliveryfee, int fpaySupport, 
-			int fpayRewardTotal, int fpayFunding, int fpayFinalpay, int nameShow, int fundingShow, int payMethod, int couponNo, int memberNo) {
-		int result = service.insertPay(memberId,memberName,fundNo,fpayDeliveryfee,fpaySupport,fpayRewardTotal,fpayFunding,fpayFinalpay,nameShow,fundingShow,payMethod,couponNo,memberNo);
-		return new Gson().toJson(result);
-	}
-	
 
 	//리워드 카트 insert
 	@ResponseBody

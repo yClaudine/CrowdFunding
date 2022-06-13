@@ -162,13 +162,27 @@ public class FundListService {
 		if(result == 0) {
 			return -1;
 		}else {
+			//쿠폰 업데이트
 			dao.updateMemberCoupon(map);
+			//최근 인서트된 결제번호
+			int payNo = dao.selectPayNo();
+			return payNo;
 		}
-		return result;
+		//return result;
 	}
-		
-		
-	//결제 확인 조회
+	
+	//방금 결제된 정보 조회
+	public PayViewData payConfirm(int fundNo, int fpayNo, String memberId) {
+		Fund f = dao.selectOneFund(fundNo);
+		ArrayList<Reward> list = dao.selectRewardList(fundNo);
+		FundPay fp = dao.selectOnePay(fundNo,fpayNo,memberId);
+		PayViewData pvd= new PayViewData(f,list,fp);
+		return pvd;
+	}
+	
+	
+	
+	/*결제 확인 조회------------------기존--------------
 	public PayViewData payConfirm(int fundNo, String memberId, int fpayFinalpay) {
 		Fund f = dao.selectOneFund(fundNo);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
@@ -176,7 +190,7 @@ public class FundListService {
 		PayViewData pvd= new PayViewData(f,list,fp);
 		return pvd;
 	}
-
+*/
 
 	
 	//array 리워드
@@ -302,6 +316,8 @@ public class FundListService {
 		map.put("fundNo",fundNo);
 		return dao.deleteFundNotice(map);
 	}
+
+
 	
 	
 	/*리워드 카트 인서트

@@ -47,6 +47,10 @@
 	
 	<!-- 결제정보 인서트-->
 	<insert id="insertPay" parameterType="map">
+	 <!-- <selectKey keyProperty="fpayNo" order="AFTER" resultType="int">
+		select max(p.fpay_no) from fund_pay p
+	</selectKey> --> 
+	
  	insert into fund_pay values(
  		fpay_seq.nextval,
  		#{memberId},
@@ -65,14 +69,35 @@
  		#{couponNo}
  	)
 	</insert>
-	<!-- 결제된 쿠폰 업데이트 -->
-	<update id="updateMemberCoupon" parameterType="map">
-		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') 
-		where member_no=#{memberNo} and coupon_no=#{couponNo}
-	</update>
+	
+	<!-- 방금 인서트된 결제번호 -->
+	<select id="selectPayNo" resultType="int">
+		select max(p.fpay_no) from fund_pay p
+	</select>
+	
+	<!-- 방금 인서트된 결제내용 정보//////////////////////////////////////// -->
+	<select id="selectOnePay" parameterType="map" resultType="fp">
+		select 
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay
+		where fund_no=#{fundNo} and fpay_no=#{fpayNo} and member_id=#{memberId}
+	</select>
 	
 	
-	<!-- 결제 정보 한 개 조회 -->
+	<!-- 결제 정보 한 개 조회 
 	<select id="selectOnePay" parameterType="map" resultType="fp">
 		select 
 			fpay_no as fpayNo,
@@ -92,6 +117,15 @@
 		from fund_pay
 		where fund_no=#{fundNo} and member_id=#{memberId} and fpay_finalpay=#{fpayFinalpay}	
 	</select>
+	-->
+	
+	
+		<!-- 결제된 쿠폰 업데이트 -->
+	<update id="updateMemberCoupon" parameterType="map">
+		update member_coupon set coupon_use=1, use_date=to_char(sysdate,'yyyy-mm-dd') 
+		where member_no=#{memberNo} and coupon_no=#{couponNo}
+	</update>
+	
 	<!-- 펀딩 결제 정보 리스트 -->
 	<select id="selectPayList" parameterType="int" resultType="fp">
 	  	select * from 

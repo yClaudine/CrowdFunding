@@ -1766,7 +1766,10 @@ label span{
 								couponNo:couponNo,memberNo:memberNo
 							},
 							success : function(data){
-								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+								//결제 성공 시 방금 인서트 된 결제번호
+								console.log(data);
+								//해당하는 결제번호로 조회한 후 jsp
+								location.href="/payConfirm.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayNo="+data;
 
 							},
 							error : function(){
@@ -1790,7 +1793,12 @@ label span{
 							couponNo:couponNo,memberNo:memberNo
 						},
 						success : function(data){
-							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
+							//결제 성공 시 방금 인서트 된 결제번호
+							console.log(data);
+							//해당하는 결제번호로 조회한 후 jsp
+							location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayNo="+data;
+							
+							//location.href="/payConfirm2.do?fundNo=${f.fundNo }&memberId="+memberId+"&fpayFinalpay="+fpayFinalpay;
 						},
 						error : function(){
 							console.log("실패");

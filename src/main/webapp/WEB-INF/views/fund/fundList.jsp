@@ -378,6 +378,7 @@ background-color:white;
 
     <!--검색 옵션들-->
         <div class="search-filter">
+            <div id="change-category" style="margin-right: 560px; font-weight: 500; font-size: 20px; color:#A29584;"></div>
             <div class="search-funding">
                 <form action="/fundSearch.do">
                     <input type="text" class="list-search" id="keyword" name="keyword" value="${keyword }" placeholder="궁금한 펀딩을 검색해보세요">
@@ -454,7 +455,6 @@ background-color:white;
 	
     $(".category-list").on("click",function(){
         const category = $(this).children().children().eq(1).text();
-
     	//let category = $(this).val(); //개별버튼값
     	$.ajax({
     		url : "/fund.do",
@@ -462,10 +462,9 @@ background-color:white;
     			"category":category //버튼 value값 따라 작동하게
     		},
     		success : function(data){
-    			//console.log(data);
-		    	//$("#ajax-container").load(location.href+' #ajax-container');
+    			//$("#ajax-container").load(location.href+' #ajax-container');
     			location.href="/fund.do?category="+category;
-    			
+		    	//$("#change-category").text(category);
     		}
 		})
     });  
