@@ -359,7 +359,7 @@ select{
 			                            	<span class="detail-btn" memberNo=${mem.memberNo}>${mem.memberId }</span>
 			                            </td>
 			                            <td>${mem.memberName }</td>
-			                            <td>
+			                            <td>${mem.report }
 			                            	<c:choose>
 			                            		<c:when test="${mem.report > 0}">
 			                            			신고
@@ -511,10 +511,14 @@ $(".modal-close").on("click",function(){
 	 const oldAuth = $(this).next().val();
 	 const newAuth = $(this).parent().prev().children().eq(1).val();
 	 const memberId = $(this).next().next().next().val();
+	 console.log(oldAuth);
+	 console.log(newAuth);
+	 console.log(memberId);
+	 
 	 if(oldAuth == newAuth){
 		 alert("변경된 값이 없습니다.");
 	 }else{
-		 location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
+		//location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
 	 }
  });
    
