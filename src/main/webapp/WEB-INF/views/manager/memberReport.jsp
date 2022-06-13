@@ -63,22 +63,32 @@
      color: #00b2b2;
      font-weight: bold;
  }
-.content-wrap .btn{
-    font-size: 13px;
-    margin: 5px;
+.main-content .btn-outline {
+    line-height: 13px;
+    background-color: white;
+	color:#00b2b2;
+    border: 1px solid #00b2b2;
+	display: block;
 }
-
+.main-content .btn-outline:hover {
+	 background-color: #00b2b2;
+     border: 1px solid #d1e2e2;;
+     color:white;
+     cursor: pointer;
+}
 .content-wrap .btn-primary{
+	font-size: 20px;
     color: whitesmoke ;
     background-color: #02c9c9;
     border: 1px solid #02c9c9;
     margin: 0;
     margin-top: 10px;
-    width: 110px;
-    height: 35px;
+    margin-right: 20px;
+    width: 130px;
+    height: 40px;
     line-height: 13px;
-    font-size: 15px;
     border-radius: 5px;
+    box-shadow:  1px 2px #bfbfbf;
 }
 .content-wrap .btn-primary:hover{
     background-color: #00b2b2;
@@ -206,6 +216,13 @@ select{
 	vertical-align: middle;
 	padding: 5px;
 }
+
+.review-tbl tr>th:nth-child(3), .review-tbl tr>td:nth-child(3){
+	width: 50%;
+}
+.review-tbl tr>th:nth-child(4), .review-tbl tr>td:nth-child(4){
+	width: 10%;
+}
 .report-tbl tr>th:nth-child(2), .report-tbl tr>td:nth-child(2){
 	width: 20%;
 }
@@ -227,6 +244,14 @@ select{
 	color: #ffffff;
 	margin: 5px;
 	border-radius: 5px;
+}
+.btn.btn-outline.delete{
+ 	margin:0;
+ 	width: 90px;
+ 	height: 30px;
+}
+.mini-title{
+	margin-top: 70px;
 }
 </style>
 </head>
@@ -250,39 +275,41 @@ select{
                 <button type="button" class="btn" id="sellerManage">회원 신고 관리</button>
                 <button type="button" class="btn" id="reportManage"><a href="/sellerManage.do?keyword=&type=3">판매자 승인 관리</a></button>
             </div>
-            <div class="mini-title"><h4>신고 리뷰</h4></div>
-	        <button type="button" class="btn btn-primary">리뷰삭제</button>
+            <button type="button" class="btn btn-primary" onclick="sendDmModal();" >경고하기</button>
+            <button type="button" class="btn btn-primary cancel">신고해제</button>
+            
+            <div class="mini-title"><h4>신고된 리뷰</h4></div>
             <div class="box review">
            		<div class="tables">
 	            	<table class="table table-hover review-tbl">
 	                    <thead>
 	                        <tr>
-	                        	<th></th>
 	                            <th>날짜</th>
 	                            <th>스토어번호</th>
 	                            <th>리뷰내용</th>
+	                            <th> </th>
 	                        </tr>
 	                    </thead>
 	                    <tbody class="tbody">
 	                    	<c:if  test="${not empty starList }">
 	                    		<c:forEach items="${starList }" var="s">
 		                    		<tr>
-		                    			<td>
-		                    				<input type="radio" name="radio">
-		                    				<input type="hidden" name="starNo" value="${s.starNo }">
-		                    			</td>
 		                    			<td> ${s.starDate }</td>
 		                    			<td>${s.storeNo }</td>
 			                           	<td>${s.starContent }</td>
+			                           	<th><button type="button" class="btn btn-outline delete" starNo="${s.starNo }">리뷰삭제</button></th>
 		                        	</tr>
 		                    	</c:forEach>
+	                    	</c:if>
+	                    	<c:if test="${empty starList }">
+	                    		<tr><td colspan='4'>신고된 리뷰가 없습니다.</td></tr>
 	                    	</c:if>
 	                    </tbody>
 	                </table> 
           	 		</div>
             </div>
-            <div class="mini-title"><h4>경고 관리</h4></div>
-            <button type="button" class="btn btn-primary" onclick="sendDmModal();" >쪽지 보내기</button>
+            <div class="mini-title"><h4>경고 내역</h4></div>
+        
             <div class="box report">
             	<c:choose>
 	            	<c:when test="1=2">
@@ -338,9 +365,6 @@ select{
 		</div>
 	</div>
 	
-  
-  
-  
   
   <script>
   
@@ -409,7 +433,7 @@ select{
 				tr.empty();
 				let code;
 				if(list.length == 0){
-					code = "<tr><td colspan='5'>쪽지가 없습니다.</td></tr>";
+					code = "<tr><td colspan='5'>보낸 경고쪽지가 없습니다.</td></tr>";
 				}else{
 					for(let i=0; i<list.length;i++){
 						if(list[i].readCk == 0){
@@ -422,13 +446,23 @@ select{
 					}
 				}
 				tr.append(code);
-				
-				
 			}
 		});
 	}
  
-	
+//신고해제
+$(".cancel").on("click",function(){
+	if(confirm("모든 리뷰를 신고 해제하시겠습니까?")){
+		location.href="/cancelReviewReport.do?memberId="+memberId;
+	}	
+});
+//리뷰삭제
+$(".delete").on("click",function(){
+	const starNo=$(this).attr("starNo");
+	if(confirm("리뷰를 삭제하시겠습니까?")){
+		location.href="/deleteReview.do?starNo="+starNo+"&memberId="+memberId;
+	}
+});
 	
   </script>
 	

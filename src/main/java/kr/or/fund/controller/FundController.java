@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,13 @@ import com.google.gson.JsonParser;
 import kr.or.fund.model.service.FundService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
+import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.PayBoardPageData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
+import kr.or.fund.model.vo.TmpFundCalculate;
 import kr.or.fund.model.vo.TmpReward;
+import kr.or.member.vo.Member;
 
 @Controller
 public class FundController {
@@ -93,9 +98,23 @@ public class FundController {
 		return "test";
 	}
 	
+	//로그인시 상품등록 버튼 클릭 -> 등록할 상품 종류 선택 페이지로
+	@RequestMapping(value="/createProduct.do")
+	public String createProduct(){
+		return "common/createProduct";
+	}
+	
 	//펀드 생성하기 페이지로
-	@RequestMapping(value="/CreateFunding.do")
-	public String CreateFunding() {
+	@RequestMapping(value="/createFunding.do")
+	public String createFunding(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("m");
+		if(m != null) {
+			ArrayList<Fund> fl = service.selectMemberFund(m);
+			ArrayList<TmpFund> tfl = service.selectMemberTmpFund(m);
+			model.addAttribute("fl",fl);
+			model.addAttribute("tfl",tfl);
+		}
 		return "fund/createFunding";
 	}
 	
@@ -263,6 +282,7 @@ public class FundController {
 		return result;
 	}
 	
+	//정산 수정 페이지로
 	@RequestMapping(value="/fundCalculateManageFrm.do")
 	public String fundCalculateManageFrm(Fund f, Model model) {
 		pageMove(f, model);
@@ -270,5 +290,65 @@ public class FundController {
 		model.addAttribute("fc",fc);
 		return "fund/fundCalculateManageFrm";
 	}
+	
+	//정산정보 저장하기 버튼
+		@RequestMapping(value="/saveCalculate.do")
+		public String saveCalculate(MultipartFile upfile, HttpServletRequest request, FundCalculate fc, String status, String imageStatus, Model model) {
+			//신규가 아닐 때 기존에 입력되어 있던 tfc 정보를 불러올 객체
+			FundCalculate afc = null;
+			//filepath를 저장할 Arr 생성
+			String path = "";
+			//수정일 경우 지울 파일의 경로를 저장할 arr
+			String delete = "";
+			if(status.equals("modify")) {
+				Fund f = new Fund();
+				f.setFundNo(fc.getFundNo());
+				afc = service.selectFundCalculate(f);
+				delete = afc.getFcBankFilepath();
+			}
+			
+			//이미지 파일에 변동 있었을때 업로드 로직
+			//1. 파일업로드 경로 설정
+			//request.getSession().getServletContext().getRealPath() -> /webapp/폴더 경로
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/image/fund/calculate/");
+			//1-1. 업로드 파일 상태에 따라 업로드만 할지, 기존 파일 삭제 후 업로드 할지 결정
+			if(imageStatus.equals("new")) {
+				path = fileUpload(upfile, savePath);
+			}else if(imageStatus.equals("modify")) {
+				File file = new File(savePath+delete);
+				file.delete();
+				path = fileUpload(upfile, savePath);
+			}else {
+				path = delete;
+			}
+			//1-2. 앞으로 조작할 tfc 객체에 filepath경로 세팅
+			fc.setFcBankFilepath(path);
+			
+			//status에 따라 비즈니스 로직 처리
+			int result = 1;
+			if(status.equals("new")) {
+				//펀딩 관리에서는 new 일 경우가 없긴 함
+				int insertResult = service.createFundCalculate(fc);
+				result *= insertResult;
+			}else if(status.equals("modify")) {
+				int updateResult = service.updateFundCalculate(fc);
+				result *= updateResult;
+			}
+			
+			return "redirect:/manageFundingFrm.do?fundNo="+fc.getFundNo();
+		}
+		
+		//펀드 현황 페이지로
+		@RequestMapping(value="/fundStatusManageFrm.do")
+		public String fundStatusManageFrm(Fund f, Model model, int reqPage){
+			pageMove(f, model);
+			PayBoardPageData pbpd = service.selectPayBoardList(reqPage,f);
+			//ArrayList<FundPay> fpl = service.selectFundPay(f);
+			int totalPay = service.selectTotalFund(f);
+			model.addAttribute("fpl",pbpd.getList());
+			model.addAttribute("pageNavi",pbpd.getPageNavi());
+			model.addAttribute("totalPay",totalPay);
+			return "fund/fundStatusManageFrm";
+		}
 	
 }

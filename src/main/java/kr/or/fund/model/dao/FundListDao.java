@@ -12,8 +12,11 @@ import kr.or.coupon.model.vo.Coupon;
 import kr.or.coupon.model.vo.MemberCoupon;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundLike;
+import kr.or.fund.model.vo.FundNotice;
+import kr.or.fund.model.vo.FundNoticeViewData;
 import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
+import kr.or.fund.model.vo.RewardCart;
 import kr.or.member.vo.Seller;
 
 @Repository
@@ -26,7 +29,13 @@ public class FundListDao {
 		List list = sqlSession.selectList("fundList.selectFundList",map);
 		return (ArrayList<Fund>)list;
 	}
-	
+	//펀딩 리스트 필터링
+	public ArrayList<Fund> searchFundList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("fundList.searchFundList",map);
+		return (ArrayList<Fund>)list;
+	}
+
+
 	//펀딩 상세 - 프로젝트 조회
 	public Fund selectOneFund(int fundNo) {
 		Fund f = sqlSession.selectOne("fundList.selectOneFund",fundNo);
@@ -46,6 +55,11 @@ public class FundListDao {
 	public FundLike selectLikeCheck(HashMap<String, Object> map) {
 		FundLike fl = sqlSession.selectOne("fundLike.selectLikeCheck",map);
 		return fl;
+	}
+	//펀딩 상세 - 사용할 결제정보
+	public FundPay selectViewPay(int fundNo) {
+		FundPay p = sqlSession.selectOne("fundPay.selectViewPay",fundNo);
+		return p;
 	}
 //-------------------------------------
 	//펀딩 신고
@@ -92,6 +106,23 @@ public class FundListDao {
 		return result;
 	}
 	
+	//최근 인서트된 결제번호!!!!!!!===============================================!!!!!!!!!!!!!!!!!!
+	public int selectPayNo() {
+		int payNo = sqlSession.selectOne("fundPay.selectPayNo");
+		return payNo;
+	}
+	
+	//인서트된 결제번호 조회
+	public FundPay selectOnePay(int fundNo, int fpayNo, String memberId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("fpayNo",fpayNo);
+		map.put("memberId",memberId);
+		FundPay fp = sqlSession.selectOne("fundPay.selectOnePay",map);
+		return fp;
+	}
+	
+	/*
 	//결제 정보 하나 조회
 	public FundPay selectOnePay(int fundNo, String memberId, int fpayFinalpay) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -100,7 +131,10 @@ public class FundListDao {
 		map.put("fpayFinalpay",fpayFinalpay);
 		FundPay fp = sqlSession.selectOne("fundPay.selectOnePay",map);
 		return fp;
-	}
+	}*/
+	
+	
+	
 
 	//모든 결제 정보 조회
 	public ArrayList<FundPay> selectPayList(int fundNo) {
@@ -112,6 +146,55 @@ public class FundListDao {
 		int result = sqlSession.update("fundPay.updateMemberCoupon",map);
 		return result;
 	}
+	
+	//array 카트 인서트
+	public int insertReward(RewardCart cart) {
+		int result = sqlSession.insert("fundPay.insertReward",cart);	
+		return result;
+	}
+	
+
+	//---------------------------------------------
+
+	//새소식 리스트
+	public ArrayList<FundNotice> selectFundNoticeList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("fundList.selectFundNoticeList",map);
+		return (ArrayList<FundNotice>)list;
+	}
+	//새소식 개수
+	public int selectFundNoticeCount(HashMap<String, Object> countMap) {
+		int totalCount = sqlSession.selectOne("fundList.selectFundTotalCount",countMap);
+		return totalCount;
+	}
+	//파일포함 새소식 인서트
+	public int insertFundNotice(FundNotice fn) {
+		int result = sqlSession.insert("fundList.insertFundNotice",fn);
+		return result;
+	}
+	
+	//새소식 보기
+	public FundNotice selectOneNotice(int fundNo, String fnNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fundNo",fundNo);
+		map.put("fnNo",fnNo);
+		FundNotice fn = sqlSession.selectOne("fundList.selectOneNotice",map);
+		return fn;
+	}
+	//새소식 최종수정
+	public int updateFundNotice(FundNotice fn) {
+		int result = sqlSession.insert("fundList.updatetFundNotice",fn);
+		return result;
+	}
+	//새소식 삭제
+	public int deleteFundNotice(HashMap<String, Object> map) {
+		int result = sqlSession.delete("fundList.deleteFundNotice",map);
+		return result;
+	}
+
+	
+
+	
+
 
 
 
@@ -129,11 +212,6 @@ public class FundListDao {
 		return result;
 	}*/
 
-	/*array 리워드 카트 인서트
-	public int insertReward(HashMap<String, Object> map) {
-		int result = sqlSession.insert("fundPay.insertReward",map);
-		return result;
-	}*/
 	
 
 

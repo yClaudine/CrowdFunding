@@ -199,7 +199,7 @@
         star_score as starScore,
         star_content as starContent,
         store_reportcount as storeReportcount
-	from store_star where member_id=#{memberId} and store_reportcount>0
+	from store_star where member_id=#{memberId} and store_reportcount<![CDATA[>]]>0
 	
 </select>
 <select id="selectAllFund" parameterType="map" resultType="f">
@@ -424,8 +424,47 @@
  			order by read_ck desc, dm_no desc 
 
 </select>
+<update id="updateMemberAuth" parameterType="map">
+	update member_tbl set auth_re=#{auth} where member_id=#{memberId}
+</update>
 
+<!--스토어 삭제(스토어페이 상태 결제취소/쿠폰상태 사용전으로) -->
+<update id="cancelStorePay" parameterType="int">
+	update storePay set storepay_check=1 where store_no=#{storeNo}
+</update>
+<update id="updateCouponUse" parameterType="int">
+	update member_coupon set coupon_use=0, use_date=null where mem_coupon_no in (select mem_coupon_no from storePay where store_no=#{storeNo})
+</update>
+<delete id="deleteStore" parameterType="int">
+	delete from store where store_no=#{storeNo}
+</delete>
+<!-- 펀드 삭제 -->
+<update id="cancelFundPay" parameterType="int">
+	update fund_pay set fpay_status=1 where fund_no=#{fundNo}
+</update>
+<update id="updateFundCouponUse" parameterType="int">
+	update member_coupon set coupon_use=0, use_date=null where mem_coupon_no in (select mem_coupon_no from fund_pay where fund_no=#{fundNo})
+</update>
+<delete id="deleteFund" parameterType="int">
+	delete from fund where fund_no=#{fundNo}
+</delete>
 
+<!-- 회원 신고해제 -->
+<update id="cancelReviewReport" parameterType="string">
+	update store_star set store_reportcount=0 where member_id=#{memberId} and store_reportcount<![CDATA[>]]>0
+</update>
+<update id="cacelMemberReport" parameterType="string">
+	update member_tbl set report=0 where member_id=#{memberId}
+</update>
+
+<!-- 펀드 신고해제 -->
+<update id="cancelFundReport" parameterType="int">
+	update fund set fund_reportcount=0 where fund_no=#{fundNo}
+</update>
+<!-- 스토어 신고해제 -->
+<update id="cancelStoreReport" parameterType="int">
+	update store set store_reportcount=0 where store_no=#{storeNo}
+</update>
 
 </mapper>
 

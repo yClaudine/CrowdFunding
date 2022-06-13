@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 public class RewardCart {
 	int cartNo;
 	int memberNo;
-	int rewardNo;
-	int rewardAmount;
 	int fundNo;
+	int rewardNo;
+	int available;
+	int selected;
+	int remain;
 }

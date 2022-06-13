@@ -220,7 +220,63 @@ input[name='keyword']{
 select{
 	border: 1px solid #bfbfbf;
 }
-
+.modal-wrap{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.detail-modal{
+    background-color: #e7f9f9;
+    width: 50vw;
+    min-width: 500px;
+    max-width: 1000px;
+    max-height: 800px;
+    border-radius: 5px;
+}
+.modal-top{
+	width: 190px;
+	margin: 0 auto;
+	padding: 10px;
+}
+.modal-top h3{
+	margin: 0;
+}
+.detail-btn:hover{
+	cursor: pointer;
+}
+.detail-table{
+	margin: 10px;
+	min-height: 330px;
+}
+.detail-table tr{
+	border: 1px solid #bfbfbf;
+}
+.detail-table th{
+	border: 1px solid #bfbfbf;
+	width: 17%;
+	vertical-align: middle;
+	text-align:center;
+}
+.detail-table td{
+	vertical-align: middle;
+	padding: 5px;
+}
+.modal-close{
+	width: 100%;
+	height: 50px;
+	border: #00c4c4;
+	background-color:  #00c4c4;
+	color: #ffffff;
+	border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -281,16 +337,17 @@ select{
 	                	<c:forEach items="${list }" var="cp">
 	                	<tr>
 	                        <th scope="col"><input type="radio" name="radio" value="${cp.couponNo }"></th>
-	                        <td>${cp.couponNo }</td>
+	                        <td class="couponNo">${cp.couponNo }</td>
 	                        <td>
-	                        	<a class="couponName" target="#coupon-detail">${cp.couponName }</a>
-	                        	<!-- 모달 위한 값 숨겨놓기 -->
+	                        	<a class="couponName" >${cp.couponName }</a>
+	                        	<!-- 
 	                        	<input type="hidden" value="${cp.validStart } ~ ${cp.validEnd }">
 	                        	<input type="hidden" value="${cp.discount}">
 	                        	<input type="hidden" value="${cp.couponType}">
 	                        	<input type="hidden" value="${cp.mainTarget}">
 	                        	<input type="hidden" value="${cp.subTarget}">
 	                        	<input type="hidden" value="${cp.minPrice }">
+	                        	 -->
 	                        </td>
 	                        <td>${cp.validStart } ~ ${cp.validEnd }</td>
 	                        <c:choose>
@@ -313,75 +370,66 @@ select{
     	
 	</div>
 	
-    <!-- 모달 -->
-         	<div id="coupon-detail" class="coupon-modal"  >
-         	<div class="modal-div">
-         		<div class="modal-title"> 쿠폰상세보기</div>
-	           	<table border="1" class="coupon-table">
-	           		<tr>
-						<th>쿠폰명</th>
-						<td id="couponName"></td>
-					</tr>
-					<tr>
-						<th>유효기간</th>
-						<td id="validDate"></td>
-					</tr>
-					<tr>
-						<th>할인액</th>
-						<td id="discount"></td>
-					</tr>
-					<tr>
-						<th>메인 카테고리</th>
-						<td id="mainTarget"></td>
-					</tr>
-					<tr>
-						<th>서브 카테고리</th>
-						<td id="subTarget"></td>
-					</tr>
-					<tr>
-						<th>최소구매금액</th>
-						<td id="minPrice"></td>
-					</tr>
-	           	</table>
-	           	<div class="close-btn btn-outline-primary">닫기</div>
-         	</div>
-         		
-          </div>
+         <!-- 모달 -->
+		<div class="modal-wrap">
+	        <div class="detail-modal">
+	            <div class="modal-top">
+	                <h3>펀딩 상세정보</h3>
+	            </div>
+	            <div class="modal-content">
+	                <table border="1" class="detail-table">
+	                	
+	                </table>
+	            </div>
+	            <button class="modal-close">닫기</button>
+	        </div>
+	    </div>
+         
+          
 	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
 <script>
-//모달클릭
-$(".couponName").on("click",function(){
-	const couponName = $(this).text();
-	const validDate = $(this).next().val();
-	let discount = Number($(this).next().next().val()).toLocaleString('ko-KR');
-	if(discount == 0){
-		discount = "";
-	}
-	let couponType = $(this).next().next().next().val();
-	if(couponType == 0){
-		couponType = "무료배송";
-	}else if(couponType ==1){
-		couponType="%";
-	}else{
-		couponType="원"
-	}
-	const mainTarget = $(this).next().next().next().next().val();
-	const subTarget = $(this).next().next().next().next().next().val();
-	const minPrice = Number($(this).next().next().next().next().next().next().val());
-	$("#couponName").text(couponName);
-	$("#validDate").text(validDate);
-	$("#discount").text(discount+couponType);
-	$("#mainTarget").text(mainTarget);
-	$("#subTarget").text(subTarget);
-	$("#minPrice").text(minPrice.toLocaleString('ko-KR'));
-	$(".coupon-modal").show();
 
-});
+//모달 오픈
+ $(".couponName").on("click",function(){
+        $(".modal-wrap").css("display","flex");
+        const couponNo = $(this).parent().prev().text();
+        $.ajax({
+        	url : "/couponDetail.do",
+        	type:"post",
+        	data : {couponNo:couponNo},
+        	success: function(c){
+        		const table = $(".detail-table");
+        		let discount = c.discount.toLocaleString('ko-KR');
+        		if(discount == 0){
+        			discount = "";
+        		}
+        		let couponType = c.couponType;
+        		if(couponType == 0){
+        			couponType = "무료배송";
+        		}else if(couponType ==1){
+        			couponType="%";
+        		}else{
+        			couponType="원"
+        		}
+        		
+        		let content = "<tr><th>쿠폰명</th><td>"+c.couponName+"</td></tr><tr><th>유효기간</th><td>"+c.validStart+"~"+c.validEnd+"</td></tr><tr><th>할인액</th><td>"+discount+couponType+"</td></tr>";
+        		content += "<tr><th>메인카테고리</th><td>"+c.mainTarget+"</td></tr><tr><th>서브카테고리</th><td>"+c.subTarget+"</td></tr>";
+        		content += "<tr><th>최소구매금액</th><td>"+c.minPrice.toLocaleString('ko-KR');
+        		table.empty();
+        		table.append(content);
+        	
+        	},
+        	error :function(){
+        		console.log("서비스 호출 실패");
+        	}
+        });
+    });
+ $(".modal-close").on("click",function(){
+        $(".modal-wrap").css("display","none");
+    });
 
-//모달닫기
-$(".close-btn").on("click",function(){
-	$(".coupon-modal").hide();
-});
+
+
 
 
 //쿠폰등록

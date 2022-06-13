@@ -99,16 +99,18 @@ input[name='keyword'] {
 
 .main-content .table {
 	margin: 0 auto;
-	width: 80%;
+	width: 60%;
+	font-size: 20px;
 }
 
 .main-content .table tr>th:nth-child(2) {
-	width: 20%;
+	width: 110px;
 }
 
 .main-content .table th {
 	font-weight: normal;
-	line-height:30px
+	line-height:30px;
+	vertical-align: middle;
 }
 
 .main-content .table th>* {
@@ -120,7 +122,7 @@ input[name='keyword'] {
 }
 
 .notice-type {
-	color: #868e96;
+	color: #60656a;
 	font-size: 13px;
 }
 .noticeTitle{
@@ -132,9 +134,9 @@ input[name='keyword'] {
 }
 
 .important {
-	color: #02c9c9;
-	font-weight: bolder;
+	color: #2979ff;
 	font-size: 13px;
+	font-weight: bolder;
 }
 
 .notice-date {
@@ -143,13 +145,14 @@ input[name='keyword'] {
 }
 
 .img {
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 120px;
 	margin: 0;
 }
 .img>img{
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 120px;
+	border-radius: 3px;
 }
 
 .tab-wrap {
@@ -203,7 +206,13 @@ input[name='keyword'] {
 	background-color: #00b2b2;
 	border: 1px solid #00b2b2;
 }
-
+.ing{
+	height: 20px;
+	font-size: 12px;
+	color: #ffffff;
+	border-radius: 5px;
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -285,6 +294,11 @@ input[name='keyword'] {
                                             		중요
                                             	</c:if>
                                             </span>
+                                            <c:if test="${not empty n.dateStart}">
+                                            	 <span class="ing" end="${n.dateEnd }"></span>
+                                            </c:if>
+                                           
+                                            
                                             <div><a class="noticeTitle" href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle}</a></div>
                                             <div class="notice-date">
                                             	<c:choose>
@@ -344,6 +358,36 @@ input[name='keyword'] {
 		const writer = $(".writer").val();
 		location.href="/insertNoticeFrm.do?noticeWriter="+writer;
 	});
+	
+	//오늘날짜
+	function formatDate(){
+	  const d = new Date();
+	  month = ""+(d.getMonth()+1);
+	  day = ""+d.getDate();
+	  year = d.getFullYear();
+	  if(month.length<2){
+	      month = "0"+month;
+	  }
+	  if(day.length<2){
+	      day = "0"+day;
+	  }
+	  return [year, month, day].join('-');
+	}
+	//진행중-마감 
+	const today=new Date();
+	const ing = $(".ing");
+	for(let i=0;i<ing.length;i++){
+		let end = new Date(ing.eq(i).attr("end"));
+		if(end<today){
+			ing.eq(i).text("마감").css("background-color","#868e96");
+		}else{
+			ing.eq(i).text("진행중").css("background-color","#00c4c4");
+		}
+	}
+	
+	
+	
+	
 	</script>
 </body>
 </html>

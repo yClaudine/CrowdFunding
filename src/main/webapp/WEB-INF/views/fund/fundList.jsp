@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 HOME</title>
 	<!--jquery-->
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
     <!--구글폰트-->
@@ -20,7 +20,9 @@
     <!--구글 아이콘-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--페이지 css-->
+    <!--slick-->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    
 <style>
 .banner {
     background-color: rgb(211, 230, 236);
@@ -227,27 +229,6 @@ search-funding>form>button>span {
 
 
 /* Slideshow container */
-li {
-    list-style: none;
-}
-.slideContainer {
-    width: 100%;
-    position: relative;
-}
-.slideWrap {
-    width: calc(100%*6);
-    padding-left: 0;
-    height: 300px;
-    overflow: hidden;
-    margin-left: calc(-100%*0);
-    position: relative;
-    z-index: 1
-}
-
-.slide {
-    float: left;
-}
-
 .slide span {
     display: inline-block;
     font-size: 20px;
@@ -261,32 +242,57 @@ li {
 .slide img{
     object-fit:cover;
     width: 100%;
-    height: 300px;
+    height: 350px;
 
 }
-.pageBtWrap {
-    z-index: 2;
-    position: absolute;
-    left: 0;
-    bottom: 7%;
-    width: 100%;
-    text-align: center;
-}
-.pageBtWrap li {
-    display: inline;
-}
 
-.pageBtWrap li .pageBt {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-left: 10px;
+
+.slick-dots{
+    top: 400px;
+    display: flex;
+    justify-content: center;
     background-color: #fff;
 }
 
-.pageBtWrap li .pageBt.addPageBt {
-    background-color: #00c4c4;
+
+li{
+    width: 20px;
+    height: 4px;
+    background-color: #fff;
+    margin: 0 6px;
+    transition: 0.4s;
+}
+.slick-active{
+    width:40px;
+}
+
+li button{
+    display: none;
+}
+
+.slick-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    color: #00c4c4;
+    display: flex;
+    align-items: center;
+    padding: 70px 20px;
+    cursor: pointer;
+}
+.slick-prev{
+    left: 5%;
+}
+.slick-next{
+    right: 5%;
+}
+
+
+
+.search-submit{
+border : none;
+background-color:white;
 }
 </style>
 
@@ -294,47 +300,29 @@ li {
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="banner">
-        <div class="slideContainer">
-            <ul class="slideWrap">
-                <li class="slide slide4">
+
+        <div class="slideContainer" id="slider-div">
+                <div class="slide slide1">
                     <span>서포터님의 사랑을 받은 인기펀딩은 곧 끝나요</span>
                     <img src="resources/image/fund/living.jpg">
-                </li>
-                <li class="slide slide1">
+                </div>
+                <div class="slide slide2">
                     <span>쉽게 펀딩을 시작해보세요 </span>
                     <img src="resources/image/fund/travel.jpg">
-                </li>
-                <li class="slide slide2">
+                </div>
+                <div class="slide slide3">
                     <span>FUN FUN FUN</span>
                     <img src="resources/image/fund/cats.jpg">
-                </li>
-                <li class="slide slide3">
+                </div>
+                <div class="slide slide4">
                     <span>궁금했던 펀딩을 검색해보세요</span>
                     <img src="resources/image/fund/salad.jpg">
-                </li>
-                <li class="slide slide4">
-                    <img src="resources/image/fund/living.jpg">
-                    <span>test</span>
-                </li>
-                <li class="slide slide1">
-                    <span>test</span>
-                    <img src="resources/image/fund/travel.jpg">
-                </li>
-            </ul>
-            <ul class="pageBtWrap">
-                <li><a href="#" class="pageBt addPageBt"></a></li>
-                <li><a href="#" class="pageBt"></a></li>
-                <li><a href="#" class="pageBt"></a></li>
-                <li><a href="#" class="pageBt"></a></li>
-            </ul>
-        </div>
-
-            
-        </div>
+                </div>
+        </div><!--container-->            
     </div><!--banner-->
     
     
-    <div class="content">
+    <div class="content" style="margin-top:20px;">
     <!--카테고리 5개-->
         <div class="category" value="${f.fundCategory }">
             <button class="category-list"><!--카테고리1개-->
@@ -390,22 +378,24 @@ li {
 
     <!--검색 옵션들-->
         <div class="search-filter">
+            <div id="change-category" style="margin-right: 560px; font-weight: 500; font-size: 20px; color:#A29584;"></div>
             <div class="search-funding">
-                <form action="/fundSearch.do" method="post">
-                    <input type="text" class="list-search" placeholder="궁금한 펀딩을 검색해보세요">
-                    <span class="material-symbols-outlined searchI">search</span>
+                <form action="/fundSearch.do">
+                    <input type="text" class="list-search" id="keyword" name="keyword" value="${keyword }" placeholder="궁금한 펀딩을 검색해보세요">
+                    <button type="submit" class="search-submit"><span class="material-symbols-outlined searchI">search</span></button>
                     
             <!--필터링1 - 진행중/종료된-->
-                    <select name="searchType">
-                        <option ${(param.searchType=="ongoing")?"selected":""} value="ongoing"><span>진행순</span></option>
-                        <option ${(param.searchType=="end")?"selected":""} value="end">종료된</option>
+                    <select name="fstatus">
+                        <option value="ongoing"<c:if test="${fstatus eq 'onging' }">selected</c:if>>진행순</option>
+                        <option value="end"<c:if test="${fstatus eq 'end' }">selected</c:if>>종료된</option>
                     </select>
             <!--필터링2 - 인기순/펀딩액순/최신순-->
-                    <select name="searchType">
-                        <option ${(param.searchType=="current")?"selected":""} value="current"><span>최신순</span></option>
-                        <option ${(param.searchType=="popular")?"selected":""} value="popular">인기순</option>
-                        <option ${(param.searchType=="total")?"selected":""} value="total">펀딩액순</option>
+                    <select name="searchType" class="searchType">
+                        <option value="current" <c:if test="${searchType eq 'current' }">selected</c:if>>최신순</option>
+                        <option value="popular" <c:if test="${searchType eq 'popular' }">selected</c:if>>인기순</option>
+                        <option value="total" <c:if test="${searchType eq 'total' }">selected</c:if>>펀딩액순</option>
                     </select>
+                    
                 </form>
             </div>
         </div>
@@ -413,7 +403,12 @@ li {
 
 <!--펀딩 리스트-->
 	<div class="ajax-container" >
-        <div class="project-container" id="project-container">           
+        <div class="project-container" id="project-container"> 
+        <c:choose>
+        	<c:when test="${empty list }">
+            	<div class="no-search"><h6>다른 펀딩을 검색해보세요.</h6></div>
+            </c:when>
+           <c:otherwise>          
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
                 <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }" class="project-wrap">
@@ -425,106 +420,97 @@ li {
                         <div class="project-info">
                             <span class="project-category">${f.fundCategory }</span>
                             <span class="divide">|</span>
-                            <span class="project-seller">주식회사 노멀리스트</span>
+                            <span class="project-seller">${f.owner }</span>
                         </div>
                     </div>
                 </a>
                 <div class="line"></div>
                 <div class="project-progress">
-                    <span class="project-percent">1687%</span>
+                
+                    <span class="project-percent achieve">${f.rate }%</span>                
                     <span class="project-amount">∙${f.fundAmount }원</span>
                     <span class="project-dayleft">${f.dateGap }일 남음</span>
                 </div>
             </div><!--grid 1개--> 
-           </c:forEach>
+            
+            
+    		<input type="hidden" class="fundingSum" value="${f.fundingSum}">
+    		<input type="hidden" class="fundAmount" value="${f.fundAmount}">
+            </c:forEach>
+           </c:otherwise>
+         </c:choose>
+           
         </div><!--grid container-->
        </div>
+       <div style="height:200px;"></div>
     </div><!--content-->
     <input type="hidden" value="${sessionScope.m.memberId }">
-    <script>
+
+
+    
+<script>
+   
     //onclick="location.href='/fund.do?category=BEST'"
     //const category = $(this).children().children().eq(1).text();
-	/*
+	
     $(".category-list").on("click",function(){
-    	let category = $(this).val(); //개별버튼값
+        const category = $(this).children().children().eq(1).text();
+    	//let category = $(this).val(); //개별버튼값
     	$.ajax({
     		url : "/fund.do",
     		data : {
     			"category":category //버튼 value값 따라 작동하게
     		},
     		success : function(data){
-    			console.log(data);
-		    	//$("#ajax-container").load(location.href+' #ajax-container');
-    			
+    			//$("#ajax-container").load(location.href+' #ajax-container');
+    			location.href="/fund.do?category="+category;
+		    	//$("#change-category").text(category);
     		}
 		})
     });  
-    */
-    $(".category-list").on("click",function(){
-		const category = $(this).children().children().eq(1).text();
-		location.href="/fund.do?category="+category;
-		});
     
-    //이미지 슬라이드(수정 필요)
-    $(function () {
-        var winW = cnt = setId = 0;
-        resizeFn();
-
-        function resizeFn() {
-            winW = $(window).innerWidth();
-            $(".slide").css({
-                width: winW
-            });
-        };
+  
+    
+//이미지 슬라이드
+$(function(){
+    $('#slider-div').slick({
+        slide: 'div',		 
+        infinite : true, 		 
+        slidesToShow : 1,		
+        slidesToScroll : 1,	
+        speed : 500,
+        arrows : true, 
+        fade:true,
+        dots : true, 		
+        autoplay : true,
+        autoplaySpeed : 4000, 
+        pauseOnHover : false,
+        prevArrow : $(".slick-prev"),
+        nextArrow : $(".slick-next"),
+        dotsClass : "slick-dots", 
+        draggable : true,
         
-        $(window).resize(function () {
-            resizeFn();
-        });
-        autoplayFn();
-
-        function autoplayFn() {
-            setId = setInterval(nextCountFn, 4000);
-        };
-
-        $(".pageBt").each(function (idx) {
-            $(this).click(function () {
-                clearInterval(setId);
-                cnt = idx;
-                mainslideFn();
-            });
-        });
-
-        function nextCountFn() {
-            cnt++;
-            mainslideFn();
-        };
-
-        function prevCountFn() {
-            cnt--;
-            mainslideFn();
-        };
-
-        function mainslideFn() {
-            $(".slideWrap").stop().animate({
-                left: (-100 * cnt) + "%"
-            }, 600, function () {
-                if (cnt > 3) {
-                    cnt = 0;
-                }
-                if (cnt < 0) {
-                    cnt = 3
-                }
-                $(".slideWrap").stop().animate({
-                    left: (-100 * cnt) + "%"
-                }, 0)
-            });
-            $(".pageBt").removeClass("addPageBt");
-            $(".pageBt").eq(cnt > 3 ? cnt = 0 : cnt).addClass("addPageBt");
-        };
-    });    
+        responsive: [
+            {  
+                breakpoint: 960, 
+                settings: {
+                    slidesToShow:3 
+                } 
+            },
+            { 
+                breakpoint: 768,
+                settings: {	
+                    slidesToShow:2 
+                } 
+            }
+        ]
+    });
+})
     </script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
    
-    <!--부트스트랩-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>	
 </body>
 </html>

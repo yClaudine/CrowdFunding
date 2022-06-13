@@ -220,4 +220,45 @@ public class StoreTmpController {
 			int result = service.updateStore4(ts);
 			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
 		}
+		
+	//스토어 반품/교환 화면 구동
+		@RequestMapping(value="/storeCreate5.do")
+		public String storeCreate5(int stNo, Model model) {
+			pageMove(stNo, model);
+			return "store/storeCreate5";
+		}
+		
+	//스토어 반품/교환 등록
+		@RequestMapping(value="/updateStore5.do")
+		public String updateStore5(int stNo, Model model, String stReturn, String stChange) {
+			TmpStore tmp = new TmpStore();
+			tmp.setStNo(stNo);
+			TmpStore ts = service.selectOneTmpStore(tmp);
+			ts.setStReturn(stReturn);
+			ts.setStChange(stChange);
+			int result = service.updateStore5(ts);
+			return "redirect:/storeReadyFrm.do?stNo="+ts.getStNo();
+		}
+		
+		//Store 신청하기 추가하는 메서드
+		@RequestMapping(value="/CreateStore.do")
+		public String CreateStore(int stNo) {
+			TmpStore ts = new TmpStore();
+			ts.setStNo(stNo);
+			TmpStore tmp = service.selectOneTmpStore(ts);
+			
+			int result = 1;
+			
+			int storeResult = service.createStore(tmp);
+			result *= storeResult;
+			int deleteResult = 0;
+			/*
+			if(result >0) {
+				deleteResult = service.deleteTmpStore(ts);
+			}else {
+				System.out.println("오류");
+			}*/
+			
+			return "redirect:/";
+		}
 }

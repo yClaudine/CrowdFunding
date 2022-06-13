@@ -104,4 +104,121 @@
   		fc_bank_filepath as fcBankFilepath
   	from fund_calculate where fund_no = ${fundNo}
   </select>
+  <insert id="createFundCalculate" parameterType="fc">
+  	insert into fund_calculate
+  	values (fc_seq.nextval, #{fundNo}, #{fcRepCategory}, #{fcRepName}, #{fcRepEmail}, #{fcRepFilepath}, #{fcRepBirth}, #{fcMail}, #{fcBankName}, #{fcBankNo}, #{fcBankAccount}, #{fcBankFilepath})
+  </insert>
+  <update id="updateFundCalculate" parameterType="fc">
+	update fund_calculate 
+  	set 
+  		fc_mail = #{fcMail},
+  		fc_bank_name = #{fcBankName},
+  		fc_bank_no = #{fcBankNo},
+  		fc_bank_account = #{fcBankAccount},
+  		fc_bank_filepath = #{fcBankFilepath}
+  	where fund_no = #{fundNo}
+  </update>
+  <select id="selectMemberFund" parameterType="m" resultType="f">
+  	select
+  		fund_no as fundNo,
+  		member_id as memberId,
+  		fund_name as fundName,
+  		fund_amount as fundAmount,
+  		fund_fees as fundFees,
+  		fund_category as fundCategory,
+  		fund_start as fundStart,
+  		fund_end as fundEnd,
+  		fund_intro as fundIntro,
+  		fund_as as fundAs,
+  		fund_like as fundLike,
+  		fund_reportcount as fundReportcount,
+  		fund_warning as fundWarning,
+  		fund_filepath1 as fundFilepath1,
+  		fund_filepath2 as fundFilepath2,
+  		fund_filepath3 as fundFilepath3,
+  		fund_filepath4 as fundFilepath4,
+  		fund_filepath5 as fundFilepath5
+  	from fund where member_id = #{memberId} order by 1 desc
+  </select>
+  <select id="selectMemberTmpFund" parameterType="m" resultType="tf">
+  	select
+  		tf_no as tfNo,
+  		member_id as memberId,
+  		tf_name as tfName,
+  		tf_amount as tfAmount,
+  		tf_fees as tfFees,
+  		tf_category as tfCategory,
+  		tf_start as tfStart,
+  		tf_end as tfEnd,
+  		tf_intro as tfIntro,
+  		tf_as as tfAs,
+  		tf_filepath1 as tfFilepath1,
+  		tf_filepath2 as tfFilepath2,
+  		tf_filepath3 as tfFilepath3,
+  		tf_filepath4 as tfFilepath4,
+  		tf_filepath5 as tfFilepath5
+  	from tmp_fund where member_id = #{memberId} order by 1 desc
+  </select>
+  
+  <!-- 해당 펀드 최신 결제 10건 -->
+  <select id="selectFundPay" parameterType="f" resultType="fp">
+  	select 
+  		rNum, fpayNo, memberId, memberName,	fundNo,	fpayDeliveryfee, fpaySupport, fpayRewardTotal,
+		fpayFunding, fpayFinalpay, fpayStatus, fpayDate, nameShow, fundingShow, payMethod
+  	from
+	  	(select 
+	  		rownum as rNum,
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay where fund_no = #{fundNo} order by 2 desc)
+	where rNum between 1 and 10
+  </select>
+  
+  <!-- 해당 펀드 총 펀딩 금액 구하기 -->
+  <select id="selectTotalFund" parameterType="f" resultType="int">
+  	select nvl(sum(fpay_funding),0) from fund_pay where fund_no = #{fundNo}
+  </select>
+  
+  <!-- 펀딩 현황 게시판 결제 리스트 불러오기 -->
+  <select id="selectPayBoardList" parameterType="map" resultType="fp">
+  	select 
+  		rNum, fpayNo, memberId, memberName,	fundNo,	fpayDeliveryfee, fpaySupport, fpayRewardTotal,
+		fpayFunding, fpayFinalpay, fpayStatus, fpayDate, nameShow, fundingShow, payMethod
+  	from
+	  	(select 
+	  		rownum as rNum,
+			fpay_no as fpayNo,
+			member_id as memberId,
+			member_name as memberName,
+			fund_no as fundNo,
+			fpay_deliveryfee as fpayDeliveryfee,
+			fpay_support as fpaySupport,
+			fpay_reward_total as fpayRewardTotal,
+			fpay_funding as fpayFunding,
+			fpay_finalpay as fpayFinalpay,
+			fpay_status as fpayStatus,
+			fpay_date as fpayDate,
+			name_show as nameShow,
+			funding_show as fundingShow,
+			pay_method as payMethod
+		from fund_pay where fund_no = #{fundNo} order by 2 desc)
+	where rNum between #{start} and #{end}
+  </select>
+  
+  <!-- 펀딩 현황 게시판 총 데이터 수 -->
+  <select id="selectPayBoardCount" parameterType="f" resultType="int">
+  	select count(fpay_no) from fund_pay where fund_no = #{fundNo}
+  </select>
 </mapper>

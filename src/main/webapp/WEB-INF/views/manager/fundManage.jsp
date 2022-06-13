@@ -75,7 +75,7 @@
     border: 1px solid #02c9c9;
     margin: 0;
     margin-bottom: 5px;
-    width: 60px;
+    width: 90px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -134,6 +134,9 @@ input[name='keyword']{
 	 font-size: 13px;
 	 padding: 3px;
 }
+.table tr{
+	vertical-align: middle;
+}
 .main-content .table td:last-child{
 	width: 150px;
 }
@@ -144,8 +147,6 @@ input[name='keyword']{
     line-height: 30px;
     height: 30px;
 }
-
-
 #reportManage{
 	background-color: #e7f9f9;
 	border:none;
@@ -207,7 +208,7 @@ select{
 }
 .modal-wrap{
     width: 100vw;
-    height: 100vh;
+    height: 110vh;
     background-color: rgba(0,0,0,0.5);
     position: absolute;
     top: 0;
@@ -222,7 +223,6 @@ select{
     width: 50vw;
     min-width: 500px;
     max-width: 1000px;
-   
     max-height: 800px;
     border-radius: 5px;
 }
@@ -263,6 +263,7 @@ select{
 	border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
 </style>
 </head>
 <body>
@@ -300,7 +301,7 @@ select{
             		<option value="report">신고</option>
             	</select>
             </div>
-            
+          
             <c:choose>
             	<c:when test="${empty list }">
             		 <div class="nodata"><h6>조회 결과가 없습니다.</h6></div>
@@ -313,7 +314,7 @@ select{
 		                            <th>펀딩번호</th>
 		                            <th>펀딩명</th>
 		                            <th>판매자</th>
-		                            <th>상태</th>
+		                            <th>상태<br>(정상/신고)</th>
 		                            <th>경고수</th>
 		                            <th colspan="2"></th>
 		                        </tr>
@@ -341,12 +342,11 @@ select{
 										</td>
 										<td>${f.fundWarning }</td>
 			                            <td>
-			                                <button type="button" class="btn btn-primary delete">삭제</button>
-			                                <button type="button" class="btn btn-primary detail">경고</button>
+			                                <button type="button" class="btn btn-primary detail">신고 관리</button>
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
-		                    	
+		                    	 
 		                    	
 		                    </tbody>
 		                    
@@ -356,8 +356,11 @@ select{
             	</c:otherwise>
             </c:choose>
         </div>
+        
     </div>
-  	<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
+
+
+
 	<!-- 모달 -->
 	<div class="modal-wrap">
         <div class="detail-modal">
@@ -372,6 +375,9 @@ select{
             <button class="modal-close">닫기</button>
         </div>
     </div>
+<input type="hidden" class="information" optionType="${type }" keyword="${keyword }" reqPage="${reqPage }">
+
+
 
 <script>
 //기존값들
@@ -391,13 +397,13 @@ changeType.val(type);
 //검색버튼 클릭시
 $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
-	location.href="/fundManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+	location.href="/fundManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
 
 //옵션 변경시 적용(전체, 신고)
 changeType.on("change",function(){
 	const change = $(this).val();
-	location.href="/fundManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+	location.href="/fundManage.do?reqPage=1&keyword="+keyword+"&type="+change;
 });
 
 //경고버튼
@@ -419,7 +425,7 @@ $(".detail").on("click",function(){
         	success: function(f){
         		const table = $(".detail-table");
         		let content = "<tr><th>펀드번호</th><td>"+f.fundNo+"</td></tr><tr><th>펀드제목</th><td>"+f.fundName+"</td></tr><tr><th>판매자아이디</th><td>"+f.memberId+"</td></tr>";
-        		content += "<tr><th>목표금액</th><td>"+f.fundAmount+"</td></tr><tr><th>요금제</th><td>"+f.fundFees+"</td></tr>";
+        		content += "<tr><th>목표금액</th><td>"+f.fundAmount.toLocaleString('ko-KR')+"</td></tr><tr><th>요금제</th><td>"+f.fundFees+"%</td></tr>";
         		content += "<tr><th>카테고리</th><td>"+f.fundCategory+"</td></tr><tr><th>펀드시작일</th><td>"+f.fundStart+"</td></tr>";
         		content += "<tr><th>펀드종료일</th><td>"+f.fundEnd+"</td></tr><tr><th>프로젝트 소개</th><td>"+f.fundIntro+"</td></tr><tr><th>하자에 대한 A/S</th><td>"+f.fundAs+"</td></tr>";
         		table.empty();
@@ -436,5 +442,6 @@ $(".detail").on("click",function(){
     });
 
 </script>
+
 </body>
 </html>

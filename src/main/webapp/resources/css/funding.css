@@ -1,0 +1,135 @@
+.content{
+    min-width:1300px;
+    min-height:500px;
+    margin-top: 20px;
+    
+    padding:0;
+    
+}
+.coupon{
+    width:350px; 
+    margin:20px auto;   
+    padding: 0px;
+    list-style-type:none ;
+}
+.content>h5{
+    padding-bottom: 50px;
+    padding-left:200px;
+    margin:0;
+    width:1300px;
+    height: 60px;
+    
+    font-size: 30px;
+}
+#setting{
+    
+    font-size: 25px;
+    
+    color:#60656a;
+    ;
+}
+
+.couponC{
+    display:flex;
+    height:40px;
+    padding-left:200px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+    gap: 30px;
+
+    height:30px;
+}
+.couponC>div:first-child{
+
+    height:30px;
+    width:80px;
+}
+
+.form-select{
+    width:200px;
+    height:40px;
+    margin-left: 500px;
+    
+}
+.cps{
+
+    
+    margin-left: 800px;
+}
+
+.f2{
+    border-bottom: 2px solid #00c4c4;
+}
+
+
+
+
+
+
+.f2Zone{
+    
+    margin: 20px auto;
+    width:1000px;
+    height:300px;
+    display:grid;
+    grid-template-columns: repeat(4,210px);
+    grid-template-rows: 310px;
+    grid-row-gap:40px;
+    grid-column-gap:35px;
+}
+.item{
+    display: inline-block;
+}
+.hr{
+    color: rgba(20, 20, 20, 0.4);
+}
+.fundingImg{
+    width:210px;
+    height:200px;
+    border : 1px solid black;
+    border-radius: 10px;
+}
+
+
+.collectMoney {
+    width:210px;
+    height:30px;
+    font-size : 16px;
+    color: #60656a;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.Ddate { 
+    font-size : 14px; 
+}
+.fundName{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Noto sans kr;
+    margin-top: 10px;
+}
+
+
+
+.btn-secondary.btns:focus{
+    background-color: orangered;
+    box-shadow: none;
+
+}
+.pagination{
+    width:1200px;
+    height:40px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.f2ZoneTitle{
+    padding-left: 160px;
+    padding-top:20px;
+}

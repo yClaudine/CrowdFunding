@@ -28,6 +28,7 @@ import kr.or.manager.model.vo.MemberPageData;
 import kr.or.member.vo.Dm;
 import kr.or.member.vo.Member;
 import kr.or.member.vo.Seller;
+import kr.or.store.model.service.StoreService;
 import kr.or.store.model.vo.Store;
 import kr.or.store.model.vo.StoreAllPageData;
 import kr.or.store.model.vo.StoreStar;
@@ -37,6 +38,10 @@ public class ManagerController {
 		
 	@Autowired
 	private ManagerService service;
+	
+	//스토어 만족도 삭제 위한 스토어서비스
+	@Autowired
+	private StoreService storeService;
 	
 	//판매자 승인페이지
 	@RequestMapping(value="/sellerManage.do")
@@ -147,23 +152,13 @@ public class ManagerController {
 		//회원조회
 		MemberPageData mpd = service.selectAllMember(reqPage, type, keyword);
 		ArrayList<Member> mList = mpd.getList();
-		/*
-		경고수조회(해당멤버에게 admin이 보낸 메세지 수 )
-		ArrayList<Integer> rCountList = new ArrayList<Integer>();
-		for(int i=0;i<mList.size();i++) {
-			//Student s = students.get(i);
-			//System.out.println(s.getName()+"\t"+s.getAge()+"\t"+s.getAddr());
-			int result = service.countReport(memberId);
-			rCountList.add(result);
-		}
-		*/
+		
 		model.addAttribute("list", mpd.getList());
 		model.addAttribute("pageNavi", mpd.getPageNavi());
 		model.addAttribute("type", type);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("reqPage", reqPage);
-		//model.addAttribute("rCountList", rCountList);   
-		//jsp에서 경고수 <c:foreach>에서 ${rCountList}
+		
 		return "manager/memberManage";
 	}
 	
@@ -174,8 +169,24 @@ public class ManagerController {
 		Member m = service.selectOneMember(memberNo);
 		return new Gson().toJson(m);
 	}
+	//회원 권한 변경
+	@RequestMapping(value="/memberAuthChange.do")
+	public String memberAuthChange(int reqPage, String type, String keyword, String memberId, int auth, Model model) {
+		int result = service.updateMemberAuth(memberId, auth);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "변경 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "변경을 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/memberManage.do?keyword="+keyword+"&type="+type+"&reqPage="+reqPage);
+		return "manager/msg";
+	}
 	
-	//회원 신고 상세페이지
+	//회원 신고 관리페이지
 	@RequestMapping(value="/memberReportDetail.do")
 	public String memberReportDetail(String memberId, Model model) {
 		ArrayList<StoreStar> list = service.selectOneStar(memberId);
@@ -183,6 +194,20 @@ public class ManagerController {
 		model.addAttribute("memberId", memberId);
 		return "manager/memberReport";
 	}
+	
+	//회원 리뷰신고 해제
+	@RequestMapping(value="/cancelReviewReport.do")
+	public String cancelReviewReport(String memberId) {
+		int result = service.cancelReviewReport(memberId);
+		return "redirect:/memberReportDetail.do?memberId="+memberId;
+	}
+	//회원 리뷰 삭제
+	@RequestMapping(value="/deleteReview.do")
+	public String deleteReview(int starNo, String memberId) {
+		int result = storeService.storeCommentDelete(starNo);
+		return "redirect:/memberReportDetail.do?memberId="+memberId;
+	}
+	
 	
 	//펀드 관리
 	@RequestMapping(value="/fundManage.do")
@@ -203,12 +228,50 @@ public class ManagerController {
 		Fund f = service.selectOneFund(fundNo);
 		return new Gson().toJson(f);
 	}
+
+	//펀드 신고 관리페이지
+	@RequestMapping(value="/fundReportDetail.do")
+	public String fundReportDetail(int fundNo, String memberId, Model model) {
+		Fund f = service.selectOneFund(fundNo);
+		model.addAttribute("f", f);
+		model.addAttribute("fundNo", fundNo);
+		model.addAttribute("memberId", memberId);
+		return "manager/fundReport";
+	}
+	//펀드 신고해제
+	@RequestMapping(value="/cancelFundReport.do")
+	public String cancelFundReport(int fundNo, Model model) {
+		int result = service.cancelFundReport(fundNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "해제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "해제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/fundManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
 	
-	
-	
-	//펀드 경고관리
-	
-	
+	/*펀드 삭제
+	@RequestMapping(value="/deleteFund.do")
+	public String deleteFund(int fundNo, Model model) {
+		int result = service.deleteFund(fundNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "삭제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "삭제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/fundManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
+	*/
 	//스토어 관리
 	@RequestMapping(value="/storeManage.do")
 	public String storeManage(int reqPage, String type, String keyword, Model model) {
@@ -227,7 +290,48 @@ public class ManagerController {
 		Store s = service.selectOneStore(storeNo);
 		return new Gson().toJson(s);
 	}
-	
+	//스토어 신고 관리페이지
+	@RequestMapping(value="/storeReportDetail.do")
+	public String storeReportDetail(int storeNo, String memberId, Model model) {
+		Store s = service.selectOneStore(storeNo);
+		model.addAttribute("s", s);
+		model.addAttribute("storeNo", storeNo);
+		model.addAttribute("memberId", memberId);
+		return "manager/storeReport";
+	}
+	/*스토어 삭제
+	@RequestMapping(value="/deleteStore.do")
+	public String deleteStore(int storeNo, Model model) {
+		int result = service.deleteStore(storeNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "삭제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "삭제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/storeManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
+	*/
+	//스토어 신고해제
+	@RequestMapping(value="/cancelStoreReport.do")
+	public String cancelStoreReport(int storeNo, Model model) {
+		int result = service.cancelStoreReport(storeNo);
+		if(result>0) {
+			model.addAttribute("title", "SUCCESS" );
+			model.addAttribute("text", "해제 되었습니다.");
+			model.addAttribute("icon", "info");
+		}else {
+			model.addAttribute("title", "FAIL" );
+			model.addAttribute("text", "해제 실패하였습니다.");
+			model.addAttribute("icon", "info");
+		}
+		model.addAttribute("loc", "/storeManage.do?reqPage=1&keyword=&type=all");
+		return "manager/msg";
+	}
 	
 	//경고 보낸메세지 불러오기(ajax)
 	@RequestMapping(value="/getReportList.do",produces ="application/json;charset=utf-8")
@@ -238,6 +342,7 @@ public class ManagerController {
 		
 		return new Gson().toJson(list);
 	}
+	
 	
 }
 

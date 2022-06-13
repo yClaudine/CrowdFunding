@@ -113,7 +113,7 @@ public class ManagerService {
 	
 	//펀드관리
 	public FundPageData selectAllFund(int reqPage, String type, String keyword) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
@@ -165,7 +165,7 @@ public class ManagerService {
 
 	//스토어관리
 	public StoreAllPageData selectAllStore(int reqPage, String type, String keyword) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
@@ -237,6 +237,78 @@ public class ManagerService {
 		map.put("categoryNo", categoryNo);
 		return dao.selectReportList(map);
 	}
+
+	//회원 권한 변경
+	public int updateMemberAuth(String memberId, int auth) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auth", auth);
+		return dao.updateMemberAuth(map);
+	}
+
+	public int deleteStore(int storeNo) {
+		//결제취소 상태로 변경
+		int result=0;
+		int result1 = dao.cancelStorePay(storeNo);
+		if(result1>0) {
+			//쿠폰 사용전 상태로 변경
+			result = dao.updateCouponUse(storeNo);
+			/*
+			if(result2>0) {
+				//result = dao.deleteStore(storeNo);
+				result = 1;
+			}else {
+				result = -1;
+			}
+			*/
+		}else {
+			result = -1;
+		}
+		
+		return result;
+	}
+
+	public int deleteFund(int fundNo) {
+		//결제취소 상태로 변경
+		int result=0;
+		int result1 = dao.cancelFundPay(fundNo);
+		if(result1>0) {
+			//쿠폰 사용전 상태로 변경
+			int result2 = dao.updateFundCouponUse(fundNo);
+			if(result2>0) {
+				//펀드 삭제
+				result = dao.deleteFund(fundNo);
+			}else {
+				result = -1;
+			}
+		}else {
+			result = -1;
+		}
+		return result;
+	}
+
+	public int cancelReviewReport(String memberId) {
+		//리뷰 신고 해제
+		int result1 = dao.cancelReviewReport(memberId);
+		if(result1>0) {
+			//회원 신고 해제
+			return dao.cancelMemberReport(memberId);
+		}else {
+			return -1;
+		}
+	}
+
+	public int cancelFundReport(int fundNo) {
+		// TODO Auto-generated method stub
+		return dao.cancelFundReport(fundNo);
+	}
+
+	public int cancelStoreReport(int storeNo) {
+		// TODO Auto-generated method stub
+		return dao.cancelStoreReport(storeNo);
+	}
+
+	
 
 	
 	

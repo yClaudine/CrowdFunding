@@ -31,39 +31,39 @@
     font-size: 30px;
     padding: 20px;
 }
-   .manager-menu{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        border: 1px solid lightgray;
-    }
-    .manager-menu>li{
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-        color: gray;
-        
-    }
-    .manager-menu>li>a{
-        display: block;
-        text-decoration: none;
-        color: #212529;
-        background-color:#f2f4f6;
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-        font-size: 15px;
-    }
-    .manager-menu>li>a:hover{
-        color: #e7f9f9;
-        cursor: pointer;
-        background-color: #00b2b2;
-    }
-    .manager-menu .active-menu{
-        color: #00b2b2;
-        font-weight: bold;
-    }
+.manager-menu{
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     border: 1px solid lightgray;
+ }
+ .manager-menu>li{
+     text-align: center;
+     height: 50px;
+     line-height: 50px;
+     font-size: 15px;
+     color: gray;
+     
+ }
+ .manager-menu>li>a{
+     display: block;
+     text-decoration: none;
+     color: #212529;
+     background-color:#f2f4f6;
+     text-align: center;
+     height: 50px;
+     line-height: 50px;
+     font-size: 15px;
+ }
+ .manager-menu>li>a:hover{
+     color: #e7f9f9;
+     cursor: pointer;
+     background-color: #00b2b2;
+ }
+ .manager-menu .active-menu{
+     color: #00b2b2;
+     font-weight: bold;
+ }
 .content-wrap .btn{
     font-size: 13px;
     margin: 5px;
@@ -74,8 +74,8 @@
     background-color: #02c9c9;
     border: 1px solid #02c9c9;
     margin: 0;
-    margin-bottom: 5px;
-    width: 85px;
+    margin-top:5px;
+    width: 100px;
     height: 30px;
     line-height: 13px;
     font-size: 13px;
@@ -148,12 +148,14 @@ input[name='keyword']{
 	 font-size: 13px;
 	 padding: 3px;
 }
-.main-content .table td:last-child{
-	width: 200px;
+.table td, .table th{
+	vertical-align: middle;
 }
-.main-content .table td{
-    line-height: 30px;
-    height: 30px;
+.main-content .table td:nth-child(5){
+	width: 140px;
+}
+.main-content .table td:last-child, .main-content .table th:last-child{
+	width: 240px;
 }
 #reportManage{
 	background-color: #e7f9f9;
@@ -238,6 +240,7 @@ select{
 }
 .modal-top h3{
 	margin: 0;
+	text-align:center;
 }
 .detail-btn:hover{
 	cursor: pointer;
@@ -252,7 +255,6 @@ select{
 .detail-table th{
 	border: 1px solid #bfbfbf;
 	width: 17%;
-	vertical-align: middle;
 	text-align:center;
 }
 .detail-table td{
@@ -268,6 +270,24 @@ select{
 	border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+.main-content .btn-outline {
+    line-height: 13px;
+    background-color: white;
+	color:#00b2b2;
+    border: 1px solid #00b2b2;
+	display: block;
+	width: 80px;
+	margin-right:20px;
+	margin-left: 0;
+	float:left;
+}
+.main-content .btn-outline:hover {
+	 background-color: #00b2b2;
+     border: 1px solid #d1e2e2;;
+     color:white;
+     cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -322,10 +342,10 @@ select{
 		                        <tr>
 		                            <th>아이디</th>
 		                            <th>이름</th>
-		                            <th>신고상태</th>
+		                            <th>상태<br>(정상/신고)</th>
 		                            <th>경고수</th>
-		                            <th>권한</th>
-		                            <th colspan="2"></th>
+		                            <th>권한<br> (정상/로그인불가)</th>
+		                            <th></th>
 		                        </tr>
 		                    </thead>
 		                    
@@ -352,16 +372,29 @@ select{
 										<td>${mem.memberWarning }</td>
 			                            <td>
 			                            	<input type="hidden" class="authRe" value=${mem.authRe }>
-			                                <select name="authChange" id="authChange">
-			                                	<option value="0">정상</option>
-			                                    <option value="1">로그인불가</option>
-			                                </select>
+			                                <c:choose>
+			                                	<c:when test="${mem.authRe eq 0}">
+			                                		 <select name="authChange" id="authChange">
+					                                	<option value="0" selected>정상</option>
+					                                    <option value="1">로그인불가</option>
+					                                 </select>
+			                                	</c:when>
+			                                	<c:otherwise>
+			                                		 <select name="authChange" id="authChange">
+					                                	<option value="0">정상</option>
+					                                    <option value="1" selected>로그인불가</option>
+					                                 </select>
+			                                	</c:otherwise>
+			                                </c:choose>
+			                                
+			                               
 			                            </td>
 			                            <td>
-			                                <button type="button" class="btn btn-primary authChange">권한수정</button>
-			                                <button type="button" class="btn btn-primary detail">경고관리</button>
+			                                <button type="button" class="btn btn-outline authChange">저장</button>
+			                                <input type="hidden" value="${mem.authRe }">
+			                                <button type="button" class="btn btn-primary detail">신고 관리</button>
 			                                <input type="hidden" value="${mem.memberId }" >
-			                                <input type="hidden" >
+			                                
 			                            </td>
 		                        	</tr>
 		                    	</c:forEach>
@@ -383,7 +416,7 @@ select{
 	<div class="modal-wrap">
         <div class="detail-modal">
             <div class="modal-top">
-                <h3>스토어 상세정보</h3>
+                <h3>회원 상세정보</h3>
             </div>
             <div class="modal-content">
                 <table border="1" class="detail-table">
@@ -412,13 +445,13 @@ changeType.val(type);
 //검색버튼 클릭시
 $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
-	location.href="/memberManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
+	location.href="/memberManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
 
 //옵션 변경시 적용(전체,미승인,승인,심사전)
 changeType.on("change",function(){
 	const change = $(this).val();
-	location.href="/memberManage.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+change;
+	location.href="/memberManage.do?reqPage=1&keyword="+keyword+"&type="+change;
 });
 
 //상세보기버튼
@@ -468,6 +501,21 @@ $(".detail-btn").on("click",function(){
 $(".modal-close").on("click",function(){
        $(".modal-wrap").css("display","none");
    });
+ 
+ //권한수정 버튼
+ $(".authChange").on("click",function(){
+	 const oldAuth = $(this).next().val();
+	 const newAuth = $(this).parent().prev().children().eq(1).val();
+	 const memberId = $(this).next().next().next().val();
+	 if(oldAuth == newAuth){
+		 alert("변경된 값이 없습니다.");
+	 }else{
+		 location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
+	 }
+ });
+   
+   
+   
 </script>
 
 </body>

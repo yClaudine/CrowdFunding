@@ -226,7 +226,7 @@
                 
                 <div class="cash-method">
                     <div class="cash-detail">2022년 6월 15일 자정까지 아래 계좌로 입금</div>
-                    <div>국민은행  96594545-01-05787522 (FUN여수민FUN)</div>
+                    <div>국민은행  96594545-01-05787522 (FUNFUNFUN)</div>
                     <div>입금자명 : ${sessionScope.m.memberName }</div>
                 </div>
 

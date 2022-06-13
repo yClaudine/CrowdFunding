@@ -1,0 +1,173 @@
+.content{
+    min-width:1300px;
+    min-height:500px;
+    margin-top: 20px;
+    
+    padding:0;
+    
+}
+.coupon{
+    width:350px; 
+    margin:20px auto;   
+    padding: 0px;
+    list-style-type:none ;
+}
+.content>h5{
+    padding-bottom: 50px;
+    padding-left:200px;
+    margin:0;
+    width:1300px;
+    height: 60px;
+    
+    font-size: 30px;
+}
+#setting{
+    
+    font-size: 25px;
+    
+    color:#60656a;
+    ;
+}
+.couponC{
+    display:flex;
+    height:40px;
+    padding-left:200px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+    gap: 30px;
+
+    height:30px;
+}
+.couponC>div:first-child{
+
+    height:30px;
+    width:80px;
+}
+.c2{
+    height:30px;
+    width:60px;
+}
+.couponC>div:hover{
+    border-bottom: 3px solid #00c4c4;
+     cursor: pointer;
+}
+.form-select{
+    width:200px;
+    height:40px;
+    margin-left: 500px;
+    
+}
+.cps{
+    
+    
+    margin-left: 800px;
+}
+
+.coupC{
+    padding-left: 200px;
+    padding-top:40px;
+    height:100px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+}
+.ct{
+    width:900px;
+    margin-left:200px;
+    text-align:center;
+}
+.cP{
+    font-size: larger;
+} 
+
+
+#cP1{
+    font-size: 60px;
+}
+.cP1b{
+    border-right: 1px dashed black;
+}
+.cts:not(:first-child){
+    line-height: 50px;
+    text-align: center;
+}
+.couponStatus{
+    font-family: Noto Sans kr;
+    font-weight:600;
+}
+
+.c2Zone{
+    
+    margin: 50px auto;
+    width:1000px;
+    height:500px;
+    display:grid;
+    grid-template-columns: repeat(4,210px);
+    grid-template-rows: 310px;
+    grid-row-gap:40px;
+    grid-column-gap:35px;
+}
+.item{
+    display: inline-block;
+}
+.couponImg{
+    width:210px;
+    height:200px;
+    border : 1px solid black;
+    border-radius: 10px;
+}
+
+.couponCondition{
+    margin-top: 16px;
+    color: #fff;
+    font-size: 14px;
+    height:30px;
+    background: linear-gradient(to right,#00c4c4 0%,
+    #2ddddd 50%,
+    #c802aa 100%);
+    border:  1px solid #e7f9f9;
+    border-radius: 5px;
+    background-size: 200% 100%;
+}
+
+.couponCondition:hover{
+    
+    
+    background-position: 100% 100%;;
+    transition: background-position 1s;
+
+}
+.notice-title {
+    width:210px;
+    height:30px;
+    font-size : 16px;
+    color: #60656a;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.Ddate { 
+    font-size : 14px; 
+}
+.couponName{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Noto sans kr;
+    margin-top: 10px;
+}
+
+
+
+.btn-secondary.btns:focus{
+    background-color: orangered;
+    box-shadow: none;
+
+}
+.pagination{
+    width:1000px;
+    height:50px;
+    justify-content: center;
+}

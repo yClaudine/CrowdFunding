@@ -1,6 +1,7 @@
 package kr.or.fund.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
+import kr.or.fund.model.vo.FundPay;
 import kr.or.fund.model.vo.Reward;
+import kr.or.fund.model.vo.TmpFund;
+import kr.or.member.vo.Member;
 
 @Repository
 public class FundDao {
@@ -55,6 +59,50 @@ public class FundDao {
 	public FundCalculate selectFundCalculate(Fund f) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("fund.selectFundCalculate",f);
+	}
+
+	public int createFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("fund.createFundCalculate",fc);
+	}
+
+	public int updateFundCalculate(FundCalculate fc) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("fund.updateFundCalculate",fc);
+	}
+
+	public ArrayList<Fund> selectMemberFund(Member m) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("fund.selectMemberFund",m);
+		return (ArrayList<Fund>)list;
+	}
+
+	public ArrayList<TmpFund> selectMemberTmpFund(Member m) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("fund.selectMemberTmpFund",m);
+		return (ArrayList<TmpFund>)list;
+	}
+
+	public ArrayList<FundPay> selectFundPay(Fund f) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("fund.selectFundPay",f);
+		return (ArrayList<FundPay>)list;
+	}
+
+	public int selectTotalFund(Fund f) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("fund.selectTotalFund",f);
+	}
+
+	public ArrayList<FundPay> selectPayBoardList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("fund.selectPayBoardList",map);
+		return (ArrayList<FundPay>)list;
+	}
+
+	public int selectPayBoardCount(Fund f) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("fund.selectPayBoardCount",f);
 	}
 	
 

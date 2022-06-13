@@ -64,7 +64,7 @@
 	  		st_img5 = #{stImg5}
 	  	where st_no = #{stNo}
 	 </update>
-	 <update id="udpateStore4" parameterType="ts">
+	 <update id="updateStore4" parameterType="ts">
 		 update store_tmp
 		  	set 
 		  		st_Delivery = #{stDelivery}, 
@@ -74,4 +74,19 @@
 		  		st_Content = #{stContent}
 		  	where st_no = #{stNo}
 	 </update> 
+	 <update id="updateStore5" parameterType="ts">
+		 update store_tmp
+		  	set 
+		  		st_Return = #{stReturn}, 
+		  		st_Change = #{stChange}
+		  	where st_no = #{stNo}
+	 </update>
+	 
+	 <insert id="createStore" parameterType="ts">
+	 insert into Store
+	 values (store_seq.nextval, #{memberId}, #{stTitle}, #{stCategory}, #{stContent}, #{stProduct}, #{stProductcontent}, #{stPrice}, #{stCount}, #{stDelivery}, #{stReturn}, #{stChange}, 0, 0, #{stImg1}, #{stImg2}, #{stImg3}, #{stImg4}, #{stImg5}) 	
+	 <selectKey resultType="int" order="AFTER" keyProperty="stNo">	
+	 	select max(store_no) from store
+	 </selectKey>
+	 </insert>
 </mapper>

@@ -7,31 +7,81 @@
 		(select rownum as rnum,n.* from
 		(select 
 	  		fund_no as fundNo,
-	  		member_id as memberId,
-	  		fund_name as fundName,
-	  		fund_amount as fundAmount,
-	  		fund_fees as fundFees,
-	  		fund_category as fundCategory,
-	  		fund_start as fundStart,
-	  		fund_end as fundEnd,
+            fund_name as fundName,
+            fund_category as fundCategory,
+            fund_amount as fundAmount,
+            fund_filepath1 as fundFilepath1,
 	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
-	  		fund_intro as fundIntro,
-	  		fund_as as fundAs,
-	  		fund_like as fundLike,
-	  		fund_reportcount as fundReportcount,
-	  		fund_warning as fundWarning,
-	  		fund_filepath1 as fundFilepath1,
-	  		fund_filepath2 as fundFilepath2,
-	  		fund_filepath3 as fundFilepath3,
-	  		fund_filepath4 as fundFilepath4,
-	  		fund_filepath5 as fundFilepath5
+            nvl(sum(fpay_funding),0)as fundingSum,  
+            nvl(owner,null)as owner,
+            floor((nvl(sum(fpay_funding),0))/fund_amount*100) as rate
 	from fund 
-	 	<if test="!category.equals('BEST')">
-	 	where fund_category=#{category}
-	 	</if>
+	left join fund_pay using(fund_no)
+	left join seller using(fund_no)
+	<choose>
+	 	<when test="!category.equals('BEST')">
+	 	where fund_category=#{category} and fund_warning <![CDATA[<]]> 3 and fund_end <![CDATA[>]]> sysdate
+	 	</when>
+	 	<otherwise>
+	 	where fund_warning <![CDATA[<]]> 3 and fund_end <![CDATA[>]]> sysdate
+	 	</otherwise>
+	 </choose>
+        group by fund_no,fund_name,fund_category,fund_amount,fund_filepath1,(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD')),owner
 		order by fund_no desc)n)
   </select>
   
+<!-- 메인 필터링 -->  
+    <select id="searchFundList" parameterType="map" resultType="f">
+	select * from 
+		(select rownum as rnum,n.* from
+		(select 
+	  		fund_no as fundNo,
+            fund_name as fundName,
+            fund_category as fundCategory,
+            fund_amount as fundAmount,
+            fund_filepath1 as fundFilepath1,
+	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
+            nvl(sum(fpay_funding),0)as fundingSum,  
+            nvl(owner,null)as owner,
+            floor((nvl(sum(fpay_funding),0))/fund_amount*100) as rate
+	from fund 
+	left join fund_pay using(fund_no)
+	left join seller using(fund_no)
+	 	where fund_warning <![CDATA[<]]> 3 and 
+	 	<choose>
+			<when test="fstatus.equals('ongoing')">
+				fund_end <![CDATA[>]]> sysdate 
+			</when>
+			<when test="fstatus.equals('end')">
+				fund_end <![CDATA[<]]> sysdate 
+			</when>
+	 	</choose>
+	 	<if test="!keyword.equals('')">
+		and fund_name like '%'||#{keyword}||'%'
+		</if>
+        group by fund_no,fund_name,fund_category,fund_amount,fund_filepath1,(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD')),owner	
+		<choose>
+			<when test="searchType.equals('current')">
+				order by fund_no desc)n) 
+			</when>
+			<when test="searchType.equals('popular')">
+				order by rate desc)n) 
+			</when>
+			<when test="searchType.equals('total')">
+				order by fundingSum desc)n) 
+			</when>
+		</choose>		
+		
+  </select>
+  
+<!-- 메인페이지 펀딩률 --> 
+	<select id="mainPayList" resultType="fp">
+	select
+		fund_no as fundNo,
+		sum(fpay_funding)as fundingSum
+		from fund_pay 
+	group by fund_no
+	</select>
   
 <!-- 펀딩 상세페이지 메인 -->
   <select id="selectOneFund" parameterType="int" resultType="f">
@@ -65,4 +115,83 @@
 		fund_reportcount = fund_reportcount+1 
 	where fund_no=#{fundNo}
 	</update>
+	
+<!-- 상세 - 새소식게시판 -->
+  <select id="selectFundNoticeList" parameterType="map" resultType="fn">
+  	select * from 
+  	(select rownum as rnum, f.* from 
+  	(select
+	  	fn_no as fnNo,
+	  	fund_no as fundNo,
+	  	member_id as memberId,
+	  	fn_title as fnTitle,
+	  	fn_content as fnContent,
+	  	fn_date as fnDate,
+	  	fn_category as fnCategory,
+	  	fn_fix as fnFix,
+	  	fn_filepath as fnFilepath	  	
+  	from fund_notice where
+	fund_no=#{fundNo}
+  	order by fn_fix, fn_no desc)f) 
+	where (rnum between #{start} and #{end})
+
+  </select>
+  
+ <select id="selectFundTotalCount" parameterType="map" resultType="int">
+ 	select count(*) from notice 
+ 	<choose>
+	  	<when test="type.equals('event')">
+	  	where notice_type=0 
+	  	</when>
+	  	<when test="type.equals('reward')">
+	  	where notice_type=1 
+	  	</when>
+  	</choose>
+ </select>	
+	
+<!-- 새소식 인서트-->
+ <insert id="insertFundNotice" parameterType="fn">
+ 	insert into fund_notice values(
+ 		fn_seq.nextval,
+ 		#{fundNo},
+ 		#{memberId},
+ 		#{fnTitle},
+ 		#{fnContent},
+ 		to_char(sysdate,'yyyy-mm-dd'),
+ 		#{fnCategory},
+ 		#{fnFix},
+ 		#{fnFilepath}
+ 	)
+ </insert>	
+	
+<!-- 새소식 조회 -->
+<select id="selectOneNotice" parameterType="map" resultType="fn">
+	select
+	  	fn_no as fnNo,
+	  	fund_no as fundNo,
+	  	member_id as memberId,
+	  	fn_title as fnTitle,
+	  	fn_content as fnContent,
+	  	fn_date as fnDate,
+	  	fn_category as fnCategory,
+	  	fn_fix as fnFix,
+	  	fn_filepath as fnFilepath
+  	from fund_notice 
+  	where fund_no=#{fundNo} and fn_no=#{fnNo}	
+</select>
+
+ <update id="updatetFundNotice" parameterType="fn">
+ 	update fund_notice set
+ 		fn_title = #{fnTitle},
+ 		fn_content = #{fnContent},
+ 		fn_category = #{fnCategory},
+ 		fn_fix = #{fnFix},
+ 		fn_filepath = #{fnFilepath}
+  	where fund_no=#{fundNo} and fn_no=#{fnNo}	
+ 	
+ </update>		
+ <delete id="deleteFundNotice" parameterType="map">
+ 	delete from fund_notice where fund_no=#{fundNo} and fn_no=#{fnNo}
+ </delete>
+	
 </mapper>

@@ -1,0 +1,192 @@
+.mypageHead{
+    display: flex;
+    align-items: center;
+    height:200px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.5) ;
+   
+}
+.imgBox>img{
+    width:150px;
+    height:150px;
+
+}
+.imgBox{
+    width:140px;
+    height:140px;
+    overflow: hidden;
+    border-radius: 100px;
+    margin-left: 50px;
+}
+.myIntro>span:last-child{
+    display:block;
+    margin-top: 10px;
+    margin-right: 0px;
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width:250px;
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.myIntro>span:first-child{
+    padding-left:20px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family:Noto Sans kr;
+}
+
+
+.myIntro{
+    width:250px;
+    
+    margin-left: 10px;
+}
+.myfollower{
+    margin-left: 40px;
+    width:80px;
+    height:80px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: Noto sans kr;
+}
+.myfollowing{
+    width:80px;
+    height:80px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: Noto sans kr;
+}
+.mylevel{
+    margin-left: 100px;
+    height:70px;
+    display: flex;
+    justify-content: center;
+}
+.mylevel span{
+    display: inline-block;
+}
+#trophy{
+    font-size: 50px;
+    color: gold;
+}
+#bug{
+    font-size: 50px;
+    color:brown;
+}
+#ani{
+    font-size: 50px;
+    color:plum;
+}
+.mylevel>span:last-child{
+    width:120px;
+    font-size: 15px;
+    line-height: 50px;
+    font-family: Noto Sans kr;
+    font-weight: 600;
+    
+}
+.commentInput{
+    height:100px;
+    width:500px;
+    margin:0 auto;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.2);
+}
+#account{
+    font-size: 40px;
+    color: #00c4c4;
+    line-height: 30px;
+
+}
+.commentBox{
+    display: flex;
+    
+}
+.box{
+    text-align: center;
+    width:50px;
+    height:60px;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.btn-info.btns{
+    margin-left: 2px;
+    border-radius: 10px;
+}
+#comment{
+    border-radius: 10px;
+    max-height:57px;
+    width:350px;
+    padding-left: 5px;
+    font-size: 10px;
+}
+#update{
+    border-radius: 10px;
+    max-height:57px;
+    width:350px;
+    padding-left: 5px;
+    font-size: 10px;
+}
+#update:focus{
+    outline: none;
+    border: 1px solid #00c4c4;
+}
+#comment:focus{
+    outline: none;
+    border: 1px solid #00c4c4;
+    
+}
+.comments{
+    display: flex;
+    width:500px;
+    margin: 15px auto;
+    
+}
+.info{
+    width:400px;
+    display: flex;
+    border-radius: 10px;
+    height:57px;
+    border: 1px solid rgba(20, 20, 20, 0.4);
+    
+}
+.contentInfo{
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 5px;
+    width:330px;
+    font-size: 10px;
+}
+.date{
+    display: block;
+    font-size: 10px;
+    padding-top: 5px;
+}
+.updateM{
+    display: inline-block;
+    font-size: 10px;
+    width:20px;
+
+}
+.delete{
+    display: inline-block;
+    font-size: 10px;
+    width:20px;
+}
+.db:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.pagination{
+    margin: 100px auto;
+    height:40px;
+    
+    margin-bottom: 30px;
+    justify-content: center;
+}

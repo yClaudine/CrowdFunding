@@ -48,13 +48,33 @@
  	justify-content:center;
  
 }
+#Mbox{
+	float:right;
+	position : absolute;
+	margin-right: 200px;
+	display:flex;
+	top:25px;
+	left:600px;
+}
+.num{
+	
+	display:inline-block;
+	background-color :#00c4c4;
+	width:30px;
+	height:30px;
+	border-radius:30px;
+	text-align:center;
+	color:#fff;
+	margin-top:10px;
+	line-height:30px;
+}
 
 </style>
 <body>
 	<!-- 첫 번째 Modal을 여는 클래스 -->
-	<div class="btns" style="width: 40px; height: 40px;">
+	<div class="btns" id="Mbox" style="width: 100px; height: 40px;">
 		<span class="material-symbols-outlined" id="mail"> mail </span> <span
-			id="num">1</span>
+			class="num">0</span>
 	</div>
 
 	<!-- 첫 번째 Modal -->
@@ -135,9 +155,9 @@
 		</div>
 	</div>
 
-	<hr>
+
 	<!-- 두 번째 Modal을 여는 클래스 -->
-	<div class="btns">MODAL_2</div>
+	<div class="btns"></div>
 
 	<!-- 두 번째 Modal -->
 	<div class="modal">
@@ -181,7 +201,7 @@
 		</div>
 	</div>
 
-	<div class="btns">MODAL_3</div>
+	<div class="btns"></div>
 
 	<!-- 세 번째 Modal -->
 	<div class="modal">
@@ -597,7 +617,7 @@
 			//웹소켓을 구현할 함수를 만들어줍니다.
 			//먼저 주소를 지정해줍니다
 
-			ws = new WebSocket("ws://192.168.10.13:8090/dm.do");
+			ws = new WebSocket("ws://192.168.219.101:8090/dm.do");
 
 			//연결했을 때
 			ws.onopen = onOpen;
@@ -767,14 +787,16 @@
 			const receiver = $("[name=recvMemId]").val();
 			const dmContent = $("[name=mContent]").val();
 			const mTitle = $("[name=mTitle]").val();
-
+			let categoryNo =0;
 			//소켓으로 데이터를 보내줄 것임
 			const data = {
+				
 				type : "dmSend",
 				sendMemId : memberId,
 				recvMemId : receiver,
 				mContent : dmContent,
 				category : category,
+				categoryNo : categoryNo,
 				mTitle : mTitle
 
 			}
@@ -786,7 +808,7 @@
 		}
 		function receiveMsg(param) {
 			console.log(param);
-			$("#num").text(param.data);
+			$(".num").text(param.data);
 			
 			
 		}

@@ -75,6 +75,7 @@ html>body {
 .loginSc {
 	margin-left: 10px;
 }
+
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -100,10 +101,11 @@ html>body {
 		<div>
 			<a href="/Store.do"><h6>스토어</h6></a>
 		</div>
+		
 		<div>
 			<a href="/notice.do?reqPage=1&type=all"><h6>공지사항</h6></a>
 		</div>
-
+		
 		<div class="log">
 
 			<div>
@@ -144,7 +146,7 @@ html>body {
 							</c:if>
 							
 						</div>
-						<a href=""><div class="openReq">상품등록</div></a>
+						<a href="/createProduct.do"><div class="openReq">상품등록</div></a>
 					</c:when>
 
 					<c:when test="${empty memberScope.m.memberId }">
@@ -188,7 +190,7 @@ html>body {
 							<a href="signUpFrm.do" class="access">회원가입</a>
 						</div>
 						<div class="openReq">
-							<a href="/CreateFunding.do">프로젝트 오픈신청 </a>
+							<a href="/createFunding.do">프로젝트 오픈신청 </a>
 						</div>
 					</c:when>
 				</c:choose>
@@ -251,6 +253,48 @@ html>body {
 
 		});
 	</script>
-
+<!-- 챗봇기능 -->
+<!-- Channel Plugin Scripts -->
+<script>
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "4ccce794-67e2-4239-ba10-93191e07d07e"
+  });
+</script>
+<!-- End Channel Plugin -->
 </body>
 </html>
