@@ -65,7 +65,7 @@
 	                    <th>스토어 제목</th>
 	                    <th>스토어 매출</th>    
 	                    <th>상품 이름</th>
-	                    <th>수정</th>
+	                    
 	                </tr>
 	            </thead>
                <tbody>
@@ -132,19 +132,14 @@
  							td3.text(data.store[i].storeProduct);
  							tr.append(td3);
  							//수정 버튼 넣어주기 
- 							const td6 =$("<td>");
- 							const a  = $("<a href='#'>");
- 							const button =$("<button class='btn btn-info'>");
- 							button.text("수정");
- 							a.append(button);
- 							td6.append(a);
+ 							
  							tr.append(td6);
  							totalGain += data.tlist[i].totalFinalPay;
  							table.append(tr);
  							
  		 				}
  		 				$(".moneyE").text("");
- 		 				$(".moneyE").text("totalGain");
+ 		 				$(".moneyE").text(totalGain);
  		 				
  		 				$(".pagination").empty();
  		 				$(".pagination").append(data.pagenation);

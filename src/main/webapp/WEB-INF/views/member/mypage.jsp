@@ -350,7 +350,7 @@
         			}else if(data.authSeller==2){
         				$(".aout").eq(0).hide();
         				$(".logout").show();
-        			}else if(){}
+        			}
         		},
         		error:function(){
         			console.log("에러처리");
@@ -484,7 +484,7 @@
     					for(let i=0; i<store.store.length; i++){
     						const li =$("<li>");
     	                	//이미지 만들기
-    	                  	const a =$("<a href='storeView.do?No="+store.store[i].storeNo+"'>");
+    	                  	const a =$("<a href='storeView.do?storeNo="+store.store[i].storeNo+"'>");
     	                	const div = $("<div class='imgbox'>");
     	                	const img = $("<img src='resources/image/store/upload/"+store.store[i].storeImg1+"' class='fundImg'>");
     	                	div.append(img);

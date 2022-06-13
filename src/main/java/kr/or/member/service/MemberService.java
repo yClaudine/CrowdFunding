@@ -561,7 +561,7 @@ public class MemberService {
 			for (FundPay Cfp : fp) {// Cfp로 fp arrayList에 저장된 데이터를 꺼내옴
 
 				totalFinalPay += dao.getFinalPay(Cfp.getFpayNo());
-				totalFinalPay += dao.getFpaySupport(Cfp.getFpayNo());
+				
 			} // arrayList에서 전부 불러온 값을 tp에다 넣어줌
 			tp.setTotalFinalPay(totalFinalPay);
 			// 가져온 값을 arrayList로 넣어줌
