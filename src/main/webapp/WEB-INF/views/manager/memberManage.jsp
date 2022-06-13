@@ -155,7 +155,8 @@ input[name='keyword']{
 	width: 140px;
 }
 .main-content .table td:last-child, .main-content .table th:last-child{
-	width: 240px;
+	width: 220px;
+	text-align: right;
 }
 #reportManage{
 	background-color: #e7f9f9;
@@ -276,9 +277,9 @@ select{
 	color:#00b2b2;
     border: 1px solid #00b2b2;
 	display: block;
-	width: 80px;
-	margin-right:20px;
-	margin-left: 0;
+	width: 70px;
+	margin: 0;
+	margin-top: 5px;
 	float:left;
 }
 .main-content .btn-outline:hover {
@@ -390,7 +391,10 @@ select{
 			                               
 			                            </td>
 			                            <td>
-			                                <button type="button" class="btn btn-outline authChange">저장</button>
+			                            	<c:if test="${mem.memberWarning > 2}">
+			                            	 <button type="button" class="btn btn-outline authChange">저장</button>
+			                            	</c:if>
+			                               
 			                                <input type="hidden" value="${mem.authRe }">
 			                                <button type="button" class="btn btn-primary detail">신고 관리</button>
 			                                <input type="hidden" value="${mem.memberId }" >

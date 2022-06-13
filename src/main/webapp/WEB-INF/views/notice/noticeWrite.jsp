@@ -138,7 +138,7 @@
                         <tr>
                             <th>대표이미지</th>
                             <td colspan="3">
-                                <input type="file" name="file">
+                                <input type="file" name="file"><span style="color:#868e96">*목록에 보여지는 이미지 입니다.</span>
                             </td>
                         <tr>
                             <th>내용</th>
