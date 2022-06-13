@@ -411,7 +411,7 @@ background-color:white;
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
                 <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }" class="project-wrap">
-                    <img src="resources/image/fund/living.jpg">
+                    <img src="/resources/image/fund/upload/${f.fundFilepath1}">
                     <div class="project-card">
                         <div class="project-title">
                             ${f.fundName }

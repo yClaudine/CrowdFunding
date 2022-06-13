@@ -75,7 +75,9 @@ html>body {
 .loginSc {
 	margin-left: 10px;
 }
-
+.admin{
+	padding-left: 150px;
+}
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -122,12 +124,11 @@ html>body {
 
 					<c:when test="${sessionScope.m.categoryNo==0 }">
 						<div>
-							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access">관리자페이지</a>
+							<a href="/fundManage.do?reqPage=1&keyword=&type=all" class="access admin"><span class="material-symbols-outlined" style="color:#00b2b2; width:40px; height:40px; font-size:40px;"> account_circle </span></a>
 						</div>
 						<div>
-							<a href="" class="access">프로필</a>
+							<a href="logout.do" class="access">LOGOUT</a>
 						</div>
-						<a href=""><div class="openReq">프로젝트 오픈신청</div></a>
 					</c:when>
 					<c:when test="${sessionScope.m.categoryNo>=1 }">
 						<div>
