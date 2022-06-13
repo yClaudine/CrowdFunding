@@ -300,7 +300,6 @@
 		<c:if test="${seller eq 1}">
 			seller = ${seller};
 		</c:if>
-		console.log(seller);
 		//첫번째 이미지 바로 나타나도록
 		imageShow(cnt);
 		//4초마다 효과 반복
