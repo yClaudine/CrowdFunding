@@ -246,14 +246,13 @@ search-funding>form>button>span {
 
 }
 
-
+/*
 .slick-dots{
     top: 400px;
     display: flex;
     justify-content: center;
     background-color: #fff;
 }
-
 
 li{
     width: 20px;
@@ -287,7 +286,7 @@ li button{
 .slick-next{
     right: 5%;
 }
-
+*/
 
 
 .search-submit{
@@ -300,7 +299,7 @@ background-color:white;
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
     <div class="banner">
-
+ 
         <div class="slideContainer" id="slider-div">
                 <div class="slide slide1">
                     <span>서포터님의 사랑을 받은 인기펀딩은 곧 끝나요</span>
@@ -480,8 +479,8 @@ $(function(){
         slidesToScroll : 1,	
         speed : 500,
         arrows : true, 
-        fade:true,
-        dots : true, 		
+        fade:false,
+        dots : false, 		
         autoplay : true,
         autoplaySpeed : 4000, 
         pauseOnHover : false,
