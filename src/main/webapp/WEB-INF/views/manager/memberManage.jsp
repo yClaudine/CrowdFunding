@@ -451,6 +451,11 @@ $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
 	location.href="/memberManage.do?reqPage=1&keyword="+value+"&type="+type;
 });
+$("#keyword").on("keyup",function(e){  
+    if(e.keyCode == 13){
+    	$(".search-btn").click();
+    }
+});
 
 //옵션 변경시 적용(전체,미승인,승인,심사전)
 changeType.on("change",function(){
@@ -511,10 +516,14 @@ $(".modal-close").on("click",function(){
 	 const oldAuth = $(this).next().val();
 	 const newAuth = $(this).parent().prev().children().eq(1).val();
 	 const memberId = $(this).next().next().next().val();
+	 console.log(oldAuth);
+	 console.log(newAuth);
+	 console.log(memberId);
+	 
 	 if(oldAuth == newAuth){
 		 alert("변경된 값이 없습니다.");
 	 }else{
-		 location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
+		location.href="/memberAuthChange.do?reqPage="+reqPage+"&keyword="+keyword+"&type="+type+"&memberId="+memberId+"&auth="+newAuth;
 	 }
  });
    

@@ -223,7 +223,7 @@
 	</choose>
 	
 	<if test="!keyword.equals('')">
-		and member_id like '%'||#{keyword}||'%'
+		and fund_name like '%'||#{keyword}||'%'
 	</if>
 	order by 1 desc)
 	m) where rnum between #{start} and #{end}
@@ -262,7 +262,7 @@
 	</choose>
 	
 	<if test="!keyword.equals('')">
-		and member_id like '%'||#{keyword}||'%'
+		and fund_name like '%'||#{keyword}||'%'
 	</if>
 	)
 
@@ -288,7 +288,7 @@
 	</choose>
 	
 	<if test="!keyword.equals('')">
-		and member_id like '%'||#{keyword}||'%'
+		and store_title like '%'||#{keyword}||'%'
 	</if>
 	order by 1 desc)
 	m) where rnum between #{start} and #{end}
@@ -329,7 +329,7 @@
 	</choose>
 	
 	<if test="!keyword.equals('')">
-		and member_id like '%'||#{keyword}||'%'
+		and store_title like '%'||#{keyword}||'%'
 	</if>
 	)
 </select>

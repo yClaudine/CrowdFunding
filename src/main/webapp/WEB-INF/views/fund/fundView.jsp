@@ -170,11 +170,9 @@
 }
 .detail-img{
     width: 630px;
-    height: 400px;
 }
 .detail-img>img{
     width: 100%;
-    height: 400px;
     margin-bottom: 5px;
 }
 .remaining-day{
@@ -571,7 +569,7 @@ justify-content: right;
         <!--왼쪽 콘텐츠-->
         <div class="detail-view">
             <span class="main-img">
-                <img src="resources/image/fund/travel.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath1}">
             </span>
             <div class="detail-content">
                 ${f.fundIntro }
@@ -591,12 +589,29 @@ justify-content: right;
                 <span href="#" class="guide-modal" id="modal-open">자세히 알아보기</span>            
             </div>
             <div class="story">프로젝트 스토리</div>
+          <c:if test="${not empty f.fundFilepath2}">
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath2}">
             </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath3}">
             <span class="detail-img">
-                <img src="resources/image/fund/computer.jpg">
+                <img src="/resources/image/fund/upload/${f.fundFilepath3}">
             </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath4}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath4}">
+            </span>
+          </c:if>
+          <c:if test="${not empty f.fundFilepath5}">
+            <span class="detail-img">
+                <img src="/resources/image/fund/upload/${f.fundFilepath5}">
+            </span>
+           </c:if>
+            
+           <div style="height:200px;"></div>
+           
         </div><!--왼쪽 콘텐츠 끝-->
         <div class="space"></div>
         <!--오른쪽 콘텐츠-->

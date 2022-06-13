@@ -488,6 +488,11 @@ $(".search-btn").on("click",function(){
 	const value = $("#keyword").val();
 	location.href="/couponManage.do?reqPage="+reqPage+"&keyword="+value+"&type="+type;
 });
+$("#keyword").on("keyup",function(e){  
+    if(e.keyCode == 13){
+    	$(".search-btn").click();
+    }
+});
 
 //옵션 변경시 적용(전체, 게시전, 진행중, 만료)
 changeType.on("change",function(){
