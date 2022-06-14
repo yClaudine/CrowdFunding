@@ -47,8 +47,10 @@ public class FundListDao {
 		return (ArrayList<Reward>) list;
 	}
 	//펀딩 상세 - 셀러 조회
- 	public Seller selectOneSeller(int fundNo) {
- 		Seller s = sqlSession.selectOne("fundSeller.selectOneSeller",fundNo);
+ 	public Seller selectOneSeller(String sellerId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("sellerId",sellerId);
+ 		Seller s = sqlSession.selectOne("fundSeller.selectOneSeller",map);
 		return s;
 	}
 	//펀딩 상세 - 해당 펀딩 좋아요 체크
@@ -177,6 +179,7 @@ public class FundListDao {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("fnNo",fnNo);
+		
 		FundNotice fn = sqlSession.selectOne("fundList.selectOneNotice",map);
 		return fn;
 	}

@@ -410,7 +410,7 @@ background-color:white;
            <c:otherwise>          
            <c:forEach items="${list }" var="f" varStatus="i">
             <div class="item"><!--grid 1개 item-->
-                <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }" class="project-wrap">
+                <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}" class="project-wrap">
                     <img src="/resources/image/fund/upload/${f.fundFilepath1}">
                     <div class="project-card">
                         <div class="project-title">
@@ -433,7 +433,7 @@ background-color:white;
 
             </div><!--grid 1개--> 
             
-            <input type="hidden" value="${f.memberId }"> <!-- sellerId -->
+            <input type="hidden" class="sellerId" value="${f.memberId }"> <!-- sellerId -->
             
     		<input type="hidden" class="fundingSum" value="${f.fundingSum}">
     		<input type="hidden" class="fundAmount" value="${f.fundAmount}">

@@ -277,9 +277,9 @@
 $(".shoppingBtn").on("click",function(){
 	const mainTarget = $(".mainTarget").val();
 	if(mainTarget == "fund"){
-		location.href="/";
+		location.href="/fund.do?category=BEST";
 	}else if(mainTarget == "store"){
-		location.href="/";
+		location.href="/Store.do";
 	}else{
 		location.href="/";
 	}

@@ -3,11 +3,10 @@
 <mapper namespace="fundSeller">
 
   <!-- 펀딩 seller 조회 -->
-  <select id="selectOneSeller" parameterType="int" resultType="sel">
+  <select id="selectOneSeller" parameterType="map" resultType="sel">
   
  	select 
 		seller_no as sellerNo,
-		member_id as memberId,
 		en_no as enNo,
 		en_path as enPath,
 		en_type as enType,
@@ -20,7 +19,7 @@
 		auth_massage as authMessage,
 		fund_no as fundNo
 	from seller 
-	where fund_no=#{fundNo}
+	where member_id=#{sellerId}
 
   </select>
 
