@@ -69,7 +69,7 @@
 		</div>
 		<div class="content-right">
 			<h2>스토어 준비</h2>
-			<h6>본격적으로 스토어를 오픈하기 위해 필수항목을 작성하세요.</h6>
+			<h6>본격적으로 스토어를 오픈하기 위해 필수항목을 작성하세요. <br> 수정할 수 없으니 신중히 등록해 주세요.</h6>
 			<div class="menu-wrap">
 				<div class="ready-menu">
 					<div>

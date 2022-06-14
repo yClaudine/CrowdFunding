@@ -253,13 +253,9 @@ public class StoreTmpController {
 			int storeResult = service.createStore(tmp);
 			result *= storeResult;
 			int deleteResult = 0;
-			/*
-			if(result >0) {
-				deleteResult = service.deleteTmpStore(ts);
-			}else {
-				System.out.println("오류");
-			}*/
+			
 			
 			return "redirect:/";
 		}
+		
 }
