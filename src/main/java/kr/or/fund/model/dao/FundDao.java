@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
 import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.FundPayTmp;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
 import kr.or.member.vo.Member;
@@ -109,6 +110,12 @@ public class FundDao {
 	public Seller selectOneSeller(Member m) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("fund.selectOneSeller",m);
+	}
+
+	public ArrayList<FundPayTmp> selectPayDaySum(Fund f) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("fund.selectPayDaySum",f);
+		return (ArrayList<FundPayTmp>)list;
 	}
 	
 

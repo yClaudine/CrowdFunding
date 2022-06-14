@@ -10,6 +10,7 @@ import kr.or.fund.model.dao.FundDao;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
 import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.FundPayTmp;
 import kr.or.fund.model.vo.PayBoardPageData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
@@ -160,6 +161,11 @@ public class FundService {
 	public Seller selectOneSeller(Member m) {
 		// TODO Auto-generated method stub
 		return dao.selectOneSeller(m);
+	}
+
+	public ArrayList<FundPayTmp> selectPayDaySum(Fund f) {
+		// TODO Auto-generated method stub
+		return dao.selectPayDaySum(f);
 	}
 
 }

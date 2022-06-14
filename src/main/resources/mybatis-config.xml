@@ -32,6 +32,7 @@
 		<typeAlias type="kr.or.fund.model.vo.FundLike" alias="fl"/>
 		<typeAlias type="kr.or.fund.model.vo.RewardCart" alias="rc"/>		
 		<typeAlias type="kr.or.fund.model.vo.FundPay" alias="fp"/>
+		<typeAlias type="kr.or.fund.model.vo.FundPayTmp" alias="fpt"/>
 		<typeAlias type="kr.or.fund.model.vo.Reward" alias="r"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpFund" alias="tf"/>
 		<typeAlias type="kr.or.fund.model.vo.TmpReward" alias="tr"/>

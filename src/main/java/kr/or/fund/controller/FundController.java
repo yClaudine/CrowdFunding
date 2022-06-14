@@ -5,7 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +29,7 @@ import kr.or.fund.model.service.FundService;
 import kr.or.fund.model.vo.Fund;
 import kr.or.fund.model.vo.FundCalculate;
 import kr.or.fund.model.vo.FundPay;
+import kr.or.fund.model.vo.FundPayTmp;
 import kr.or.fund.model.vo.PayBoardPageData;
 import kr.or.fund.model.vo.Reward;
 import kr.or.fund.model.vo.TmpFund;
@@ -89,6 +95,51 @@ public class FundController {
 			e.printStackTrace();
 		}
 		return filepath;
+	}
+	
+	//통게용 메서드 
+	private ArrayList<FundPayTmp> calendar(String start, String end, HashMap<String, Long> smap) {
+		ArrayList<FundPayTmp> flist = new ArrayList<FundPayTmp>();
+		//몇번 반복할지 계산
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date ds = new Date();
+		Date es = new Date();
+		try {
+			ds = format.parse(start);
+			es = format.parse(end);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//반복문에서 날짜 하루씩 더하기 위해 변환
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(ds);
+		
+		//총 배열의 길이
+		long cs = (es.getTime() - ds.getTime())/(1000*60*60*24);
+		//보내줄 리스트에 값을 담는 과정
+		for(int i=0;i<cs+1;i++) {
+			FundPayTmp fp = new FundPayTmp();
+			//하루씩 증가하면서 해당일의 결제 있는지 확인하고 있으면 값 입력
+			if(i != 0) {
+				cal.add(Calendar.DATE, 1);
+			}
+			String mdate = format.format(cal.getTime());
+			if(smap.get(mdate) != null) {
+				fp.setFpayFunding(smap.get(mdate));
+			}
+			fp.setMsdate(cal.getTimeInMillis());
+			fp.setFpayDate(format.format(cal.getTime()));
+			flist.add(fp);
+		}
+		/*
+		//객체에 배열 잘 담겼는지 확인하는 출력문
+		for(Fpay f : flist) {
+			System.out.println(f.getDate()+" : "+f.getFpay()+" & "+f.getMsdate());
+		}
+		*/
+		return flist;
 	}
 	
 	//DB 연동 테스트한 메소드
@@ -355,6 +406,25 @@ public class FundController {
 			model.addAttribute("fpl",pbpd.getList());
 			model.addAttribute("pageNavi",pbpd.getPageNavi());
 			model.addAttribute("totalPay",totalPay);
+			//데이터를 담을 객체
+			ArrayList<FundPayTmp> flist = new ArrayList<FundPayTmp>();
+			//시작일과 종료일
+			Fund df = service.selectOneFund(f);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			String start = df.getFundStart();
+			String end = sdf.format(cal.getTime());
+			//pay 테이블에서 불러왓다고 칠 funding값과 날짜를 넣은 map
+			HashMap<String, Long> smap = new HashMap<String, Long>();
+			ArrayList<FundPayTmp> slist = service.selectPayDaySum(f);
+			for(FundPayTmp fp : slist) {
+				smap.put(fp.getFpayDate(), fp.getFpayFunding());
+			}
+			//결제가 없는 날도 0을 넣어줘야 하기 때문에 진짜로 보낼 객체를 비교해가며 생성
+			flist = calendar(start, end, smap);
+			model.addAttribute("flist",flist);
+			System.out.println(flist);
+			
 			return "fund/fundStatusManageFrm";
 		}
 	

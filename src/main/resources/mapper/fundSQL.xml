@@ -237,4 +237,10 @@
   		auth_massage as authMessage
   	from seller where member_id=#{memberId}
   </select>
+  <select id="selectPayDaySum" parameterType="f" resultType="fpt">
+  	select 
+  		fpay_date as fpayDate,
+  		sum(fpay_funding) as fpayFunding
+  	from fund_pay where fund_no = #{fundNo} group by fpay_date
+  </select>
 </mapper>

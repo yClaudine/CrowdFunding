@@ -6,7 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>FunFunFun</title>
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <style>
+	#chartdiv {
+		width: 100%;
+		height: 500px;
+	}
 	.fund-graph{
 		width: 100%;
 		padding-top: 25px;
@@ -133,6 +141,14 @@
 					</div>
 				</div>
 			</div>
+			<br>
+			<c:choose>
+				<c:when test="${fn:length(flist) ne 0}"> 
+				 	<br>
+					<div id="chartdiv"></div>
+		 		</c:when>
+		 	</c:choose>
+			
 			<div class="fund-board">
 				<h6>결제 리스트</h6>
 				<table class="table table-hover">
@@ -160,6 +176,128 @@
 	</div>
 	
 	<script>
+	<c:choose>
+		<c:when test="${fn:length(flist) ne 0}"> 
+		<!-- Chart code -->
+		am5.ready(function() {
+	
+		// Create root element
+		// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+		var root = am5.Root.new("chartdiv");
+	
+	
+		// Set themes
+		// https://www.amcharts.com/docs/v5/concepts/themes/
+		root.setThemes([
+		  am5themes_Animated.new(root)
+		]);
+	
+	
+		// Create chart
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/
+		var chart = root.container.children.push(am5xy.XYChart.new(root, {
+		  panX: false,
+		  panY: false,
+		  wheelX: "panX",
+		  wheelY: "zoomX"
+		}));
+	
+	
+		// Add cursor
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+		var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+		  behavior: "zoomX"
+		}));
+		cursor.lineY.set("visible", false);
+	
+		var date = new Date();
+		date.setHours(0, 0, 0, 0);
+		var value = 100;
+	
+		function generateData() {
+			value = Math.round((Math.random() * 10 - 5) + value);
+		 	am5.time.add(date, "day", 1);
+		  	return {
+			    date: date.getTime(),
+			    value: value
+		  	};
+		}
+	
+		function generateDatas(count) {
+		  var data = [];
+		  let push = {};
+		  let tmpDate = 0;
+		  let tmpValue = 0;
+		  <c:forEach var="fl" items="${flist}" varStatus="status">
+			//console.log("${fl.fpayFunding}")
+			//console.log("${fl.fpayDate}")
+			tmpDate = ${fl.msdate};
+			tmpValue = ${fl.fpayFunding};
+			console.log(tmpValue);
+			push = {
+					date: tmpDate,
+					value: tmpValue
+			}
+			data.push(push);
+		  </c:forEach>
+		  /*
+		  for (var i = 0; i < count; ++i) {
+		    data.push(generateData());
+		  }
+		  */
+		  return data;
+		}
+	
+		// Create axes
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+		var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+		  maxDeviation: 0,
+		  baseInterval: {
+		    timeUnit: "day",
+		    count: 1
+		  },
+		  renderer: am5xy.AxisRendererX.new(root, {}),
+		  tooltip: am5.Tooltip.new(root, {})
+		}));
+	
+		var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+		  renderer: am5xy.AxisRendererY.new(root, {})
+		}));
+	
+	
+		// Add series
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+		var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+		  name: "Series",
+		  xAxis: xAxis,
+		  yAxis: yAxis,
+		  valueYField: "value",
+		  valueXField: "date",
+		  tooltip: am5.Tooltip.new(root, {
+		    labelText: "{valueY}"
+		  })
+		}));
+	
+	
+	
+		// Add scrollbar
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+		chart.set("scrollbarX", am5.Scrollbar.new(root, {
+		  orientation: "horizontal"
+		}));
+	
+		var data = generateDatas(50);
+		series.data.setAll(data);
+	
+		// Make stuff animate on load
+		// https://www.amcharts.com/docs/v5/concepts/animations/
+		series.appear(1000);
+		chart.appear(1000, 100);
+	
+		}); // end am5.ready()
+			</c:when>
+		</c:choose>
+		
 		//숫자에 comma 넣어주는 함수
 		$.numberWithCommas = function (x) {
 			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
