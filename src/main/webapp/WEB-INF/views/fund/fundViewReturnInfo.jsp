@@ -476,10 +476,10 @@ justify-content: right;
         <div class="title">${f.fundName }</div>
     </div>
     <div class="funding-navi">
-        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="1">스토리</span></a>
-        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="2">반환 ∙ 정책</span></a>
-        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all"><span class="3">새소식</span></a>
-        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="4">서포터</span></a>
+         <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="1">스토리</span></a>
+        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="2">반환 ∙ 정책</span></a>
+        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}&reqPage=1&type=all"><span class="3">새소식</span></a>
+        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
 
