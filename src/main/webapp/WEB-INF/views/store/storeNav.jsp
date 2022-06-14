@@ -91,7 +91,6 @@
                 <li><a href="/storeCreate3.do?stNo=${tmp.stNo}">스토어 기본 정보</a></li>
                 <li><a href="/storeCreate4.do?stNo=${tmp.stNo }">상품 정보</a></li>
                 <li><a href="/storeCreate5.do?stNo=${tmp.stNo }">반품/교환</a></li>
-                <li><a href="/storeCreate6.do?stNo=${tmp.stNo }">대표자 및 정산 정보</a></li>
             </ul>
     </ul>
 </html>

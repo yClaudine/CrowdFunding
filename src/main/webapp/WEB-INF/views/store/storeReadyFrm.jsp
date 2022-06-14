@@ -92,13 +92,6 @@
 					</div>
 						<button onclick="location.href='/storeCreate5.do?stNo=${tmp.stNo }'">작성하기</button>
 				</div>
-				<div class="ready-menu">
-					<div>
-						<h6>대표자 및 정산 정보</h6>
-						<span class="check-store">작성 전</span>
-					</div>
-						<button onclick="location.href='/storeCreate6.do?stNo=${tmp.stNo }'">작성하기</button>
-				</div>
 
 				<button class="btn-info submit-btn">제출하기</button>
 			</div>
