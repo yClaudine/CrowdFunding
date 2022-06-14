@@ -53,15 +53,7 @@ public class StoreController {
 		model.addAttribute("storepayNo", storepayNo);
 		return "store/storeView";
 	}
-	/*
-	@RequestMapping(value = "/storeAllList.do")
-	public String storeAllList(int reqPage, Model model) {
-		StoreAllPageData spd = service.selectStoreAllList(reqPage);
-		model.addAttribute("list",spd.getList());
-		model.addAttribute("pageNavi",spd.getPageNavi());
-		model.addAttribute("reqPage",reqPage);
-		return "store/storeList";
-	}*/
+	
 	//나중에 store와 합하면 지울 것
 	@RequestMapping(value = "/storeAll.do")
 	public String storeAll() {
@@ -90,8 +82,6 @@ public class StoreController {
 		    	cList.add(c);
 		    }
 		}
-		System.out.println(cList);
-		System.out.println(mcList);
 		model.addAttribute("cList",cList);
 		model.addAttribute("number",number);
 		model.addAttribute("totalprice", totalprice);
@@ -103,8 +93,6 @@ public class StoreController {
 	public String pay(Model model, @SessionAttribute (required = false)Member m, int storeNo,int number,int couponNo,int storeDelivery,int storePrice, int storepayAllprice,StoreDelivery sd) {
 		StoreViewData sv = service.selectOneStore(storeNo);
 		int insertPay = service.insertPay(m.getMemberNo(),couponNo,storeNo,number,storeDelivery,storePrice,storepayAllprice,sd);
-		System.out.println(storeNo);
-		System.out.println(couponNo);
 		model.addAttribute("totalprice", storepayAllprice);
 		model.addAttribute("number", number);
 		model.addAttribute("s", sv.getS());
