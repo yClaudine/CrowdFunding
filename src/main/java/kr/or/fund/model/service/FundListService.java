@@ -269,7 +269,7 @@ public class FundListService {
 	}
 	
 	//새소식 상세보기
-	public FundOneNoticeViewData selectOneNotice(int fundNo, String memberId, String sellerId, String fnNo) {
+	public FundOneNoticeViewData selectOneNotice(int fundNo, String memberId, String fnNo, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
@@ -287,7 +287,7 @@ public class FundListService {
 	}
 
 	//새소식 수정 페이지
-	public FundUpdateNoticeViewData updateNoticeFrm(int fundNo, String memberId, String sellerId, String fnNo) {
+	public FundUpdateNoticeViewData updateNoticeFrm(int fundNo, String memberId, String fnNo, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
