@@ -569,16 +569,16 @@ td{
     
     <div class="banner bgBlur">
         <div class="banner-img">
-            <img src="resources/image/fund/food.jpg">
+            <img src="/resources/image/fund/upload/${f.fundFilepath1}">
         </div>
         <h6 class="title-category">${f.fundCategory }</h6>
         <div class="title">${f.fundName }</div>
     </div>
     <div class="funding-navi">
-        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="1">스토리</span></a>
-        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="2">반환 ∙ 정책</span></a>
-        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all"><span class="3">새소식</span></a>
-        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="4">서포터</span></a>
+        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="1">스토리</span></a>
+        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="2">반환 ∙ 정책</span></a>
+        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}&reqPage=1&type=all"><span class="3">새소식</span></a>
+        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
 
@@ -588,9 +588,9 @@ td{
         	<div class="funding-notice">
                 <span class="fn-new">새소식</span>
                 <span class="fn-newNum">4</span>
-            	<button class="fn-writeFrm" id="write" onclick="location.href='/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all;'">목록으로 가기</button>
+            	<button class="fn-writeFrm" id="write" onclick="location.href='/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId }&reqPage=1&type=all;'">목록으로 가기</button>
 
-                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
+                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq f.memberId}">
 	            	<button class="fn-writeFrm" id="delete">삭제</button>
 	            	<button class="fn-writeFrm" id="modify">수정</button>
 				</c:if>
@@ -599,7 +599,7 @@ td{
         
 		<div class="notice-wrap">
             <div class="notice">  
-                <form class="form" action="/insertFundNotice.do" method="post" enctype="multipart/form-data" >
+                <!-- <form class="form" action="/insertFundNotice.do" method="post" enctype="multipart/form-data" > -->
                     <table class="table">
                         <tr>
                             <th colspan="1" style="width:150px;">제목</th>
@@ -642,7 +642,7 @@ td{
                     <input type="hidden" name="memberId" value="${f.memberId }" >
                     <input type="hidden" name="fundNo" value="${f.fundNo }" >
                     <input type="hidden" class="fnNo" name="fnNo" value="${fn.fnNo }" >
-                </form>
+                <!-- </form> -->
                 
             </div>
         </div><!-- 새소식 -->
@@ -769,7 +769,7 @@ td{
 //수정
 $("#modify").on("click",function(){
 	const fnNo = $(".fnNo").val();
-	location.href="/updateFundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo="+fnNo;
+	location.href="/updateFundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}&fnNo="+fnNo;
 });
 //삭제
 $("#delete").on("click",function(){
@@ -777,7 +777,7 @@ $("#delete").on("click",function(){
 	 const fnNo = $(".fnNo").val();
 	 const memberId = $(".memberId").val();
 	 if(confirm("새소식을 삭제하겠습니까?")){
-		location.href="/deleteFundNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&fnNo="+fnNo;
+		location.href="/deleteFundNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&fnNo="+fnNo+"&sellerId=${f.memberId}";
 	}
 });
 

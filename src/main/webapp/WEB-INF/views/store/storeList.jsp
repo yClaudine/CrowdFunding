@@ -52,7 +52,7 @@ html>body {
 		flex-wrap: wrap;
 		margin: 5px 5px 5px;
 	}
-	.content-categorylist>span:hover{
+	.content-categorylist>span,.material-symbols-outlined:hover{
 		cursor: pointer;
 	}
 	.allcontent-wrap{
@@ -145,7 +145,9 @@ html>body {
 	</div>
 	<div class="content-wrap">
 		<div class="content-list">
-			<span class="material-symbols-outlined">exit_to_app</span><b>스토어 전체 상품 구경하기</b>
+			<span class="material-symbols-outlined">exit_to_app</span><div class="content-categoryname">
+	                	<span class="store-content" style="color: white;">all</span>
+	                </div><b>스토어 전체 상품 구경하기</b>
 		</div>
 	</div>
 	<div class="allcontent-wrap">
@@ -175,7 +177,7 @@ html>body {
 		const storeCategory = $(this).next().children().text();
 		location.href="/storeList.do?reqPage=1&storeCategory="+storeCategory;
 	});
-
+	
 	</script>
 </body>
 </html>

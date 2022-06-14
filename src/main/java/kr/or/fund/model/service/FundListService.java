@@ -48,12 +48,12 @@ public class FundListService {
 
 
 	//펀딩 상세 페이지 데이터
-	public FundViewData selectOneFundView(int fundNo, String memberId) {
+	public FundViewData selectOneFundView(int fundNo, String memberId, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
 		Fund f = dao.selectOneFund(fundNo);
-		Seller s = dao.selectOneSeller(fundNo);
+		Seller s = dao.selectOneSeller(sellerId);
 		FundLike fl = dao.selectLikeCheck(map);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
 		FundPay p = dao.selectViewPay(fundNo);
@@ -205,12 +205,12 @@ public class FundListService {
 
 	//---------------------------------------------------
 	//펀딩 상세 - 새소식 페이지 데이터관리
-	public FundNoticeViewData selectFundNoticeView(int fundNo, String memberId, int reqPage, String type) {
+	public FundNoticeViewData selectFundNoticeView(int fundNo, String memberId, String sellerId, int reqPage, String type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
 		Fund f = dao.selectOneFund(fundNo);
-		Seller s = dao.selectOneSeller(fundNo);
+		Seller s = dao.selectOneSeller(sellerId);
 		FundLike fl = dao.selectLikeCheck(map);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
 		FundPay p = dao.selectViewPay(fundNo);
@@ -242,14 +242,14 @@ public class FundListService {
 		
 		String pageNavi="<ul class='pagination'>";
 		if(pageNo !=1) {  
-			pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+(pageNo-1)+"&type="+type+"'>[이전]</a></li>";
+			pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&sellerId="+sellerId+"&reqPage="+(pageNo-1)+"&type="+type+"'>[이전]</a></li>";
 		}
 		for(int i=0; i<pageNaviSize; i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<li class='page-item active'><a class='page-link'>"+pageNo+"</a></li>";
 						
 			}else {
-				pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>"+pageNo+"</a></li>";
+				pageNavi += "<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&sellerId="+sellerId+"&reqPage="+pageNo+"&type="+type+"'>"+pageNo+"</a></li>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -257,7 +257,7 @@ public class FundListService {
 			}
 		}
 		if(pageNo<=totalPage) {
-			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul>";
+			pageNavi +="<li class='page-item'><a class='page-link' href='/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&sellerId="+sellerId+"&reqPage="+pageNo+"&type="+type+"'>[다음]</a></li></ul>";
 		}
 		FundNoticeViewData fnvd = new FundNoticeViewData(f, list, s, fl, p, plist, fnList, pageNavi);
 		return fnvd;
@@ -268,13 +268,13 @@ public class FundListService {
 		return dao.insertFundNotice(fn);
 	}
 	
-	//새소식 보기
-	public FundOneNoticeViewData selectOneNotice(int fundNo, String memberId, String fnNo) {
+	//새소식 상세보기
+	public FundOneNoticeViewData selectOneNotice(int fundNo, String memberId, String fnNo, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
 		Fund f = dao.selectOneFund(fundNo);
-		Seller s = dao.selectOneSeller(fundNo);
+		Seller s = dao.selectOneSeller(sellerId);
 		FundLike fl = dao.selectLikeCheck(map);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
 		FundPay p = dao.selectViewPay(fundNo);
@@ -287,12 +287,12 @@ public class FundListService {
 	}
 
 	//새소식 수정 페이지
-	public FundUpdateNoticeViewData updateNoticeFrm(int fundNo, String memberId, String fnNo) {
+	public FundUpdateNoticeViewData updateNoticeFrm(int fundNo, String memberId, String fnNo, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fundNo",fundNo);
 		map.put("memberId",memberId);
 		Fund f = dao.selectOneFund(fundNo);
-		Seller s = dao.selectOneSeller(fundNo);
+		Seller s = dao.selectOneSeller(sellerId);
 		FundLike fl = dao.selectLikeCheck(map);
 		ArrayList<Reward> list = dao.selectRewardList(fundNo);
 		FundPay p = dao.selectViewPay(fundNo);
@@ -310,10 +310,11 @@ public class FundListService {
 	}
 
 	//새소식 삭제
-	public int deleteFundNotice(String fnNo, int fundNo) {
+	public int deleteFundNotice(String fnNo, int fundNo, String sellerId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("fnNo",fnNo);
 		map.put("fundNo",fundNo);
+		map.put("sellerId",sellerId);
 		return dao.deleteFundNotice(map);
 	}
 

@@ -80,20 +80,6 @@ html>body {
 .events div:not(:last-child) {
 	margin-right: 40px;
 }
-
-.content-category{
-		align-self: center;
-		display: flex;
-		padding: 20px;
-		width: 100%;
-		text-align: center;
-	}
-.content-categorylist{
-		align-self: center;
-		padding-left: 100px;
-		padding-right: 100px;
-		text-align: center;
-	}
 .sellerstore>a{
 	text-decoration-line: none;
 	color:#000000;
@@ -119,8 +105,46 @@ html>body {
 .marquee2:hover{
 	cursor: pointer;
 }
-	
+.category-title{
+	width: 1200px;
+	left: 50%;
+	padding: 0 13%;
+}
+.categorytitle{
+	margin-right: 10%;
+}
 
+.content-category{
+		align-self: center;
+		display: flex;
+		width: 100%;
+		text-align: center;
+	}
+.content-categorylist{
+		align-self: center;
+		padding-left: 100px;
+		padding-right: 100px;
+		text-align: center;
+	}
+	.store-content{
+		align-self: center;
+		font-size: 12px;
+		margin: 0;
+		padding-top: 0px;
+	}
+	.content-list{
+    	display: inline-flex;
+    	width: 100%;
+		text-align: center;
+		flex-wrap: wrap;
+		margin: 5px 5px 5px;
+	}
+	.content-categorylist>span:hover{
+		cursor: pointer;
+	}
+	.autoplay>div:hover{
+		cursor: pointer;
+	}
 </style>
 
 
@@ -136,7 +160,6 @@ html>body {
 <!-- store.css -->
 <link rel="stylesheet" href="resources/css/store.css">
 
-<link rel="stylesheet" href="resources/css/reset.css">
 </head>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -198,25 +221,67 @@ html>body {
     </div>
 </div>
     <!--이벤트 이미지-->
-    
+    <br><br>
     <!--스토어 등록-->
     <div class="sellerstore">
-    	<a href="/notice.do?reqPage=1&type=event" id="event">이벤트</a>
+    	<a href="/notice.do?reqPage=1&type=event" id="event" style="padding-left: 2%;">이벤트</a>
     	<p class="controller2">
 	        <!--왼쪽 방향 화살표 오른쪽방향 화살표-->
 	        <span class="prev2">&lang;</span>
 	        <span class="next2">&rang;</span>
     	</p>
     	<div class="events autoplay">
-    		<div class="eventimg1" style="background-size: 330px;"></div>
-    		<div class="eventimg2" style="background-size: 330px;"></div>
-    		<div class="eventimg3" style="background-size: 330px;"></div>
-    		<div class="eventimg4" style="background-size: 330px;"></div>
-    		<div class="eventimg5" style="background-size: 330px;"></div>
+    		<div class="eventimg1" style="background-size: 330px;"><br><br><br><br><br><br><a style=" color: white; padding-left: 20px;">펀딩 푸드 구매 이벤트</a></div>
+    		<div class="eventimg2" style="background-size: 330px;"><br><br><br><br><br><br><a style=" color: white; padding-left: 20px;">펀딩 상품 감사제 이벤트</a></div>
+    		<div class="eventimg3" style="background-size: 330px;"><br><br><br><br><br><br><a style=" color: black; padding-left: 20px;">펀딩 뷰티 상품 이벤트</a></div>
+    		<div class="eventimg4" style="background-size: 330px;"><br><br><br><br><br><br><a style=" color: white; padding-left: 20px;">펀딩 푸드 상품 구매시 무료배송 이벤트!</a></div>
+    		<div class="eventimg5" style="background-size: 330px;"><br><br><br><br><br><br><a style=" color: white; padding-left: 20px;">6월 무료배송 쿠폰</a></div>
     	</div>
     </div>
+		<br><br><br>
 		
-	<div class="marquee">
+  
+
+	<div class="category-title">
+			<h5 class="categorytitle">상품 카테고리 <a href="/storeList.do?reqPage=1&storeCategory=all" style="font-weight: normal; font-size: 13px; padding-left: 15px; color: black;  text-decoration: none;">전체 보기</a>
+			</h5>
+			<br><br>
+			<div class="content-category">
+				<div class="content-categorylist living">
+					<span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">리빙</span>
+	                </div>
+				</div>
+				<div class="content-categorylist beauty">
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">뷰티</span>
+	                </div>
+				</div>
+				<div class="content-categorylist pet">
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">반려동물</span>
+	                </div>
+				</div>
+				<div class="content-categorylist travel">
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">여행</span>
+	                </div>
+				</div>
+				<div class="content-categorylist food">
+					<span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
+					<div class="content-categoryname">
+	                	<span class="store-content">푸드</span>
+	                </div>
+				</div>
+			</div>
+	
+	</div>
+	<br><br><br>
+		<div class="marquee">
 	 	<marquee width=window.innerWidth height=50 bgcolor="#00b2b2" scrollamount="10"><font size="6" color="white">좋은 물건이 떠오르시나요? 
 	 	&emsp;&emsp; 지금 당장 FUNFUNFUN 스토어 신청을 클릭 한 번으로 해 보세요. </font></marquee>
 	</div>
@@ -224,47 +289,6 @@ html>body {
 	 	<marquee width=window.innerWidth direction=right height=50 bgcolor="#e7f9f9" scrollamount="10"><font size="6" color="#868e96">FUNFUNFUN과 함께라면 
 	 	&emsp; 스토어 신청도 간편하게! </font></marquee>
 	</div>
-	<br><br><br>
-  
-    
-    <div class="category-title">
-			<h5>상품 카테고리 <a href="/storeList.do?reqPage=1&storeCategory=all" style="font-weight: normal; font-size: 18px; padding-left: 15px;">전체 보기</a>
-			</h5>
-				
-			<div class="content-category">
-				<div class="content-categorylist">
-					<a href="/home.do"><span class="material-symbols-outlined" style="font-size:45px; color:black;  border-radius: 10px; background-color: #e7f9f9; padding: 7px;">home</span></a>
-					<div class="content-categoryname">
-	                	<span class="store-content">가전</span>
-	                </div>
-				</div>
-				<div class="content-categorylist">
-					<a href="/beauty.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">hand_gesture</span></a>
-					<div class="content-categoryname">
-	                	<span class="store-content">뷰티</span>
-	                </div>
-				</div>
-				<div class="content-categorylist">
-					<a href="/pet.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">pets</span></a>
-					<div class="content-categoryname">
-	                	<span class="store-content">반려동물</span>
-	                </div>
-				</div>
-				<div class="content-categorylist">
-					<a href="/travel.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">airplane_ticket</span></a>
-					<div class="content-categoryname">
-	                	<span class="store-content">여행</span>
-	                </div>
-				</div>
-				<div class="content-categorylist">
-					<a href="/food.do"><span class="material-symbols-outlined" style="font-size:45px; color:black; border-radius: 10px; background-color: #e7f9f9; padding: 7px;">dinner_dining</span></a>
-					<div class="content-categoryname">
-	                	<span class="store-content">푸드</span>
-	                </div>
-				</div>
-			</div>
-		
-</div>
     <script>
     
     //첫번째 메인 이미지 스크립트
@@ -413,9 +437,38 @@ html>body {
     	location.href='/storeStart.do';
     });
     
-	
+    $(".living").on("click",function(){
+		location.href="storeList.do?reqPage=1&storeCategory=리빙";
+	});
+    $(".beauty").on("click",function(){
+		location.href="storeList.do?reqPage=1&storeCategory=뷰티";
+	});
 
-  
+    $(".pet").on("click",function(){
+		location.href="storeList.do?reqPage=1&storeCategory=반려동물";
+	});
+    $(".travel").on("click",function(){
+		location.href="storeList.do?reqPage=1&storeCategory=여행";
+	});
+    $(".food").on("click",function(){
+		location.href="storeList.do?reqPage=1&storeCategory=푸드";
+	});
+
+    $(".eventimg1").on("click",function(){
+		location.href="noticeView.do?noticeNo=121";
+	});
+    $(".eventimg2").on("click",function(){
+		location.href="noticeView.do?noticeNo=106";
+	});
+    $(".eventimg3").on("click",function(){
+		location.href="noticeView.do?noticeNo=105";
+	});
+    $(".eventimg4").on("click",function(){
+		location.href="noticeView.do?noticeNo=104";
+	});
+    $(".eventimg5").on("click",function(){
+		location.href="noticeView.do?noticeNo=103";
+	});
    
 
 

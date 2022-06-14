@@ -7,17 +7,17 @@
 		(select rownum as rnum,n.* from
 		(select 
 	  		fund_no as fundNo,
+            fund.member_id as memberId,
             fund_name as fundName,
             fund_category as fundCategory,
             fund_amount as fundAmount,
             fund_filepath1 as fundFilepath1,
 	  		(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))as dateGap,
             nvl(sum(fpay_funding),0)as fundingSum,  
-            nvl(owner,null)as owner,
+            (select owner from seller where fund.member_id=seller.member_id) as owner,
             floor((nvl(sum(fpay_funding),0))/fund_amount*100) as rate
 	from fund 
 	left join fund_pay using(fund_no)
-	left join seller using(fund_no)
 	<choose>
 	 	<when test="!category.equals('BEST')">
 	 	where fund_category=#{category} and fund_warning <![CDATA[<]]> 3 and fund_end <![CDATA[>]]> sysdate
@@ -26,7 +26,7 @@
 	 	where fund_warning <![CDATA[<]]> 3 and fund_end <![CDATA[>]]> sysdate
 	 	</otherwise>
 	 </choose>
-        group by fund_no,fund_name,fund_category,fund_amount,fund_filepath1,(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD')),owner
+        group by fund_no,fund.member_id,fund_name,fund_category,fund_amount,fund_filepath1,(to_date(fund_end, 'YYYY-MM-DD')- to_date(fund_start, 'YYYY-MM-DD'))
 		order by fund_no desc)n)
   </select>
   
@@ -177,7 +177,7 @@
 	  	fn_fix as fnFix,
 	  	fn_filepath as fnFilepath
   	from fund_notice 
-  	where fund_no=#{fundNo} and fn_no=#{fnNo}	
+  	where fund_no=#{fundNo} and fn_no=#{fnNo}
 </select>
 
  <update id="updatetFundNotice" parameterType="fn">
@@ -191,7 +191,7 @@
  	
  </update>		
  <delete id="deleteFundNotice" parameterType="map">
- 	delete from fund_notice where fund_no=#{fundNo} and fn_no=#{fnNo}
+ 	delete from fund_notice where fund_no=#{fundNo} and fn_no=#{fnNo} and member_id=#{sellerId}
  </delete>
 	
 </mapper>

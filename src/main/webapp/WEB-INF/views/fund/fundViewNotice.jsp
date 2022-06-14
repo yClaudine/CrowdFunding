@@ -519,10 +519,10 @@ justify-content: right;
         <div class="title">${f.fundName }</div>
     </div>
     <div class="funding-navi">
-        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="1">스토리</span></a>
-        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="2">반환 ∙ 정책</span></a>
-        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all"><span class="3">새소식</span></a>
-        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }"><span class="4">서포터</span></a>
+        <a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="1">스토리</span></a>
+        <a href="/fundViewReturnInfo.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="2">반환 ∙ 정책</span></a>
+        <a href="/fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}&reqPage=1&type=all"><span class="3">새소식</span></a>
+        <a href="/fundViewSupporter.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="4">서포터</span></a>
     </div>
     <div class="space-bar"></div>
 
@@ -542,14 +542,14 @@ justify-content: right;
                         </select>
                     </form>
                 </span>-->
-                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq s.memberId}">
+                <c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq f.memberId}">
             	<button class="fn-writeFrm" id="write">새소식 작성</button>
             	</c:if>
             </div>
             <!--새소식 1개 -->
            
            <c:forEach items="${fnList }" var="fn">  
-            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&fnNo=${fn.fnNo }" class="fn-view">               
+            <a href="/fundNoticeView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}&fnNo=${fn.fnNo }" class="fn-view">               
                <c:if test="${fn.fnFix eq 1}"> 	
                  	<span class="fn-category" style="color:#00b2b2; font-weigh:bold;">공지사항</span>
               </c:if>
@@ -566,6 +566,7 @@ justify-content: right;
                 </c:choose>
                 <div class="fn-title">${fn.fnTitle }</div>
                 <div class="fn-date">${fn.fnDate }</div>
+                <input type="hidden" class="fnNo" value="${fn.fnNo }">
             </a><!--새소식 1개 -->
             </c:forEach>
             ${pageNavi }
@@ -706,7 +707,7 @@ $(".achieve").text(Math.floor(fundingSum / fundAmount *100));
 //글작성
 $("#write").click(function(){
 	//let sellerId=$(".seller-id").val();			
-	location.href = "/fundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }";
+	location.href = "/fundNoticeFrm.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}";
 });
 
 

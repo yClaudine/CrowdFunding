@@ -72,8 +72,8 @@ public class FundListController {
 	
 	//펀딩 상세 메인페이지-story
 	@RequestMapping(value="/fundView.do")
-	public String FundView(int fundNo, String memberId, Model model)	{
-		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+	public String FundView(int fundNo, String memberId, String sellerId, Model model)	{
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId,sellerId);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
@@ -85,8 +85,8 @@ public class FundListController {
 	
 	//펀딩 상세2 - 반환정책
 	@RequestMapping(value="/fundViewReturnInfo.do")
-	public String FundViewReturnInfo(int fundNo, String memberId, Model model) {
-		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+	public String FundViewReturnInfo(int fundNo, String memberId, String sellerId, Model model) {
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId,sellerId);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
@@ -98,8 +98,8 @@ public class FundListController {
 	
 	//펀딩 상세4 - 서포터
 	@RequestMapping(value="/fundViewSupporter.do")
-	public String FundViewSupporter(int fundNo, String memberId, Model model) {
-		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+	public String FundViewSupporter(int fundNo, String memberId, String sellerId, Model model) {
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId,sellerId);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
@@ -220,8 +220,8 @@ public class FundListController {
 //-----------------------------------------------------------
 	//펀딩 상세3 - 새소식 게시판 + 페이징처리
 	@RequestMapping(value="/fundViewNotice.do")
-	public String FundViewNotice(int fundNo, String memberId, int reqPage, String type, Model model) {
-		FundNoticeViewData fnvd = service.selectFundNoticeView(fundNo,memberId,reqPage,type);
+	public String FundViewNotice(int fundNo, String memberId, int reqPage, String sellerId, String type, Model model) {
+		FundNoticeViewData fnvd = service.selectFundNoticeView(fundNo,memberId,sellerId,reqPage,type);
 		model.addAttribute("s",fnvd.getS());
 		model.addAttribute("f",fnvd.getF());
 		model.addAttribute("fl",fnvd.getFl());
@@ -237,8 +237,8 @@ public class FundListController {
 	}
 	//새소식 작성 페이지 이동
 	@RequestMapping(value="/fundNoticeFrm.do")
-	public String insertNoticeFrm(int fundNo, String memberId, Model model) {
-		FundViewData fvd = service.selectOneFundView(fundNo,memberId);
+	public String insertNoticeFrm(int fundNo, String memberId, String sellerId, Model model) {
+		FundViewData fvd = service.selectOneFundView(fundNo,memberId,sellerId);
 		model.addAttribute("s",fvd.getS());
 		model.addAttribute("f",fvd.getF());
 		model.addAttribute("fl",fvd.getFl());
@@ -289,10 +289,10 @@ public class FundListController {
 		}
 		int result = service.insertFundNotice(fn);
 
-		return "redirect:/fundViewNotice.do?fundNo="+fn.getFundNo()+"&memberId="+fn.getMemberId()+"&reqPage=1&type=all";
+		return "redirect:/fundViewNotice.do?fundNo="+fn.getFundNo()+"&memberId="+fn.getMemberId()+"&sellerId="+fn.getMemberId()+"&reqPage=1&type=all";
 	
-				//"redirect:/fundViewNotice.do?fundNo="+fn.getFundNo()+"&memberId="+fn.getMemberId()+"&reqPage=1&type=all";
-	}//fundViewNotice.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&reqPage=1&type=all
+        //<a href="/fundView.do?fundNo=${f.fundNo }&memberId=${sessionScope.m.memberId }&sellerId=${f.memberId}"><span class="1">스토리</span></a>
+	}
 	
 	//써머노트
 	@ResponseBody
@@ -335,11 +335,10 @@ public class FundListController {
 		 return realPath;
 	
 	}	
-	
-	//새소식 보기
+	//새소식 상세보기
 	@RequestMapping(value="/fundNoticeView.do")
-	public String FundViewNotice(int fundNo, String memberId, String fnNo, Model model) {
-		FundOneNoticeViewData fod = service.selectOneNotice(fundNo,memberId,fnNo);
+	public String FundViewNotice(int fundNo, String memberId, String fnNo, String sellerId, Model model) {
+		FundOneNoticeViewData fod = service.selectOneNotice(fundNo,memberId,fnNo,sellerId);
 		model.addAttribute("s",fod.getS());
 		model.addAttribute("f",fod.getF());
 		model.addAttribute("fl",fod.getFl());
@@ -352,8 +351,8 @@ public class FundListController {
 	}
 	//새소식 업데이트 페이지 이동
 	@RequestMapping(value="/updateFundNoticeFrm.do")
-	public String updateNoticeFrm(int fundNo, String memberId, String fnNo, Model model) {
-		FundUpdateNoticeViewData fud = service.updateNoticeFrm(fundNo,memberId,fnNo);
+	public String updateNoticeFrm(int fundNo, String memberId, String sellerId, String fnNo, Model model) {
+		FundUpdateNoticeViewData fud = service.updateNoticeFrm(fundNo,memberId,fnNo,sellerId);
 		model.addAttribute("s",fud.getS());
 		model.addAttribute("f",fud.getF());
 		model.addAttribute("fl",fud.getFl());
@@ -412,14 +411,14 @@ public class FundListController {
 			}
 		}
 		int result = service.updateFundNotice(fn);
-		return "redirect:/fundViewNotice.do?fundNo="+fn.getFundNo()+"&memberId="+fn.getMemberId()+"&reqPage=1&type=all";
+		return "redirect:/fundViewNotice.do?fundNo="+fn.getFundNo()+"&memberId="+fn.getMemberId()+"&sellerId="+fn.getMemberId()+"&reqPage=1&type=all";
 	}
 	
 	//새소식 삭제
 	@RequestMapping(value="/deleteFundNotice.do")
-	public String deleteFundNotice(String fnNo, int fundNo, String memberId) {
-		int result = service.deleteFundNotice(fnNo,fundNo);
-		return "redirect:/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&reqPage=1&type=all";
+	public String deleteFundNotice(String fnNo, int fundNo, String memberId, String sellerId) {
+		int result = service.deleteFundNotice(fnNo,fundNo,sellerId);
+		return "redirect:/fundViewNotice.do?fundNo="+fundNo+"&memberId="+memberId+"&sellerId="+sellerId+"&reqPage=1&type=all";
 	}	
 	//사용여부 X -----------------------------------------------------------------------
 	/*카트 insert
