@@ -59,14 +59,22 @@ html>body {
 		width: 90%;
 		margin: 0 auto;
 		text-align: center;
+		min-width: 940px;
 	}
 	.allcontent-wrap1{
 		margin: 0 auto;
 		text-align: center;
 	}
+	.allcontent-list{
+		margin-top: 10px;
+	}
+	.allcontent-list>a:hover{
+		background-color: #b2eded;
+	}
 	.allcontent-list>a{
 		text-decoration: none;
 		color: black;
+		background-color: #def3f3;		
 	}
 
 	.content{
