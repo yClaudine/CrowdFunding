@@ -131,14 +131,14 @@
 	  	fn_fix as fnFix,
 	  	fn_filepath as fnFilepath	  	
   	from fund_notice where
-	fund_no=#{fundNo}
+	fund_no=#{fundNo} 
   	order by fn_fix, fn_no desc)f) 
 	where (rnum between #{start} and #{end})
 
   </select>
   
  <select id="selectFundTotalCount" parameterType="map" resultType="int">
- 	select count(*) from notice 
+ 	select count(*) from fund_notice 
  	<choose>
 	  	<when test="type.equals('event')">
 	  	where notice_type=0 
