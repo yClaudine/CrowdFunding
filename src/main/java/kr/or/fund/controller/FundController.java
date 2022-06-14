@@ -423,7 +423,6 @@ public class FundController {
 			//결제가 없는 날도 0을 넣어줘야 하기 때문에 진짜로 보낼 객체를 비교해가며 생성
 			flist = calendar(start, end, smap);
 			model.addAttribute("flist",flist);
-			System.out.println(flist);
 			
 			return "fund/fundStatusManageFrm";
 		}
