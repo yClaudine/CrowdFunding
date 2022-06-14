@@ -294,12 +294,14 @@
     justify-content: center;
     border: 1px solid #dadce0;
     color: #60656a;
+    font-size:15px;
 }
+/*
 .seller-dm:hover{
     background-color: #dadce0;
     border: 1px solid #ffffff;
     transition: 0.5s;
-}
+}*/
 .reward-info{
     margin-top: 30px;
     margin-bottom: 5px;
@@ -705,7 +707,7 @@ td{
                 <button class="seller-dm">
                     <span class="material-symbols-outlined">
                         contact_support</span>
-                    <span class="dm">문의하기</span>
+                    <span class="dm">문의하기는 챗봇 이용</span>
                 </button>
                 <input type="hidden" class="seller-id" value="${s.memberId }">               
             </div>
