@@ -72,7 +72,7 @@
 		<form action="/updateStore3.do" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 					<label class="form-label mt-4" for="stTitle">스토어 제목</label>
-					<input type="text" name="stTitle" class="form-control" id="stTitle" maxlength="20" placeholder="20자 이내로 입력해 주세요." >
+					<input type="text" name="stTitle" class="form-control" id="stTitle" maxlength="30" placeholder="30자 이내로 입력해 주세요." >
 			</div>
 			
 			<div class="form-group">

@@ -188,13 +188,13 @@ html>body {
 						<div class="delivery">
 							<div class="delivery-1">
 								<h5 style="padding-top:30px; padding-bottom: 20px;">배송지</h5>
-								<input type="text" id="sample4_postcode" placeholder="우편번호" name="deliveryAddress">
+								<input type="text" id="sample4_postcode" placeholder="우편번호(필수입력)" name="deliveryAddress">
 								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="input4">
-								<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="input5">
+								<input type="text" id="sample4_roadAddress" placeholder="도로명주소(필수입력)" name="input4">
+								<input type="text" id="sample4_jibunAddress" placeholder="지번주소(필수입력)" name="input5">
 								<span id="guide" style="color:#999;display:none"></span>
 								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-								<input type="text" id="sample4_extraAddress" placeholder="참고항목" name="input6">
+								<input type="text" id="sample4_extraAddress" placeholder="참고항목(필수입력)" name="input6">
 							</div>
 							<div class="delivery">	
 								<h5 style="padding-bottom: 20px;">배송 메세지</h5>

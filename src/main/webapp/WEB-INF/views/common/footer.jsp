@@ -83,7 +83,7 @@ html>body {
 	<div class="footer-content">
 		<div class="footer-wrap">
 			<div class="footer-left">
-				<button class="ask-funfun" type="button">FUNFUNFUN에 문의하기</button>
+				<button class="ask-funfun" type="button">FUNFUNFUN</button>
 			</div>
 			<div class="footer-middle">
 				<div class="middle-funInfo">
