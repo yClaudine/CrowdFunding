@@ -226,9 +226,9 @@ public class FundListService {
 		ArrayList<FundNotice> fnList = dao.selectFundNoticeList(map);
 		
 		HashMap<String, Object> countMap = new HashMap<String, Object>();
-        int totalCount = dao.selectFundNoticeCount(countMap);
         countMap.put("type",type);
         countMap.put("fundNo",fundNo);  
+        int totalCount = dao.selectFundNoticeCount(countMap);
 		
 		int totalPage = 0;
 		if(totalCount%numPerPage == 0) {
