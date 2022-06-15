@@ -367,7 +367,7 @@ select{
   let ws;
 	$(function(){
 		memberId = $("#memberId").val();
-		ws = new WebSocket("ws://localhost/dm.do");
+		ws = new WebSocket("ws://khdsa1.iptime.org:18080/dm.do");
 		ws.onopen = onOpen;
 		ws.onmessage = receiveMsg;
 		ws.onclose = onClose;
