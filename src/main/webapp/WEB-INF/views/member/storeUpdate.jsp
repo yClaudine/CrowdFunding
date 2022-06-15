@@ -63,7 +63,7 @@
 	                    
 	                   	<th>스토어 번호</th>
 	                    <th>스토어 제목</th>
-	                    <th>스토어 매출</th>    
+	                      
 	                    <th>상품 이름</th>
 	                    
 	                </tr>
@@ -94,9 +94,36 @@
  			});	
  			
  			store(1);
- 			 
+ 			go();
+ 			function go(){
+ 				const req=1;
  			
- 			
+ 			$.ajax({
+				
+ 				url : "selectUStore.do",
+ 		 			data : {memberId:memberId,req:req},
+ 		 			type : "post",
+ 		 			success : function(data){
+						 console.log(data); 		 				
+ 		 			
+						let totalGain=0;
+ 		 				for(let i=0; i<data.tlist.length; i++){
+ 		 					
+ 		 					//스토어 번호
+ 		 				
+ 							
+ 							
+ 							totalGain += data.tlist[i].totalFinalPay;
+ 						
+ 							
+ 		 				}
+ 		 				$(".moneyE").text("");
+ 		 				$(".moneyE").text(totalGain);
+						
+ 		 			}//success진행 완료 
+ 			});//ajax완료 
+ 			}
+ 		
  		});
  		//데이터 불러와서 넣어주기
  		function store(req){
@@ -107,12 +134,12 @@
  		 			data : {memberId:memberId,req:req},
  		 			type : "post",
  		 			success : function(data){
-						let totalGain=0; 		 				
+						 				
 						
 						const table = $(".ft>tbody");
 						table.empty();
  		 				for(let i=0; i<data.store.length; i++){
- 		 					
+ 		 					console.log(data);
  		 					//스토어 번호
  		 					const tr = $("<tr class='table-light  fts'>");
  							const td = $("<td>");
@@ -124,9 +151,7 @@
  							
  							tr.append(td1);
  							//스토어 매출 
- 							const td2 = $("<td>");
- 							td2.text(data.tlist[i].totalFinalPay+"원");
- 							tr.append(td2);
+ 							
  							//상품 이름  
  							const td3= $("<td>");
  							td3.text(data.store[i].storeProduct);
@@ -134,18 +159,16 @@
  							//수정 버튼 넣어주기 
  							
  							
- 							totalGain += data.tlist[i].totalFinalPay;
- 							table.append(tr);
+ 								table.append(tr);
  							
  		 				}
- 		 				$(".moneyE").text("");
- 		 				$(".moneyE").text(totalGain);
+ 		 				
  		 				
  		 				$(".pagination").empty();
  		 				$(".pagination").append(data.pagenation);
 						
  		 			}//success진행 완료 
- 			})//ajax완료 
+ 			});//ajax완료 
  			
  		}//데이터 불러오기 완료
  		</script>

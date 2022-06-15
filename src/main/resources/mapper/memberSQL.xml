@@ -68,7 +68,7 @@
   		valid_end as validEnd
 	  	from member_coupon where 
 	  	<!-- 0이 사용전 1이 사용완료 -->
-	  			member_no = #{memberNo} and coupon_status=#{status}
+	  			member_no = #{memberNo} and coupon_status=#{status} and coupon_use=0
 	  		
 	  	
 		
