@@ -62,6 +62,7 @@ html>body {
 	#buy-button{
 		border: none;
 		font-weight: bold;
+		margin-top: 50px;
 	}
 	#story-btn,#buyer-btn,#change-btn{
 		border: none;
@@ -377,7 +378,7 @@ html>body {
 					<div class="price-ko">총 결제금액</div><div class="priceno" id="allprice">${s.storeDelivery+s.storePrice} </div></div>
 					<c:choose>
 						<c:when test="${!empty sessionScope.m }">
-							<button type="submit" id="buy-button" style="width: 300px; height:40px; background-color: #00c4c4;">구매하기</button>
+							<button type="submit" id="buy-button" style="width: 100%; height:40px; background-color: #00c4c4;">구매하기</button>
 						</c:when>
 						<c:otherwise>
 							<br><br><a href="/" style="padding-left:10px; text-decoration: none; color: #00b2b2;"> 로그인 후 구매가 가능합니다.(click!)</a>

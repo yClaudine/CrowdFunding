@@ -138,15 +138,7 @@
   </select>
   
  <select id="selectFundTotalCount" parameterType="map" resultType="int">
- 	select count(*) from fund_notice 
- 	<choose>
-	  	<when test="type.equals('event')">
-	  	where notice_type=0 
-	  	</when>
-	  	<when test="type.equals('reward')">
-	  	where notice_type=1 
-	  	</when>
-  	</choose>
+     select count(*) from fund_notice where fund_no=#{fundNo}
  </select>	
 	
 <!-- 새소식 인서트-->
