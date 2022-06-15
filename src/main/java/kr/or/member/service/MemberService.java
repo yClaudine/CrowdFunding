@@ -622,7 +622,7 @@ public class MemberService {
 	public SSP selectUS(String memberId, int req) {
 		SSP list = new SSP();
 		ArrayList<Store> s = new ArrayList<Store>();
-
+		ArrayList<Store> se = new ArrayList<Store>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int numPerPage = 4;
 		int last = numPerPage * req;
@@ -634,13 +634,13 @@ public class MemberService {
 
 		// 쿠폰을 먼저 값을 넘겨줘서 구해줌
 		s = dao.selectSstore(map);
-		
+		se =dao.selectMStore(memberId);
 		// f를 가지고 구해야하는 데이터 -> fund_pay
 		// 내가 가진 fundNo로 얼마나 많은 사람이 결제했는지 확인
 		ArrayList<Storepay> sp = new ArrayList<Storepay>();
 		ArrayList<TotalPay> tlist = new ArrayList<TotalPay>();
 		int totalFinalPay = 0;
-		for (Store st : s) {
+		for (Store st : se) {
 			// 0으로 다시 초기화
 			totalFinalPay = 0;
 			sp = dao.selectStorepay(st.getStoreNo());

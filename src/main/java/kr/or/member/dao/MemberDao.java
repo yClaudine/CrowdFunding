@@ -226,6 +226,11 @@ public class MemberDao {
 		int totalpay = sqlSession.selectOne("member.totalpay2",storepayNo);
 		return totalpay;
 	}
+
+	public ArrayList<Store> selectMStore(String memberId) {
+		List list =sqlSession.selectList("member.selectMs",memberId);
+		return (ArrayList<Store>)list;
+	}
 	
 
 }

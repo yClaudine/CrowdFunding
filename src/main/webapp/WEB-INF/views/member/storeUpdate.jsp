@@ -52,7 +52,7 @@
             <div class="fmGoal">매출: <span class="moneyE">dsadsdsad 원</span></div>
         </div>
         <div class="fundC">
-            <div class="c1">나의 펀드</div>
+            <div class="c1">myStore</div>
             
         </div>
         <div class="f1Zone">
@@ -93,13 +93,13 @@
  				"border-bottom" : "2px solid #00c4c4"
  			});	
  			
- 			fund(1);
+ 			store(1);
  			 
  			
  			
  		});
  		//데이터 불러와서 넣어주기
- 		function fund(req){
+ 		function store(req){
  			console.log(memberId);
  			
  			$.ajax({
@@ -108,7 +108,7 @@
  		 			type : "post",
  		 			success : function(data){
 						let totalGain=0; 		 				
-						console.log(data);
+						
 						const table = $(".ft>tbody");
 						table.empty();
  		 				for(let i=0; i<data.store.length; i++){
@@ -133,7 +133,7 @@
  							tr.append(td3);
  							//수정 버튼 넣어주기 
  							
- 							tr.append(td6);
+ 							
  							totalGain += data.tlist[i].totalFinalPay;
  							table.append(tr);
  							
