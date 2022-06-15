@@ -251,7 +251,7 @@ select{
 	            	<table class="table table-hover fund-tbl" >
 	                    <tr>
 	                    	<th>펀드번호</th>
-	                    	<td class="fundNo"><a href="http://localhost/fundView.do?memberId=admin2&fundNo=${f.fundNo}">${f.fundNo }</td>
+	                    	<td class="fundNo">${f.fundNo }</td>
 	                    </tr>
 	                    <tr>
 	                    	<th>펀드제목</th>
@@ -352,7 +352,7 @@ select{
   let ws;
 	$(function(){
 		memberId = $("#memberId").val();
-		ws = new WebSocket("ws://khdsa1.iptime.org:18080/dm.do");
+		ws = new WebSocket("ws://khdsa1.iptime.org:18083/dm.do");
 		ws.onopen = onOpen;
 		ws.onmessage = receiveMsg;
 		ws.onclose = onClose;
