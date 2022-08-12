@@ -7,7 +7,8 @@
 GIF Images
 
 
-기술 스택
+기술 스택![final thumbnail](https://user-images.githubusercontent.com/98694227/184276180-364b379d-7303-43e1-a065-2fe7152a96f1.JPG)
+
 JavaScript	TypeScript	React	Node
 js	ts	react	node
 구현 기능
