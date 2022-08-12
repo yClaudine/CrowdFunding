@@ -1,16 +1,12 @@
-## FunFunFun
-목차
+# FunFunFun
+#### 프로젝트 기간
 
-프로젝트 소개
+
 프로젝트 개요/동기
+![플젝_3](https://user-images.githubusercontent.com/98694227/184304801-5c2cfb89-654e-49a0-926f-6067e89d7ac4.gif)
 
-GIF Images
 
 
-기술 스택![final thumbnail](https://user-images.githubusercontent.com/98694227/184276180-364b379d-7303-43e1-a065-2fe7152a96f1.JPG)
-
-JavaScript	TypeScript	React	Node
-js	ts	react	node
 구현 기능
 기능 1
 기능 2
