@@ -12,11 +12,11 @@
 * **프로젝트 기간**  :  22.05.16 - 22.06.15 (약 4주)
 * **팀원수** : 6명
 * **skills**
-  * *OS*        - window
-  * *Back-end*  - Spring, Mybatis, Java, MVC Pttern
-  * *server*    - Apache Tomcat 8.5
-  * *Front-End* - Html5, CSS3, js, jquery, ajax, gson
-  * *DBMS*      - Oracle 11g DataBase
+  * **OS**        - window
+  * **Back-end**  - Spring, Mybatis, Java, MVC Pttern
+  * **server**    - Apache Tomcat 8.5
+  * **Front-End** - Html5, CSS3, js, jquery, ajax, gson
+  * **DBMS**      - Oracle 11g DataBase
 
 ## Role
 * 담당 역할 : 백엔드, 프론트엔드, UI/UX 기획, DB설계, 보고서, 시연 영상 제작
