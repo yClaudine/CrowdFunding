@@ -1,4 +1,4 @@
-## 프로젝트명 : FunFunFun
+## FunFunFun
 목차
 
 프로젝트 소개
